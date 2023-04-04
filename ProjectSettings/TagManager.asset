@@ -14,9 +14,9 @@ TagManager:
   - Player
   - CollisionSensor
   - WallCollision
-  - 
-  - 
-  - 
+  - Enemy
+  - PlayerAttack
+  - EnemyAttack
   - 
   - 
   - 
