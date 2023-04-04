@@ -60,6 +60,7 @@ public class TwitchAttackModule : IAttackModule
         }
 
         render = playerCharacter.GetComponent<MeshRenderer>();
+        Application.targetFrameRate = 60;
     }
 
 
