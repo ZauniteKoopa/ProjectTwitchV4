@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 70676317}
   - component: {fileID: 70676316}
   - component: {fileID: 70676315}
+  - component: {fileID: 70676322}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -159,8 +160,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 1395895262}
   playerCamera: {fileID: 963194227}
+  attackSpeedModifier: 1
   defaultWeakBolt: {fileID: 1727008140493959272, guid: c676fc40188267143aeaca734a88c7f3, type: 3}
-  weakBoltDamage: 0.01
+  weakBoltDamage: 1
   weakBoltStartFrames: 20
   weakBoltEndFrames: 15
   weakBoltMovementReduction: 0.4
@@ -368,6 +370,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &70676322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70676314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb1f37a209886144dbbb27f670aa544d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
 --- !u!1 &78727922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1298,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 30
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:

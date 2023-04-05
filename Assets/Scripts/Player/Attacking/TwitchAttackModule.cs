@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -19,6 +18,12 @@ public class TwitchAttackModule : IAttackModule
     [SerializeField]
     private Camera playerCamera;
     private MeshRenderer render;
+    private TwitchInventory inventory;
+
+    [Header("Stats")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float attackSpeedModifier = 1f;
 
     
     [Header("Weak Bolt Properties")]
@@ -60,6 +65,12 @@ public class TwitchAttackModule : IAttackModule
         }
 
         render = playerCharacter.GetComponent<MeshRenderer>();
+        inventory = GetComponent<TwitchInventory>();
+
+        if (inventory == null) {
+            Debug.LogError("No Twitch Inventory found for this Attack Module");
+        }
+
         Application.targetFrameRate = 60;
     }
 
@@ -82,8 +93,10 @@ public class TwitchAttackModule : IAttackModule
         // While you're still holding on to the button
         while (holdingFireButton) {
             // Get data
-            int startFrames = weakBoltStartFrames;
-            int endFrames = weakBoltEndFrames;
+            int startFrames = (inventory.carryingPrimaryVial()) ? inventory.getPrimaryStartFrame() : weakBoltStartFrames;
+            int endFrames = (inventory.carryingPrimaryVial()) ? inventory.getPrimaryEndFrame() : weakBoltEndFrames;
+            startFrames = applyAttackSpeedModifier(startFrames);
+            endFrames = applyAttackSpeedModifier(endFrames);
 
             // Startup should be interruptable
             render.material.color = Color.blue;
@@ -91,10 +104,14 @@ public class TwitchAttackModule : IAttackModule
 
             // Only fire if you commited to it
             if (holdingFireButton) {
-                // Fire bullet
+                // Get aiming direction
                 Vector3 boltDir = getWorldAimLocation() - playerCharacter.position;
-                IPrimaryAttack curBolt = UnityEngine.Object.Instantiate(defaultWeakBolt, playerCharacter.position, Quaternion.identity);
-                curBolt.setUp(boltDir, weakBoltDamage);
+
+                // Try to fire the bullet using the primary bolt. If that's not successful, fire a dead bullet
+                if (!inventory.firePrimaryBolt(boltDir, playerCharacter)) {
+                    IPrimaryAttack curBolt = Object.Instantiate(defaultWeakBolt, playerCharacter.position, Quaternion.identity);
+                    curBolt.setUp(boltDir, weakBoltDamage);
+                }
 
                 // End
                 render.material.color = Color.magenta;
@@ -170,7 +187,7 @@ public class TwitchAttackModule : IAttackModule
     // Private helper method to wait for a specified amount of frames
     //  Pre: numFrames > 0
     //  Post: wait a number amount of frames before moving on after this sequence
-    private IEnumerator waitForFrames(int numFrames, Func<bool> interrupted = null) {
+    private IEnumerator waitForFrames(int numFrames, System.Func<bool> interrupted = null) {
         Debug.Assert(numFrames > 0);
 
         int f = 0;
@@ -179,6 +196,17 @@ public class TwitchAttackModule : IAttackModule
             yield return 0;
             f++;
         }
+    }
+
+
+    // Private helper function to get the number of frames after applying the attack speed modifier
+    //  Pre: framesEntered is the number of frames before being modified
+    //  Post: returns the frameData after the modifier is applied
+    private int applyAttackSpeedModifier(int frameData) {
+        float attackSpeedFactor = 1f / attackSpeedModifier;
+        float rawFrameData = (float)frameData * attackSpeedFactor;
+
+        return (int)Mathf.Ceil(rawFrameData);
     }
 
 }
