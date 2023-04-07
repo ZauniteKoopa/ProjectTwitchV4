@@ -7,7 +7,7 @@ public class LinearProjectile : IPrimaryAttack
 {
     [SerializeField]
     private float projectileSpeed = 30f;
-    private float projectileDamage = 0f;
+    protected float projectileDamage = 0f;
 
     private float timer = 0f;
     private const float TIMEOUT_DURATION = 10f;
@@ -31,7 +31,7 @@ public class LinearProjectile : IPrimaryAttack
     // Main function to set up the projectile
     //  Pre: dir is the direction the projectile will move towards, dmg > 0
     //  Post: sets up primary attack 
-    public override void setUp(Vector3 dir, float dmg) {
+    public override void setUp(Vector3 dir, float dmg, PoisonVial poison) {
         Debug.Assert(dmg >= 0f);
 
         transform.forward = dir.normalized;
@@ -51,9 +51,9 @@ public class LinearProjectile : IPrimaryAttack
 
 
     // Main protected helper function to damage a target
-    protected void damageTarget(IUnitStatus tgt) {
+    protected virtual void damageTarget(IUnitStatus tgt) {
         Debug.Assert(tgt != null);
 
-        Debug.Log("Damaging " + tgt.name + ": " + projectileDamage);
+        tgt.damage(projectileDamage, false);
     }
 }

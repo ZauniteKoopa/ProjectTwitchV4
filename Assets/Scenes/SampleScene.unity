@@ -1912,6 +1912,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 5
+  maxHealth: 60
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1754844200
 BoxCollider:
   m_ObjectHideFlags: 0

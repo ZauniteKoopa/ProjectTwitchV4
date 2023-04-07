@@ -10,9 +10,6 @@ public class SideEffect : ScriptableObject
     [Header("Primary Attack")]
     [SerializeField]
     private IPrimaryAttack primaryAttackPrefab;
-    [SerializeField]
-    [Min(0.1f)]
-    private float primaryAttackDamage = 0.2f;
     [Min(1)]
     public int primaryAttackStartFrames = 1;
     [Min(1)]
@@ -23,10 +20,10 @@ public class SideEffect : ScriptableObject
     // Main function to fire the projectile towards attackDir direction starting from attacker position
     //  Pre: attackDir is the direction you attack to, attacker is the transform of the unit that's attacking
     //  Post: ALWAYS fires the attack. (Please check conditions before doing this)
-    public void firePrimaryAttack(Vector3 attackDir, Transform attacker) {
+    public void firePrimaryAttack(Vector3 attackDir, Transform attacker, float damage, PoisonVial parentPoison) {
         Debug.Assert(attacker != null && primaryAttackPrefab != null);
 
         IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
-        curBolt.setUp(attackDir, primaryAttackDamage);
+        curBolt.setUp(attackDir, damage, parentPoison);
     }
 }

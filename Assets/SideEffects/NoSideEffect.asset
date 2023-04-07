@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
   m_Name: NoSideEffect
   m_EditorClassIdentifier: 
-  primaryAttackPrefab: {fileID: 7069737556417101917, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
-  primaryAttackDamage: 5
+  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
   primaryAttackStartFrames: 20
   primaryAttackEndFrames: 15

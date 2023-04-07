@@ -1,13 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyStatus : IUnitStatus
 {
     [Header("Base Stats")]
     [SerializeField]
+    [Min(0.01f)]
     private float movementSpeed = 5f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float maxHealth = 20f;
+    private float curHealth;
     private bool moving = true;
+    private float damageReduction = 0f;
+    private readonly object healthLock = new object();
+
+
+    [Header("Events")]
+    public UnityEvent deathEvent;
+
+    // Poison stacks
+    private int curPoisonStacks = 0;
+    private Coroutine currentPoisoningSequence = null;
+    private PoisonVial curPoison = null;
+    private readonly object poisonLock = new object();
+
+    private const int MAX_POISON_STACKS = 6;
+    private const float POISON_TICK_DURATION = 1f;
+    private const int MAX_POISON_TICKS = 6;
+
+
+    // On awake, set curHealth to maxHealth
+    private void Awake() {
+        curHealth = maxHealth;
+    }
 
 
     // Main method to get current movement speed considering all speed status effects on unit
@@ -29,8 +57,41 @@ public class EnemyStatus : IUnitStatus
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if it happens. else otherwise
-    public override bool damage(float dmg, bool isTrue, bool canCrit = false) {
-        return false;
+    public override bool damage(float dmg, bool isTrue) {
+        float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+        lock (healthLock) {
+            curHealth -= actualDamage;
+            Debug.Log("HEALTH: " + curHealth + "/" + maxHealth + "  |  STACKS: " + curPoisonStacks);
+
+            if (curHealth <= 0f) {
+                StopAllCoroutines();
+                StartCoroutine(death());
+            }
+        }
+
+        return true;
+    }
+
+
+    // Main function to inflict poison damage on a unit
+    //  Pre: dmg >= 0, isTrue represents true damage (damage reduction doesn't applie), poison != null && appliedStacks >= 0
+    //  Post: does damage and resets poison timer with new poison and increased stacks
+    public bool poisonDamage(float dmg, bool isTrue, PoisonVial poison, int appliedStacks) {
+        Debug.Assert(dmg >= 0f && poison != null && appliedStacks >= 0);
+
+        // Increase the number of poison and reset poison ticker
+        lock (poisonLock) {
+            if (currentPoisoningSequence != null) {
+                StopCoroutine(currentPoisoningSequence);
+            }
+
+            curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
+            curPoison = poison;
+            currentPoisoningSequence = StartCoroutine(poisoningSequence());
+        }
+
+        // Actually damage the unit
+        return damage(dmg, isTrue);
     }
 
 
@@ -38,7 +99,7 @@ public class EnemyStatus : IUnitStatus
     //  Pre: none
     //  Post: returns true is unit is still alive
     public override bool isAlive() {
-        return true;
+        return curHealth > 0;
     }
 
 
@@ -62,5 +123,45 @@ public class EnemyStatus : IUnitStatus
     //  Post: enact effects that happen while you're moving or deactivate effects when you aren't
     public override void setMoving(bool isMoving) {
         moving = isMoving;
+    }
+
+
+    // Main private IEnumerator for poisoning
+    //  ONLY 1 SHOULD BE RUNNING AT A TIME and unit is actually poisoned
+    private IEnumerator poisoningSequence() {
+        Debug.Assert(curPoison != null && curPoisonStacks > 0);
+
+        for (int t = 0; t < MAX_POISON_TICKS; t++) {
+            yield return new WaitForSeconds(POISON_TICK_DURATION);
+
+            lock (poisonLock) {
+                Debug.Assert(curPoison != null && curPoisonStacks > 0);
+                damage(curPoison.getPoisonDamage(curPoisonStacks), true);
+            }
+        }
+
+        clearPoison();
+    }
+
+
+    // Private helper function to clear the poison
+    private void clearPoison() {
+        lock (poisonLock) {
+            if (currentPoisoningSequence != null) {
+                StopCoroutine(currentPoisoningSequence);
+                currentPoisoningSequence = null;
+            }
+
+            curPoisonStacks = 0;
+            curPoison = null;
+        }
+    }
+
+    // Private helper function to die
+    private IEnumerator death() {
+        deathEvent.Invoke();
+        Object.Destroy(gameObject);
+
+        yield return 0;
     }
 }

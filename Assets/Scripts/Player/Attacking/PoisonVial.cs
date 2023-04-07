@@ -16,11 +16,13 @@ public class PoisonVial
     // Static const variables
     private static readonly int STARTING_AMMO = 40;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
+    private static readonly float POISON_DMG_PER_STACK = 0.5f;
 
     // Main vial stats
     private Dictionary<PoisonVialStat, int> vialStats;
     private int ammo;
     private SideEffect sideEffect;
+    private float startingBoltDamage = 5f;
 
     // Main public events to listen to
     public UnityEvent contaminateExecuteEvent;
@@ -71,8 +73,13 @@ public class PoisonVial
         }
 
         ammo -= PRIMARY_BOLT_AMMO_COST;
-        sideEffect.firePrimaryAttack(attackDir, attacker);
+        sideEffect.firePrimaryAttack(attackDir, attacker, startingBoltDamage, this);
         return true;
+    }
+
+    // Main function to get poison damage
+    public float getPoisonDamage(int numStacks) {
+        return POISON_DMG_PER_STACK * numStacks;
     }
 
 }
