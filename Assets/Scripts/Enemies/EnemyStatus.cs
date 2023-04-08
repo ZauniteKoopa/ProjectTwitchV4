@@ -17,6 +17,9 @@ public class EnemyStatus : IUnitStatus
     private float damageReduction = 0f;
     private readonly object healthLock = new object();
 
+    [Header("UI")]
+    [SerializeField]
+    private EnemyStatusUI enemyStatusUI;
 
     [Header("Events")]
     public UnityEvent deathEvent;
@@ -35,6 +38,14 @@ public class EnemyStatus : IUnitStatus
     // On awake, set curHealth to maxHealth
     private void Awake() {
         curHealth = maxHealth;
+
+        // Initialize enemy status UI
+        if (enemyStatusUI == null) {
+            Debug.LogError("NO ENEMY STATUS UI CONNECTED");
+        }
+
+        enemyStatusUI.updateHealthBar(curHealth, maxHealth);
+        enemyStatusUI.updatePoisonHalo(0);
     }
 
 
@@ -56,12 +67,12 @@ public class EnemyStatus : IUnitStatus
 
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
-    //  Post: unit gets inflicted with damage. returns true if it happens. else otherwise
+    //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise
     public override bool damage(float dmg, bool isTrue) {
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
         lock (healthLock) {
             curHealth -= actualDamage;
-            Debug.Log("HEALTH: " + curHealth + "/" + maxHealth + "  |  STACKS: " + curPoisonStacks);
+            enemyStatusUI.updateHealthBar(curHealth, maxHealth);
 
             if (curHealth <= 0f) {
                 StopAllCoroutines();
@@ -69,7 +80,7 @@ public class EnemyStatus : IUnitStatus
             }
         }
 
-        return true;
+        return curHealth <= 0f;
     }
 
 
@@ -88,6 +99,8 @@ public class EnemyStatus : IUnitStatus
             curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
             curPoison = poison;
             currentPoisoningSequence = StartCoroutine(poisoningSequence());
+
+            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
         }
 
         // Actually damage the unit
@@ -154,6 +167,7 @@ public class EnemyStatus : IUnitStatus
 
             curPoisonStacks = 0;
             curPoison = null;
+            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
         }
     }
 
