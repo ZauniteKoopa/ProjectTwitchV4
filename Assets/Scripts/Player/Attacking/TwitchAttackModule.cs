@@ -19,6 +19,7 @@ public class TwitchAttackModule : IAttackModule
     private Camera playerCamera;
     private MeshRenderer render;
     private TwitchInventory inventory;
+    private PlayerAudioManager audioManager;
 
     [Header("Stats")]
     [SerializeField]
@@ -65,10 +66,15 @@ public class TwitchAttackModule : IAttackModule
         }
 
         render = playerCharacter.GetComponent<MeshRenderer>();
+        audioManager = playerCharacter.GetComponent<PlayerAudioManager>();
         inventory = GetComponent<TwitchInventory>();
 
         if (inventory == null) {
             Debug.LogError("No Twitch Inventory found for this Attack Module");
+        }
+
+        if (audioManager == null) {
+            Debug.LogError("No player audio manager found on player character transform");
         }
 
         Application.targetFrameRate = 60;
@@ -113,6 +119,8 @@ public class TwitchAttackModule : IAttackModule
                     curBolt.setUp(boltDir, weakBoltDamage, null);
                 }
 
+                audioManager.playLaunchPoisonBoltSound();
+
                 // End
                 render.material.color = Color.magenta;
                 yield return waitForFrames(endFrames);
@@ -142,6 +150,7 @@ public class TwitchAttackModule : IAttackModule
         int endFrames = applyAttackSpeedModifier(inventory.getSecondaryAttackEndFrames());
 
         // Startup
+        audioManager.playLobCaskSound();
         render.material.color = Color.blue;
         yield return waitForFrames(startFrames);
 
@@ -216,7 +225,7 @@ public class TwitchAttackModule : IAttackModule
 
                 // Set this as the runnning attack sequence
                 runningAttackSequence = StartCoroutine(secondaryFireSequence());
-                
+
             } else {
                 Debug.Log("Cannot throw cask!");
             }
