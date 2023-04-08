@@ -130,4 +130,12 @@ public class PoisonVial
         return ammo >= sideEffect.secondaryAttackCost;
     }
 
+
+    // Main function to get the secondary attack cooldown
+    //  Pre: none
+    //  Post: returns the cooldown for the secondary attack
+    public float getSecondaryAttackCooldown() {
+        return sideEffect.secondaryAttackCooldown;
+    }
+
 }

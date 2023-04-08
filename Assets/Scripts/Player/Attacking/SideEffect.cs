@@ -32,6 +32,9 @@ public class SideEffect : ScriptableObject
     [SerializeField]
     [Min(1)]
     public int secondaryAttackCost = 3;
+    [SerializeField]
+    [Min(0.1f)]
+    public float secondaryAttackCooldown = 2f;
 
 
 
@@ -53,6 +56,6 @@ public class SideEffect : ScriptableObject
         Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
 
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
-        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed);
+        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
     }
 }

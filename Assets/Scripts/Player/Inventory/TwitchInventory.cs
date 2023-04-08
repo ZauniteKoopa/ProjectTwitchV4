@@ -9,6 +9,9 @@ public class TwitchInventory : MonoBehaviour
     private SideEffect startingSideEffect;
     private PoisonVial primaryVial;
 
+    // Cooldown info
+    private Coroutine runningCaskCooldownSequence = null;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -79,14 +82,18 @@ public class TwitchInventory : MonoBehaviour
     //  Pre: the attackDirection is the direction of attack
     //  Post: returns true if successful. false otherwise
     public bool fireSecondaryLob(Vector3 tgtPos, Transform attacker) {
-        if (primaryVial == null) {
+        if (primaryVial == null && runningCaskCooldownSequence != null) {
             return false;
         }
 
         // Fire bullet and then check ammo afterwards
         bool success = primaryVial.fireSecondaryAttack(tgtPos, attacker);
-        if (success && primaryVial.getAmmo() <= 0) {
-            primaryVial = null;
+        if (success) {
+            runningCaskCooldownSequence = StartCoroutine(caskCooldownSequence(primaryVial.getSecondaryAttackCooldown()));
+
+            if (primaryVial.getAmmo() <= 0) {
+                primaryVial = null;
+            }
         }
 
         return success;
@@ -95,7 +102,25 @@ public class TwitchInventory : MonoBehaviour
 
     // Main function to check if you can actually fire secondary attack
     public bool canFireSecondaryLob() {
-        return primaryVial != null && primaryVial.canFireSecondaryLob();
+        return primaryVial != null && primaryVial.canFireSecondaryLob() && runningCaskCooldownSequence == null;
+    }
+
+    
+    // Main function to do the secondary vial cooldown sequence
+    //  Pre:
+    private IEnumerator caskCooldownSequence(float curCooldown) {
+        Debug.Assert(curCooldown > 0f);
+
+        // Setup
+        float timer = 0f;
+
+        // Loop
+        while (timer < curCooldown) {
+            yield return 0;
+            timer += Time.deltaTime;
+        }
+
+        runningCaskCooldownSequence = null;
     }
     
 }

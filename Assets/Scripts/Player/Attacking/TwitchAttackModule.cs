@@ -216,6 +216,9 @@ public class TwitchAttackModule : IAttackModule
 
                 // Set this as the runnning attack sequence
                 runningAttackSequence = StartCoroutine(secondaryFireSequence());
+                
+            } else {
+                Debug.Log("Cannot throw cask!");
             }
         }
     }

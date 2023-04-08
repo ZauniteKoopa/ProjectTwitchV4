@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8318777835478413402}
   - component: {fileID: 6917973574630334662}
   - component: {fileID: 5409704289607487483}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: PoisonCaskLobEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3990086887171596681}
   - component: {fileID: 4921508979334266419}
   - component: {fileID: 2458905337793930819}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FogDeployable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6177161334514029216}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -222,4 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f16d1a68cb4d8648ab1ba8eb67a6a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogDuration: 3
+  fogTickDuration: 1
+  maxFogTicks: 3
+  initialDamageDuration: 0.1
+  initialDamage: 8
+  poisonFogSpeedReduction: 0.6

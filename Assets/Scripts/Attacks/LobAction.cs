@@ -14,17 +14,17 @@ public class LobAction : MonoBehaviour
     // Main function to lob the projectile from src to tgt
     //  Pre: The vector3s are positions within the game world, lobSpeed is the speed of the lobbing projectile
     //  Post: lobs the projectile
-    public void lob(Vector3 src, Vector3 tgt, float lobSpeed) {
+    public void lob(Vector3 src, Vector3 tgt, float lobSpeed, PoisonVial poison) {
         Debug.Assert(lobSpeed > 0f);
 
         float lobTime = (Vector3.Distance(src, tgt) / lobSpeed) + MIN_START_TIME;
-        StartCoroutine(lobSequence(src, tgt, lobTime));
+        StartCoroutine(lobSequence(src, tgt, lobTime, poison));
     }
 
 
     // Main private IEnumerator to handle lobbing action
     //  Pre: src and tgt are positions within the gameworld, lobTime is the time it takes to do the entire sequence
-    private IEnumerator lobSequence(Vector3 src, Vector3 tgt, float lobTime) {
+    private IEnumerator lobSequence(Vector3 src, Vector3 tgt, float lobTime, PoisonVial poison) {
         Debug.Assert(lobTime > 0f);
 
         // Set up
@@ -53,7 +53,7 @@ public class LobAction : MonoBehaviour
         // Finish
         transform.position = tgt;
         deployable.transform.parent = null;
-        deployable.deploy();
+        deployable.deploy(poison);
         Object.Destroy(gameObject);
     }
 }

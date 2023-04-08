@@ -26,6 +26,7 @@ public class EnemyStatus : IUnitStatus
 
     // Poison stacks
     private int curPoisonStacks = 0;
+    private int curPoisonTick = 0;
     private Coroutine currentPoisoningSequence = null;
     private PoisonVial curPoison = null;
     private readonly object poisonLock = new object();
@@ -87,18 +88,23 @@ public class EnemyStatus : IUnitStatus
     // Main function to inflict poison damage on a unit
     //  Pre: dmg >= 0, isTrue represents true damage (damage reduction doesn't applie), poison != null && appliedStacks >= 0
     //  Post: does damage and resets poison timer with new poison and increased stacks
-    public bool poisonDamage(float dmg, bool isTrue, PoisonVial poison, int appliedStacks) {
+    public bool poisonDamage(float dmg, bool isTrue, PoisonVial poison, int appliedStacks, bool overridePoison = true) {
         Debug.Assert(dmg >= 0f && poison != null && appliedStacks >= 0);
 
         // Increase the number of poison and reset poison ticker
         lock (poisonLock) {
-            if (currentPoisoningSequence != null) {
-                StopCoroutine(currentPoisoningSequence);
-            }
 
             curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
-            curPoison = poison;
-            currentPoisoningSequence = StartCoroutine(poisoningSequence());
+            if (overridePoison) {
+                curPoison = poison;
+            }
+
+            // Poisoning sequence handling
+            if (currentPoisoningSequence == null) {
+                currentPoisoningSequence = StartCoroutine(poisoningSequence());
+            } else {
+                curPoisonTick = 0;
+            }
 
             enemyStatusUI.updatePoisonHalo(curPoisonStacks);
         }
@@ -144,12 +150,15 @@ public class EnemyStatus : IUnitStatus
     private IEnumerator poisoningSequence() {
         Debug.Assert(curPoison != null && curPoisonStacks > 0);
 
-        for (int t = 0; t < MAX_POISON_TICKS; t++) {
+        curPoisonTick = 0;
+
+        while (curPoisonTick < MAX_POISON_TICKS) {
             yield return new WaitForSeconds(POISON_TICK_DURATION);
 
             lock (poisonLock) {
                 Debug.Assert(curPoison != null && curPoisonStacks > 0);
                 damage(curPoison.getPoisonDamage(curPoisonStacks), true);
+                curPoisonTick++;
             }
         }
 
@@ -160,14 +169,15 @@ public class EnemyStatus : IUnitStatus
     // Private helper function to clear the poison
     private void clearPoison() {
         lock (poisonLock) {
+            curPoisonStacks = 0;
+            curPoison = null;
+            curPoisonTick = 0;
+            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
+
             if (currentPoisoningSequence != null) {
                 StopCoroutine(currentPoisoningSequence);
                 currentPoisoningSequence = null;
             }
-
-            curPoisonStacks = 0;
-            curPoison = null;
-            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
         }
     }
 
