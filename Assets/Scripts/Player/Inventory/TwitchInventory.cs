@@ -22,6 +22,12 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+
+    // ---------------------------------------
+    //  PRIMARY ATTACK
+    // ---------------------------------------
+
+
     // Main function to get primary variable frame data
     public int getPrimaryStartFrame() {
         return primaryVial.getPrimaryAttackStartFrames();
@@ -49,6 +55,47 @@ public class TwitchInventory : MonoBehaviour
         }
 
         return success;
+    }
+
+
+    // ---------------------------------------
+    //  SECONDARY ATTACK
+    // ---------------------------------------
+
+
+    // Main function to get secondary variable frame data
+    public int getSecondaryAttackStartFrames() {
+        return primaryVial.getSecondaryAttackStartFrames();
+    }
+
+
+    // Main function to get primary variable frame data
+    public int getSecondaryAttackEndFrames() {
+        return primaryVial.getSecondaryAttackEndFrames();
+    }
+
+
+    // Main function to fire the primary vial if it's possible
+    //  Pre: the attackDirection is the direction of attack
+    //  Post: returns true if successful. false otherwise
+    public bool fireSecondaryLob(Vector3 tgtPos, Transform attacker) {
+        if (primaryVial == null) {
+            return false;
+        }
+
+        // Fire bullet and then check ammo afterwards
+        bool success = primaryVial.fireSecondaryAttack(tgtPos, attacker);
+        if (success && primaryVial.getAmmo() <= 0) {
+            primaryVial = null;
+        }
+
+        return success;
+    }
+
+
+    // Main function to check if you can actually fire secondary attack
+    public bool canFireSecondaryLob() {
+        return primaryVial != null && primaryVial.canFireSecondaryLob();
     }
     
 }

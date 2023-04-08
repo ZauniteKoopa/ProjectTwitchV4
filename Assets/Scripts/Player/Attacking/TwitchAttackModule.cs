@@ -77,7 +77,7 @@ public class TwitchAttackModule : IAttackModule
 
     // On update, check if you're holding fire
     private void Update() {
-        if (holdingFireButton && runningAttackSequence == null) {
+        if (holdingFireButton && runningAttackSequence == null && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
             runningAttackSequence = StartCoroutine(primaryFireSequence());
         }
     }
@@ -125,6 +125,39 @@ public class TwitchAttackModule : IAttackModule
         runningAttackSequence = null;
     }
 
+
+    // Main secondary fire sequence
+    //  Pre: inventory.canFireSecondaryLob is true
+    //  Post: fires lob with startUp and end frames
+    private IEnumerator secondaryFireSequence() {
+        Debug.Assert(inventory.canFireSecondaryLob());
+
+        // Set up
+        Vector3 tgt = getWorldAimLocation();
+        attackAnimForward = (tgt - transform.position).normalized;
+        movementState = TwitchMovementState.IN_ATTACK_ANIM;
+
+        // Obtain frame data
+        int startFrames = applyAttackSpeedModifier(inventory.getSecondaryAttackStartFrames());
+        int endFrames = applyAttackSpeedModifier(inventory.getSecondaryAttackEndFrames());
+
+        // Startup
+        render.material.color = Color.blue;
+        yield return waitForFrames(startFrames);
+
+        // Lob
+        inventory.fireSecondaryLob(tgt, playerCharacter);
+
+        // Ending
+        render.material.color = Color.magenta;
+        yield return waitForFrames(endFrames);
+
+        // Cleanup
+        render.material.color = Color.green;
+        movementState = TwitchMovementState.MOVING;
+        runningAttackSequence = null;
+    }
+
     
     // Function to return movement speed factor affected by this attack module
     //  Pre: none
@@ -160,7 +193,6 @@ public class TwitchAttackModule : IAttackModule
 
     // Event handler method for when primary fire button click / removed
     public void onPrimaryButtonAction(InputAction.CallbackContext value) {
-
         // Only run the sequence
         if (value.started) {
             holdingFireButton = true;
@@ -168,6 +200,23 @@ public class TwitchAttackModule : IAttackModule
         // Once left click is canceled, turn mouse hold flag off
         } else if (value.canceled) {
             holdingFireButton = false;
+        }
+    }
+
+
+    // Event handler method for when secondary fire button click
+    public void onSecondaryButtonAction(InputAction.CallbackContext value) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+            // Check if you can actually fire
+            if (inventory.canFireSecondaryLob()) {
+                // Cancel running attack sequence
+                if (runningAttackSequence != null) {
+                    StopCoroutine(runningAttackSequence);
+                }
+
+                // Set this as the runnning attack sequence
+                runningAttackSequence = StartCoroutine(secondaryFireSequence());
+            }
         }
     }
 

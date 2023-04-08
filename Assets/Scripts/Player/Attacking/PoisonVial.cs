@@ -45,10 +45,22 @@ public class PoisonVial
     }
 
 
+    // Main function to get poison damage
+    public float getPoisonDamage(int numStacks) {
+        return POISON_DMG_PER_STACK * numStacks;
+    }
+
+
     // Main accessor function to get the ammo of this vial
     public float getAmmo() {
         return ammo;
     }
+
+
+
+    // ---------------------------------------------------------------------
+    //  PRIMARY ATTACK
+    // ---------------------------------------------------------------------
 
 
     // Main accessor function to get the start-up frames for the primary attack
@@ -77,9 +89,45 @@ public class PoisonVial
         return true;
     }
 
-    // Main function to get poison damage
-    public float getPoisonDamage(int numStacks) {
-        return POISON_DMG_PER_STACK * numStacks;
+
+
+    // ---------------------------------------------------------------------
+    //  SECONDARY ATTACK
+    // ---------------------------------------------------------------------
+
+
+    // Main accessor function to get the start-up frames for the primary attack
+    public int getSecondaryAttackStartFrames() {
+        return sideEffect.secondaryAttackStartFrames;
+    }
+
+
+    // Main accessor function to get the start-up frames for the primary attack
+    public int getSecondaryAttackEndFrames() {
+        return sideEffect.secondaryAttackEndFrames;
+    }
+
+
+    // Main fucntion to actually create and fire a projectile at attackDir direction from attacker's position
+    //  Pre: attackDir is the direction of attack, attacker is the transform of the one attacking
+    //  Post: returns true if projectile fires. Returns false if it didn't due to ammo constraints
+    public bool fireSecondaryAttack(Vector3 tgtPos, Transform attacker) {
+        // If not enough ammo, return
+        if (ammo < sideEffect.secondaryAttackCost) {
+            return false;
+        }
+
+        ammo -= sideEffect.secondaryAttackCost;
+        sideEffect.fireSecondaryAttack(tgtPos, attacker, this);
+        return true;
+    }
+
+
+    // Main function to check if you can actually fire secondary projectile
+    //  Pre: none
+    //  Post: returns whether or not you can fire secondary projectile
+    public bool canFireSecondaryLob() {
+        return ammo >= sideEffect.secondaryAttackCost;
     }
 
 }

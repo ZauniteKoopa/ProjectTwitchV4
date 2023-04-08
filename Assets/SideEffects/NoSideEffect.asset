@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: NoSideEffect
   m_EditorClassIdentifier: 
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
-  primaryAttackStartFrames: 20
-  primaryAttackEndFrames: 15
+  primaryAttackStartFrames: 10
+  primaryAttackEndFrames: 20
+  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
+  secondaryAttackSpeed: 12
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 3

@@ -10,10 +10,28 @@ public class SideEffect : ScriptableObject
     [Header("Primary Attack")]
     [SerializeField]
     private IPrimaryAttack primaryAttackPrefab;
+    [SerializeField]
     [Min(1)]
     public int primaryAttackStartFrames = 1;
+    [SerializeField]
     [Min(1)]
     public int primaryAttackEndFrames = 1;
+
+    [Header("Secondary Attack")]
+    [SerializeField]
+    private LobAction secondaryAttackPrefab;
+    [SerializeField]
+    [Min(0.01f)]
+    private float secondaryAttackSpeed = 8f;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackStartFrames = 1;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackEndFrames = 1;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackCost = 3;
 
 
 
@@ -25,5 +43,16 @@ public class SideEffect : ScriptableObject
 
         IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
         curBolt.setUp(attackDir, damage, parentPoison);
+    }
+
+
+    // Main function to fire secondary attack
+    //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
+    //  Post: fires secondary attack
+    public void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+        Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
+
+        LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
+        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed);
     }
 }
