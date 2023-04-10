@@ -10,6 +10,8 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip[] launchPoisonBoltClips;
     [SerializeField]
     private AudioClip lobVenomCaskSoundClip;
+    [SerializeField]
+    private AudioClip contaminateSoundClip;
 
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +40,17 @@ public class PlayerAudioManager : MonoBehaviour
         }
 
         soundEffectsSpeaker.clip = lobVenomCaskSoundClip;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play the launchPoisonBolt clip
+    public void playContaminateSound() {
+        if (contaminateSoundClip == null) {
+            Debug.LogWarning("No sound clip for contamination");
+        }
+
+        soundEffectsSpeaker.clip = contaminateSoundClip;
         soundEffectsSpeaker.Play();
     }
 }

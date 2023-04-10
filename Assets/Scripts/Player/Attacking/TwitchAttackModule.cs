@@ -43,6 +43,16 @@ public class TwitchAttackModule : IAttackModule
     [Range(0f, 1f)]
     private float weakBoltMovementReduction = 0.75f;
 
+    [Header("Contaminate Frame Data")]
+    [SerializeField]
+    [Min(1)]
+    private int contaminateStartFrames = 1;
+    [SerializeField]
+    [Min(1)]
+    private int contaminateEndFrames = 1;
+    [SerializeField]
+    private ContaminateManager contaminateZone = null;
+
     // Variables for attacking
     private Coroutine runningAttackSequence;
     private bool holdingFireButton;
@@ -167,6 +177,35 @@ public class TwitchAttackModule : IAttackModule
         runningAttackSequence = null;
     }
 
+
+    // Main Contaminate sequence
+    //  Pre: contaminateZone.contaminateTargetsFound is true and contaminate is off cooldown
+    //  Post: contaminates all infected units
+    private IEnumerator contaminateSequence() {
+        Debug.Assert(contaminateZone.contaminateTargetsFound());
+
+        // Set up
+        attackAnimForward = transform.forward;
+        movementState = TwitchMovementState.IN_ATTACK_ANIM;
+
+        // Startup
+        audioManager.playContaminateSound();
+        render.material.color = Color.blue;
+        yield return waitForFrames(contaminateStartFrames);
+
+        // Contaminate
+        contaminateZone.contaminateAll();
+
+        // Ending
+        render.material.color = Color.magenta;
+        yield return waitForFrames(contaminateEndFrames);
+
+        // Cleanup
+        render.material.color = Color.green;
+        movementState = TwitchMovementState.MOVING;
+        runningAttackSequence = null;
+    }
+
     
     // Function to return movement speed factor affected by this attack module
     //  Pre: none
@@ -228,6 +267,26 @@ public class TwitchAttackModule : IAttackModule
 
             } else {
                 Debug.Log("Cannot throw cask!");
+            }
+        }
+    }
+
+
+    // Event handler method for when secondary fire button click
+    public void onContaminateButtonAction(InputAction.CallbackContext value) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+            // Check if you can actually fire
+            if (contaminateZone.contaminateTargetsFound()) {
+                // Cancel running attack sequence
+                if (runningAttackSequence != null) {
+                    StopCoroutine(runningAttackSequence);
+                }
+
+                // Set this as the runnning attack sequence
+                runningAttackSequence = StartCoroutine(contaminateSequence());
+
+            } else {
+                Debug.Log("Cannot contaminate!");
             }
         }
     }

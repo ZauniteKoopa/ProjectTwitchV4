@@ -17,6 +17,7 @@ public class PoisonVial
     private static readonly int STARTING_AMMO = 40;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
     private static readonly float POISON_DMG_PER_STACK = 0.5f;
+    private static readonly float CONTAMINATE_DMG_PER_STACK = 5f;
 
     // Main vial stats
     private Dictionary<PoisonVialStat, int> vialStats;
@@ -25,7 +26,7 @@ public class PoisonVial
     private float startingBoltDamage = 5f;
 
     // Main public events to listen to
-    public UnityEvent contaminateExecuteEvent;
+    public UnityEvent contaminateExecuteEvent = new UnityEvent();
 
 
     // Main constructor
@@ -136,6 +137,25 @@ public class PoisonVial
     //  Post: returns the cooldown for the secondary attack
     public float getSecondaryAttackCooldown() {
         return sideEffect.secondaryAttackCooldown;
+    }
+
+
+
+    // ------------------------------
+    // CONTAMINATE
+    // ------------------------------
+
+
+    // Function to do contamination on target
+    //  Pre: tgt != null, poisonStacks > 0
+    //  Post: applies contaminate damage to target. invoke contaminate execute event if it kills
+    public void contaminate(EnemyStatus tgt, int poisonStacks) {
+        Debug.Assert(tgt != null && poisonStacks > 0);
+
+        float contaminateDmg = CONTAMINATE_DMG_PER_STACK * poisonStacks;
+        if (tgt.damage(contaminateDmg, false)) {
+            contaminateExecuteEvent.Invoke();
+        }
     }
 
 }

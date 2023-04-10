@@ -72,12 +72,14 @@ public class EnemyStatus : IUnitStatus
     public override bool damage(float dmg, bool isTrue) {
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
         lock (healthLock) {
-            curHealth -= actualDamage;
-            enemyStatusUI.updateHealthBar(curHealth, maxHealth);
+            if (isAlive()) {
+                curHealth -= actualDamage;
+                enemyStatusUI.updateHealthBar(curHealth, maxHealth);
 
-            if (curHealth <= 0f) {
-                StopAllCoroutines();
-                StartCoroutine(death());
+                if (curHealth <= 0f) {
+                    StopAllCoroutines();
+                    StartCoroutine(death());
+                }
             }
         }
 
@@ -92,21 +94,23 @@ public class EnemyStatus : IUnitStatus
         Debug.Assert(dmg >= 0f && poison != null && appliedStacks >= 0);
 
         // Increase the number of poison and reset poison ticker
-        lock (poisonLock) {
+        if (isAlive()) {
+            lock (poisonLock) {
 
-            curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
-            if (overridePoison) {
-                curPoison = poison;
+                curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
+                if (overridePoison) {
+                    curPoison = poison;
+                }
+
+                // Poisoning sequence handling
+                if (currentPoisoningSequence == null) {
+                    currentPoisoningSequence = StartCoroutine(poisoningSequence());
+                } else {
+                    curPoisonTick = 0;
+                }
+
+                enemyStatusUI.updatePoisonHalo(curPoisonStacks);
             }
-
-            // Poisoning sequence handling
-            if (currentPoisoningSequence == null) {
-                currentPoisoningSequence = StartCoroutine(poisoningSequence());
-            } else {
-                curPoisonTick = 0;
-            }
-
-            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
         }
 
         // Actually damage the unit
@@ -134,6 +138,20 @@ public class EnemyStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void affectSpeed(float speedFactor) {
 
+    }
+
+
+    // Main function to contaminate the unit based on the number of poison stacks
+    public void contaminate() {
+        if (curPoisonStacks > 0 && curPoison != null) {
+            curPoison.contaminate(this, curPoisonStacks);
+        }
+    }
+
+
+    // Main function to check if you're poisoned
+    public bool isPoisoned() {
+        return curPoisonStacks > 0;
     }
 
 
@@ -184,8 +202,8 @@ public class EnemyStatus : IUnitStatus
     // Private helper function to die
     private IEnumerator death() {
         deathEvent.Invoke();
-        Object.Destroy(gameObject);
 
         yield return 0;
+        gameObject.SetActive(false);
     }
 }
