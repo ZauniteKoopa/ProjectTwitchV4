@@ -15,6 +15,8 @@ public class EnemyStatus : IUnitStatus
     private float curHealth;
     private bool moving = true;
     private float damageReduction = 0f;
+
+    private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private readonly object healthLock = new object();
 
     [Header("UI")]
@@ -54,7 +56,7 @@ public class EnemyStatus : IUnitStatus
     //  Pre: none
     //  Post: Returns movement speed with speed status effects in mind
     public override float getMovementSpeed() {
-        return (moving && canMove()) ? movementSpeed : 0f;
+        return (moving && canMove()) ? movementSpeed * speedStatus.getSpeedModifier() : 0f;
     }
 
 
@@ -136,8 +138,16 @@ public class EnemyStatus : IUnitStatus
     // Main function to slow down or speed up by a specifed speed factor
     //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
     //  Post: speed is affected accordingly
-    public override void affectSpeed(float speedFactor) {
+    public override void applySpeedModifier(float speedFactor) {
+        speedStatus.applySpeedModifier(speedFactor);
+    }
 
+
+    // Main function to reert a speed modifier
+    //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
+    //  Post: speed is affected accordingly
+    public override void revertSpeedModifier(float speedFactor) {
+        speedStatus.revertSpeedModifier(speedFactor);
     }
 
 

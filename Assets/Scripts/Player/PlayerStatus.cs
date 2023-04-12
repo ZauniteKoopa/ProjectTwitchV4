@@ -8,13 +8,18 @@ public class PlayerStatus : IUnitStatus
     [SerializeField]
     private float movementSpeed = 5f;
     private bool moving = true;
+    private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
+    private SpeedModifierStatus attackSpeedStatus = new SpeedModifierStatus();
+
+    public bool invisible = false;
+
 
 
     // Main method to get current movement speed considering all speed status effects on unit
     //  Pre: none
     //  Post: Returns movement speed with speed status effects in mind
     public override float getMovementSpeed() {
-        return (moving && canMove()) ? movementSpeed : 0f;
+        return (moving && canMove()) ? movementSpeed * speedStatus.getSpeedModifier() : 0f;
     }
 
 
@@ -52,8 +57,16 @@ public class PlayerStatus : IUnitStatus
     // Main function to slow down or speed up by a specifed speed factor
     //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
     //  Post: speed is affected accordingly
-    public override void affectSpeed(float speedFactor) {
+    public override void applySpeedModifier(float speedFactor) {
+        speedStatus.applySpeedModifier(speedFactor);
+    }
 
+
+    // Main function to reert a speed modifier
+    //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
+    //  Post: speed is affected accordingly
+    public override void revertSpeedModifier(float speedFactor) {
+        speedStatus.revertSpeedModifier(speedFactor);
     }
 
 
@@ -62,6 +75,24 @@ public class PlayerStatus : IUnitStatus
     //  Post: enact effects that happen while you're moving or deactivate effects when you aren't
     public override void setMoving(bool isMoving) {
         moving = isMoving;
+    }
+
+
+    // Main function to apply attack speed effect
+    public void applyAttackSpeedEffect(float attackModifier) {
+        attackSpeedStatus.applySpeedModifier(attackModifier);
+    }
+
+
+    // Main function to revert attack speed effect
+    public void revertAttackSpeedEffect(float attackModifier) {
+        attackSpeedStatus.revertSpeedModifier(attackModifier);
+    }
+
+
+    // Main function to get attack speed modifier
+    public float getAttackSpeedModifier() {
+        return attackSpeedStatus.getSpeedModifier();
     }
 
 }

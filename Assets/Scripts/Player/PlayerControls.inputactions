@@ -42,7 +42,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Stealth",
+                    "name": "Ambush",
                     "type": "Value",
                     "id": "859051a4-602f-45f7-bbbd-2fe3cebe47e1",
                     "expectedControlType": "Button",
@@ -183,7 +183,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Stealth",
+                    "action": "Ambush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

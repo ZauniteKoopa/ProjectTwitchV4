@@ -62,7 +62,13 @@ public abstract class IUnitStatus : MonoBehaviour
     // Main function to slow down or speed up by a specifed speed factor
     //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
     //  Post: speed is affected accordingly
-    public abstract void affectSpeed(float speedFactor);
+    public abstract void applySpeedModifier(float speedFactor);
+
+
+    // Main function to reert a speed modifier
+    //  Pre: speedFactor > 0.0f. If less than 1, slow. Else, fast
+    //  Post: speed is affected accordingly
+    public abstract void revertSpeedModifier(float speedFactor);
 
 
     // Function to set movement to true 

@@ -8,7 +8,7 @@ public class LobAction : MonoBehaviour
     [SerializeField]
     private DeployableHitbox deployable;
     private const float MIN_START_TIME = 0.25f;
-    private const float MAX_LOB_HEIGHT = 3f;
+    private const float MAX_LOB_HEIGHT = 2f;
     
 
     // Main function to lob the projectile from src to tgt

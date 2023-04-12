@@ -228,7 +228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 1395895262}
   playerCamera: {fileID: 963194227}
-  attackSpeedModifier: 1
   defaultWeakBolt: {fileID: 1727008140493959272, guid: c676fc40188267143aeaca734a88c7f3, type: 3}
   weakBoltDamage: 1
   weakBoltStartFrames: 10
@@ -236,7 +235,13 @@ MonoBehaviour:
   weakBoltMovementReduction: 0.4
   contaminateStartFrames: 8
   contaminateEndFrames: 8
+  contaminateCooldown: 8
   contaminateZone: {fileID: 155089322}
+  ambushStartupTime: 1
+  ambushInvisibilityTime: 10
+  ambushAttackSpeedBuffTime: 5
+  ambushAttackSpeedBuff: 1.5
+  ambushInvisibilityMovementBuff: 1.2
 --- !u!114 &70676316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +338,19 @@ MonoBehaviour:
     m_ActionId: 36996adc-91fa-4bf8-935b-2e94b9588f53
     m_ActionName: Twitch/PoisonVialSwap[/Keyboard/q]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 70676315}
+        m_TargetAssemblyTypeName: TwitchAttackModule, Assembly-CSharp
+        m_MethodName: onAmbushButtonAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 859051a4-602f-45f7-bbbd-2fe3cebe47e1
     m_ActionName: Twitch/Stealth[/Keyboard/leftShift]
   - m_PersistentCalls:
@@ -716,7 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contaminateVisualEffect: {fileID: 9004338733468429171, guid: 328832d3eaefaa04d9f653f54ef1c1a1, type: 3}
-  contaminateEffectTime: 0.2
+  contaminateEffectTime: 0.25
 --- !u!135 &155089323
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2363,6 +2380,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 8
+  invisible: 0
 --- !u!82 &1395895267
 AudioSource:
   m_ObjectHideFlags: 0

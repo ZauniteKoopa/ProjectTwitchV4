@@ -20,11 +20,7 @@ public class TwitchAttackModule : IAttackModule
     private MeshRenderer render;
     private TwitchInventory inventory;
     private PlayerAudioManager audioManager;
-
-    [Header("Stats")]
-    [SerializeField]
-    [Min(0.01f)]
-    private float attackSpeedModifier = 1f;
+    private PlayerStatus status;
 
     
     [Header("Weak Bolt Properties")]
@@ -51,7 +47,30 @@ public class TwitchAttackModule : IAttackModule
     [Min(1)]
     private int contaminateEndFrames = 1;
     [SerializeField]
+    [Min(0.1f)]
+    private float contaminateCooldown = 8f;
+    [SerializeField]
     private ContaminateManager contaminateZone = null;
+    private Coroutine runningContaminateCooldownSequence = null;
+
+
+    // Variables for Ambush
+    [SerializeField]
+    [Min(0.1f)]
+    private float ambushStartupTime = 1f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float ambushInvisibilityTime = 10f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float ambushAttackSpeedBuffTime = 5f;
+    [SerializeField]
+    [Min(1f)]
+    private float ambushAttackSpeedBuff = 1.5f;
+    [SerializeField]
+    [Min(1.01f)]
+    private float ambushInvisibilityMovementBuff = 1.2f;
+    private Coroutine runningAmbushSequence = null;
 
     // Variables for attacking
     private Coroutine runningAttackSequence;
@@ -76,6 +95,7 @@ public class TwitchAttackModule : IAttackModule
         }
 
         render = playerCharacter.GetComponent<MeshRenderer>();
+        status = playerCharacter.GetComponent<PlayerStatus>();
         audioManager = playerCharacter.GetComponent<PlayerAudioManager>();
         inventory = GetComponent<TwitchInventory>();
 
@@ -206,6 +226,55 @@ public class TwitchAttackModule : IAttackModule
         runningAttackSequence = null;
     }
 
+
+    // Main function to do ambush sequence
+    //  Pre: none
+    //  Post: does ambush sequence
+    private IEnumerator ambushSequence() {
+        // Startup
+        Debug.Log("INITIATING AMBUSH");
+        yield return new WaitForSeconds(ambushStartupTime);
+
+
+        Debug.Log("IS NOW INVISIBLE");
+        status.applySpeedModifier(ambushInvisibilityMovementBuff);
+        status.invisible = true;
+
+        // Timer to wait out invisibility
+        float timer = 0f;
+        while (timer < ambushInvisibilityTime && movementState == TwitchMovementState.MOVING) {
+            yield return 0;
+            timer += Time.deltaTime;
+        }
+
+        // Attack speed buff
+        status.invisible = false;
+        status.revertSpeedModifier(ambushInvisibilityMovementBuff);
+        runningAmbushSequence = null;
+
+        Debug.Log("ATTACK SPEED BUFF ACTIVE");
+        status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
+        yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
+
+        // Cleanup
+        status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
+        Debug.Log("AMBUSH ENDS");
+    }
+
+
+
+    // Main sequence for the cooldown sequence
+    private IEnumerator contaminateCooldownSequence() {
+        float timer = 0f;
+
+        while (timer <= contaminateCooldown) {
+            yield return 0;
+            timer += Time.deltaTime;
+        }
+
+        runningContaminateCooldownSequence = null;
+    }
+
     
     // Function to return movement speed factor affected by this attack module
     //  Pre: none
@@ -276,18 +345,27 @@ public class TwitchAttackModule : IAttackModule
     public void onContaminateButtonAction(InputAction.CallbackContext value) {
         if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
             // Check if you can actually fire
-            if (contaminateZone.contaminateTargetsFound()) {
+            if (runningContaminateCooldownSequence == null && contaminateZone.contaminateTargetsFound()) {
                 // Cancel running attack sequence
                 if (runningAttackSequence != null) {
                     StopCoroutine(runningAttackSequence);
                 }
 
                 // Set this as the runnning attack sequence
+                runningContaminateCooldownSequence = StartCoroutine(contaminateCooldownSequence());
                 runningAttackSequence = StartCoroutine(contaminateSequence());
 
             } else {
                 Debug.Log("Cannot contaminate!");
             }
+        }
+    }
+
+
+    // Main event handler function for stealth
+    public void onAmbushButtonAction(InputAction.CallbackContext value) {
+        if (value.started && runningAmbushSequence == null) {
+            runningAmbushSequence = StartCoroutine(ambushSequence());
         }
     }
 
@@ -323,7 +401,7 @@ public class TwitchAttackModule : IAttackModule
     //  Pre: framesEntered is the number of frames before being modified
     //  Post: returns the frameData after the modifier is applied
     private int applyAttackSpeedModifier(int frameData) {
-        float attackSpeedFactor = 1f / attackSpeedModifier;
+        float attackSpeedFactor = 1f / status.getAttackSpeedModifier();
         float rawFrameData = (float)frameData * attackSpeedFactor;
 
         return (int)Mathf.Ceil(rawFrameData);
