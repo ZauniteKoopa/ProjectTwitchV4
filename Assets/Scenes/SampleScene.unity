@@ -2495,6 +2495,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0de3a2cf55e4f454f91ad26dce6dca78, type: 3}
   lobVenomCaskSoundClip: {fileID: 8300000, guid: b7c04e8413d90b34690cd3edf5a8f897, type: 3}
   contaminateSoundClip: {fileID: 8300000, guid: 73945c5769c383c47a50a6e5a390942d, type: 3}
+  ambushStartupSoundClip: {fileID: 8300000, guid: 9223eab0504334943a8b7c5fdbd7d447, type: 3}
 --- !u!1 &1399798051
 GameObject:
   m_ObjectHideFlags: 0

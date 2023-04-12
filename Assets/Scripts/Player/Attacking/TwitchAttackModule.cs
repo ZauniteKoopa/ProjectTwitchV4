@@ -233,6 +233,7 @@ public class TwitchAttackModule : IAttackModule
     private IEnumerator ambushSequence() {
         // Startup
         Debug.Log("INITIATING AMBUSH");
+        audioManager.playAmbushStartup();
         yield return new WaitForSeconds(ambushStartupTime);
 
 

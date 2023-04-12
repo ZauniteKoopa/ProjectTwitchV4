@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAudioManager : MonoBehaviour
 {
+    [Header("Sound effects")]
     [SerializeField]
     private AudioSource soundEffectsSpeaker;
     [SerializeField]
@@ -12,6 +13,9 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip lobVenomCaskSoundClip;
     [SerializeField]
     private AudioClip contaminateSoundClip;
+    [SerializeField]
+    private AudioClip ambushStartupSoundClip;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -51,6 +55,17 @@ public class PlayerAudioManager : MonoBehaviour
         }
 
         soundEffectsSpeaker.clip = contaminateSoundClip;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play stealth startup sounds
+    public void playAmbushStartup() {
+         if (ambushStartupSoundClip == null) {
+            Debug.LogWarning("No sound effect clip for ambush startup");
+        }
+
+        soundEffectsSpeaker.clip = ambushStartupSoundClip;
         soundEffectsSpeaker.Play();
     }
 }
