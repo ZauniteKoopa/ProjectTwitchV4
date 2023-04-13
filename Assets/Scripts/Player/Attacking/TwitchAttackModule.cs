@@ -17,6 +17,8 @@ public class TwitchAttackModule : IAttackModule
     private Transform playerCharacter;
     [SerializeField]
     private Camera playerCamera;
+    [SerializeField]
+    private PlayerScreenUI screenUI;
     private MeshRenderer render;
     private TwitchInventory inventory;
     private PlayerAudioManager audioManager;
@@ -55,6 +57,7 @@ public class TwitchAttackModule : IAttackModule
 
 
     // Variables for Ambush
+    [Header("Ambush")]
     [SerializeField]
     [Min(0.1f)]
     private float ambushStartupTime = 1f;
@@ -92,6 +95,10 @@ public class TwitchAttackModule : IAttackModule
 
         if (playerCharacter == null) {
             Debug.LogError("No player character attached to this attack module");
+        }
+
+        if (screenUI == null) {
+            Debug.LogError("No player screen UI detected");
         }
 
         render = playerCharacter.GetComponent<MeshRenderer>();
@@ -240,6 +247,7 @@ public class TwitchAttackModule : IAttackModule
         Debug.Log("IS NOW INVISIBLE");
         status.applySpeedModifier(ambushInvisibilityMovementBuff);
         status.invisible = true;
+        screenUI.displayAmbushInvisibility();
 
         // Timer to wait out invisibility
         float timer = 0f;
@@ -252,9 +260,11 @@ public class TwitchAttackModule : IAttackModule
         status.invisible = false;
         status.revertSpeedModifier(ambushInvisibilityMovementBuff);
         runningAmbushSequence = null;
+        screenUI.removeAmbushInvisibility();
 
         Debug.Log("ATTACK SPEED BUFF ACTIVE");
         status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
+        audioManager.playAmbushBuff();
         yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
 
         // Cleanup
