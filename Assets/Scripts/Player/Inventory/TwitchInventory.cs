@@ -32,6 +32,7 @@ public class TwitchInventory : MonoBehaviour
         resetScreenUI();
 
         primaryVial = new PoisonVial(PoisonVialStat.POTENCY, startingSideEffect);
+        primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         screenUI.displayPrimaryVial(primaryVial);
     }
 
