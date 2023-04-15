@@ -59,9 +59,15 @@ public class PlayerScreenUI : MonoBehaviour
     private Coroutine runningColorScreenSequence;
 
 
+    [Header("Other UI Elements")]
+    [SerializeField]
+    private PlayerWorldUI worldUI;
+
+
     // Main function to display health
     public void displayHealth(float curHealth, float maxHealth) {
         healthBarFill.fillAmount = curHealth / maxHealth;
+        worldUI.displayHealthBar(curHealth, maxHealth);
     }
 
 
@@ -86,6 +92,7 @@ public class PlayerScreenUI : MonoBehaviour
     // Main public function to display primaryVial
     public void displayPrimaryVial(PoisonVial vial) {
         displayPoisonVial(vial, primaryVialAmmo, primaryVialFill);
+        worldUI.displayPrimaryVial(vial);
         caskGameobject.SetActive(vial != null);
     }
 
@@ -93,6 +100,7 @@ public class PlayerScreenUI : MonoBehaviour
     // Main public function to display secondary vial
     public void displaySecondaryVial(PoisonVial vial) {
         displayPoisonVial(vial, secondaryVialAmmo, secondaryVialFill);
+        worldUI.displaySecondaryVial(vial);
     }
     
     

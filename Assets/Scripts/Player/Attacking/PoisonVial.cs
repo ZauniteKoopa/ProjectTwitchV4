@@ -54,7 +54,7 @@ public class PoisonVial
 
 
     // Main accessor function to get the ammo of this vial
-    public float getAmmo() {
+    public int getAmmo() {
         return ammo;
     }
 
