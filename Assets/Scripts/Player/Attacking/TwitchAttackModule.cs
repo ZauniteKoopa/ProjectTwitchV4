@@ -49,11 +49,7 @@ public class TwitchAttackModule : IAttackModule
     [Min(1)]
     private int contaminateEndFrames = 1;
     [SerializeField]
-    [Min(0.1f)]
-    private float contaminateCooldown = 8f;
-    [SerializeField]
     private ContaminateManager contaminateZone = null;
-    private Coroutine runningContaminateCooldownSequence = null;
 
 
     // Variables for Ambush
@@ -260,6 +256,7 @@ public class TwitchAttackModule : IAttackModule
         status.invisible = false;
         status.revertSpeedModifier(ambushInvisibilityMovementBuff);
         runningAmbushSequence = null;
+        inventory.activateAmbushCooldown();
         screenUI.removeAmbushInvisibility();
 
         Debug.Log("ATTACK SPEED BUFF ACTIVE");
@@ -270,20 +267,6 @@ public class TwitchAttackModule : IAttackModule
         // Cleanup
         status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
         Debug.Log("AMBUSH ENDS");
-    }
-
-
-
-    // Main sequence for the cooldown sequence
-    private IEnumerator contaminateCooldownSequence() {
-        float timer = 0f;
-
-        while (timer <= contaminateCooldown) {
-            yield return 0;
-            timer += Time.deltaTime;
-        }
-
-        runningContaminateCooldownSequence = null;
     }
 
     
@@ -352,18 +335,26 @@ public class TwitchAttackModule : IAttackModule
     }
 
 
+    // Main event handler function for stealth
+    public void onSwapVialButtonAction(InputAction.CallbackContext value) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+            inventory.swapVials();
+        }
+    }
+
+
     // Event handler method for when secondary fire button click
     public void onContaminateButtonAction(InputAction.CallbackContext value) {
         if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
             // Check if you can actually fire
-            if (runningContaminateCooldownSequence == null && contaminateZone.contaminateTargetsFound()) {
+            if (inventory.canContaminate() && contaminateZone.contaminateTargetsFound()) {
                 // Cancel running attack sequence
                 if (runningAttackSequence != null) {
                     StopCoroutine(runningAttackSequence);
                 }
 
                 // Set this as the runnning attack sequence
-                runningContaminateCooldownSequence = StartCoroutine(contaminateCooldownSequence());
+                inventory.activateContaminationCooldown();
                 runningAttackSequence = StartCoroutine(contaminateSequence());
 
             } else {
@@ -375,7 +366,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Main event handler function for stealth
     public void onAmbushButtonAction(InputAction.CallbackContext value) {
-        if (value.started && runningAmbushSequence == null) {
+        if (value.started && inventory.canAmbush() && runningAmbushSequence == null) {
             runningAmbushSequence = StartCoroutine(ambushSequence());
         }
     }

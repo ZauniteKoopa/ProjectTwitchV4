@@ -18,6 +18,7 @@ public class PoisonVial
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
     private static readonly float POISON_DMG_PER_STACK = 0.5f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 5f;
+    public static readonly int MAX_AMMO = 60;
 
     // Main vial stats
     private Dictionary<PoisonVialStat, int> vialStats;
