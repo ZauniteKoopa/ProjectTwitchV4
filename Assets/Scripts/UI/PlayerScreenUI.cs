@@ -150,6 +150,7 @@ public class PlayerScreenUI : MonoBehaviour
         }
 
         vialFill.fillAmount = (vial != null) ? (float)vial.getAmmo() / (float)PoisonVial.MAX_AMMO : 0f;
+        vialFill.color = (vial != null) ? vial.getColor() : Color.black;
     }
 
 

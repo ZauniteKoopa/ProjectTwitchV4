@@ -18,13 +18,23 @@ public class PoisonVial
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
     private static readonly float POISON_DMG_PER_STACK = 0.5f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 5f;
+
+    private static readonly int AMMO_GAIN_PER_INGREDIENT = 10;
+    private static readonly int MAX_STAT = 3;
+    private static readonly int MAX_CRAFT_ATTEMPTS = 10;
     public static readonly int MAX_AMMO = 60;
+    public static PoisonVialConstants poisonVialConstants;
 
     // Main vial stats
     private Dictionary<PoisonVialStat, int> vialStats;
     private int ammo;
     private SideEffect sideEffect;
     private float startingBoltDamage = 5f;
+
+    // Crafting 
+    private bool reachedPotential = false;
+    private int numCraftAttempts = 1;
+    private PoisonVialStat maxStat;
 
     // Main public events to listen to
     public UnityEvent contaminateExecuteEvent = new UnityEvent();
@@ -33,12 +43,13 @@ public class PoisonVial
     // Main constructor
     //  Pre: side effect doesn't equal null and startingStat is one of the stats in the enum
     //  Post: creates a poison vial with 1 in the startingStat and 0 everything else
-    public PoisonVial(PoisonVialStat startingStat, SideEffect effect) {
-        Debug.Assert(effect != null);
+    public PoisonVial(PoisonVialStat startingStat) {
+        Debug.Assert(poisonVialConstants != null);
 
-        sideEffect = effect;
+        sideEffect = poisonVialConstants.defaultSideEffect;
         vialStats = new Dictionary<PoisonVialStat, int>();
         ammo = STARTING_AMMO;
+        maxStat = startingStat;
 
         foreach (PoisonVialStat stat in System.Enum.GetValues(typeof(PoisonVialStat))) {
             int statVal = (startingStat == stat) ? 1 : 0;
@@ -159,4 +170,50 @@ public class PoisonVial
         }
     }
 
+
+    // ------------------------------
+    // CRAFTING
+    // ------------------------------
+
+    // Main function to craft the vial
+    //  Pre: stat is one of the 4 available stats
+    //  Post: returns true if crafting is successful. returns 
+    public bool craft(PoisonVialStat stat) {
+        if (numCraftAttempts >= MAX_CRAFT_ATTEMPTS) {
+            return false;
+        }
+
+        // Increase number of attempts and 
+        numCraftAttempts++;
+        ammo = Mathf.Min(ammo + AMMO_GAIN_PER_INGREDIENT, MAX_AMMO);
+
+        // If potential not reached yet, increase stat
+        if (!reachedPotential) {
+            vialStats[stat]++;
+
+            // Update maxStat if new max stat found
+            if (vialStats[stat] > vialStats[maxStat]) {
+                maxStat = stat;
+            }
+
+            // Update reachedPotential flag if vial stat has reached max stacks
+            reachedPotential = vialStats[stat] >= MAX_STAT;
+        }
+
+        return true;
+    }
+
+
+    // Main function to get the vial's current color
+    public Color getColor() {
+        // If reached potential already, just return the pure color
+        if (reachedPotential) {
+            return poisonVialConstants.getPureColor(maxStat);
+
+        // Else, just return an intepolation between tempColor and baseVialColor
+        } else {
+            return Color.Lerp(poisonVialConstants.baseVialColor, poisonVialConstants.getTempColor(maxStat), (float)vialStats[maxStat] / (float)(MAX_STAT - 1));
+
+        }
+    }
 }

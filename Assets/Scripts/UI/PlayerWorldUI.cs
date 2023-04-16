@@ -20,11 +20,16 @@ public class PlayerWorldUI : MonoBehaviour
     public void displayPrimaryVial(PoisonVial vial) {
         int ammoCount = (vial == null) ? 0 : vial.getAmmo();
 
+        primaryVialDisplay.color = (vial != null) ? vial.getColor() : Color.black;
+
         // Update the bullet list
         bulletList.gameObject.SetActive(ammoCount <= bulletList.childCount && ammoCount > 0);
         if (ammoCount <= bulletList.childCount && ammoCount > 0) {
             for (int b = 0; b < bulletList.childCount; b++) {
-                bulletList.GetChild(b).gameObject.SetActive(b < vial.getAmmo());
+                Transform curBullet = bulletList.GetChild(b);
+                curBullet.gameObject.SetActive(b < vial.getAmmo());
+
+                curBullet.GetComponent<Image>().color = primaryVialDisplay.color;
             }
         }
     }
@@ -32,7 +37,7 @@ public class PlayerWorldUI : MonoBehaviour
 
     // Main function to display secondary vial
     public void displaySecondaryVial(PoisonVial vial) {
-
+        secondaryVialDisplay.color = (vial != null) ? vial.getColor() : Color.black;
     }
 
 

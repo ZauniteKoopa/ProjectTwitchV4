@@ -6,7 +6,7 @@ public class TwitchInventory : MonoBehaviour
 {
     // Poison Vial Info
     [SerializeField]
-    private SideEffect startingSideEffect;
+    private PoisonVialConstants poisonVialParameters;
     private PoisonVial primaryVial;
     private PoisonVial secondaryVial;
 
@@ -29,9 +29,15 @@ public class TwitchInventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (poisonVialParameters == null) {
+            Debug.LogError("POISON VIAL CONSTANTS AND PARAMETERS NOT SET FOR TWITCH TO CRAFT POISONS");
+        }
+
+        PoisonVial.poisonVialConstants = poisonVialParameters;
+
         resetScreenUI();
 
-        primaryVial = new PoisonVial(PoisonVialStat.POTENCY, startingSideEffect);
+        primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
         primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         screenUI.displayPrimaryVial(primaryVial);
     }

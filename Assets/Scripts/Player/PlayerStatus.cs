@@ -11,10 +11,33 @@ public class PlayerStatus : IUnitStatus
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackSpeedStatus = new SpeedModifierStatus();
 
+    [SerializeField]
+    [Min(0.01f)]
+    private float maxHealth = 20f;
+    private float curHealth;
+    private float damageReduction = 0f;
+    private readonly object healthLock = new object();
+
+
+    [Header("UI")]
+    [SerializeField]
+    private PlayerScreenUI playerUI = null;
+
     public bool invisible = false;
 
 
 
+    // On awake, set up
+    private void Awake() {
+        if (playerUI == null) {
+            Debug.LogError("PLAYER UI NOT CONNECTED TO PLAYER STATUS");
+        }
+
+        curHealth = maxHealth;
+        playerUI.displayHealth(curHealth, maxHealth);
+    }
+    
+    
     // Main method to get current movement speed considering all speed status effects on unit
     //  Pre: none
     //  Post: Returns movement speed with speed status effects in mind
@@ -35,7 +58,20 @@ public class PlayerStatus : IUnitStatus
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if it happens. else otherwise
     public override bool damage(float dmg, bool isTrue) {
-        return false;
+        float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+        lock (healthLock) {
+            if (isAlive()) {
+                curHealth -= actualDamage;
+                playerUI.displayHealth(curHealth, maxHealth);
+
+                if (curHealth <= 0f) {
+                    StopAllCoroutines();
+                    StartCoroutine(death());
+                }
+            }
+        }
+
+        return curHealth <= 0f;
     }
 
 
@@ -43,7 +79,7 @@ public class PlayerStatus : IUnitStatus
     //  Pre: none
     //  Post: returns true is unit is still alive
     public override bool isAlive() {
-        return true;
+        return curHealth > 0f;
     }
 
 
@@ -95,4 +131,10 @@ public class PlayerStatus : IUnitStatus
         return attackSpeedStatus.getSpeedModifier();
     }
 
+
+    // Private helper function to die
+    private IEnumerator death() {
+        yield return 0;
+        gameObject.SetActive(false);
+    }
 }
