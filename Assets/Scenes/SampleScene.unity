@@ -6459,6 +6459,10 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1347320806317760197, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 1990474500}
     - target: {fileID: 1347320806948716994, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -6471,6 +6475,10 @@ PrefabInstance:
       propertyPath: screenUI
       value: 
       objectReference: {fileID: 1990474500}
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: poisonVialParameters
+      value: 
+      objectReference: {fileID: 11400000, guid: fb2988f4417c0f74d99de54ccbf1bcba, type: 2}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 2

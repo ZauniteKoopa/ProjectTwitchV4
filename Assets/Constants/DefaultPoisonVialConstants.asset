@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e220acac62af06b4cac40896d3d5086d, type: 3}
   m_Name: DefaultPoisonVialConstants
   m_EditorClassIdentifier: 
-  purePotencyColor: {r: 1, g: 0, b: 0, a: 1}
-  pureReactivityColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  pureStickinessColor: {r: 0, g: 0, b: 1, a: 1}
-  purePoisonColor: {r: 0, g: 1, b: 0, a: 1}
-  tempPotencyColor: {r: 1, g: 0, b: 0, a: 1}
-  tempReactivityColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  tempStickinessColor: {r: 0, g: 0, b: 1, a: 1}
-  tempPoisonColor: {r: 0, g: 1, b: 0, a: 1}
-  baseVialColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  purePotencyColor: {r: 1, g: 0, b: 0.6246929, a: 1}
+  pureReactivityColor: {r: 1, g: 0.92449224, b: 0.015686274, a: 1}
+  pureStickinessColor: {r: 0, g: 0.7216792, b: 1, a: 1}
+  purePoisonColor: {r: 0.47552, g: 1, b: 0, a: 1}
+  tempPotencyColor: {r: 0.6886792, g: 0, b: 0.57775146, a: 1}
+  tempReactivityColor: {r: 0.735849, g: 0.5958083, b: 0.00462789, a: 1}
+  tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
+  tempPoisonColor: {r: 0.16961426, g: 0.6415094, b: 0, a: 1}
+  baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
