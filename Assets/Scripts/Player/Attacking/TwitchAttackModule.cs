@@ -69,6 +69,8 @@ public class TwitchAttackModule : IAttackModule
     [SerializeField]
     [Min(1.01f)]
     private float ambushInvisibilityMovementBuff = 1.2f;
+    [SerializeField]
+    private InvisibilitySensor ambushProximitySensor = null;
     private Coroutine runningAmbushSequence = null;
 
     // Variables for attacking
@@ -80,7 +82,7 @@ public class TwitchAttackModule : IAttackModule
 
 
     // On awake, error check
-    private void Awake() {
+    private void Start() {
         if (defaultWeakBolt == null) {
             Debug.LogError("ERROR: Set a default weak bolt for Twitch just in case he has no vial!");
         }
@@ -109,6 +111,11 @@ public class TwitchAttackModule : IAttackModule
         if (audioManager == null) {
             Debug.LogError("No player audio manager found on player character transform");
         }
+
+        if (ambushProximitySensor == null) {
+            Debug.LogError("No InvisibilitySensor attached to character for ambush");
+        }
+        ambushProximitySensor.displaySensor(false);
 
         Application.targetFrameRate = 60;
     }
@@ -244,6 +251,7 @@ public class TwitchAttackModule : IAttackModule
         status.applySpeedModifier(ambushInvisibilityMovementBuff);
         status.invisible = true;
         screenUI.displayAmbushInvisibility();
+        ambushProximitySensor.displaySensor(true);
 
         // Timer to wait out invisibility
         float timer = 0f;
@@ -258,6 +266,7 @@ public class TwitchAttackModule : IAttackModule
         runningAmbushSequence = null;
         inventory.activateAmbushCooldown();
         screenUI.removeAmbushInvisibility();
+        ambushProximitySensor.displaySensor(false);
 
         Debug.Log("ATTACK SPEED BUFF ACTIVE");
         status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
