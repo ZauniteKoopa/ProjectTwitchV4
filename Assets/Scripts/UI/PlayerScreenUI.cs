@@ -157,7 +157,7 @@ public class PlayerScreenUI : MonoBehaviour
     // Private helper function to display cooldown for an icon ability
     private void displayAbilityIcon(float cooldownProgress, Image icon, Image cooldownFill) {
         float cooldownFillAmount = 1f - cooldownProgress;
-        icon.color = (cooldownFillAmount < 0.01f) ? Color.yellow : Color.black;
+        icon.color = (cooldownFillAmount < 0.01f) ? Color.white : Color.blue;
         cooldownFill.fillAmount = cooldownFillAmount;
     }
 }
