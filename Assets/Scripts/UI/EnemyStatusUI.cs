@@ -11,8 +11,23 @@ public class EnemyStatusUI : MonoBehaviour
     private Image healthBar;
     [SerializeField]
     private Image poisonHalo;
+    private float startingPoisonHaloScale = 1f;
     [SerializeField]
     private TMP_Text poisonHaloCount;
+    [SerializeField]
+    [Min(0.001f)]
+    private float tickVibrateDelta = 0.2f;
+    [SerializeField]
+    [Min(0.001f)]
+    private float tickVibrateDuration = 0.2f;
+
+    private Coroutine runningPoisonHaloVibrateSequence = null;
+
+
+    // On awake, setup
+    private void Awake() {
+        startingPoisonHaloScale = poisonHalo.transform.localScale.x;
+    }
 
 
     // Main function to update health bar
@@ -36,4 +51,44 @@ public class EnemyStatusUI : MonoBehaviour
 
         poisonHaloCount.text = "" + poisonStacks;
     }
+
+
+    // Main sequence to vibrate the poison halo
+    public void vibratePoisonHalo() {
+        if (runningPoisonHaloVibrateSequence != null) {
+            StopCoroutine(runningPoisonHaloVibrateSequence);
+            runningPoisonHaloVibrateSequence = null;
+            poisonHalo.transform.localScale = Vector3.one * startingPoisonHaloScale;
+        }
+
+        runningPoisonHaloVibrateSequence = StartCoroutine(vibratePoisonTickSpriteSequence());
+    }
+
+
+    // Main sequence to vibrate the delta
+    private IEnumerator vibratePoisonTickSpriteSequence() {
+        float timer = 0f;
+        float tickHalfDuration = tickVibrateDuration / 2f;
+        float popScale = startingPoisonHaloScale + tickVibrateDelta;
+
+        // Growth
+        while (timer < tickHalfDuration) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            poisonHalo.transform.localScale = Vector3.one * Mathf.Lerp(startingPoisonHaloScale, popScale, timer / tickHalfDuration);
+        }
+
+        // Shrink
+        timer = 0f;
+        while (timer < tickHalfDuration) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            poisonHalo.transform.localScale = Vector3.one * Mathf.Lerp(popScale, startingPoisonHaloScale, timer / tickHalfDuration);
+        }
+
+        runningPoisonHaloVibrateSequence = null;
+    }
+
 }

@@ -5769,6 +5769,7 @@ MonoBehaviour:
   weakBoltStartFrames: 10
   weakBoltEndFrames: 20
   weakBoltMovementReduction: 0.4
+  aimAssist: {fileID: 429715607}
   contaminateStartFrames: 8
   contaminateEndFrames: 8
   contaminateZone: {fileID: 1347320807493061773}
@@ -6557,6 +6558,7 @@ GameObject:
   - component: {fileID: 8293524852785587605}
   - component: {fileID: 8183692418732157804}
   - component: {fileID: 7358479898181994272}
+  - component: {fileID: 429715607}
   m_Layer: 10
   m_Name: NearbySensor
   m_TagString: Untagged
@@ -6612,3 +6614,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa3ed548c8c9a84babfeefd8ca074ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &429715607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471419994901268177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cad5e4cbf767e458d6e19f996eea5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAimAssistRadius: 0.25
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 256

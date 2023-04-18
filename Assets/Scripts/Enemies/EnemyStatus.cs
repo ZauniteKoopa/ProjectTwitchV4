@@ -100,6 +100,13 @@ public class EnemyStatus : IUnitStatus
             lock (poisonLock) {
 
                 curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
+
+                // If applies stack, then vibrate the poison tick counter
+                if (appliedStacks > 0) {
+                    enemyStatusUI.vibratePoisonHalo();
+                }
+                
+                // If it overrides poison, override it
                 if (overridePoison) {
                     curPoison = poison;
                 }
