@@ -8,9 +8,27 @@ public class ContaminateManager : MonoBehaviour
     private LobAction contaminateVisualEffect = null;
     [SerializeField]
     private float contaminateEffectTime = 0.1f;
+    [SerializeField]
+    private PoisonedUnitSensor poisonedSensor = null;
     private HashSet<EnemyStatus> inRange = new HashSet<EnemyStatus>();
 
+    private MeshRenderer render = null;
 
+
+    // On awake setup
+    private void Awake() {
+        render = GetComponent<MeshRenderer>();
+    }
+
+
+    // On update, check if contaminate vision field needs to be rendered
+    private void Update() {
+        if (poisonedSensor != null && render != null) {
+            render.enabled = poisonedSensor.poisonedUnitsNearby();
+        }
+    }
+    
+    
     // Main function to call contaminate
     public void contaminateAll() {
         StartCoroutine(contaminateAllSequence());
@@ -48,7 +66,7 @@ public class ContaminateManager : MonoBehaviour
     }
 
 
-    // Main on trigger enter
+    // Main on trigger exit
     private void OnTriggerExit(Collider collider) {
         EnemyStatus tgt = collider.GetComponent<EnemyStatus>();
 
