@@ -40,6 +40,8 @@ public class TwitchAttackModule : IAttackModule
     [SerializeField]
     [Range(0f, 1f)]
     private float weakBoltMovementReduction = 0.75f;
+    [SerializeField]
+    private IAimAssist aimAssist;
 
     [Header("Contaminate Frame Data")]
     [SerializeField]
@@ -152,6 +154,9 @@ public class TwitchAttackModule : IAttackModule
             if (holdingFireButton) {
                 // Get aiming direction
                 Vector3 boltDir = getWorldAimLocation() - playerCharacter.position;
+                if (aimAssist != null) {
+                    boltDir = aimAssist.adjustAim(boltDir, transform.position);
+                }
 
                 // Try to fire the bullet using the primary bolt. If that's not successful, fire a dead bullet
                 if (!inventory.firePrimaryBolt(boltDir, playerCharacter)) {
