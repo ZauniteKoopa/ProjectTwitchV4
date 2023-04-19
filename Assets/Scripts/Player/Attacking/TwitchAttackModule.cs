@@ -73,6 +73,8 @@ public class TwitchAttackModule : IAttackModule
     private float ambushInvisibilityMovementBuff = 1.2f;
     [SerializeField]
     private InvisibilitySensor ambushProximitySensor = null;
+    [SerializeField]
+    private GameObject ambushBuffVisualEffect = null;
     private Coroutine runningAmbushSequence = null;
 
     // Variables for attacking
@@ -248,6 +250,9 @@ public class TwitchAttackModule : IAttackModule
     private IEnumerator ambushSequence() {
         // Startup
         Debug.Log("INITIATING AMBUSH");
+        if (ambushBuffVisualEffect != null) {
+            ambushBuffVisualEffect.SetActive(false);
+        }
         audioManager.playAmbushStartup();
         yield return new WaitForSeconds(ambushStartupTime);
 
@@ -276,9 +281,15 @@ public class TwitchAttackModule : IAttackModule
         Debug.Log("ATTACK SPEED BUFF ACTIVE");
         status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
         audioManager.playAmbushBuff();
+        if (ambushBuffVisualEffect != null) {
+            ambushBuffVisualEffect.SetActive(true);
+        }
         yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
 
         // Cleanup
+        if (ambushBuffVisualEffect != null) {
+            ambushBuffVisualEffect.SetActive(false);
+        }
         status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
         Debug.Log("AMBUSH ENDS");
     }
