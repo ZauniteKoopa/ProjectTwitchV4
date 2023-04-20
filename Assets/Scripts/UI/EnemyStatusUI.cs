@@ -15,6 +15,8 @@ public class EnemyStatusUI : MonoBehaviour
     [SerializeField]
     private TMP_Text poisonHaloCount;
     [SerializeField]
+    private Animator poisonHaloAnimator;
+    [SerializeField]
     [Min(0.001f)]
     private float tickVibrateDelta = 0.2f;
     [SerializeField]
@@ -49,7 +51,13 @@ public class EnemyStatusUI : MonoBehaviour
         bool poisoned = poisonStacks > 0;
         poisonHalo.gameObject.SetActive(poisoned);
 
-        poisonHaloCount.text = "" + poisonStacks;
+        if (poisonHaloCount != null) {
+            poisonHaloCount.text = "" + poisonStacks;
+        }
+
+        if (poisonHaloAnimator != null) {
+            poisonHaloAnimator.SetInteger("NumPoisonStacks", poisonStacks);
+        }
     }
 
 
