@@ -1457,7 +1457,7 @@ RectTransform:
   m_Children:
   - {fileID: 199501527}
   m_Father: {fileID: 1347320806230522880}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4687,7 +4687,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1347320806230522880}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4765,8 +4765,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347320807614967884}
-  - {fileID: 1347320806228952368}
   - {fileID: 803065405}
+  - {fileID: 1347320806228952368}
   m_Father: {fileID: 1347320807677090374}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5779,6 +5779,7 @@ MonoBehaviour:
   ambushAttackSpeedBuff: 1.5
   ambushInvisibilityMovementBuff: 1.2
   ambushProximitySensor: {fileID: 1334931797}
+  ambushBuffVisualEffect: {fileID: 0}
 --- !u!114 &1347320807677090373
 MonoBehaviour:
   m_ObjectHideFlags: 0
