@@ -13,12 +13,27 @@ public class PoisonVialDisplay : MonoBehaviour
     private Image buttonIcon;
     [SerializeField]
     private PoisonCompositionDisplay compDisplay;
+    [SerializeField]
+    private Image vialFill;
+    [SerializeField]
+    private TMP_Text ammoLabel;
+
+
     public UnityEvent onLookupSideEffect;
 
 
     // Main function to display the poison vial
-    public void displayPoisonVial(PoisonVial p) {
-        p.displayInfo(sideEffectName, buttonIcon, compDisplay);
+    public void display(PoisonVial p) {
+        if (p == null) {
+            displayEmpty();
+
+        } else {
+            p.displayInfo(sideEffectName, buttonIcon, compDisplay);
+
+            vialFill.fillAmount = (float)p.getAmmo() / (float)PoisonVial.MAX_AMMO;
+            vialFill.color = p.getColor();
+            ammoLabel.text = "" + p.getAmmo();
+        }
     }
 
 
@@ -27,12 +42,15 @@ public class PoisonVialDisplay : MonoBehaviour
         sideEffectName.text = "???????";
         buttonIcon.gameObject.SetActive(false);
         compDisplay.displayEmptyComp();
+
+        vialFill.fillAmount = 0f;
+        vialFill.color = Color.black;
+        ammoLabel.text = "0";
     }
 
 
     // Main event handler for when someone whats to learn of the side effect
     public void onLookupPress() {
-        Debug.Log("Invoke");
         onLookupSideEffect.Invoke();
     }
 

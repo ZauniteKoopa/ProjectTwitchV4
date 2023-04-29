@@ -120,10 +120,32 @@ public class RecipeBook
     //  Pre: recipe != null and none of its contents are null
     //  Post: adds recipe to the appropriate section and sets the curPage to that section
     public void addNewRecipe(Recipe recipe) {
-        Debug.Assert(recipe != null && recipe.resultingSideEffect != null && recipe.ingredients != null);
+        Debug.Assert(recipe != null && recipe.resultingSideEffect != null);
 
-        recipes[recipe.resultingSideEffect.getType()].Add(recipe);
-        curPage = findSideEffect(recipe.resultingSideEffect);
+        int sectionIndex = 0;
+        List<Recipe> recipeSection = recipes[recipe.resultingSideEffect.getType()];
+
+        // See if you can find another copy of this recipe is found
+        while (sectionIndex < recipeSection.Count && recipeSection[sectionIndex].resultingSideEffect != recipe.resultingSideEffect) {
+            sectionIndex++;
+        }
+
+        // If you can't find a copy of this, add it. Else, replace it with the new recipe ONLY IFF newRecipe.ingredients != null
+        bool updated = false;
+
+        if (sectionIndex >= recipeSection.Count) {
+            recipeSection.Add(recipe);
+            updated = true;
+
+        } else if (recipe.ingredients != null && recipeSection[sectionIndex].ingredients == null) {
+            recipeSection[sectionIndex] = recipe;
+            updated = true;
+        }
+
+        // Set curPage to the new side effect IFF something updated
+        if (updated) {
+            curPage = findSideEffect(recipe.resultingSideEffect);
+        }
     }
 
 

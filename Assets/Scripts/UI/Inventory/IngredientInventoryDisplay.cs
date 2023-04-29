@@ -67,7 +67,6 @@ public class IngredientInventoryDisplay : MonoBehaviour
         int inventoryCount = 0;
 
         foreach(KeyValuePair<PoisonVialStat, int> entry in ingredientInventory) {
-            // do something with entry.Value or entry.Key
             Debug.Assert(iconMap.ContainsKey(entry.Key));
 
             iconMap[entry.Key].SetUpIcon(entry.Key, entry.Value, selectedCanvasLayer.transform);

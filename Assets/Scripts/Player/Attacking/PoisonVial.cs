@@ -30,7 +30,7 @@ public class PoisonVial
     // Main vial stats
     private Dictionary<PoisonVialStat, int> vialStats;
     private int ammo;
-    private SideEffect sideEffect;
+    public SideEffect sideEffect;
     private float startingBoltDamage = 5f;
 
     // Crafting 
@@ -203,6 +203,12 @@ public class PoisonVial
         }
 
         return true;
+    }
+
+
+    // Main function to check if you can craft
+    public bool canCraft() {
+        return numCraftAttempts < MAX_CRAFT_ATTEMPTS;
     }
 
 

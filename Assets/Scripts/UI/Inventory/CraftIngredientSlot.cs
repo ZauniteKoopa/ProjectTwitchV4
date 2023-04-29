@@ -64,6 +64,13 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
         ingStat = (ingredientIcon != null) ? ingredientIcon.GetRepresentedStat() : PoisonVialStat.POTENCY;
         return ingredientIcon == null;
     }
+    
+
+    // Accessor method to jsut check if you have an ingredient
+    public bool hasIngredient() {
+        return ingredientIcon == null;
+    }
+
 
     //Method to reset all this slot
     public void Reset()
