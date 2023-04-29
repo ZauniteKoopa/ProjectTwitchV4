@@ -978,6 +978,7 @@ GameObject:
   - component: {fileID: 187172473}
   - component: {fileID: 187172475}
   - component: {fileID: 187172474}
+  - component: {fileID: 187172476}
   m_Layer: 6
   m_Name: SecondaryVialDescription
   m_TagString: Untagged
@@ -1000,8 +1001,9 @@ RectTransform:
   - {fileID: 1073933118}
   - {fileID: 276546971}
   - {fileID: 424520228}
+  - {fileID: 1919026637}
   m_Father: {fileID: 661816239}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1046,6 +1048,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187172472}
   m_CullTransparentMesh: 1
+--- !u!114 &187172476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187172472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c4fe7468fe20d48aa5d8bf0ebf4a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideEffectName: {fileID: 424520229}
+  buttonIcon: {fileID: 276546973}
+  compDisplay: {fileID: 1073933119}
+  vialFill: {fileID: 907877416}
+  ammoLabel: {fileID: 1783483956}
+  onLookupSideEffect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 661816242}
+        m_TargetAssemblyTypeName: CraftVialUI, Assembly-CSharp
+        m_MethodName: lookAtSecondarySideEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &207094097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,7 +1163,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207094100}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 775617243}
+        m_TargetAssemblyTypeName: RecipeBookDisplay, Assembly-CSharp
+        m_MethodName: onNextButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &207094100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1312,6 +1358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228839157}
+  - component: {fileID: 228839158}
   m_Layer: 6
   m_Name: ComponentsDisplay (1)
   m_TagString: Untagged
@@ -1343,6 +1390,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &228839158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228839156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af865aa3673989645b4d5beffd6f4827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potencySlots:
+  - {fileID: 619012222}
+  - {fileID: 525263936}
+  - {fileID: 599696170}
+  poisonSlots:
+  - {fileID: 1812168019}
+  - {fileID: 1427219403}
+  - {fileID: 2123116492}
+  reactivitySlots:
+  - {fileID: 1353541550}
+  - {fileID: 666071040}
+  - {fileID: 2137293874}
+  stickinessSlots:
+  - {fileID: 856774471}
+  - {fileID: 1138564473}
+  - {fileID: 643160520}
 --- !u!1 &262784610
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,6 +3767,7 @@ GameObject:
   - component: {fileID: 661816239}
   - component: {fileID: 661816241}
   - component: {fileID: 661816240}
+  - component: {fileID: 661816242}
   m_Layer: 6
   m_Name: VialCrafting
   m_TagString: Untagged
@@ -3712,8 +3788,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 776287857}
-  - {fileID: 1604630220}
-  - {fileID: 1919026637}
   - {fileID: 1696904299}
   - {fileID: 187172473}
   - {fileID: 1101000328}
@@ -3764,6 +3838,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661816238}
   m_CullTransparentMesh: 1
+--- !u!114 &661816242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661816238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efcd1448b231d1e49918e28aff505188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryVialDisplay: {fileID: 1696904302}
+  secondaryVialDisplay: {fileID: 187172476}
+  ingSlot: {fileID: 776287860}
+  recipeBookDisplay: {fileID: 775617243}
+  primaryValve:
+  - {fileID: 988397445}
+  - {fileID: 1082219448}
+  secondaryValve:
+  - {fileID: 1531596442}
+  - {fileID: 1393092106}
+  offColor: {r: 0.003921569, g: 0.08627451, b: 0, a: 1}
+  craftingVialEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &664989578
 GameObject:
   m_ObjectHideFlags: 0
@@ -4623,6 +4723,7 @@ GameObject:
   - component: {fileID: 775617241}
   - component: {fileID: 775617240}
   - component: {fileID: 775617242}
+  - component: {fileID: 775617243}
   m_Layer: 6
   m_Name: RecipeBookPage
   m_TagString: Untagged
@@ -4648,6 +4749,7 @@ RectTransform:
   - {fileID: 79059906}
   - {fileID: 379747708}
   - {fileID: 207094098}
+  - {fileID: 1093315569}
   m_Father: {fileID: 262784611}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4709,6 +4811,23 @@ MonoBehaviour:
   sideEffectIcon: {fileID: 1111661104}
   nameLabel: {fileID: 2030013455}
   descriptionLabel: {fileID: 79059907}
+--- !u!114 &775617243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775617238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5681819610970a247938b4086c9c10e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideEffectDisplay: {fileID: 775617242}
+  ingredientsDisplay: {fileID: 379747709}
+  nextPageButton: {fileID: 207094099}
+  prevPageButton: {fileID: 1310830173}
+  noRecipeLabel: {fileID: 0}
 --- !u!1 &776287856
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,6 +5663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1073933118}
+  - component: {fileID: 1073933119}
   m_Layer: 6
   m_Name: ComponentsDisplay (1)
   m_TagString: Untagged
@@ -5575,6 +5695,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1073933119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073933117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af865aa3673989645b4d5beffd6f4827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potencySlots:
+  - {fileID: 1514476426}
+  - {fileID: 1459854419}
+  - {fileID: 1298020599}
+  poisonSlots:
+  - {fileID: 1565913459}
+  - {fileID: 1624128989}
+  - {fileID: 149731097}
+  reactivitySlots:
+  - {fileID: 1786570473}
+  - {fileID: 416305911}
+  - {fileID: 165775097}
+  stickinessSlots:
+  - {fileID: 525618775}
+  - {fileID: 1514557826}
+  - {fileID: 783219398}
 --- !u!1 &1082219446
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +5799,141 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082219446}
   m_CullTransparentMesh: 1
+--- !u!1 &1093315568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1093315569}
+  - component: {fileID: 1093315571}
+  - component: {fileID: 1093315570}
+  m_Layer: 6
+  m_Name: RecipeUnknownLabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1093315569
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093315568}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 775617239}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -311}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1093315570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093315568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Need more ingredients to be certain....
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 3
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1093315571
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093315568}
+  m_CullTransparentMesh: 1
 --- !u!1 &1101000327
 GameObject:
   m_ObjectHideFlags: 0
@@ -5684,7 +5967,7 @@ RectTransform:
   m_Children:
   - {fileID: 669253041}
   m_Father: {fileID: 661816239}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5734,7 +6017,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1101000330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 661816242}
+        m_TargetAssemblyTypeName: CraftVialUI, Assembly-CSharp
+        m_MethodName: onCraftButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1101000330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6380,7 +6675,7 @@ RectTransform:
   m_Children:
   - {fileID: 511237698}
   m_Father: {fileID: 661816239}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6430,7 +6725,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1194251250}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 661816242}
+        m_TargetAssemblyTypeName: CraftVialUI, Assembly-CSharp
+        m_MethodName: onValveSwap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1194251250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7153,7 +7460,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1310830174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 775617243}
+        m_TargetAssemblyTypeName: RecipeBookDisplay, Assembly-CSharp
+        m_MethodName: onPrevButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1310830174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8788,12 +9107,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 459277834}
-  m_Father: {fileID: 661816239}
-  m_RootOrder: 1
+  m_Father: {fileID: 1696904299}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 70}
+  m_AnchoredPosition: {x: -59.726883, y: 4}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1604630221
@@ -9566,6 +9885,7 @@ GameObject:
   - component: {fileID: 1696904299}
   - component: {fileID: 1696904301}
   - component: {fileID: 1696904300}
+  - component: {fileID: 1696904302}
   m_Layer: 6
   m_Name: PrimaryVialDescription
   m_TagString: Untagged
@@ -9588,8 +9908,9 @@ RectTransform:
   - {fileID: 228839157}
   - {fileID: 1829050841}
   - {fileID: 2030276039}
+  - {fileID: 1604630220}
   m_Father: {fileID: 661816239}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9634,6 +9955,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696904298}
   m_CullTransparentMesh: 1
+--- !u!114 &1696904302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696904298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c4fe7468fe20d48aa5d8bf0ebf4a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideEffectName: {fileID: 2030276040}
+  buttonIcon: {fileID: 1829050843}
+  compDisplay: {fileID: 228839158}
+  vialFill: {fileID: 2035167371}
+  ammoLabel: {fileID: 39373583}
+  onLookupSideEffect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 661816242}
+        m_TargetAssemblyTypeName: CraftVialUI, Assembly-CSharp
+        m_MethodName: lookAtPrimarySideEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1720329982
 GameObject:
   m_ObjectHideFlags: 0
@@ -10746,12 +11099,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1985636716}
-  m_Father: {fileID: 661816239}
-  m_RootOrder: 2
+  m_Father: {fileID: 187172473}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -70}
+  m_AnchoredPosition: {x: -59.726883, y: -3.9999695}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1919026638
