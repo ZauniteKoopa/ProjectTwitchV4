@@ -12,6 +12,8 @@ public class SideEffect : ScriptableObject
     [TextArea]
     private string description;
     public Sprite spriteIcon;
+    [SerializeField]
+    private PoisonVialStat sideEffectType;
 
     // Primary attack variables
     [Header("Primary Attack")]
@@ -72,5 +74,11 @@ public class SideEffect : ScriptableObject
     public void displaySideEffectInfo(SideEffectDisplay display) {
         Debug.Assert(display != null);
         display.displayItem(spriteIcon, displayName, description);
+    }
+
+
+    // Main function to access the side effect's type
+    public PoisonVialStat getType() {
+        return sideEffectType;
     }
 }
