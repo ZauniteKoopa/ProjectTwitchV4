@@ -33,8 +33,6 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private Vector3 startPosition;
     [SerializeField]
     private Canvas canvas = null;
-    [SerializeField]
-    private Canvas selectedCanvasLayer = null;
     public bool dropped;
 
     //Event when dragged on
@@ -47,8 +45,6 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         canvasGroup = GetComponent<CanvasGroup>();
         defaultParent = transform.parent;
         dropped = false;
-
-        SetUpIcon(PoisonVialStat.POISON, 3, selectedCanvasLayer.transform);
     }
 
     //Method to set up ingredient
