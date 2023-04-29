@@ -6,6 +6,13 @@ using UnityEngine.Assertions;
 [CreateAssetMenu(menuName = "PoisonSideEffects/SideEffect")]
 public class SideEffect : ScriptableObject
 {
+    // General Descriptions
+    public string displayName;
+    [SerializeField]
+    [TextArea]
+    private string description;
+    public Sprite spriteIcon;
+
     // Primary attack variables
     [Header("Primary Attack")]
     [SerializeField]
@@ -57,5 +64,13 @@ public class SideEffect : ScriptableObject
 
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
         curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
+    }
+
+
+    // Main function to display side effect info using a side effect display
+    //  Pre: sideEffectDisplay != null
+    public void displaySideEffectInfo(SideEffectDisplay display) {
+        Debug.Assert(display != null);
+        display.displayItem(spriteIcon, displayName, description);
     }
 }

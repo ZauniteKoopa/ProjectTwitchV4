@@ -641,7 +641,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 100, y: -26.3}
-  m_SizeDelta: {x: 150, y: 100}
+  m_SizeDelta: {x: 190, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &79059907
 MonoBehaviour:
@@ -690,8 +690,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4570,6 +4570,7 @@ GameObject:
   - component: {fileID: 775617239}
   - component: {fileID: 775617241}
   - component: {fileID: 775617240}
+  - component: {fileID: 775617242}
   m_Layer: 6
   m_Name: RecipeBookPage
   m_TagString: Untagged
@@ -4641,6 +4642,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775617238}
   m_CullTransparentMesh: 1
+--- !u!114 &775617242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775617238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38e248d49c4e83498defd477126a0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideEffectIcon: {fileID: 1111661104}
+  nameLabel: {fileID: 2030013455}
+  descriptionLabel: {fileID: 79059907}
 --- !u!1 &776287856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4652,6 +4668,7 @@ GameObject:
   - component: {fileID: 776287857}
   - component: {fileID: 776287859}
   - component: {fileID: 776287858}
+  - component: {fileID: 776287860}
   m_Layer: 6
   m_Name: IngredientSlot
   m_TagString: Untagged
@@ -4721,6 +4738,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776287856}
   m_CullTransparentMesh: 1
+--- !u!114 &776287860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776287856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b7bdb520c2c5c49a923189ce644c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 776287858}
+  emptyColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &783219396
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,6 +6197,8 @@ GameObject:
   - component: {fileID: 1143759790}
   - component: {fileID: 1143759792}
   - component: {fileID: 1143759791}
+  - component: {fileID: 1143759793}
+  - component: {fileID: 1143759794}
   m_Layer: 6
   m_Name: IngredientIcon
   m_TagString: Untagged
@@ -6232,6 +6265,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1143759789}
   m_CullTransparentMesh: 1
+--- !u!114 &1143759793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143759789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1839f8a04344ea46b563e53cb0356cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1143759791}
+  countText: {fileID: 1612022858}
+  emptyColor: {r: 0, g: 0, b: 0, a: 0}
+  filledColor: {r: 0.38798285, g: 1, b: 0, a: 1}
+  canvas: {fileID: 952999252}
+  selectedCanvasLayer: {fileID: 1550923837}
+  dropped: 0
+--- !u!225 &1143759794
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143759789}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1194251247
 GameObject:
   m_ObjectHideFlags: 0
@@ -11163,8 +11227,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

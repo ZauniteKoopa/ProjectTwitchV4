@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
+using TMPro;
 
 public enum PoisonVialStat {
     POTENCY,
@@ -215,5 +217,14 @@ public class PoisonVial
             return Color.Lerp(poisonVialConstants.baseVialColor, poisonVialConstants.getTempColor(maxStat), (float)vialStats[maxStat] / (float)(MAX_STAT - 1));
 
         }
+    }
+
+
+    // Main function to display info
+    public void displayInfo(TMP_Text sideEffectSlot, Image sideEffectButton, PoisonCompositionDisplay statDisplay) {
+        statDisplay.displayComposition(vialStats);
+        sideEffectSlot.text = sideEffect.displayName;
+        sideEffectButton.sprite = (sideEffect != poisonVialConstants.defaultSideEffect) ? sideEffect.spriteIcon : null;
+        sideEffectButton.gameObject.SetActive(sideEffect != poisonVialConstants.defaultSideEffect);
     }
 }
