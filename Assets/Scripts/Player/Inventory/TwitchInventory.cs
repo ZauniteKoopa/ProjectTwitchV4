@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class TwitchInventory : MonoBehaviour
 {
@@ -21,9 +23,23 @@ public class TwitchInventory : MonoBehaviour
     private Coroutine runningContaminateCooldownSequence = null;
     private Coroutine runningAmbushCooldownSequence = null;
 
+    // Crafting
+    [SerializeField]
+    private PlayerInput playerInput;
+    [SerializeField]
+    [Min(0.1f)]
+    private float craftingDuration = 1.5f; 
+    private Dictionary<PoisonVialStat, int> ingredientInventory = new Dictionary<PoisonVialStat, int>();
+    private RecipeBook recipeBook = new RecipeBook();
+    private int numIngredients = 0;
+    private int curMaxInventory = 3;
+    private Coroutine runningCraftingSequence = null;
+
     // UI
     [SerializeField]
     private PlayerScreenUI screenUI;
+    [SerializeField]
+    private MainInventoryUI inventoryUI;
 
 
     // Start is called before the first frame update
@@ -35,6 +51,7 @@ public class TwitchInventory : MonoBehaviour
 
         PoisonVial.poisonVialConstants = poisonVialParameters;
 
+        initializeIngredientDictionary();
         resetScreenUI();
 
         primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
@@ -51,6 +68,19 @@ public class TwitchInventory : MonoBehaviour
 
         screenUI.displayPrimaryVial(null);
         screenUI.displaySecondaryVial(null);
+    }
+
+
+    // Main function to initialize the ingredient dictionary
+    private void initializeIngredientDictionary() {
+        if (ingredientInventory.Count <= 0) {
+            ingredientInventory.Add(PoisonVialStat.POTENCY, 1);
+            ingredientInventory.Add(PoisonVialStat.POISON, 0);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 2);
+            ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
+
+            numIngredients = 3;
+        }
     }
 
 
@@ -260,6 +290,64 @@ public class TwitchInventory : MonoBehaviour
         PoisonVial tempVial = primaryVial;
         primaryVial = secondaryVial;
         secondaryVial = tempVial;
+
+        screenUI.displayPrimaryVial(primaryVial);
+        screenUI.displaySecondaryVial(secondaryVial);
+    }
+
+
+    // Main event handler for opening the inventory menu
+    public void onOpenInventoryAction(InputAction.CallbackContext value) {
+        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null) {
+            playerInput.enabled = false;
+            inventoryUI.open(ingredientInventory, curMaxInventory, primaryVial, secondaryVial, recipeBook);
+        }
+    }
+
+
+    // Main event handler function for when the menu was closed directly
+    public void onInventoryMenuClose() {
+        playerInput.enabled = true;
+    }
+
+
+    // Main event handler function for when the inventory menu closes because the player wants to craft
+    public void onInventoryMenuCraft(CraftParameters craftParameters) {
+        if (runningCraftingSequence == null) {
+            runningCraftingSequence = StartCoroutine(craftingSequence(craftParameters));
+        }
+    }
+
+
+    // Sequence for an actual successful craft
+    //  Pre: craftParameters != null
+    private IEnumerator craftingSequence(CraftParameters craftParameters) {
+        Debug.Assert(craftParameters != null);
+
+        yield return new WaitForSeconds(craftingDuration);
+
+        // Actually update the vials in the case vial exist
+        if (craftParameters.vial != null) {
+            bool success = craftParameters.vial.craft(craftParameters.stat);
+            Debug.Assert(success);
+
+        // Case where the parameters isn't pointing to a vial but isPrimary is true
+        } else if (craftParameters.isPrimary) {
+            primaryVial = new PoisonVial(craftParameters.stat);
+
+        // Case where its not pointing to a vial and isPrimary is false
+        } else {
+            secondaryVial = new PoisonVial(craftParameters.stat);
+
+        }
+
+        // Update ingredient count
+        Debug.Assert(ingredientInventory[craftParameters.stat] > 0);
+        ingredientInventory[craftParameters.stat]--;
+
+        // Update flags
+        playerInput.enabled = true;
+        runningCraftingSequence = null;
 
         screenUI.displayPrimaryVial(primaryVial);
         screenUI.displaySecondaryVial(secondaryVial);

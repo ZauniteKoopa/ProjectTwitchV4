@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 public class CraftParameters {
     public PoisonVialStat stat;
     public PoisonVial vial;
+    public bool isPrimary;
 }
 
 [System.Serializable]
@@ -42,9 +43,14 @@ public class CraftVialUI : MonoBehaviour
     public void open(PoisonVial p, PoisonVial s) {
         primaryVialDisplay.display(p);
         secondaryVialDisplay.display(s);
+        
+        primaryVial = p;
+        secondaryVial = s;
 
         turnOffValve(primaryValve);
         turnOffValve(secondaryValve);
+
+        ingSlot.Reset();
     }
 
 
@@ -58,7 +64,6 @@ public class CraftVialUI : MonoBehaviour
     // Main event handler function for when you swapped valves
     public void onValveSwap() {
         linkedToPrimary = !linkedToPrimary;
-
 
         if (ingSlot.hasIngredient()) {
             Image[] activeValve = (linkedToPrimary) ? primaryValve : secondaryValve;
@@ -87,9 +92,13 @@ public class CraftVialUI : MonoBehaviour
         }
 
         // Go ahead and craft
+        ingSlot.CraftIngredient();
+
+        Debug.Log(tgtVial);
         CraftParameters craftParameters = new CraftParameters();
         craftParameters.stat = ingStat;
         craftParameters.vial = tgtVial;
+        craftParameters.isPrimary = linkedToPrimary;
         craftingVialEvent.Invoke(craftParameters);
     }
 

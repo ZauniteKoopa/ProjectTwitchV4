@@ -39,7 +39,7 @@ public class PoisonVialDisplay : MonoBehaviour
 
     // Main function to display an empty poison vial
     public void displayEmpty() {
-        sideEffectName.text = "???????";
+        sideEffectName.text = "Maybe I should add something";
         buttonIcon.gameObject.SetActive(false);
         compDisplay.displayEmptyComp();
 

@@ -56,9 +56,10 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     {
         if (!initialized) {
             Awake();
+            startPosition = GetComponent<RectTransform>().anchoredPosition;
         }
 
-        startPosition = GetComponent<RectTransform>().anchoredPosition;
+
         selectedParent = selectedLayer;
         representedStat = stat;
 

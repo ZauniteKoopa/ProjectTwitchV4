@@ -27,7 +27,7 @@ public class RecipeBookDisplay : MonoBehaviour
         nextPageButton.interactable = totalRecipesCount > 0;
         prevPageButton.interactable = totalRecipesCount > 0;
 
-        if (totalRecipesCount > 0) {
+        if (totalRecipesCount <= 0) {
             sideEffectDisplay.displayEmpty();
             ingredientsDisplay.displayEmptyComp();
 

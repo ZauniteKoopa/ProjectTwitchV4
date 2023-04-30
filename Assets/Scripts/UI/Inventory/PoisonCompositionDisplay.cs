@@ -29,6 +29,7 @@ public class PoisonCompositionDisplay : MonoBehaviour
             addStatMapping(PoisonVialStat.POISON, poisonSlots);
             addStatMapping(PoisonVialStat.REACTIVITY, reactivitySlots);
             addStatMapping(PoisonVialStat.STICKINESS, stickinessSlots);
+            initialized = true;
         }
     }
 

@@ -29,6 +29,7 @@ public class MainInventoryUI : MonoBehaviour
         recipeBookDisplay.display(recipeBook);
 
         // Set flags up
+        Debug.Log("OPEN????");
         isOpened = true;
         prevTimeScale = Time.timeScale;
         Time.timeScale = 0f;
@@ -61,8 +62,15 @@ public class MainInventoryUI : MonoBehaviour
 
     // Main event handler function for closing the menu
     public void onCloseButtonPress(InputAction.CallbackContext value) {
-        if (value.started) {
+        if (value.started && isOpened) {
+            Debug.Log("CLOSE???");
             closeWithEvent();
         }
+    }
+
+
+    // Main accessor function for whether the menu is open
+    public bool isMenuOpen() {
+        return isOpened;
     }
 }

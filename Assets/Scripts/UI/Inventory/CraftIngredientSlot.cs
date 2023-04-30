@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHandler
 {
@@ -12,9 +13,7 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
     [SerializeField]
     private Color emptyColor = Color.clear;
     private IngredientIcon ingredientIcon = null;
-
-    //Event when dragged on
-    // public IngredientSelectDelegate OnIngredientSelect;
+    public UnityEvent ingredientDropEvent;
 
     //Audio
     //private AudioSource audioFX;
@@ -46,6 +45,7 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
                 ingIcon.SetIngredientForCrafting();
                 // icon.color = ingIcon.GetIngredient().getColor();
                 icon.color = Color.red;
+                ingredientDropEvent.Invoke();
             }
         }
     }
@@ -61,13 +61,13 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
     public bool hasIngredient(out PoisonVialStat ingStat)
     {
         ingStat = (ingredientIcon != null) ? ingredientIcon.GetRepresentedStat() : PoisonVialStat.POTENCY;
-        return ingredientIcon == null;
+        return ingredientIcon != null;
     }
     
 
     // Accessor method to jsut check if you have an ingredient
     public bool hasIngredient() {
-        return ingredientIcon == null;
+        return ingredientIcon != null;
     }
 
 

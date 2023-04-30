@@ -38,6 +38,8 @@ public class IngredientInventoryDisplay : MonoBehaviour
             if (inventoryLabel == null) {
                 Debug.LogError("Inventory label is null");
             }
+
+            initialized = true;
         }
     }
 
@@ -56,11 +58,11 @@ public class IngredientInventoryDisplay : MonoBehaviour
     // Main function to display the ingredient inventory
     //  Pre: ingredientInventory != null && inventoryCount >= maxSize
     public void display(Dictionary<PoisonVialStat, int> ingredientInventory, int maxSize) {
-        Debug.Assert(ingredientInventory != null && ingredientInventory.Count == iconMap.Count);
-
         if (!initialized) {
             Awake();
         }
+        
+        Debug.Assert(ingredientInventory != null && ingredientInventory.Count == iconMap.Count);
         
         int inventoryCount = 0;
 
