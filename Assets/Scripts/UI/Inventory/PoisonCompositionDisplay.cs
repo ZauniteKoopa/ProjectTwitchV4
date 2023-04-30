@@ -18,25 +18,18 @@ public class PoisonCompositionDisplay : MonoBehaviour
     private Dictionary<PoisonVialStat, Image[]> poisonSlotsMap = new Dictionary<PoisonVialStat, Image[]>();
 
     private Color filledColor = Color.red;
+    private bool initialized = false;
 
 
 
     // On awake, setup the map and error check
     private void Awake() {
-        addStatMapping(PoisonVialStat.POTENCY, potencySlots);
-        addStatMapping(PoisonVialStat.POISON, poisonSlots);
-        addStatMapping(PoisonVialStat.REACTIVITY, reactivitySlots);
-        addStatMapping(PoisonVialStat.STICKINESS, stickinessSlots);
-
-        // Test site
-        // displayEmptyComp();
-
-        Dictionary<PoisonVialStat, int> stats = new Dictionary<PoisonVialStat, int>();
-        stats.Add(PoisonVialStat.POTENCY, 1);
-        stats.Add(PoisonVialStat.POISON, 2);
-        stats.Add(PoisonVialStat.REACTIVITY, 3);
-        stats.Add(PoisonVialStat.STICKINESS, 1);
-        displayComposition(stats);
+        if (!initialized) {
+            addStatMapping(PoisonVialStat.POTENCY, potencySlots);
+            addStatMapping(PoisonVialStat.POISON, poisonSlots);
+            addStatMapping(PoisonVialStat.REACTIVITY, reactivitySlots);
+            addStatMapping(PoisonVialStat.STICKINESS, stickinessSlots);
+        }
     }
 
 
@@ -56,6 +49,10 @@ public class PoisonCompositionDisplay : MonoBehaviour
     public void displayComposition(Dictionary<PoisonVialStat, int> poisonComp) {
         Debug.Assert(poisonComp != null && poisonComp.Count == 4);
 
+        if (!initialized) {
+            Awake();
+        }
+
         foreach(KeyValuePair<PoisonVialStat, int> entry in poisonComp) {
             // do something with entry.Value or entry.Key
             Debug.Assert(entry.Value <= 3 && poisonSlotsMap.ContainsKey(entry.Key));
@@ -70,6 +67,10 @@ public class PoisonCompositionDisplay : MonoBehaviour
 
     // Main function to display empty
     public void displayEmptyComp() {
+        if (!initialized) {
+            Awake();
+        }
+        
         foreach(KeyValuePair<PoisonVialStat, Image[]> entry in poisonSlotsMap) {
             for (int s = 0; s < entry.Value.Length; s++) {
                 entry.Value[s].color = Color.black;

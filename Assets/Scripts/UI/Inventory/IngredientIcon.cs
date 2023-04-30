@@ -37,19 +37,27 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     //Event when dragged on
     private const float ICON_SNAPBACK_TIME = 0.1f;
+    private bool initialized = false;
 
     //On awake, set start position
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-        defaultParent = transform.parent;
-        dropped = false;
+        if (!initialized) {
+            rectTransform = GetComponent<RectTransform>();
+            canvasGroup = GetComponent<CanvasGroup>();
+            defaultParent = transform.parent;
+            dropped = false;
+            initialized = true;
+        }
     }
 
     //Method to set up ingredient
     public void SetUpIcon(PoisonVialStat stat, int n, Transform selectedLayer)
     {
+        if (!initialized) {
+            Awake();
+        }
+
         startPosition = GetComponent<RectTransform>().anchoredPosition;
         selectedParent = selectedLayer;
         representedStat = stat;
@@ -62,6 +70,10 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     //Method to clear icon
     public void ClearIcon()
     {
+        if (!initialized) {
+            Awake();
+        }
+        
         if (rectTransform == null && canvasGroup == null) {
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();

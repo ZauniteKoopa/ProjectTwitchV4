@@ -52,7 +52,11 @@ public class RecipeBookDisplay : MonoBehaviour
 
     // Main function to display a specific side effect if found
     public void displaySpecificSideEffect(SideEffect sideEffect) {
+        Recipe r = curRecipeBook.jumpToSideEffect(sideEffect);
 
+        if (r != null) {
+            displayRecipe(r);
+        }
     }
 
 

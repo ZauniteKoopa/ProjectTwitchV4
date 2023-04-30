@@ -11,7 +11,7 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
     private Image icon = null;
     [SerializeField]
     private Color emptyColor = Color.clear;
-    private IngredientIcon ingredientIcon;
+    private IngredientIcon ingredientIcon = null;
 
     //Event when dragged on
     // public IngredientSelectDelegate OnIngredientSelect;
@@ -22,7 +22,6 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
     // Start is called before the first frame update
     void Awake()
     {
-        ingredientIcon = null;
         // OnIngredientSelect = new IngredientSelectDelegate();
         //audioFX = GetComponent<AudioSource>();
     }

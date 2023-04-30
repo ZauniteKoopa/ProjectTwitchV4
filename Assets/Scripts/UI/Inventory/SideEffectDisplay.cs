@@ -19,8 +19,6 @@ public class SideEffectDisplay : MonoBehaviour
         if (sideEffectIcon == null || nameLabel == null || descriptionLabel == null) {
             Debug.LogError("Please ensure that all properties of the side effect display are filled");
         }
-
-        displayItem(null, "RAT-TA-TAT-TAT", "Shows now pierce through enemies, dealing less damage the more enemies it goes through. +25% bold damage");
     }
 
 

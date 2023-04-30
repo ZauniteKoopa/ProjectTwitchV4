@@ -24,27 +24,21 @@ public class IngredientInventoryDisplay : MonoBehaviour
     private Canvas selectedCanvasLayer = null;
 
     private Dictionary<PoisonVialStat, IngredientIcon> iconMap = new Dictionary<PoisonVialStat, IngredientIcon>();
+    private bool initialized = false;
 
 
     // On awake, set up map
     private void Awake() {
-        addMapping(PoisonVialStat.POTENCY, potencyIcon);
-        addMapping(PoisonVialStat.POISON, poisonIcon);
-        addMapping(PoisonVialStat.REACTIVITY, reactivityIcon);
-        addMapping(PoisonVialStat.STICKINESS, stickinessIcon);
+        if (!initialized) {
+            addMapping(PoisonVialStat.POTENCY, potencyIcon);
+            addMapping(PoisonVialStat.POISON, poisonIcon);
+            addMapping(PoisonVialStat.REACTIVITY, reactivityIcon);
+            addMapping(PoisonVialStat.STICKINESS, stickinessIcon);
 
-        if (inventoryLabel == null) {
-            Debug.LogError("Inventory label is null");
+            if (inventoryLabel == null) {
+                Debug.LogError("Inventory label is null");
+            }
         }
-
-        // Testing stuff
-        Dictionary<PoisonVialStat, int> testIngredientInv = new Dictionary<PoisonVialStat, int>();
-        testIngredientInv.Add(PoisonVialStat.POTENCY, 2);
-        testIngredientInv.Add(PoisonVialStat.POISON, 1);
-        testIngredientInv.Add(PoisonVialStat.REACTIVITY, 0);
-        testIngredientInv.Add(PoisonVialStat.STICKINESS, 0);
-
-        display(testIngredientInv, 5);
     }
 
 
@@ -64,6 +58,10 @@ public class IngredientInventoryDisplay : MonoBehaviour
     public void display(Dictionary<PoisonVialStat, int> ingredientInventory, int maxSize) {
         Debug.Assert(ingredientInventory != null && ingredientInventory.Count == iconMap.Count);
 
+        if (!initialized) {
+            Awake();
+        }
+        
         int inventoryCount = 0;
 
         foreach(KeyValuePair<PoisonVialStat, int> entry in ingredientInventory) {
