@@ -307,6 +307,13 @@ public class TwitchInventory : MonoBehaviour
 
     // Main event handler function for when the menu was closed directly
     public void onInventoryMenuClose() {
+        StartCoroutine(enableControls());
+    }
+
+
+    // Main sequence for when the inventory menu closed
+    private IEnumerator enableControls() {
+        yield return 0;
         playerInput.enabled = true;
     }
 

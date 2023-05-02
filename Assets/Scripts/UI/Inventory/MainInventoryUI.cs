@@ -13,6 +13,8 @@ public class MainInventoryUI : MonoBehaviour
     private CraftVialUI craftingUI;
     [SerializeField]
     private RecipeBookDisplay recipeBookDisplay;
+    [SerializeField]
+    private PlayerInput playerInput;
 
     public UnityEvent inventoryMenuClosedEvent;
     private bool isOpened = false;
@@ -28,12 +30,22 @@ public class MainInventoryUI : MonoBehaviour
         craftingUI.open(primaryVial, secondaryVial);
         recipeBookDisplay.display(recipeBook);
 
+        gameObject.SetActive(true);
+        StartCoroutine(openSequence());
+    }
+
+
+    // Main open sequence
+    private IEnumerator openSequence() {
+        yield return 0;
+
         // Set flags up
         Debug.Log("OPEN????");
         isOpened = true;
         prevTimeScale = Time.timeScale;
+        playerInput.enabled = true;
+
         Time.timeScale = 0f;
-        gameObject.SetActive(true);
     }
 
 
@@ -43,8 +55,11 @@ public class MainInventoryUI : MonoBehaviour
     public void close() {
         if (isOpened) {
             isOpened = false;
+
             Time.timeScale = prevTimeScale;
             gameObject.SetActive(false);
+            playerInput.enabled = false;
+            Debug.Log("Closed");
         }
     }
 
