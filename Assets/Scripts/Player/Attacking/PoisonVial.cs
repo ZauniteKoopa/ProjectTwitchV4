@@ -23,7 +23,7 @@ public class PoisonVial
 
     private static readonly int AMMO_GAIN_PER_INGREDIENT = 10;
     private static readonly int MAX_STAT = 3;
-    private static readonly int MAX_CRAFT_ATTEMPTS = 10;
+    private static readonly int MAX_CRAFT_ATTEMPTS = 8;
     public static readonly int MAX_AMMO = 60;
     public static PoisonVialConstants poisonVialConstants;
 
@@ -227,9 +227,10 @@ public class PoisonVial
 
 
     // Main function to display info
-    public void displayInfo(TMP_Text sideEffectSlot, Image sideEffectButton, PoisonCompositionDisplay statDisplay) {
+    public void displayInfo(TMP_Text upgradesLeftText, Image sideEffectButton, PoisonCompositionDisplay statDisplay) {
         statDisplay.displayComposition(vialStats);
-        sideEffectSlot.text = sideEffect.displayName;
+        upgradesLeftText.text = "Upgrades: " + numCraftAttempts + "/" + MAX_CRAFT_ATTEMPTS;
+        upgradesLeftText.color = (numCraftAttempts < MAX_CRAFT_ATTEMPTS) ? Color.black : Color.red;
         sideEffectButton.sprite = (sideEffect != poisonVialConstants.defaultSideEffect) ? sideEffect.spriteIcon : null;
         sideEffectButton.gameObject.SetActive(sideEffect != poisonVialConstants.defaultSideEffect);
     }

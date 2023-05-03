@@ -30,6 +30,7 @@ public class CraftVialUI : MonoBehaviour
     private Image[] secondaryValve;
     [SerializeField]
     private Color offColor = Color.black;
+    private Color filledColor;
 
     // Runtime variables
     private PoisonVial primaryVial;
@@ -57,7 +58,11 @@ public class CraftVialUI : MonoBehaviour
     // Main event handler function for when an ingredient has been dropped
     public void onIngredientSlotFilled() {
         Image[] activeValve = (linkedToPrimary) ? primaryValve : secondaryValve;
-        turnOnValve(activeValve, Color.red);
+
+        PoisonVialStat stat;
+        ingSlot.hasIngredient(out stat);
+        filledColor = PoisonVial.poisonVialConstants.getPureColor(stat);
+        turnOnValve(activeValve, filledColor);
     }
 
 
@@ -70,7 +75,7 @@ public class CraftVialUI : MonoBehaviour
             Image[] passiveValve = (!linkedToPrimary) ? primaryValve : secondaryValve;
 
             turnOffValve(passiveValve);
-            turnOnValve(activeValve, Color.red);
+            turnOnValve(activeValve, filledColor);
         }
     }
 

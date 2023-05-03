@@ -17,7 +17,6 @@ public class PoisonCompositionDisplay : MonoBehaviour
 
     private Dictionary<PoisonVialStat, Image[]> poisonSlotsMap = new Dictionary<PoisonVialStat, Image[]>();
 
-    private Color filledColor = Color.red;
     private bool initialized = false;
 
 
@@ -60,7 +59,7 @@ public class PoisonCompositionDisplay : MonoBehaviour
 
             Image[] statSlots = poisonSlotsMap[entry.Key];
             for (int s = 0; s < statSlots.Length; s++) {
-                statSlots[s].color = (s < entry.Value) ? filledColor : Color.black;
+                statSlots[s].color = (s < entry.Value) ? PoisonVial.poisonVialConstants.getTempColor(entry.Key) : Color.black;
             }
         }
     }

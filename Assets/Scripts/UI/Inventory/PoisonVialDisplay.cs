@@ -8,7 +8,7 @@ using TMPro;
 public class PoisonVialDisplay : MonoBehaviour
 {
     [SerializeField]
-    private TMP_Text sideEffectName;
+    private TMP_Text upgradesLeft;
     [SerializeField]
     private Image buttonIcon;
     [SerializeField]
@@ -28,7 +28,7 @@ public class PoisonVialDisplay : MonoBehaviour
             displayEmpty();
 
         } else {
-            p.displayInfo(sideEffectName, buttonIcon, compDisplay);
+            p.displayInfo(upgradesLeft, buttonIcon, compDisplay);
 
             vialFill.fillAmount = (float)p.getAmmo() / (float)PoisonVial.MAX_AMMO;
             vialFill.color = p.getColor();
@@ -39,7 +39,7 @@ public class PoisonVialDisplay : MonoBehaviour
 
     // Main function to display an empty poison vial
     public void displayEmpty() {
-        sideEffectName.text = "Maybe I should add something";
+        upgradesLeft.text = "";
         buttonIcon.gameObject.SetActive(false);
         compDisplay.displayEmptyComp();
 

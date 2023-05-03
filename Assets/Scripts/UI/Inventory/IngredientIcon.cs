@@ -18,8 +18,7 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private TMP_Text countText = null;
     [SerializeField]
     private Color emptyColor = Color.clear;
-    [SerializeField]
-    private Color filledColor = Color.red;
+    private Color filledColor;
     private PoisonVialStat representedStat;
     private int count;
 
@@ -62,6 +61,7 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
         selectedParent = selectedLayer;
         representedStat = stat;
+        filledColor = PoisonVial.poisonVialConstants.getPureColor(representedStat);
 
         count = n;
         countText.text = "" + n;

@@ -40,7 +40,6 @@ public class MainInventoryUI : MonoBehaviour
         yield return 0;
 
         // Set flags up
-        Debug.Log("OPEN????");
         isOpened = true;
         prevTimeScale = Time.timeScale;
         playerInput.enabled = true;
@@ -59,7 +58,6 @@ public class MainInventoryUI : MonoBehaviour
             Time.timeScale = prevTimeScale;
             gameObject.SetActive(false);
             playerInput.enabled = false;
-            Debug.Log("Closed");
         }
     }
 
