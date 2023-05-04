@@ -180,7 +180,7 @@ public class PoisonVial
     // Main function to craft the vial
     //  Pre: stat is one of the 4 available stats
     //  Post: returns true if crafting is successful. returns 
-    public bool craft(PoisonVialStat stat) {
+    public bool craft(PoisonVialStat stat, RecipeBook recipeBook) {
         if (numCraftAttempts >= MAX_CRAFT_ATTEMPTS) {
             return false;
         }
@@ -191,15 +191,30 @@ public class PoisonVial
 
         // If potential not reached yet, increase stat
         if (!reachedPotential) {
-            vialStats[stat]++;
-
             // Update maxStat if new max stat found
+            vialStats[stat]++;
             if (vialStats[stat] > vialStats[maxStat]) {
                 maxStat = stat;
             }
 
             // Update reachedPotential flag if vial stat has reached max stacks
-            reachedPotential = vialStats[stat] >= MAX_STAT;
+            if (vialStats[stat] >= MAX_STAT) {
+                reachedPotential = true;
+
+                bool filledRecipe = (numCraftAttempts == RecipeBook.RECIPE_INGREDIENT_REQUIREMENTS);
+                sideEffect = filledRecipe ? sideEffect = recipeBook.createSideEffectFromRecipe(vialStats, stat) : null;
+                if (sideEffect == null) {
+                    sideEffect = poisonVialConstants.obtainSideEffect(stat);
+
+                    if (filledRecipe) {
+                        Recipe newRecipe = new Recipe();
+                        newRecipe.composition = vialStats;
+                        newRecipe.sideEffect = sideEffect;
+
+                        recipeBook.addNewRecipe(newRecipe);
+                    }
+                }
+            }
         }
 
         return true;

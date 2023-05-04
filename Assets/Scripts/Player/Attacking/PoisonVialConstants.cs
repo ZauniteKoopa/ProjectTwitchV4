@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 [CreateAssetMenu]
 public class PoisonVialConstants : ScriptableObject
@@ -22,6 +23,16 @@ public class PoisonVialConstants : ScriptableObject
 
     [Header("Side Effects")]
     public SideEffect defaultSideEffect;
+    [SerializeField]
+    private SideEffect[] potencySideEffects;
+    [SerializeField]
+    private SideEffect[] poisonSideEffects;
+    [SerializeField]
+    private SideEffect[] reactivitySideEffects;
+    [SerializeField]
+    private SideEffect[] stickinessSideEffects;
+    private Dictionary<PoisonVialStat, SideEffect[]> sideEffectDictionary = null;
+    
 
 
     
@@ -66,5 +77,28 @@ public class PoisonVialConstants : ScriptableObject
             default:
                 throw new System.Exception("INVALID STAT FOUND");
         }
+    }
+
+
+    // Main function to obtain a side effect of a certain type
+    public SideEffect obtainSideEffect(PoisonVialStat specialization) {
+        if (sideEffectDictionary == null) {
+            initializeSideEffectDictionary();
+        }
+
+        SideEffect[] sideEffectList = sideEffectDictionary[specialization];
+        Debug.Assert(sideEffectList.Length > 0);
+        return sideEffectList[Random.Range(0, sideEffectList.Length)];
+    }
+
+
+    // Private helper function to initialize the dictionary
+    private void initializeSideEffectDictionary() {
+        Debug.Assert(sideEffectDictionary != null);
+
+        sideEffectDictionary.Add(PoisonVialStat.POTENCY, potencySideEffects);
+        sideEffectDictionary.Add(PoisonVialStat.POISON, poisonSideEffects);
+        sideEffectDictionary.Add(PoisonVialStat.REACTIVITY, reactivitySideEffects);
+        sideEffectDictionary.Add(PoisonVialStat.STICKINESS, stickinessSideEffects);
     }
 }

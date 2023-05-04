@@ -13,6 +13,7 @@ public class RecipeBook
 {
     private int curPage = 0;
     private SortedDictionary<PoisonVialStat, List<Recipe>> recipes;
+    public static int RECIPE_INGREDIENT_REQUIREMENTS = 6;
 
 
     // Main constructor
@@ -161,5 +162,30 @@ public class RecipeBook
 
         curPage = tempPage;
         return getRecipeAtCurrentPage();
+    }
+
+
+    // Main function to check if you fullfilled the requirements for a recipe
+    //  Pre: poisonComposition has a total of RECIPE_INGREDIENT_REQUIREMENTS stats, specialization should be at MAX_STATS
+    //  Post: returns a side effect if you did fullfill one recipe. returns null if you didn't
+    public SideEffect createSideEffectFromRecipe(Dictionary<PoisonVialStat, int> poisonComposition, SideEffect specialization) {
+        List<Recipe> recipeSection = recipes[specialization];
+
+        foreach (Recipe recipe in recipeSection) {
+            Dictionary<PoisonVialStat, int> ingredients = recipe.ingredients;
+            int matchedStats = 0;
+
+            foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
+                if (entry.Key != specialization && entry.Value == poisonComposition[entry.Key]) {
+                    matchedStats++;
+                }
+            }
+
+            if (matchedStats == ingredients.Length - 1) {
+                return recipe.sideEffect;
+            }
+        }
+
+        return null;
     }
 }
