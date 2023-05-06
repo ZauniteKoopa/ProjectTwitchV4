@@ -341,10 +341,12 @@ public class TwitchInventory : MonoBehaviour
         // Case where the parameters isn't pointing to a vial but isPrimary is true
         } else if (craftParameters.isPrimary) {
             primaryVial = new PoisonVial(craftParameters.stat);
+            primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
 
         // Case where its not pointing to a vial and isPrimary is false
         } else {
             secondaryVial = new PoisonVial(craftParameters.stat);
+            secondaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
 
         }
 

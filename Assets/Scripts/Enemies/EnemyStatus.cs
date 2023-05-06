@@ -48,7 +48,7 @@ public class EnemyStatus : IUnitStatus
         }
 
         enemyStatusUI.updateHealthBar(curHealth, maxHealth);
-        enemyStatusUI.updatePoisonHalo(0);
+        enemyStatusUI.updatePoisonHalo(0, Color.white);
     }
 
 
@@ -118,7 +118,7 @@ public class EnemyStatus : IUnitStatus
                     curPoisonTick = 0;
                 }
 
-                enemyStatusUI.updatePoisonHalo(curPoisonStacks);
+                enemyStatusUI.updatePoisonHalo(curPoisonStacks, poison.getColor());
             }
         }
 
@@ -207,7 +207,7 @@ public class EnemyStatus : IUnitStatus
             curPoisonStacks = 0;
             curPoison = null;
             curPoisonTick = 0;
-            enemyStatusUI.updatePoisonHalo(curPoisonStacks);
+            enemyStatusUI.updatePoisonHalo(curPoisonStacks, Color.white);
 
             if (currentPoisoningSequence != null) {
                 StopCoroutine(currentPoisoningSequence);

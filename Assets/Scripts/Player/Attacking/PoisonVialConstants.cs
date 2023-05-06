@@ -32,6 +32,14 @@ public class PoisonVialConstants : ScriptableObject
     [SerializeField]
     private SideEffect[] stickinessSideEffects;
     private Dictionary<PoisonVialStat, SideEffect[]> sideEffectDictionary = null;
+
+    [Header("Default Side Effect Multipliers")]
+    [Min(0.1f)]
+    public float potencyBoltMultiplier = 1.5f;
+    [Min(0.1f)]
+    public float poisonDoTMultiplier = 2f;
+    [Min(0.1f)]
+    public float reactivityContaminateMultiplier = 1.25f;
     
 
 

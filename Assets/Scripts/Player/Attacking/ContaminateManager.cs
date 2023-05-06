@@ -42,15 +42,19 @@ public class ContaminateManager : MonoBehaviour
 
         // For each locked target, just contaminate them
         foreach (EnemyStatus tgt in lockedTargets) {
-            LobAction curEffect = Object.Instantiate(contaminateVisualEffect, transform.position, Quaternion.identity);
-            curEffect.lobWithTime(transform.position, tgt.transform.position, contaminateEffectTime, null);
+            if (tgt.isPoisoned()) {
+                LobAction curEffect = Object.Instantiate(contaminateVisualEffect, transform.position, Quaternion.identity);
+                curEffect.lobWithTime(transform.position, tgt.transform.position, contaminateEffectTime, null);
+            }
         }
 
         yield return new WaitForSeconds(contaminateEffectTime);
 
         // For each locked target, just contaminate them
         foreach (EnemyStatus tgt in lockedTargets) {
-            tgt.contaminate();
+            if (tgt.isPoisoned()) {
+                tgt.contaminate();
+            }
         }
     }
 

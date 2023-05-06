@@ -45,11 +45,12 @@ public class EnemyStatusUI : MonoBehaviour
     // Main function to update poison halo
     //  Pre: poisonStacks >= 0
     //  Post: update poison stacks display
-    public void updatePoisonHalo(int poisonStacks) {
+    public void updatePoisonHalo(int poisonStacks, Color poisonColor) {
         Debug.Assert(poisonStacks >= 0);
 
         bool poisoned = poisonStacks > 0;
         poisonHalo.gameObject.SetActive(poisoned);
+        poisonHalo.color = poisonColor;
 
         if (poisonHaloCount != null) {
             poisonHaloCount.text = "" + poisonStacks;

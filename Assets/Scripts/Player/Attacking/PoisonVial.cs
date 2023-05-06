@@ -18,8 +18,9 @@ public class PoisonVial
     // Static const variables
     private static readonly int STARTING_AMMO = 40;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
-    private static readonly float POISON_DMG_PER_STACK = 0.5f;
-    private static readonly float CONTAMINATE_DMG_PER_STACK = 5f;
+    private static readonly float POISON_DMG_PER_STACK = 0.1f;
+    private static readonly float BASE_CONTAMINATE_DMG = 5.5f;
+    private static readonly float CONTAMINATE_DMG_PER_STACK = 1f;
 
     private static readonly int AMMO_GAIN_PER_INGREDIENT = 10;
     private static readonly int MAX_STAT = 3;
@@ -31,7 +32,7 @@ public class PoisonVial
     private Dictionary<PoisonVialStat, int> vialStats;
     private int ammo;
     public SideEffect sideEffect;
-    private float startingBoltDamage = 5f;
+    private float startingBoltDamage = 2.5f;
 
     // Crafting 
     private bool reachedPotential = false;
@@ -62,6 +63,8 @@ public class PoisonVial
 
     // Main function to get poison damage
     public float getPoisonDamage(int numStacks) {
+        float basePoisonDamage = POISON_DMG_PER_STACK * numStacks;
+        basePoisonDamage *= (reachedPotential && sideEffect.getType() == PoisonVialStat.POISON) ? poisonVialConstants.poisonDoTMultiplier : 1f;
         return POISON_DMG_PER_STACK * numStacks;
     }
 
@@ -100,7 +103,9 @@ public class PoisonVial
         }
 
         ammo -= PRIMARY_BOLT_AMMO_COST;
-        sideEffect.firePrimaryAttack(attackDir, attacker, startingBoltDamage, this);
+        float curBoltDamage = startingBoltDamage;
+        curBoltDamage *= (reachedPotential && sideEffect.getType() == PoisonVialStat.POTENCY) ? poisonVialConstants.potencyBoltMultiplier : 1f;
+        sideEffect.firePrimaryAttack(attackDir, attacker, curBoltDamage, this);
         return true;
     }
 
@@ -166,7 +171,8 @@ public class PoisonVial
     public void contaminate(EnemyStatus tgt, int poisonStacks) {
         Debug.Assert(tgt != null && poisonStacks > 0);
 
-        float contaminateDmg = CONTAMINATE_DMG_PER_STACK * poisonStacks;
+        float contaminateDmg = (CONTAMINATE_DMG_PER_STACK * poisonStacks) + BASE_CONTAMINATE_DMG;
+        contaminateDmg *= (reachedPotential && sideEffect.getType() == PoisonVialStat.REACTIVITY) ? poisonVialConstants.reactivityContaminateMultiplier : 1f;
         if (tgt.damage(contaminateDmg, false)) {
             contaminateExecuteEvent.Invoke();
         }
