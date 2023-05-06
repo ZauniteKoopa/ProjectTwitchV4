@@ -25,6 +25,9 @@ public class SideEffect : ScriptableObject
     [SerializeField]
     [Min(1)]
     public int primaryAttackEndFrames = 1;
+    [SerializeField]
+    [Min(0.1f)]
+    private float primaryAttackMultiplier = 1.0f;
 
     [Header("Secondary Attack")]
     [SerializeField]
@@ -54,7 +57,7 @@ public class SideEffect : ScriptableObject
         Debug.Assert(attacker != null && primaryAttackPrefab != null);
 
         IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
-        curBolt.setUp(attackDir, damage, parentPoison);
+        curBolt.setUp(attackDir, damage * primaryAttackMultiplier, parentPoison);
     }
 
 

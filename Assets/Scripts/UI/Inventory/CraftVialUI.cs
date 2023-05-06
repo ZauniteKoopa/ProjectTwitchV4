@@ -99,7 +99,6 @@ public class CraftVialUI : MonoBehaviour
         // Go ahead and craft
         ingSlot.CraftIngredient();
 
-        Debug.Log(tgtVial);
         CraftParameters craftParameters = new CraftParameters();
         craftParameters.stat = ingStat;
         craftParameters.vial = tgtVial;

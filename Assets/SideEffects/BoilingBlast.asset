@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
-  m_Name: NoSideEffect
+  m_Name: BoilingBlast
   m_EditorClassIdentifier: 
-  displayName: Not ripe yet...
-  description: 
-  spriteIcon: {fileID: 0}
-  sideEffectType: 0
-  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
-  primaryAttackStartFrames: 10
-  primaryAttackEndFrames: 20
-  primaryAttackMultiplier: 1
+  displayName: Boiling Blast
+  description: It's too unstable! My bolt explodes right in front of me! Can't make
+    useful rats with this, but the bolts hurt more though. +1.5x Contaminate Damage
+  spriteIcon: {fileID: 21300000, guid: 91bb65c7e444344449e7a44533b0c589, type: 3}
+  sideEffectType: 2
+  primaryAttackPrefab: {fileID: 5911567955735722237, guid: 913bcf7a2dfa36a4ba2b924ceae7119f, type: 3}
+  primaryAttackStartFrames: 20
+  primaryAttackEndFrames: 30
+  primaryAttackMultiplier: 1.5
   secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
   secondaryAttackSpeed: 12
   secondaryAttackStartFrames: 15

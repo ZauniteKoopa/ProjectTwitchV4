@@ -32,7 +32,7 @@ public class TwitchInventory : MonoBehaviour
     private Dictionary<PoisonVialStat, int> ingredientInventory = new Dictionary<PoisonVialStat, int>();
     private RecipeBook recipeBook = new RecipeBook();
     private int numIngredients = 0;
-    private int curMaxInventory = 3;
+    private int curMaxInventory = 12;
     private Coroutine runningCraftingSequence = null;
 
     // UI
@@ -74,9 +74,9 @@ public class TwitchInventory : MonoBehaviour
     // Main function to initialize the ingredient dictionary
     private void initializeIngredientDictionary() {
         if (ingredientInventory.Count <= 0) {
-            ingredientInventory.Add(PoisonVialStat.POTENCY, 1);
-            ingredientInventory.Add(PoisonVialStat.POISON, 0);
-            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 2);
+            ingredientInventory.Add(PoisonVialStat.POTENCY, 4);
+            ingredientInventory.Add(PoisonVialStat.POISON, 2);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 6);
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
             numIngredients = 3;

@@ -22,3 +22,11 @@ MonoBehaviour:
   tempPoisonColor: {r: 0.16961426, g: 0.6415094, b: 0, a: 1}
   baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
+  potencySideEffects:
+  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  poisonSideEffects:
+  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  reactivitySideEffects:
+  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  stickinessSideEffects:
+  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}

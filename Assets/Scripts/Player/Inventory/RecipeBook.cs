@@ -168,7 +168,7 @@ public class RecipeBook
     // Main function to check if you fullfilled the requirements for a recipe
     //  Pre: poisonComposition has a total of RECIPE_INGREDIENT_REQUIREMENTS stats, specialization should be at MAX_STATS
     //  Post: returns a side effect if you did fullfill one recipe. returns null if you didn't
-    public SideEffect createSideEffectFromRecipe(Dictionary<PoisonVialStat, int> poisonComposition, SideEffect specialization) {
+    public SideEffect createSideEffectFromRecipe(Dictionary<PoisonVialStat, int> poisonComposition, PoisonVialStat specialization) {
         List<Recipe> recipeSection = recipes[specialization];
 
         foreach (Recipe recipe in recipeSection) {
@@ -181,8 +181,8 @@ public class RecipeBook
                 }
             }
 
-            if (matchedStats == ingredients.Length - 1) {
-                return recipe.sideEffect;
+            if (matchedStats == ingredients.Count - 1) {
+                return recipe.resultingSideEffect;
             }
         }
 

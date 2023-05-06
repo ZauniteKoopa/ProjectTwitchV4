@@ -1420,7 +1420,7 @@ PrefabInstance:
       objectReference: {fileID: 289886675}
     - target: {fileID: 262784610, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 262784614, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: playerInput
@@ -1445,6 +1445,14 @@ PrefabInstance:
     - target: {fileID: 424520229, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_text
       value: 'SE:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 684565328, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 982075065, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1696904302, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: upgradesLeft

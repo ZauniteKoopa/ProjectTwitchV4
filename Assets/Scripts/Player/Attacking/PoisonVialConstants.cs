@@ -94,8 +94,9 @@ public class PoisonVialConstants : ScriptableObject
 
     // Private helper function to initialize the dictionary
     private void initializeSideEffectDictionary() {
-        Debug.Assert(sideEffectDictionary != null);
+        Debug.Assert(sideEffectDictionary == null);
 
+        sideEffectDictionary = new Dictionary<PoisonVialStat, SideEffect[]>();
         sideEffectDictionary.Add(PoisonVialStat.POTENCY, potencySideEffects);
         sideEffectDictionary.Add(PoisonVialStat.POISON, poisonSideEffects);
         sideEffectDictionary.Add(PoisonVialStat.REACTIVITY, reactivitySideEffects);

@@ -202,16 +202,20 @@ public class PoisonVial
                 reachedPotential = true;
 
                 bool filledRecipe = (numCraftAttempts == RecipeBook.RECIPE_INGREDIENT_REQUIREMENTS);
-                sideEffect = filledRecipe ? sideEffect = recipeBook.createSideEffectFromRecipe(vialStats, stat) : null;
+                sideEffect = filledRecipe ? recipeBook.createSideEffectFromRecipe(vialStats, stat) : null;
                 if (sideEffect == null) {
                     sideEffect = poisonVialConstants.obtainSideEffect(stat);
+                    Recipe existingRecipe = recipeBook.jumpToSideEffect(sideEffect);
 
-                    if (filledRecipe) {
+                    if (existingRecipe == null) {
                         Recipe newRecipe = new Recipe();
-                        newRecipe.composition = vialStats;
-                        newRecipe.sideEffect = sideEffect;
+                        newRecipe.ingredients = (filledRecipe) ? vialStats : null;
+                        newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);
+
+                    } else if (filledRecipe) {
+                        existingRecipe.ingredients = vialStats;
                     }
                 }
             }
