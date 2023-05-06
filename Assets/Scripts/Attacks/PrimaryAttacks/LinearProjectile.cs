@@ -9,8 +9,10 @@ public class LinearProjectile : IPrimaryAttack
     private float projectileSpeed = 30f;
     protected float projectileDamage = 0f;
 
-    private float timer = 0f;
-    private const float TIMEOUT_DURATION = 10f;
+    private float distanceTimer = 0f;
+    [SerializeField]
+    [Min(0.2f)]
+    private float maxDistance = 6f;
 
 
     // Update is called once per frame
@@ -21,8 +23,8 @@ public class LinearProjectile : IPrimaryAttack
         transform.Translate(distDelta * Vector3.forward);
 
         // Check timeout
-        timer += Time.deltaTime;
-        if (timer >= TIMEOUT_DURATION) {
+        distanceTimer += distDelta;
+        if (distanceTimer >= maxDistance) {
             Object.Destroy(gameObject);
         }
     }
@@ -44,9 +46,12 @@ public class LinearProjectile : IPrimaryAttack
         IUnitStatus target = collider.GetComponent<IUnitStatus>();
         if (target != null) {
             damageTarget(target);
-        }
+            onHitEnemy();
 
-        Object.Destroy(gameObject);
+        } else {
+            Object.Destroy(gameObject);
+            
+        }
     }
 
 
@@ -55,5 +60,11 @@ public class LinearProjectile : IPrimaryAttack
         Debug.Assert(tgt != null);
 
         tgt.damage(projectileDamage, false);
+    }
+
+
+    // Main protected helper function on when the projectile hits an enemy
+    protected virtual void onHitEnemy() {
+        Object.Destroy(gameObject);
     }
 }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
+  m_Name: SprayAndPray
+  m_EditorClassIdentifier: 
+  displayName: Spray and Pray
+  description: Ooooh! My bolts pierce through flesh now! Reduces bolt damage for
+    each enemy hit by 10% (Min 60%). Bolt damage +20%
+  spriteIcon: {fileID: 21300000, guid: 552ca903a55d8764e90320eb99f0775b, type: 3}
+  sideEffectType: 0
+  primaryAttackPrefab: {fileID: 683622361879638544, guid: 3b95a526ced53214ba04c62a6f563fa8, type: 3}
+  primaryAttackStartFrames: 10
+  primaryAttackEndFrames: 20
+  primaryAttackMultiplier: 1
+  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
+  secondaryAttackSpeed: 12
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 3
+  secondaryAttackCooldown: 6

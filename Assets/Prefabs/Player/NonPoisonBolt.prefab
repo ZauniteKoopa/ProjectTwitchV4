@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 30
+  maxDistance: 8
 --- !u!65 &8139350676137732301
 BoxCollider:
   m_ObjectHideFlags: 0
