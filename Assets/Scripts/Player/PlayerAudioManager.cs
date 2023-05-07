@@ -9,8 +9,6 @@ public class PlayerAudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource soundEffectsSpeaker;
     [SerializeField]
-    private AudioClip[] launchPoisonBoltClips;
-    [SerializeField]
     private AudioClip lobVenomCaskSoundClip;
     [SerializeField]
     private AudioClip contaminateSoundClip;
@@ -50,12 +48,10 @@ public class PlayerAudioManager : MonoBehaviour
 
     
     // Main function to play the launchPoisonBolt clip
-    public void playLaunchPoisonBoltSound() {
-        if (launchPoisonBoltClips == null || launchPoisonBoltClips.Length <= 0) {
-            Debug.LogWarning("No sound clip for launching a poison bolt");
-        }
+    public void playLaunchPoisonBoltSound(SideEffect sideEffect) {
+        Debug.Assert(sideEffect != null);
 
-        soundEffectsSpeaker.clip = launchPoisonBoltClips[Random.Range(0, launchPoisonBoltClips.Length)];
+        soundEffectsSpeaker.clip = sideEffect.getPrimaryAttackSound();
         soundEffectsSpeaker.Play();
     }
 

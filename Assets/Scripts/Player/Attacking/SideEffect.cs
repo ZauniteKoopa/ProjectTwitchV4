@@ -28,6 +28,8 @@ public class SideEffect : ScriptableObject
     [SerializeField]
     [Min(0.1f)]
     private float primaryAttackMultiplier = 1.0f;
+    [SerializeField]
+    private AudioClip[] primaryAttackSoundEffects = null;
 
     [Header("Secondary Attack")]
     [SerializeField]
@@ -83,5 +85,12 @@ public class SideEffect : ScriptableObject
     // Main function to access the side effect's type
     public PoisonVialStat getType() {
         return sideEffectType;
+    }
+
+
+    // Main function to get a random primary attack sound effect clip
+    public AudioClip getPrimaryAttackSound() {
+        Debug.Assert(primaryAttackSoundEffects != null && primaryAttackSoundEffects.Length > 0);
+        return primaryAttackSoundEffects[Random.Range(0, primaryAttackSoundEffects.Length)];
     }
 }

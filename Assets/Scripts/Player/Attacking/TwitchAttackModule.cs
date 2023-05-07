@@ -166,7 +166,7 @@ public class TwitchAttackModule : IAttackModule
                     curBolt.setUp(boltDir, weakBoltDamage, null);
                 }
 
-                audioManager.playLaunchPoisonBoltSound();
+                inventory.playLaunchPoisonBoltSound();
 
                 // End
                 render.material.color = Color.magenta;
@@ -289,7 +289,6 @@ public class TwitchAttackModule : IAttackModule
             ambushBuffVisualEffect.SetActive(false);
         }
         status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
-        Debug.Log("AMBUSH ENDS");
     }
 
     

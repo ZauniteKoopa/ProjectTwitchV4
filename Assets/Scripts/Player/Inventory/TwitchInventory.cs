@@ -44,6 +44,10 @@ public class TwitchInventory : MonoBehaviour
     private MeshRenderer playerMesh;
     private Color originalMeshColor;
 
+    // Audio
+    [SerializeField]
+    private PlayerAudioManager twitchAudioManager;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -109,6 +113,12 @@ public class TwitchInventory : MonoBehaviour
     // Main function to get primary variable frame data
     public int getPrimaryEndFrame() {
         return primaryVial.getPrimaryAttackEndFrames();
+    }
+
+
+    // Main function to play the audio effect associated with this poison
+    public void playLaunchPoisonBoltSound() {
+        twitchAudioManager.playLaunchPoisonBoltSound(primaryVial.sideEffect);
     }
 
 
