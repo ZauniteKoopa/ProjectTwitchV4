@@ -59,6 +59,13 @@ public class PlayerScreenUI : MonoBehaviour
     private Coroutine runningColorScreenSequence;
 
 
+    [Header("InvisibilityBar")]
+    [SerializeField]
+    private GameObject invisBarObject;
+    [SerializeField]
+    private Image invisBarFill;
+
+
     [Header("Other UI Elements")]
     [SerializeField]
     private PlayerWorldUI worldUI;
@@ -111,6 +118,14 @@ public class PlayerScreenUI : MonoBehaviour
         }
 
         runningColorScreenSequence = StartCoroutine(colorScreenSequence(ambushInvisibilityColor, ambushInvisibilityFadeIn));
+        invisBarObject.SetActive(true);
+        invisBarFill.fillAmount = 0f;
+    }
+
+
+    // Main helper function to set invisibility bar fill
+    public void setInvisBarFill(float curTimer, float maxDuration) {
+        invisBarFill.fillAmount = curTimer / maxDuration;
     }
 
 
@@ -121,6 +136,7 @@ public class PlayerScreenUI : MonoBehaviour
         }
 
         runningColorScreenSequence = StartCoroutine(colorScreenSequence(Color.clear, ambushInvisibilityFadeOut));
+        invisBarObject.SetActive(false);
     }
 
 

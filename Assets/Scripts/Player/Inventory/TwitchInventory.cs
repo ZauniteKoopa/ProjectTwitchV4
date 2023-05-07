@@ -40,6 +40,9 @@ public class TwitchInventory : MonoBehaviour
     private PlayerScreenUI screenUI;
     [SerializeField]
     private MainInventoryUI inventoryUI;
+    [SerializeField]
+    private MeshRenderer playerMesh;
+    private Color originalMeshColor;
 
 
     // Start is called before the first frame update
@@ -57,6 +60,7 @@ public class TwitchInventory : MonoBehaviour
         primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
         primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         screenUI.displayPrimaryVial(primaryVial);
+        originalMeshColor = playerMesh.material.color;
     }
 
 
@@ -331,7 +335,11 @@ public class TwitchInventory : MonoBehaviour
     private IEnumerator craftingSequence(CraftParameters craftParameters) {
         Debug.Assert(craftParameters != null);
 
+        playerMesh.material.color = Color.yellow;
+
         yield return new WaitForSeconds(craftingDuration);
+
+        playerMesh.material.color = Color.green;
 
         // Actually update the vials in the case vial exist
         if (craftParameters.vial != null) {

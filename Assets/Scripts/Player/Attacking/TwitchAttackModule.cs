@@ -249,7 +249,6 @@ public class TwitchAttackModule : IAttackModule
     //  Post: does ambush sequence
     private IEnumerator ambushSequence() {
         // Startup
-        Debug.Log("INITIATING AMBUSH");
         if (ambushBuffVisualEffect != null) {
             ambushBuffVisualEffect.SetActive(false);
         }
@@ -257,7 +256,6 @@ public class TwitchAttackModule : IAttackModule
         yield return new WaitForSeconds(ambushStartupTime);
 
 
-        Debug.Log("IS NOW INVISIBLE");
         status.applySpeedModifier(ambushInvisibilityMovementBuff);
         status.invisible = true;
         screenUI.displayAmbushInvisibility();
@@ -268,6 +266,7 @@ public class TwitchAttackModule : IAttackModule
         while (timer < ambushInvisibilityTime && movementState == TwitchMovementState.MOVING) {
             yield return 0;
             timer += Time.deltaTime;
+            screenUI.setInvisBarFill(timer, ambushInvisibilityTime);
         }
 
         // Attack speed buff
@@ -278,7 +277,6 @@ public class TwitchAttackModule : IAttackModule
         screenUI.removeAmbushInvisibility();
         ambushProximitySensor.displaySensor(false);
 
-        Debug.Log("ATTACK SPEED BUFF ACTIVE");
         status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
         audioManager.playAmbushBuff();
         if (ambushBuffVisualEffect != null) {
