@@ -947,17 +947,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1477059701 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1347320806317760195, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-  m_PrefabInstance: {fileID: 1347320807610889511}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e231967f2d132ab439d9d00e5802a690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1544579152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,10 +1306,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: twitchAudioManager
-      value: 
-      objectReference: {fileID: 1477059701}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 2

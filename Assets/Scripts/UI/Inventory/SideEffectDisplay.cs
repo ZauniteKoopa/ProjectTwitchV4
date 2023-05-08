@@ -32,7 +32,7 @@ public class SideEffectDisplay : MonoBehaviour
 
     // Main function to display empty
     public void displayEmpty() {
-        displayItem(null, "?????????", "Hmmm... Surely there's something in these sewers..");
+        displayItem(PoisonVial.poisonVialConstants.defaultSideEffect.spriteIcon, "?????????", "Hmmm... Surely there's something in these sewers..");
     }
 
 }

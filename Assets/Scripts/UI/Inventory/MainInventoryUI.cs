@@ -76,7 +76,6 @@ public class MainInventoryUI : MonoBehaviour
     // Main event handler function for closing the menu
     public void onCloseButtonPress(InputAction.CallbackContext value) {
         if (value.started && isOpened) {
-            Debug.Log("CLOSE???");
             closeWithEvent();
         }
     }

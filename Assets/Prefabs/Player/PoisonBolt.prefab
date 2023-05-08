@@ -128,5 +128,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 30
-  maxDistance: 8
+  maxDistance: 7
   appliedStacks: 1

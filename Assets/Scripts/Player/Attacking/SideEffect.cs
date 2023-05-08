@@ -29,6 +29,9 @@ public class SideEffect : ScriptableObject
     [Min(0.1f)]
     private float primaryAttackMultiplier = 1.0f;
     [SerializeField]
+    [Min(1f)]
+    public float attackRange = 7f;
+    [SerializeField]
     private AudioClip[] primaryAttackSoundEffects = null;
 
     [Header("Secondary Attack")]

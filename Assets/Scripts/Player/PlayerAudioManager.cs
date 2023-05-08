@@ -14,6 +14,8 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip contaminateSoundClip;
     [SerializeField]
     private AudioClip ambushStartupSoundClip;
+    [SerializeField]
+    private SideEffect noVialSideEffectSounds;
 
 
     [Header("VoiceOver")]
@@ -48,10 +50,8 @@ public class PlayerAudioManager : MonoBehaviour
 
     
     // Main function to play the launchPoisonBolt clip
-    public void playLaunchPoisonBoltSound(SideEffect sideEffect) {
-        Debug.Assert(sideEffect != null);
-
-        soundEffectsSpeaker.clip = sideEffect.getPrimaryAttackSound();
+    public void playLaunchPoisonBoltSound(SideEffect sideEffect = null) {
+        soundEffectsSpeaker.clip = (sideEffect != null) ? sideEffect.getPrimaryAttackSound() : noVialSideEffectSounds.getPrimaryAttackSound();
         soundEffectsSpeaker.Play();
     }
 

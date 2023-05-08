@@ -9,6 +9,8 @@ public class TwitchInventory : MonoBehaviour
     // Poison Vial Info
     [SerializeField]
     private PoisonVialConstants poisonVialParameters;
+    [SerializeField]
+    private Transform attackRangeIndicator;
     private PoisonVial primaryVial;
     private PoisonVial secondaryVial;
 
@@ -118,7 +120,19 @@ public class TwitchInventory : MonoBehaviour
 
     // Main function to play the audio effect associated with this poison
     public void playLaunchPoisonBoltSound() {
-        twitchAudioManager.playLaunchPoisonBoltSound(primaryVial.sideEffect);
+        if (primaryVial != null) {
+            twitchAudioManager.playLaunchPoisonBoltSound(primaryVial.sideEffect);
+        } else {
+            twitchAudioManager.playLaunchPoisonBoltSound();
+        }
+    }
+
+
+    // Main function to update attack range indicator
+    private void updateAttackRangeIndicator() {
+        float curRange = (primaryVial != null) ? primaryVial.sideEffect.attackRange : PoisonVial.poisonVialConstants.defaultSideEffect.attackRange;
+        curRange *= 2f;
+        attackRangeIndicator.localScale = new Vector3(curRange, attackRangeIndicator.localScale.y, curRange);
     }
 
 
@@ -307,6 +321,7 @@ public class TwitchInventory : MonoBehaviour
 
         screenUI.displayPrimaryVial(primaryVial);
         screenUI.displaySecondaryVial(secondaryVial);
+        updateAttackRangeIndicator();
     }
 
 
@@ -378,6 +393,7 @@ public class TwitchInventory : MonoBehaviour
 
         screenUI.displayPrimaryVial(primaryVial);
         screenUI.displaySecondaryVial(secondaryVial);
+        updateAttackRangeIndicator();
     }
     
 }

@@ -21,6 +21,7 @@ MonoBehaviour:
   primaryAttackStartFrames: 20
   primaryAttackEndFrames: 30
   primaryAttackMultiplier: 1.5
+  attackRange: 4
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 12d2a11c14a42584989615d48ccc7c83, type: 3}
   secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}

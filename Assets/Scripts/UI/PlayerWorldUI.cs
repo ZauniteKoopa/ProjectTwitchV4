@@ -21,6 +21,7 @@ public class PlayerWorldUI : MonoBehaviour
         int ammoCount = (vial == null) ? 0 : vial.getAmmo();
 
         primaryVialDisplay.color = (vial != null) ? vial.getColor() : Color.black;
+        primaryVialDisplay.sprite = (vial != null) ? vial.sideEffect.spriteIcon : null;
 
         // Update the bullet list
         bulletList.gameObject.SetActive(ammoCount <= bulletList.childCount && ammoCount > 0);
@@ -38,6 +39,7 @@ public class PlayerWorldUI : MonoBehaviour
     // Main function to display secondary vial
     public void displaySecondaryVial(PoisonVial vial) {
         secondaryVialDisplay.color = (vial != null) ? vial.getColor() : Color.black;
+        secondaryVialDisplay.sprite = (vial != null) ? vial.sideEffect.spriteIcon : null;
     }
 
 

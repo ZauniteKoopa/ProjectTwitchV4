@@ -101,6 +101,10 @@ public class PlayerScreenUI : MonoBehaviour
         displayPoisonVial(vial, primaryVialAmmo, primaryVialFill);
         worldUI.displayPrimaryVial(vial);
         caskGameobject.SetActive(vial != null);
+
+        if (vial != null) {
+            caskIcon.color = vial.getColor();
+        }
     }
 
 
