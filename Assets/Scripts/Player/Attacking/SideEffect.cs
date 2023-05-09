@@ -62,7 +62,7 @@ public class SideEffect : ScriptableObject
         Debug.Assert(attacker != null && primaryAttackPrefab != null);
 
         IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
-        curBolt.setUp(attackDir, damage * primaryAttackMultiplier, parentPoison);
+        curBolt.setUp(attackDir, damage * primaryAttackMultiplier, parentPoison, attackRange);
     }
 
 

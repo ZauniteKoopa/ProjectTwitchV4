@@ -13,10 +13,10 @@ public class MeleePoisonHitbox : MeleeHitbox
     // Main function to set up the projectile
     //  Pre: dir is the direction the projectile will move towards, dmg > 0
     //  Post: sets up primary attack 
-    public override void setUp(Vector3 dir, float dmg, PoisonVial poi) {
+    public override void setUp(Vector3 dir, float dmg, PoisonVial poi, float range = -1f) {
         Debug.Assert(dmg >= 0f);
 
-        base.setUp(dir, dmg, poi);
+        base.setUp(dir, dmg, poi, range);
         poison = poi;
     }
 

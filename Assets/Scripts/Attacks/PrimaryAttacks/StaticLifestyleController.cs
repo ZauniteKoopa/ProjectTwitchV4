@@ -14,14 +14,14 @@ public class StaticLifestyleController : IPrimaryAttack
     // Main function to set up the melee hitbox
     //  Pre: dir is the direction of the melee attack
     //  Post: sets up primary attack to expire
-    public override void setUp(Vector3 dir, float dmg, PoisonVial poi) {
+    public override void setUp(Vector3 dir, float dmg, PoisonVial poi, float range) {
         Debug.Assert(dmg >= 0f);
 
         if (!running) {
             running = true;
 
             transform.forward = dir;
-            mainAttack.setUp(dir, dmg, poi);
+            mainAttack.setUp(dir, dmg, poi, range);
             StartCoroutine(lifecycle());
         }
     }

@@ -12,12 +12,18 @@ public class MeleeHitbox : IPrimaryAttack
     // Main function to set up the melee hitbox
     //  Pre: dir is the direction of the melee attack
     //  Post: sets up primary attack to expire
-    public override void setUp(Vector3 dir, float dmg, PoisonVial poi) {
+    public override void setUp(Vector3 dir, float dmg, PoisonVial poi, float range = -1f) {
         Debug.Assert(dmg >= 0f);
 
         if (!running) {
             running = true;
             curDamage = dmg;
+
+            if (range > 0f) {
+                Transform parent = transform.parent;
+                float xzRatio = parent.localScale.x / parent.localScale.z;
+                parent.localScale = new Vector3(xzRatio * range, parent.localScale.y, range);
+            }
         }
     }
 

@@ -52,7 +52,7 @@ public class TwitchInventory : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if (poisonVialParameters == null) {
             Debug.LogError("POISON VIAL CONSTANTS AND PARAMETERS NOT SET FOR TWITCH TO CRAFT POISONS");
@@ -62,6 +62,7 @@ public class TwitchInventory : MonoBehaviour
 
         initializeIngredientDictionary();
         resetScreenUI();
+        updateAttackRangeIndicator();
 
         primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
         primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);

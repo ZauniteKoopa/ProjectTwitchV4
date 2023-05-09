@@ -33,11 +33,14 @@ public class LinearProjectile : IPrimaryAttack
     // Main function to set up the projectile
     //  Pre: dir is the direction the projectile will move towards, dmg > 0
     //  Post: sets up primary attack 
-    public override void setUp(Vector3 dir, float dmg, PoisonVial poison) {
+    public override void setUp(Vector3 dir, float dmg, PoisonVial poison, float range = -1f) {
         Debug.Assert(dmg >= 0f);
 
         transform.forward = dir.normalized;
         projectileDamage = dmg;
+        if (range > 0f) {
+            maxDistance = range;
+        }
     }
 
 
