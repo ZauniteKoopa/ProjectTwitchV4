@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IngredientSensor : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class IngredientSensor : MonoBehaviour
     [SerializeField]
     [Range(0f, 90f)]
     private float prioritizedAngle = 45f;
+    [SerializeField]
+    private TwitchInventory inventory;
     private Ingredient targetIngredient = null;
 
 
@@ -37,6 +40,17 @@ public class IngredientSensor : MonoBehaviour
 
         if (ing != null && inRange.Contains(ing)) {
             inRange.Remove(ing);
+        }
+    }
+
+    // Event handler method for when mouse position changes
+    public void onPickupPress(InputAction.CallbackContext context) {
+        if (context.started && targetIngredient != null) {
+
+            // Try to pick up the ingredient if you can
+            if (!inventory.addIngredient(targetIngredient)) {
+                Debug.Log("NO ROOM IN INVENTORY");
+            }
         }
     }
 

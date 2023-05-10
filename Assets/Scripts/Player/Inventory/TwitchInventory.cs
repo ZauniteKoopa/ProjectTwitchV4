@@ -356,6 +356,20 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to add ingredient to inventory. returns true if successful. false if not
+    public bool addIngredient(Ingredient ing) {
+        if (numIngredients < curMaxInventory) {
+            numIngredients++;
+            ingredientInventory[ing.statType]++;
+            ing.destroyObj();
+
+            return true;
+        }
+
+        return false;
+    }
+
+
     // Sequence for an actual successful craft
     //  Pre: craftParameters != null
     private IEnumerator craftingSequence(CraftParameters craftParameters) {
