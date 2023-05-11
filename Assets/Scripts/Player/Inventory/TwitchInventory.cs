@@ -90,7 +90,7 @@ public class TwitchInventory : MonoBehaviour
             ingredientInventory.Add(PoisonVialStat.REACTIVITY, 6);
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
-            numIngredients = 3;
+            numIngredients = 12;
         }
     }
 
@@ -401,6 +401,7 @@ public class TwitchInventory : MonoBehaviour
         // Update ingredient count
         Debug.Assert(ingredientInventory[craftParameters.stat] > 0);
         ingredientInventory[craftParameters.stat]--;
+        numIngredients--;
 
         // Update flags
         playerInput.enabled = true;

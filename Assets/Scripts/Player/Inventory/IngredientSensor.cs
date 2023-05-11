@@ -16,7 +16,13 @@ public class IngredientSensor : MonoBehaviour
 
     // On update
     private void Update() {
+        Ingredient prevIngredient = targetIngredient;
         targetIngredient = getClosestIngredient();
+
+        if (prevIngredient != targetIngredient && prevIngredient != null) {
+            prevIngredient.removeGlow();
+        }
+
         if (targetIngredient != null) {
             targetIngredient.glow();
         }
@@ -57,32 +63,17 @@ public class IngredientSensor : MonoBehaviour
 
     // Main function to get the best ingredient
     private Ingredient getClosestIngredient() {
-        if (inRange.Count == 0) {
-            return null;
-        }
-
-        bool prioritized = false;
         float minDistance = -1f;
         Ingredient bestIng = null;
 
         foreach (Ingredient ingredient in inRange) {
             Vector3 distanceVector = new Vector3(ingredient.transform.position.x - transform.position.x, 0f, ingredient.transform.position.z - transform.position.z);
-            float angleFromForward = Vector3.Angle(distanceVector, transform.forward);
             float distance = distanceVector.magnitude;
 
             // Case in which you've found a prioritized target already
-            if (prioritized && angleFromForward < prioritizedAngle && distance < minDistance) {
+            if (distance < minDistance || minDistance < 0f) {
                 minDistance = distance;
                 bestIng = ingredient;
-
-            // Case in which you haven't found a prioritzed target, only do it if you find someone in the prioritized sector OR  closer than the previous
-            } else if (!prioritized) {
-                
-                if (angleFromForward < prioritizedAngle || distance < minDistance) {
-                    prioritized = angleFromForward < prioritizedAngle;
-                    minDistance = distance;
-                    bestIng = ingredient;
-                }
             }
         }
 
