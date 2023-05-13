@@ -384,7 +384,6 @@ public class TwitchInventory : MonoBehaviour
         // Actually update the vials in the case vial exist
         if (craftParameters.vial != null) {
             bool success = craftParameters.vial.craft(craftParameters.stat, recipeBook);
-            Debug.Assert(success);
 
         // Case where the parameters isn't pointing to a vial but isPrimary is true
         } else if (craftParameters.isPrimary) {

@@ -107,6 +107,27 @@ public class CraftVialUI : MonoBehaviour
     }
 
 
+    // Main event handler function to replace a vial
+    public void onReplaceButtonPress() {
+        // Case where ingredient has not been found
+        PoisonVialStat ingStat;
+        if (!ingSlot.hasIngredient(out ingStat)) {
+            Debug.LogWarning("CANNOT CRAFT, NO INGREDIENT FOUND");
+            return;
+        }
+
+        // Go ahead and craft
+        ingSlot.CraftIngredient();
+
+        // Set craftparameters.vial to null so that it will always replace the poison vial
+        CraftParameters craftParameters = new CraftParameters();
+        craftParameters.stat = ingStat;
+        craftParameters.vial = null;
+        craftParameters.isPrimary = linkedToPrimary;
+        craftingVialEvent.Invoke(craftParameters);
+    }
+
+
     // Main event handler function for when you want to lookup the primary vial's side effect
     public void lookAtPrimarySideEffect() {
         recipeBookDisplay.displaySpecificSideEffect(primaryVial.sideEffect);

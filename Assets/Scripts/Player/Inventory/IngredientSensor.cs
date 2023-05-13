@@ -7,9 +7,6 @@ public class IngredientSensor : MonoBehaviour
 {
     HashSet<Ingredient> inRange = new HashSet<Ingredient>();
     [SerializeField]
-    [Range(0f, 90f)]
-    private float prioritizedAngle = 45f;
-    [SerializeField]
     private TwitchInventory inventory;
     private Ingredient targetIngredient = null;
 
