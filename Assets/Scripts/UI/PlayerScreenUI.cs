@@ -66,6 +66,11 @@ public class PlayerScreenUI : MonoBehaviour
     private Image invisBarFill;
 
 
+    [Header("Inventory")]
+    [SerializeField]
+    private ScreenInventorySlot[] inventorySlots;
+
+
     [Header("Other UI Elements")]
     [SerializeField]
     private PlayerWorldUI worldUI;
@@ -141,6 +146,37 @@ public class PlayerScreenUI : MonoBehaviour
 
         runningColorScreenSequence = StartCoroutine(colorScreenSequence(Color.clear, ambushInvisibilityFadeOut));
         invisBarObject.SetActive(false);
+    }
+
+
+    // Main function to display the state of the ingredient inventory slots
+    public void displayIngredientInventory(Dictionary<PoisonVialStat, int> ingredientInventory, int maxInventory) {
+        int displayedSlots = Mathf.Min(maxInventory, inventorySlots.Length);
+        int numProcessedSlots = 0;
+
+        // Process ingredients that are filled
+        foreach(KeyValuePair<PoisonVialStat, int> entry in ingredientInventory) {
+            int i = 0;
+
+            while (numProcessedSlots < displayedSlots && i < entry.Value) {
+                inventorySlots[numProcessedSlots].displayFilled(entry.Key);
+                
+                numProcessedSlots++;
+                i++;
+            }
+        }
+
+        // Process ingredients that are empty
+        while (numProcessedSlots < displayedSlots) {
+            inventorySlots[numProcessedSlots].displayEmpty();
+            numProcessedSlots++;
+        }
+
+        // Process slots that shouldn't exist
+        while (numProcessedSlots < inventorySlots.Length) {
+            inventorySlots[numProcessedSlots].turnOff();
+            numProcessedSlots++;
+        }
     }
 
 

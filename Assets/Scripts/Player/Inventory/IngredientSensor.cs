@@ -64,13 +64,15 @@ public class IngredientSensor : MonoBehaviour
         Ingredient bestIng = null;
 
         foreach (Ingredient ingredient in inRange) {
-            Vector3 distanceVector = new Vector3(ingredient.transform.position.x - transform.position.x, 0f, ingredient.transform.position.z - transform.position.z);
-            float distance = distanceVector.magnitude;
+            if (ingredient != null) {
+                Vector3 distanceVector = new Vector3(ingredient.transform.position.x - transform.position.x, 0f, ingredient.transform.position.z - transform.position.z);
+                float distance = distanceVector.magnitude;
 
-            // Case in which you've found a prioritized target already
-            if (distance < minDistance || minDistance < 0f) {
-                minDistance = distance;
-                bestIng = ingredient;
+                // Case in which you've found a prioritized target already
+                if (distance < minDistance || minDistance < 0f) {
+                    minDistance = distance;
+                    bestIng = ingredient;
+                }
             }
         }
 

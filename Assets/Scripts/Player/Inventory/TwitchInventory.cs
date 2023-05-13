@@ -87,10 +87,12 @@ public class TwitchInventory : MonoBehaviour
         if (ingredientInventory.Count <= 0) {
             ingredientInventory.Add(PoisonVialStat.POTENCY, 4);
             ingredientInventory.Add(PoisonVialStat.POISON, 2);
-            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 6);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 3);
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
-            numIngredients = 12;
+            numIngredients = 9;
+
+            screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         }
     }
 
@@ -363,6 +365,8 @@ public class TwitchInventory : MonoBehaviour
             ingredientInventory[ing.statType]++;
             ing.destroyObj();
 
+            screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
+
             return true;
         }
 
@@ -400,6 +404,7 @@ public class TwitchInventory : MonoBehaviour
         // Update ingredient count
         Debug.Assert(ingredientInventory[craftParameters.stat] > 0);
         ingredientInventory[craftParameters.stat]--;
+        screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         numIngredients--;
 
         // Update flags
