@@ -374,6 +374,15 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to remove an ingredient from inventory. 
+    public void removeIngredient(PoisonVialStat vialStat) {
+        numIngredients--;
+        ingredientInventory[vialStat]--;
+        screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
+        inventoryUI.updateIngredients(ingredientInventory, curMaxInventory);
+    }
+
+
     // Sequence for an actual successful craft
     //  Pre: craftParameters != null
     private IEnumerator craftingSequence(CraftParameters craftParameters) {

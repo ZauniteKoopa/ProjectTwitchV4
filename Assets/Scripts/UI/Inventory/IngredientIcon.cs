@@ -38,6 +38,8 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private const float ICON_SNAPBACK_TIME = 0.1f;
     private bool initialized = false;
 
+    public PoisonVialStatDelegate successfulRemoveEvent;
+
     //On awake, set start position
     void Awake()
     {
@@ -199,5 +201,13 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         canvasGroup.alpha = 1f;
         rectTransform.anchoredPosition = startPosition;
         dropped = false;
+    }
+
+
+    // Main event handler function for when remove button has been clicked
+    public void onRemoveButtonClick() {
+        if (count > 0) {
+            successfulRemoveEvent.Invoke(representedStat);
+        }
     }
 }

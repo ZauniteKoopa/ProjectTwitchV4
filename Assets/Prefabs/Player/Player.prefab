@@ -950,6 +950,9 @@ MonoBehaviour:
   emptyColor: {r: 0, g: 0, b: 0, a: 0}
   canvas: {fileID: 1347320806230522893}
   dropped: 0
+  successfulRemoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &68584302
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7075,6 +7078,21 @@ MonoBehaviour:
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   filledColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   selectedCanvasLayer: {fileID: 1550923837}
+  removeIngredientEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1347320807677090373}
+        m_TargetAssemblyTypeName: TwitchInventory, Assembly-CSharp
+        m_MethodName: removeIngredient
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &773344946
 GameObject:
   m_ObjectHideFlags: 0
@@ -7248,6 +7266,9 @@ MonoBehaviour:
   emptyColor: {r: 0, g: 0, b: 0, a: 0}
   canvas: {fileID: 1347320806230522893}
   dropped: 0
+  successfulRemoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &774587365
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -7608,7 +7629,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 781154738}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1143759793}
+        m_TargetAssemblyTypeName: IngredientIcon, Assembly-CSharp
+        m_MethodName: onRemoveButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &783219396
 GameObject:
   m_ObjectHideFlags: 0
@@ -8314,7 +8347,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 863570690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 774587364}
+        m_TargetAssemblyTypeName: IngredientIcon, Assembly-CSharp
+        m_MethodName: onRemoveButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &873428142
 GameObject:
   m_ObjectHideFlags: 0
@@ -11048,6 +11093,9 @@ MonoBehaviour:
   emptyColor: {r: 0, g: 0, b: 0, a: 0}
   canvas: {fileID: 1347320806230522893}
   dropped: 0
+  successfulRemoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &1143759794
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -13706,7 +13754,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1425043395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 68584301}
+        m_TargetAssemblyTypeName: IngredientIcon, Assembly-CSharp
+        m_MethodName: onRemoveButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1427219401
 GameObject:
   m_ObjectHideFlags: 0
@@ -17019,6 +17079,9 @@ MonoBehaviour:
   emptyColor: {r: 0, g: 0, b: 0, a: 0}
   canvas: {fileID: 1347320806230522893}
   dropped: 0
+  successfulRemoveEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &1720329987
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -20069,7 +20132,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2049083737}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1720329986}
+        m_TargetAssemblyTypeName: IngredientIcon, Assembly-CSharp
+        m_MethodName: onRemoveButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2060219467
 GameObject:
   m_ObjectHideFlags: 0

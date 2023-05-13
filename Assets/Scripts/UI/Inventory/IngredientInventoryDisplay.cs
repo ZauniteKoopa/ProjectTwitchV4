@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 using TMPro;
+
+[System.Serializable]
+public class PoisonVialStatDelegate : UnityEvent<PoisonVialStat> {}
 
 public class IngredientInventoryDisplay : MonoBehaviour
 {
@@ -25,6 +29,8 @@ public class IngredientInventoryDisplay : MonoBehaviour
 
     private Dictionary<PoisonVialStat, IngredientIcon> iconMap = new Dictionary<PoisonVialStat, IngredientIcon>();
     private bool initialized = false;
+
+    public PoisonVialStatDelegate removeIngredientEvent;
 
 
     // On awake, set up map
@@ -52,6 +58,7 @@ public class IngredientInventoryDisplay : MonoBehaviour
         }
 
         iconMap.Add(stat, icon);
+        icon.successfulRemoveEvent.AddListener(onRemoveIngredient);
     }
 
 
@@ -76,5 +83,11 @@ public class IngredientInventoryDisplay : MonoBehaviour
         Debug.Assert(inventoryCount <= maxSize);
         inventoryLabel.text = inventoryCount + "/" + maxSize;
         inventoryLabel.color = (inventoryCount >= maxSize) ? filledColor : normalColor;
+    }
+
+
+    // Main event handler function for when a remove ingredient button has been clicked
+    public void onRemoveIngredient(PoisonVialStat stat) {
+        removeIngredientEvent.Invoke(stat);
     }
 }

@@ -35,6 +35,12 @@ public class MainInventoryUI : MonoBehaviour
     }
 
 
+    // Main function to publically update the vingredient display
+    public void updateIngredients(Dictionary<PoisonVialStat, int> ingredientInventory, int maxInventorySize) {
+        ingredientsDisplay.display(ingredientInventory, maxInventorySize);
+    }
+
+
     // Main open sequence
     private IEnumerator openSequence() {
         yield return 0;
