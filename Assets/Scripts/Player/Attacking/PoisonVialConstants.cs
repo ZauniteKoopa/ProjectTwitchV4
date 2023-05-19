@@ -40,6 +40,10 @@ public class PoisonVialConstants : ScriptableObject
     public float poisonDoTMultiplier = 2f;
     [Min(0.1f)]
     public float reactivityContaminateMultiplier = 1.25f;
+
+    [Header("Post Contaminate Hitbox")]
+    [Min(0)]
+    public float minPostContaminateStacks = 4;
     
 
 

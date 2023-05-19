@@ -107,7 +107,7 @@ public class EnemyStatus : IUnitStatus
                 }
                 
                 // If it overrides poison, override it
-                if (overridePoison) {
+                if (overridePoison || curPoison == null) {
                     curPoison = poison;
                 }
 

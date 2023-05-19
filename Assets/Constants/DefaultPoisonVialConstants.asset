@@ -25,8 +25,13 @@ MonoBehaviour:
   potencySideEffects:
   - {fileID: 11400000, guid: 8669cab18fc000d45a56409d3e6a3ee2, type: 2}
   poisonSideEffects:
-  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
   reactivitySideEffects:
+  - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
   - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  potencyBoltMultiplier: 1.5
+  poisonDoTMultiplier: 2
+  reactivityContaminateMultiplier: 1.25
+  minPostContaminateStacks: 4

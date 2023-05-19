@@ -171,10 +171,20 @@ public class PoisonVial
     public void contaminate(EnemyStatus tgt, int poisonStacks) {
         Debug.Assert(tgt != null && poisonStacks > 0);
 
+        Vector3 enemyPosition = tgt.transform.position;
+
         float contaminateDmg = (CONTAMINATE_DMG_PER_STACK * poisonStacks) + BASE_CONTAMINATE_DMG;
         contaminateDmg *= (reachedPotential && sideEffect.getType() == PoisonVialStat.REACTIVITY) ? poisonVialConstants.reactivityContaminateMultiplier : 1f;
-        if (tgt.damage(contaminateDmg, false)) {
+        bool tgtKilled = tgt.damage(contaminateDmg, false);
+
+        if (tgtKilled) {
             contaminateExecuteEvent.Invoke();
+        }
+
+        // Spawn a post contaminate side effect if it exists for this side effect
+        if (sideEffect.postContaminateHitbox != null && poisonStacks >= poisonVialConstants.minPostContaminateStacks) {
+            PostContaminateHitbox curHitbox = Object.Instantiate(sideEffect.postContaminateHitbox, enemyPosition, Quaternion.identity);
+            curHitbox.setUp(contaminateDmg, this, tgtKilled);
         }
     }
 

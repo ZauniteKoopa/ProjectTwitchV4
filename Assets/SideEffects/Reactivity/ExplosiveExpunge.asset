@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
+  m_Name: ExplosiveExpunge
+  m_EditorClassIdentifier: 
+  displayName: Explosive Expunge
+  description: Oh ho! Contamination leads to EXPLOSIONS NOW! If they die, the explosion
+    becomes bigger.. +20% Cont Damage
+  spriteIcon: {fileID: 21300000, guid: 46bdf72bc91633c4484f5d95442abf3b, type: 3}
+  sideEffectType: 2
+  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
+  primaryAttackStartFrames: 10
+  primaryAttackEndFrames: 20
+  primaryAttackMultiplier: 1
+  attackRange: 6
+  primaryAttackSoundEffects:
+  - {fileID: 8300000, guid: ff6a31d50af0e524d9c21655dbfb672b, type: 3}
+  - {fileID: 8300000, guid: 0de3a2cf55e4f454f91ad26dce6dca78, type: 3}
+  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
+  secondaryAttackSpeed: 12
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 3
+  secondaryAttackCooldown: 6
+  postContaminateHitbox: {fileID: 3420169435279567237, guid: 6f802f65f50e6774e9fe5f14f6adfb5f, type: 3}

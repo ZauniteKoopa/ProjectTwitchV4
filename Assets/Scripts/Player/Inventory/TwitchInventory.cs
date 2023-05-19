@@ -86,8 +86,8 @@ public class TwitchInventory : MonoBehaviour
     private void initializeIngredientDictionary() {
         if (ingredientInventory.Count <= 0) {
             ingredientInventory.Add(PoisonVialStat.POTENCY, 4);
-            ingredientInventory.Add(PoisonVialStat.POISON, 2);
-            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 3);
+            ingredientInventory.Add(PoisonVialStat.POISON, 3);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 2);
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
             numIngredients = 9;

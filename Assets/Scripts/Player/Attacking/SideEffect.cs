@@ -54,6 +54,10 @@ public class SideEffect : ScriptableObject
     public float secondaryAttackCooldown = 2f;
 
 
+    [Header("Post Contaminate Hitbox")]
+    public PostContaminateHitbox postContaminateHitbox = null;
+
+
 
     // Main function to fire the projectile towards attackDir direction starting from attacker position
     //  Pre: attackDir is the direction you attack to, attacker is the transform of the unit that's attacking
