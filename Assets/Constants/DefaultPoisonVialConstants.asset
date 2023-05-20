@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: DefaultPoisonVialConstants
   m_EditorClassIdentifier: 
   purePotencyColor: {r: 1, g: 0, b: 0.6246929, a: 1}
-  pureReactivityColor: {r: 1, g: 0.92449224, b: 0.015686274, a: 1}
+  pureReactivityColor: {r: 0.76599145, g: 0.8018868, b: 0.012608201, a: 1}
   pureStickinessColor: {r: 0, g: 0.7216792, b: 1, a: 1}
-  purePoisonColor: {r: 0.47552, g: 1, b: 0, a: 1}
+  purePoisonColor: {r: 0.3470919, g: 0.7264151, b: 0.004568558, a: 1}
   tempPotencyColor: {r: 0.6886792, g: 0, b: 0.57775146, a: 1}
-  tempReactivityColor: {r: 0.735849, g: 0.5958083, b: 0.00462789, a: 1}
+  tempReactivityColor: {r: 0.5660378, g: 0.45706794, b: 0, a: 1}
   tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
-  tempPoisonColor: {r: 0.16961426, g: 0.6415094, b: 0, a: 1}
+  tempPoisonColor: {r: 0.16359851, g: 0.3490566, b: 0.097691916, a: 1}
   baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
@@ -30,7 +30,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
   - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
   stickinessSideEffects:
-  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
   potencyBoltMultiplier: 1.5
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25

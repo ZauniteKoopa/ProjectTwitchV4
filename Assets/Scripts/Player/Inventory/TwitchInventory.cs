@@ -85,12 +85,13 @@ public class TwitchInventory : MonoBehaviour
     // Main function to initialize the ingredient dictionary
     private void initializeIngredientDictionary() {
         if (ingredientInventory.Count <= 0) {
-            ingredientInventory.Add(PoisonVialStat.POTENCY, 4);
+            ingredientInventory.Add(PoisonVialStat.POTENCY, 3);
             ingredientInventory.Add(PoisonVialStat.POISON, 3);
-            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 2);
-            ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 3);
+            ingredientInventory.Add(PoisonVialStat.STICKINESS, 3);
 
-            numIngredients = 9;
+            numIngredients = 12;
+            curMaxInventory = 12;
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         }
@@ -142,13 +143,13 @@ public class TwitchInventory : MonoBehaviour
     // Main function to fire the primary vial if it's possible
     //  Pre: the attackDirection is the direction of attack
     //  Post: returns true if successful. false otherwise
-    public bool firePrimaryBolt(Vector3 attackDir, Transform attacker) {
+    public bool firePrimaryBolt(Vector3 attackDir, Transform attacker, float primaryAttackModifier = 1f) {
         if (primaryVial == null) {
             return false;
         }
 
         // Fire bullet and then check ammo afterwards
-        bool success = primaryVial.firePrimaryAttack(attackDir, attacker);
+        bool success = primaryVial.firePrimaryAttack(attackDir, attacker, primaryAttackModifier);
         if (success && primaryVial.getAmmo() <= 0) {
             primaryVial = null;
         }

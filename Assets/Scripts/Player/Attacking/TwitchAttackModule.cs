@@ -161,9 +161,9 @@ public class TwitchAttackModule : IAttackModule
                 }
 
                 // Try to fire the bullet using the primary bolt. If that's not successful, fire a dead bullet
-                if (!inventory.firePrimaryBolt(boltDir, playerCharacter)) {
+                if (!inventory.firePrimaryBolt(boltDir, playerCharacter, status.getBaseAttack())) {
                     IPrimaryAttack curBolt = Object.Instantiate(defaultWeakBolt, playerCharacter.position, Quaternion.identity);
-                    curBolt.setUp(boltDir, weakBoltDamage, null);
+                    curBolt.setUp(boltDir, weakBoltDamage * status.getBaseAttack(), null);
                 }
 
                 inventory.playLaunchPoisonBoltSound();

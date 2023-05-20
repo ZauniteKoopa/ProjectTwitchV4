@@ -10,6 +10,7 @@ public class PlayerStatus : IUnitStatus
     private bool moving = true;
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackSpeedStatus = new SpeedModifierStatus();
+    private SpeedModifierStatus attackMultiplierStatus = new SpeedModifierStatus();
 
     [SerializeField]
     [Min(0.01f)]
@@ -50,7 +51,7 @@ public class PlayerStatus : IUnitStatus
     //  Pre: none
     //  Post: Returns a float that represents base attack (> 0)
     public override float getBaseAttack() {
-        return 0;
+        return attackMultiplierStatus.getSpeedModifier();
     }
 
 
@@ -103,6 +104,22 @@ public class PlayerStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void revertSpeedModifier(float speedFactor) {
         speedStatus.revertSpeedModifier(speedFactor);
+    }
+
+
+    // Main function to increase or decrease an attack by a specific factor
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public override void applyAttackModifier(float attackFactor) {
+        attackMultiplierStatus.applySpeedModifier(attackFactor);
+    }
+
+
+    // Main function to reert an attack modifier
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public override void revertAttackModifier(float attackFactor) {
+        attackMultiplierStatus.revertSpeedModifier(attackFactor);
     }
 
 

@@ -17,6 +17,7 @@ public class EnemyStatus : IUnitStatus
     private float damageReduction = 0f;
 
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
+    private SpeedModifierStatus attackMultiplierStatus = new SpeedModifierStatus();
     private readonly object healthLock = new object();
 
     [Header("UI")]
@@ -155,6 +156,21 @@ public class EnemyStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void revertSpeedModifier(float speedFactor) {
         speedStatus.revertSpeedModifier(speedFactor);
+    }
+
+    // Main function to increase or decrease an attack by a specific factor
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public override void applyAttackModifier(float attackFactor) {
+        attackMultiplierStatus.applySpeedModifier(attackFactor);
+    }
+
+
+    // Main function to reert an attack modifier
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public override void revertAttackModifier(float attackFactor) {
+        attackMultiplierStatus.revertSpeedModifier(attackFactor);
     }
 
 

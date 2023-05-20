@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
-  m_Name: Contagion
+  m_Name: StimulatingStench
   m_EditorClassIdentifier: 
-  displayName: Contagion
-  description: Enemies emits fog when contaminated if they have 4 or more stacks!
-    If they die, it's bigger and lingers longer.. Increased poison damage
+  displayName: Not ripe yet...
+  description: 
   spriteIcon: {fileID: 21300000, guid: 46bdf72bc91633c4484f5d95442abf3b, type: 3}
-  sideEffectType: 1
+  sideEffectType: 0
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 20
@@ -31,4 +30,4 @@ MonoBehaviour:
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
   secondaryAttackCooldown: 6
-  postContaminateHitbox: {fileID: 3652164811380355971, guid: d4db0f7b0f625de4bbb13ed8bc0661b1, type: 3}
+  postContaminateHitbox: {fileID: 0}

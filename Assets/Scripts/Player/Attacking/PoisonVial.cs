@@ -96,14 +96,14 @@ public class PoisonVial
     // Main fucntion to actually create and fire a projectile at attackDir direction from attacker's position
     //  Pre: attackDir is the direction of attack, attacker is the transform of the one attacking
     //  Post: returns true if projectile fires. Returns false if it didn't due to ammo constraints
-    public bool firePrimaryAttack(Vector3 attackDir, Transform attacker) {
+    public bool firePrimaryAttack(Vector3 attackDir, Transform attacker, float attackMultiplier = 1f) {
         // If not enough ammo, return
         if (ammo < PRIMARY_BOLT_AMMO_COST) {
             return false;
         }
 
         ammo -= PRIMARY_BOLT_AMMO_COST;
-        float curBoltDamage = startingBoltDamage;
+        float curBoltDamage = startingBoltDamage * attackMultiplier;
         curBoltDamage *= (reachedPotential && sideEffect.getType() == PoisonVialStat.POTENCY) ? poisonVialConstants.potencyBoltMultiplier : 1f;
         sideEffect.firePrimaryAttack(attackDir, attacker, curBoltDamage, this);
         return true;

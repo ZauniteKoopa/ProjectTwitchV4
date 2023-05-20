@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ExplosiveExpunge
   m_EditorClassIdentifier: 
   displayName: Explosive Expunge
-  description: Oh ho! Contamination leads to EXPLOSIONS NOW! If they die, the explosion
-    becomes bigger.. +20% Cont Damage
+  description: Oh ho! If infected with 4 or more stacks, Contamination leads to EXPLOSIONS
+    NOW! If they die, the explosion becomes bigger.. +20% Cont Damage
   spriteIcon: {fileID: 21300000, guid: 46bdf72bc91633c4484f5d95442abf3b, type: 3}
   sideEffectType: 2
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}

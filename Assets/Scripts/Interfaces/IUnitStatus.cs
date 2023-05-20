@@ -71,6 +71,18 @@ public abstract class IUnitStatus : MonoBehaviour
     public abstract void revertSpeedModifier(float speedFactor);
 
 
+    // Main function to increase or decrease an attack by a specific factor
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public abstract void applyAttackModifier(float attackFactor);
+
+
+    // Main function to reert an attack modifier
+    //  Pre: attackFactor > 0.0f. If less than 1, debuff. Else, buff
+    //  Post: attack is affected accordingly
+    public abstract void revertAttackModifier(float attackFactor);
+
+
     // Function to set movement to true 
     //  Pre: bool representing whether the player is moving or not
     //  Post: enact effects that happen while you're moving or deactivate effects when you aren't
