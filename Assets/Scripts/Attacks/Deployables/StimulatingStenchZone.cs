@@ -18,7 +18,6 @@ public class StimulatingStenchZone : PostContaminateHitbox
         if (playerTarget != null) {
             playerTarget.applySpeedModifier(speedBoostFactor);
             playerTarget.applyAttackModifier(attackBuff);
-            Debug.Log("apply");
         }
 
     }
@@ -30,7 +29,6 @@ public class StimulatingStenchZone : PostContaminateHitbox
         if (tgt != null) {
             tgt.revertSpeedModifier(speedBoostFactor);
             tgt.revertAttackModifier(attackBuff);
-            Debug.Log("revert");
         }
     }
 }

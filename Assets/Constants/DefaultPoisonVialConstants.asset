@@ -24,6 +24,7 @@ MonoBehaviour:
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
   - {fileID: 11400000, guid: 8669cab18fc000d45a56409d3e6a3ee2, type: 2}
+  - {fileID: 11400000, guid: ee7350655a998b14a9c75152f49d7a6d, type: 2}
   poisonSideEffects:
   - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
   reactivitySideEffects:
