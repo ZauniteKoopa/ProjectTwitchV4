@@ -30,11 +30,6 @@ public class TopDownMovementController3D : MonoBehaviour
     [SerializeField]
     private IBlockerSensor rightSensor;
 
-    // Other modules
-    // [Header("Other input modules")]
-    // [SerializeField]
-    // private UserInterfaceInputModule uiModule;
-
     // Unit status
     private IUnitStatus unitStatus;
 
@@ -88,28 +83,11 @@ public class TopDownMovementController3D : MonoBehaviour
         Debug.Assert(deltaTime > 0.0f);
         Debug.Assert(cameraTransform != null);
 
-        // Get input axis values
-        float inputX = inputVector.x;
-        float inputY = inputVector.y;
-
-        // Get camera axis values
-        Vector3 forwardVector = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
-        Vector3 rightVector = Vector3.Cross(Vector3.up, forwardVector);
-
-        // Get directional forward vector
-        Vector3 forwardWorldDir = (inputX * rightVector) + (inputY * forwardVector);
-        forwardWorldDir.Normalize();
-
-        // Get movement vector by checking sensors
-        float movementX = (inputX < 0 && leftSensor.isBlocked()) ? 0 : inputX;
-        movementX = (movementX > 0 && rightSensor.isBlocked()) ? 0 : movementX;
-        float movementY = (inputY < 0 && backSensor.isBlocked()) ? 0 : inputY;
-        movementY = (movementY > 0 && frontSensor.isBlocked()) ? 0 : movementY;
-        Vector3 movementWorldDir = (movementX * rightVector) + (movementY * forwardVector);
+        Vector3 movementWorldDir = getWorldMovementDirection();
 
         // Translate via the movement vector and change facing direction via the forward vector
         transform.Translate(movementWorldDir * getMovementSpeed() * deltaTime, Space.World);
-        movementForward = forwardWorldDir;
+        movementForward = getWorldForwardDirection();
     }
 
     // Main method to determine where the character is facing, considering both movement and aim
@@ -149,5 +127,55 @@ public class TopDownMovementController3D : MonoBehaviour
         // Set inputVector value
         Vector2 eventVector = value.ReadValue<Vector2>();
         inputVector = eventVector;
+    }
+
+
+    // Main function to see if the unit is currently moving. Is used primarily for animators
+    public bool isCurrentlyMoving() {
+        if (!isMoving) {
+            return false;
+        }
+
+        Vector3 worldMoveDir = getWorldMovementDirection();
+        return worldMoveDir.magnitude > 0.0001f;
+    }
+
+
+    // Main private helper function to get the world movement direction
+    //  Post: converts raw input vector from player input to actual movement vectors in the world
+    private Vector3 getWorldMovementDirection() {
+        // Get input axis values
+        float inputX = inputVector.x;
+        float inputY = inputVector.y;
+
+        // Get camera axis values
+        Vector3 forwardVector = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
+        Vector3 rightVector = Vector3.Cross(Vector3.up, forwardVector);
+
+        // Get movement vector by checking sensors
+        float movementX = (inputX < 0 && leftSensor.isBlocked()) ? 0 : inputX;
+        movementX = (movementX > 0 && rightSensor.isBlocked()) ? 0 : movementX;
+        float movementY = (inputY < 0 && backSensor.isBlocked()) ? 0 : inputY;
+        movementY = (movementY > 0 && frontSensor.isBlocked()) ? 0 : movementY;
+
+        return (movementX * rightVector) + (movementY * forwardVector);
+    }
+
+
+    // Main private helper function to get the world forward direction of the player (what direction the player is facing)
+    private Vector3 getWorldForwardDirection() {
+        // Get input axis values
+        float inputX = inputVector.x;
+        float inputY = inputVector.y;
+        
+        // Get camera axis values
+        Vector3 forwardVector = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
+        Vector3 rightVector = Vector3.Cross(Vector3.up, forwardVector);
+
+        // Get directional forward vector
+        Vector3 forwardWorldDir = (inputX * rightVector) + (inputY * forwardVector);
+        forwardWorldDir.Normalize();
+
+        return forwardWorldDir;
     }
 }

@@ -26,8 +26,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 79b052de6c3abfb4ba16769592033444, type: 3}
   - {fileID: 8300000, guid: d054e84ee94e7d844a88de4b99bf30b8, type: 3}
   secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
-  secondaryAttackSpeed: 12
+  secondaryAttackSpeed: 20
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
   secondaryAttackCooldown: 6
+  postContaminateHitbox: {fileID: 0}

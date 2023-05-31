@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public enum TwitchMovementState {
     MOVING,
@@ -199,6 +200,7 @@ public class TwitchAttackModule : IAttackModule
         // Startup
         audioManager.playLobCaskSound();
         render.material.color = Color.blue;
+        abilityOneTrigger.Invoke();
         yield return waitForFrames(startFrames);
 
         // Lob
@@ -222,12 +224,13 @@ public class TwitchAttackModule : IAttackModule
         Debug.Assert(contaminateZone.contaminateTargetsFound());
 
         // Set up
-        attackAnimForward = transform.forward;
+        attackAnimForward = playerCharacter.forward;
         movementState = TwitchMovementState.IN_ATTACK_ANIM;
 
         // Startup
         audioManager.playContaminateSound();
         render.material.color = Color.blue;
+        abilityTwoTrigger.Invoke();
         yield return waitForFrames(contaminateStartFrames);
 
         // Contaminate
@@ -315,6 +318,14 @@ public class TwitchAttackModule : IAttackModule
     public override bool getNewForward(out Vector3 newForward) {
         newForward = (movementState == TwitchMovementState.FIRING) ? getWorldAimLocation() - transform.position : attackAnimForward;
         return movementState != TwitchMovementState.MOVING;
+    }
+
+
+    // Function to see if player is still shooting
+    //  Pre: none
+    //  Post: returns if player is shooting
+    public override bool isShooting() {
+        return movementState == TwitchMovementState.FIRING;
     }
 
 
