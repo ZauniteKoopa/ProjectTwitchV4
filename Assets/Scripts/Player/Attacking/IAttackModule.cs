@@ -29,4 +29,9 @@ public abstract class IAttackModule : MonoBehaviour {
     //  Pre: none
     //  Post: returns if player is shooting
     public abstract bool isShooting();
+
+
+
+    // Main function to see if you're in the middle of dashing or not
+    public abstract bool isDashing();
 }

@@ -149,6 +149,12 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main function to get the speed modifier for the animator
+    public float getMovementSpeedModifier() {
+        return speedStatus.getSpeedModifier();
+    }
+
+
     // Private helper function to die
     private IEnumerator death() {
         yield return 0;

@@ -21945,6 +21945,15 @@ MonoBehaviour:
   inventoryUI: {fileID: 262784614}
   playerMesh: {fileID: 1347320806317760199}
   twitchAudioManager: {fileID: 1347320806317760195}
+  startCraftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  endCraftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  obtainedSideEffect:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &117066418
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23240,10 +23249,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementModule: {fileID: 1347320807677090427}
   attackModule: {fileID: 1347320807677090428}
+  twitchStatus: {fileID: 1347320806317760197}
+  inventoryModule: {fileID: 1347320807677090373}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
+  ambushBoolParameter: inAmbush
   caskThrowTriggerParameter: secondaryTrigger
   contaminateTriggerParameter: contaminateTrigger
+  craftStartTriggerParameter: craftStartTrigger
+  craftEndTriggerParameter: craftEndTrigger
+  sideEffectTriggerParameter: obtainSideEffectTrigger
+  sideEffectFreezeTime: 0.5
 --- !u!1001 &1347320807632551413
 PrefabInstance:
   m_ObjectHideFlags: 0

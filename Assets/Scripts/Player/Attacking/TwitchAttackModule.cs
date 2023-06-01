@@ -328,6 +328,11 @@ public class TwitchAttackModule : IAttackModule
         return movementState == TwitchMovementState.FIRING;
     }
 
+    // Main function to see if you're in the middle of dashing or not
+    public override bool isDashing() {
+        return runningAmbushSequence != null;
+    }
+
 
     // Event handler method for when mouse position changes
     public void onAimPositionChange(InputAction.CallbackContext value) {

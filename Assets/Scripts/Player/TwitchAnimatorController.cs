@@ -11,6 +11,10 @@ public class TwitchAnimatorController : MonoBehaviour
     private TopDownMovementController3D movementModule;
     [SerializeField]
     private IAttackModule attackModule;
+    [SerializeField]
+    private PlayerStatus twitchStatus;
+    [SerializeField]
+    private TwitchInventory inventoryModule;
 
     [Header("Animator Parameter Names")]
     [SerializeField]
@@ -18,9 +22,20 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     private string shootingBoolParameter;
     [SerializeField]
+    private string ambushBoolParameter;
+    [SerializeField]
     private string caskThrowTriggerParameter;
     [SerializeField]
     private string contaminateTriggerParameter;
+    [SerializeField]
+    private string craftStartTriggerParameter;
+    [SerializeField]
+    private string craftEndTriggerParameter;
+    [SerializeField]
+    private string sideEffectTriggerParameter;
+    [SerializeField]
+    [Min(0.1f)]
+    private float sideEffectFreezeTime = 1.5f;
 
 
     // On awake, set everything
@@ -31,13 +46,18 @@ public class TwitchAnimatorController : MonoBehaviour
             Debug.LogError("No animator to control!!");
         }
 
-        if (movementModule == null || attackModule == null) {
+        if (movementModule == null || attackModule == null || twitchStatus == null || inventoryModule == null) {
             Debug.LogError("Missing Modules Found - Make sure that all modules are filled for animator to work properly");
         }
 
         // Listen to events from attack module
         attackModule.abilityOneTrigger.AddListener(onCaskThrowTrigger);
         attackModule.abilityTwoTrigger.AddListener(onContaminateTrigger);
+
+        // Listen to events from inventory module for crafting
+        inventoryModule.startCraftEvent.AddListener(onCraftStart);
+        inventoryModule.endCraftEvent.AddListener(onCraftEnd);
+        inventoryModule.obtainedSideEffect.AddListener(onObtainSideEffect);
     }
 
 
@@ -45,6 +65,13 @@ public class TwitchAnimatorController : MonoBehaviour
     private void Update() {
         animator.SetBool(movementBoolParameter, movementModule.isCurrentlyMoving());
         animator.SetBool(shootingBoolParameter, attackModule.isShooting());
+        animator.SetBool(ambushBoolParameter, attackModule.isDashing());
+
+        if (animator.GetBool(shootingBoolParameter)) {
+            animator.speed = twitchStatus.getAttackSpeedModifier();
+        } else {
+            animator.speed = twitchStatus.getMovementSpeedModifier();
+        }
     }
 
 
@@ -57,5 +84,31 @@ public class TwitchAnimatorController : MonoBehaviour
     // Trigger event handler for contamination
     private void onContaminateTrigger() {
         animator.SetTrigger(contaminateTriggerParameter);
+    }
+
+    // Trigger event handler for contamination
+    private void onCraftStart() {
+        animator.SetTrigger(craftStartTriggerParameter);
+    }
+
+    // Trigger event handler for contamination
+    private void onCraftEnd() {
+        animator.SetTrigger(craftEndTriggerParameter);
+    }
+
+    // Trigger event handler for contamination
+    private void onObtainSideEffect() {
+        StartCoroutine(sideEffectFreezeSequence());
+    }
+
+
+    // Obtain Side Effect freeze sequence
+    private IEnumerator sideEffectFreezeSequence() {
+        animator.SetTrigger(sideEffectTriggerParameter);
+        Time.timeScale = 0f;
+
+        yield return new WaitForSecondsRealtime(sideEffectFreezeTime);
+
+        Time.timeScale = 1f;
     }
 }

@@ -50,6 +50,11 @@ public class TwitchInventory : MonoBehaviour
     [SerializeField]
     private PlayerAudioManager twitchAudioManager;
 
+    // Animator events
+    public UnityEvent startCraftEvent;
+    public UnityEvent endCraftEvent;
+    public UnityEvent obtainedSideEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -390,6 +395,7 @@ public class TwitchInventory : MonoBehaviour
         Debug.Assert(craftParameters != null);
 
         playerMesh.material.color = Color.yellow;
+        startCraftEvent.Invoke();
 
         yield return new WaitForSeconds(craftingDuration);
 
@@ -397,7 +403,13 @@ public class TwitchInventory : MonoBehaviour
 
         // Actually update the vials in the case vial exist
         if (craftParameters.vial != null) {
+            // Check if you got a side effect before / after crafting
+            bool gotSideEffectBefore = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
             bool success = craftParameters.vial.craft(craftParameters.stat, recipeBook);
+            bool gotSideEffectAfter = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
+
+            UnityEvent curEndEvent = (gotSideEffectBefore != gotSideEffectAfter) ? obtainedSideEffect : endCraftEvent;
+            curEndEvent.Invoke();
 
         // Case where the parameters isn't pointing to a vial but isPrimary is true
         } else if (craftParameters.isPrimary) {
