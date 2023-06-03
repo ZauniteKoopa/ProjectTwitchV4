@@ -44,6 +44,10 @@ public class TwitchInventory : MonoBehaviour
     private MainInventoryUI inventoryUI;
     [SerializeField]
     private MeshRenderer playerMesh;
+    [SerializeField]
+    private Renderer[] primaryVialMeshes;
+    [SerializeField]
+    private Renderer[] secondaryVialMeshes;
     private Color originalMeshColor;
 
     // Audio
@@ -71,7 +75,7 @@ public class TwitchInventory : MonoBehaviour
 
         primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
         primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
-        screenUI.displayPrimaryVial(primaryVial);
+        updateVialDisplays();
         originalMeshColor = playerMesh.material.color;
     }
 
@@ -82,8 +86,7 @@ public class TwitchInventory : MonoBehaviour
         screenUI.displayContaminateCooldown(1f);
         screenUI.displayCaskCooldown(1f);
 
-        screenUI.displayPrimaryVial(null);
-        screenUI.displaySecondaryVial(null);
+        updateVialDisplays();
     }
 
 
@@ -159,7 +162,7 @@ public class TwitchInventory : MonoBehaviour
             primaryVial = null;
         }
 
-        screenUI.displayPrimaryVial(primaryVial);
+        updateVialDisplays();
         return success;
     }
 
@@ -199,7 +202,7 @@ public class TwitchInventory : MonoBehaviour
             }
         }
 
-        screenUI.displayPrimaryVial(primaryVial);
+        updateVialDisplays();
         return success;
     }
 
@@ -328,9 +331,7 @@ public class TwitchInventory : MonoBehaviour
         primaryVial = secondaryVial;
         secondaryVial = tempVial;
 
-        screenUI.displayPrimaryVial(primaryVial);
-        screenUI.displaySecondaryVial(secondaryVial);
-        updateAttackRangeIndicator();
+        updateVialDisplays();
     }
 
 
@@ -415,12 +416,13 @@ public class TwitchInventory : MonoBehaviour
         } else if (craftParameters.isPrimary) {
             primaryVial = new PoisonVial(craftParameters.stat);
             primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
+            endCraftEvent.Invoke();
 
         // Case where its not pointing to a vial and isPrimary is false
         } else {
             secondaryVial = new PoisonVial(craftParameters.stat);
             secondaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
-
+            endCraftEvent.Invoke();
         }
 
         // Update ingredient count
@@ -433,9 +435,31 @@ public class TwitchInventory : MonoBehaviour
         playerInput.enabled = true;
         runningCraftingSequence = null;
 
+        updateVialDisplays();
+    }
+
+
+    // Main private helper function to update both vial displays
+    private void updateVialDisplays() {
         screenUI.displayPrimaryVial(primaryVial);
         screenUI.displaySecondaryVial(secondaryVial);
         updateAttackRangeIndicator();
+
+        foreach (Renderer primaryVialMesh in primaryVialMeshes) {
+            primaryVialMesh.enabled = (primaryVial != null);
+
+            if (primaryVial != null) {
+                primaryVialMesh.material.color = primaryVial.getColor();
+            }
+        }
+
+        foreach (Renderer secondaryVialMesh in secondaryVialMeshes) {
+            secondaryVialMesh.enabled = (secondaryVial != null);
+
+            if (secondaryVial != null) {
+                secondaryVialMesh.material.color = secondaryVial.getColor();
+            }
+        }
     }
     
 }

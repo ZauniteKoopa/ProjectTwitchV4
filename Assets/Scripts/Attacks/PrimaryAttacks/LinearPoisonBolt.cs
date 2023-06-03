@@ -9,6 +9,8 @@ public class LinearPoisonBolt : LinearProjectile
     [Min(0)]
     private int appliedStacks = 1;
 
+    private TrailRenderer trailRenderer;
+
     
     // Main function to set up the projectile
     //  Pre: dir is the direction the projectile will move towards, dmg > 0
@@ -18,6 +20,14 @@ public class LinearPoisonBolt : LinearProjectile
 
         base.setUp(dir, dmg, poi, range);
         poison = poi;
+
+        trailRenderer = GetComponent<TrailRenderer>();
+        if (trailRenderer == null) {
+            Debug.LogWarning("No Trail Renderer found on this object");
+        } else {
+            trailRenderer.startColor = poi.getColor();
+            trailRenderer.endColor = poi.getColor();
+        }
     }
 
 

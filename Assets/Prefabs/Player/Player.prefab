@@ -21944,6 +21944,11 @@ MonoBehaviour:
   screenUI: {fileID: 1347320806230522881}
   inventoryUI: {fileID: 262784614}
   playerMesh: {fileID: 1347320806317760199}
+  primaryVialMeshes:
+  - {fileID: 8344216546595008815}
+  - {fileID: 4527573279414321107}
+  secondaryVialMeshes:
+  - {fileID: 8317949375430718539}
   twitchAudioManager: {fileID: 1347320806317760195}
   startCraftEvent:
     m_PersistentCalls:
@@ -23038,7 +23043,7 @@ PrefabInstance:
     - target: {fileID: -2198256210473574876, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
+      objectReference: {fileID: 2100000, guid: 8df30c64a2ab2014c80d1bc20ffabba3, type: 2}
     - target: {fileID: -2171315836404589760, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -23046,7 +23051,7 @@ PrefabInstance:
     - target: {fileID: -2171315836404589760, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
+      objectReference: {fileID: 2100000, guid: 8df30c64a2ab2014c80d1bc20ffabba3, type: 2}
     - target: {fileID: -1427529783054151825, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -23134,7 +23139,7 @@ PrefabInstance:
     - target: {fileID: 3199683058971971800, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
+      objectReference: {fileID: 2100000, guid: 8df30c64a2ab2014c80d1bc20ffabba3, type: 2}
     - target: {fileID: 3662819828530244038, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -23260,6 +23265,21 @@ MonoBehaviour:
   craftEndTriggerParameter: craftEndTrigger
   sideEffectTriggerParameter: obtainSideEffectTrigger
   sideEffectFreezeTime: 0.5
+--- !u!23 &4527573279414321107 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3199683058971971800, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  m_PrefabInstance: {fileID: 1347320807438053131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8317949375430718539 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2171315836404589760, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  m_PrefabInstance: {fileID: 1347320807438053131}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8344216546595008815 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2198256210473574876, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  m_PrefabInstance: {fileID: 1347320807438053131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1347320807632551413
 PrefabInstance:
   m_ObjectHideFlags: 0
