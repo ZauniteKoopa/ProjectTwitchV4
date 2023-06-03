@@ -32,6 +32,7 @@ public class PoisonFog : DeployableHitbox
     //  Post: hitbox will stay for a duration, doing whatever it wants. by the end of it, it should kill itself
     protected override IEnumerator lifespan(PoisonVial p) {
         poison = p;
+        GetComponent<MeshRenderer>().material.color = p.getColor();
 
         // Initial damage
         yield return new WaitForSeconds(initialDamageDuration);
