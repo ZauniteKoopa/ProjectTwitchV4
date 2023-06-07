@@ -21,16 +21,16 @@ public class SideEffect : ScriptableObject
     private IPrimaryAttack primaryAttackPrefab;
     [SerializeField]
     [Min(1)]
-    public int primaryAttackStartFrames = 1;
+    public int primaryAttackStartFrames = 10;
     [SerializeField]
     [Min(1)]
-    public int primaryAttackEndFrames = 1;
+    public int primaryAttackEndFrames = 20;
     [SerializeField]
     [Min(0.1f)]
     private float primaryAttackMultiplier = 1.0f;
     [SerializeField]
     [Min(1f)]
-    public float attackRange = 7f;
+    public float attackRange = 6f;
     [SerializeField]
     private AudioClip[] primaryAttackSoundEffects = null;
 
@@ -39,19 +39,19 @@ public class SideEffect : ScriptableObject
     private LobAction secondaryAttackPrefab;
     [SerializeField]
     [Min(0.01f)]
-    private float secondaryAttackSpeed = 8f;
+    private float secondaryAttackSpeed = 20f;
     [SerializeField]
     [Min(1)]
-    public int secondaryAttackStartFrames = 1;
+    public int secondaryAttackStartFrames = 15;
     [SerializeField]
     [Min(1)]
-    public int secondaryAttackEndFrames = 1;
+    public int secondaryAttackEndFrames = 10;
     [SerializeField]
     [Min(1)]
     public int secondaryAttackCost = 3;
     [SerializeField]
     [Min(0.1f)]
-    public float secondaryAttackCooldown = 2f;
+    public float secondaryAttackCooldown = 6f;
 
 
     [Header("Post Contaminate Hitbox")]

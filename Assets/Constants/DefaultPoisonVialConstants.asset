@@ -30,6 +30,7 @@ MonoBehaviour:
   reactivitySideEffects:
   - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
   - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
+  - {fileID: 11400000, guid: da1139debfef23841af30bca4e7cb843, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
   potencyBoltMultiplier: 1.5
