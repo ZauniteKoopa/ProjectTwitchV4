@@ -31,6 +31,15 @@ public class LobAction : MonoBehaviour
     }
 
 
+    // Main function to lob projectile to a dynamic moving target
+    //  Pre: The vector3s are positions within the game world, lobSpeed is the speed of the lobbing projectile
+    //  Post: lobs the projectile
+    public void dynamicLobWithTime(Vector3 src, Transform tgt, float lobTime, PoisonVial poison) {
+        Debug.Assert(lobTime > 0f);
+        StartCoroutine(dynamicLobSequence(src, tgt, lobTime, poison));
+    }
+
+
     // Main private IEnumerator to handle lobbing action
     //  Pre: src and tgt are positions within the gameworld, lobTime is the time it takes to do the entire sequence
     private IEnumerator lobSequence(Vector3 src, Vector3 tgt, float lobTime, PoisonVial poison) {
@@ -61,6 +70,46 @@ public class LobAction : MonoBehaviour
 
         // Finish
         transform.position = tgt;
+        
+        if (deployable != null && poison != null) {
+            deployable.transform.parent = null;
+            deployable.deploy(poison);
+        }
+
+        Object.Destroy(gameObject);
+    }
+
+
+    // Main private IEnumerator to handle lobbing action
+    //  Pre: src and tgt are positions within the gameworld, lobTime is the time it takes to do the entire sequence
+    private IEnumerator dynamicLobSequence(Vector3 src, Transform tgt, float lobTime, PoisonVial poison) {
+        Debug.Assert(lobTime > 0f);
+
+        // Set up
+        float timer = 0f;
+        Vector3 midPoint = (src + tgt.position) / 2f;
+        midPoint.y += MAX_LOB_HEIGHT;
+        float halfTime = lobTime / 2f;
+
+        // First arc
+        while (timer < halfTime) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            transform.position = Vector3.Slerp(src, midPoint, timer / halfTime);
+        }
+
+        // Second arc
+        timer = 0f;
+        while (timer < halfTime) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            transform.position = Vector3.Slerp(midPoint, tgt.position, timer / halfTime);
+        }
+
+        // Finish
+        transform.position = tgt.position;
         
         if (deployable != null && poison != null) {
             deployable.transform.parent = null;

@@ -49,7 +49,7 @@ public class PoisonFog : DeployableHitbox
 
         // Cleanup
         foreach (EnemyStatus enemy in inPoisonRange) {
-            enemy.revertSpeedModifier(1f / poisonFogSpeedReduction);
+            enemy.revertSpeedModifier(poisonFogSpeedReduction);
         }
 
         Object.Destroy(gameObject);
@@ -82,7 +82,7 @@ public class PoisonFog : DeployableHitbox
 
             // add to enemies that are in range
             inPoisonRange.Remove(enemyTgt);
-            enemyTgt.revertSpeedModifier(1f / poisonFogSpeedReduction);
+            enemyTgt.revertSpeedModifier(poisonFogSpeedReduction);
         }
     }
 }

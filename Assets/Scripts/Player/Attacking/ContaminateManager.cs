@@ -44,7 +44,7 @@ public class ContaminateManager : MonoBehaviour
         foreach (EnemyStatus tgt in lockedTargets) {
             if (tgt.isPoisoned()) {
                 LobAction curEffect = Object.Instantiate(contaminateVisualEffect, transform.position, Quaternion.identity);
-                curEffect.lobWithTime(transform.position, tgt.transform.position, contaminateEffectTime, null);
+                curEffect.dynamicLobWithTime(transform.position, tgt.transform, contaminateEffectTime, null);
             }
         }
 
