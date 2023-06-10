@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46ffd21aa41a934f8a2d13b339653bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 30
+  projectileSpeed: 50
   maxDistance: 7
   appliedStacks: 1
 --- !u!96 &5114424262781227561

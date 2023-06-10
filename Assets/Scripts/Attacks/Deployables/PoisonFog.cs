@@ -12,6 +12,7 @@ public class PoisonFog : DeployableHitbox
     [Min(1)]
     private int maxFogTicks = 3;
     [SerializeField]
+    [Min(0.01f)]
     private float initialDamageDuration = 0.1f;
     [SerializeField]
     [Min(0.1f)]

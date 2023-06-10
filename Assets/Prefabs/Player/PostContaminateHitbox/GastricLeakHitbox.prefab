@@ -117,7 +117,7 @@ MonoBehaviour:
   scaleIncreaseOnDeath: 0.5
   durationIncreaseOnDeath: 2
   contaminateDamageRatio: 0.1
-  speedReductionFactor: 0.7
+  speedReductionFactor: 0.4
 --- !u!1 &6252009844996088259
 GameObject:
   m_ObjectHideFlags: 0

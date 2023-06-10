@@ -33,6 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da1139debfef23841af30bca4e7cb843, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
+  - {fileID: 11400000, guid: 1af2e47a55db9564ea43aa7da28f61d8, type: 2}
   potencyBoltMultiplier: 1.5
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25
