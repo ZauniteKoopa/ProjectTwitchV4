@@ -9,26 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4af39142789337441a81d65764529b79, type: 3}
   m_Name: PulsatingCask
   m_EditorClassIdentifier: 
   displayName: Pulsating Cask
-  description: Venom Casks turn pulsating! The cask will latch onto enemies and then
-    pull them in!
+  description: Venom cask now turns into a pulsating goop, latching and slowing down
+    enemies and pulling them together after 1 second.
   spriteIcon: {fileID: 0}
   sideEffectType: 3
-  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
-  primaryAttackStartFrames: 10
-  primaryAttackEndFrames: 20
-  primaryAttackMultiplier: 1
-  attackRange: 6
-  primaryAttackSoundEffects:
-  - {fileID: 8300000, guid: ff6a31d50af0e524d9c21655dbfb672b, type: 3}
-  - {fileID: 8300000, guid: 0de3a2cf55e4f454f91ad26dce6dca78, type: 3}
+  postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 4769693931032617048, guid: 6aa9049b4e24ecb40a4bfaecab3d54d5, type: 3}
   secondaryAttackSpeed: 20
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 4
   secondaryAttackCooldown: 7
-  postContaminateHitbox: {fileID: 0}

@@ -21,6 +21,10 @@ public class PoisonVialConstants : ScriptableObject
     public Color baseVialColor = Color.grey;
 
 
+    [Header("Poisoning Variables")]
+    public float secondsPerPoisonTick = 1f;
+
+
     [Header("Side Effects")]
     public SideEffect defaultSideEffect;
     [SerializeField]
@@ -32,6 +36,43 @@ public class PoisonVialConstants : ScriptableObject
     [SerializeField]
     private SideEffect[] stickinessSideEffects;
     private Dictionary<PoisonVialStat, SideEffect[]> sideEffectDictionary = null;
+
+    [Header("Default Primary Attack")]
+    [SerializeField]
+    private IPrimaryAttack primaryAttackPrefab;
+    [SerializeField]
+    [Min(1)]
+    public int primaryAttackStartFrames = 10;
+    [SerializeField]
+    [Min(1)]
+    public int primaryAttackEndFrames = 20;
+    [SerializeField]
+    [Min(0.1f)]
+    private float primaryAttackMultiplier = 1.0f;
+    [SerializeField]
+    [Min(1f)]
+    public float attackRange = 6f;
+    [SerializeField]
+    private AudioClip[] primaryAttackSoundEffects = null;
+
+    [Header("Secondary Attack")]
+    [SerializeField]
+    private LobAction secondaryAttackPrefab;
+    [SerializeField]
+    [Min(0.01f)]
+    private float secondaryAttackSpeed = 20f;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackStartFrames = 15;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackEndFrames = 10;
+    [SerializeField]
+    [Min(1)]
+    public int secondaryAttackCost = 3;
+    [SerializeField]
+    [Min(0.1f)]
+    public float secondaryAttackCooldown = 6f;
 
     [Header("Default Side Effect Multipliers")]
     [Min(0.1f)]
@@ -113,5 +154,34 @@ public class PoisonVialConstants : ScriptableObject
         sideEffectDictionary.Add(PoisonVialStat.POISON, poisonSideEffects);
         sideEffectDictionary.Add(PoisonVialStat.REACTIVITY, reactivitySideEffects);
         sideEffectDictionary.Add(PoisonVialStat.STICKINESS, stickinessSideEffects);
+    }
+
+
+    // Main function to fire default primary attack
+    //  Pre: attackDir is the direction you attack to, attacker is the transform of the unit that's attacking
+    //  Post: ALWAYS fires the attack. (Please check conditions before doing this)
+    public void fireDefaultPrimaryPoisonAttack(Vector3 attackDir, Transform attacker, float damage, PoisonVial parentPoison) {
+        Debug.Assert(attacker != null && primaryAttackPrefab != null);
+
+        IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
+        curBolt.setUp(attackDir, damage * primaryAttackMultiplier, parentPoison, attackRange);
+    }
+
+
+    // Main function to get a random primary attack sound effect clip
+    public AudioClip getDefaultPrimaryAttackSound() {
+        Debug.Assert(primaryAttackSoundEffects != null && primaryAttackSoundEffects.Length > 0);
+        return primaryAttackSoundEffects[Random.Range(0, primaryAttackSoundEffects.Length)];
+    }
+
+
+    // Main function to fire default secondary attack
+    //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
+    //  Post: fires secondary attack
+    public void fireDefaultSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+        Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
+
+        LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
+        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
     }
 }

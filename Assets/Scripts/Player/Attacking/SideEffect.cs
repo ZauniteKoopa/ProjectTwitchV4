@@ -15,44 +15,6 @@ public class SideEffect : ScriptableObject
     [SerializeField]
     private PoisonVialStat sideEffectType;
 
-    // Primary attack variables
-    [Header("Primary Attack")]
-    [SerializeField]
-    private IPrimaryAttack primaryAttackPrefab;
-    [SerializeField]
-    [Min(1)]
-    public int primaryAttackStartFrames = 10;
-    [SerializeField]
-    [Min(1)]
-    public int primaryAttackEndFrames = 20;
-    [SerializeField]
-    [Min(0.1f)]
-    private float primaryAttackMultiplier = 1.0f;
-    [SerializeField]
-    [Min(1f)]
-    public float attackRange = 6f;
-    [SerializeField]
-    private AudioClip[] primaryAttackSoundEffects = null;
-
-    [Header("Secondary Attack")]
-    [SerializeField]
-    private LobAction secondaryAttackPrefab;
-    [SerializeField]
-    [Min(0.01f)]
-    private float secondaryAttackSpeed = 20f;
-    [SerializeField]
-    [Min(1)]
-    public int secondaryAttackStartFrames = 15;
-    [SerializeField]
-    [Min(1)]
-    public int secondaryAttackEndFrames = 10;
-    [SerializeField]
-    [Min(1)]
-    public int secondaryAttackCost = 3;
-    [SerializeField]
-    [Min(0.1f)]
-    public float secondaryAttackCooldown = 6f;
-
 
     [Header("Post Contaminate Hitbox")]
     public PostContaminateHitbox postContaminateHitbox = null;
@@ -62,22 +24,60 @@ public class SideEffect : ScriptableObject
     // Main function to fire the projectile towards attackDir direction starting from attacker position
     //  Pre: attackDir is the direction you attack to, attacker is the transform of the unit that's attacking
     //  Post: ALWAYS fires the attack. (Please check conditions before doing this)
-    public void firePrimaryAttack(Vector3 attackDir, Transform attacker, float damage, PoisonVial parentPoison) {
-        Debug.Assert(attacker != null && primaryAttackPrefab != null);
+    public virtual void firePrimaryAttack(Vector3 attackDir, Transform attacker, float damage, PoisonVial parentPoison) {
+        Debug.Assert(attacker != null);
+        PoisonVial.poisonVialConstants.fireDefaultPrimaryPoisonAttack(attackDir, attacker, damage, parentPoison);
+    }
 
-        IPrimaryAttack curBolt = Object.Instantiate(primaryAttackPrefab, attacker.position, Quaternion.identity);
-        curBolt.setUp(attackDir, damage * primaryAttackMultiplier, parentPoison, attackRange);
+
+    // Main function to get the primary start frames
+    public virtual int getPrimaryAttackStartFrames() {
+        return PoisonVial.poisonVialConstants.primaryAttackStartFrames;
+    }
+
+
+    // Main function to get the primary start frames
+    public virtual int getPrimaryAttackEndFrames() {
+        return PoisonVial.poisonVialConstants.primaryAttackEndFrames;
+    }
+
+
+    // Main function to get attack range
+    public virtual float getAttackRange() {
+        return PoisonVial.poisonVialConstants.attackRange;
     }
 
 
     // Main function to fire secondary attack
     //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
     //  Post: fires secondary attack
-    public void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
-        Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
+    public virtual void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+        Debug.Assert(attacker != null && parentPoison != null);
+        PoisonVial.poisonVialConstants.fireDefaultSecondaryAttack(tgtPos, attacker, parentPoison);
+    }
 
-        LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
-        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
+
+    // Main function to get the primary start frames
+    public virtual int getSecondaryAttackStartFrames() {
+        return PoisonVial.poisonVialConstants.secondaryAttackStartFrames;
+    }
+
+
+    // Main function to get the secondary end frames
+    public virtual int getSecondaryAttackEndFrames() {
+        return PoisonVial.poisonVialConstants.secondaryAttackEndFrames;
+    }
+
+
+    // Main function to get the secondary attack cost
+    public virtual int getSecondaryAttackCost() {
+        return PoisonVial.poisonVialConstants.secondaryAttackCost;
+    }
+
+
+    // Main function to get the secondary attack cooldown
+    public virtual float getSecondaryAttackCooldown() {
+        return PoisonVial.poisonVialConstants.secondaryAttackCooldown;
     }
 
 
@@ -96,8 +96,13 @@ public class SideEffect : ScriptableObject
 
 
     // Main function to get a random primary attack sound effect clip
-    public AudioClip getPrimaryAttackSound() {
-        Debug.Assert(primaryAttackSoundEffects != null && primaryAttackSoundEffects.Length > 0);
-        return primaryAttackSoundEffects[Random.Range(0, primaryAttackSoundEffects.Length)];
+    public virtual AudioClip getPrimaryAttackSound() {
+        return PoisonVial.poisonVialConstants.getDefaultPrimaryAttackSound();
+    }
+
+
+    // Main function to get modified decay rate
+    public virtual float getPoisonDecayRateModifier(int numStacks) {
+        return 1.0f;
     }
 }

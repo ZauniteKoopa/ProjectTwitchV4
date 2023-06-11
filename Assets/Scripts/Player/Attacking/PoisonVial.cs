@@ -69,6 +69,12 @@ public class PoisonVial
     }
 
 
+    // Main function to get the decay rate of poison (second per tick)
+    public float getPoisonDecayRate(int numStacks) {
+        return poisonVialConstants.secondsPerPoisonTick * sideEffect.getPoisonDecayRateModifier(numStacks);
+    }
+
+
     // Main accessor function to get the ammo of this vial
     public int getAmmo() {
         return ammo;
@@ -83,13 +89,13 @@ public class PoisonVial
 
     // Main accessor function to get the start-up frames for the primary attack
     public int getPrimaryAttackStartFrames() {
-        return sideEffect.primaryAttackStartFrames;
+        return sideEffect.getPrimaryAttackStartFrames();
     }
 
 
     // Main accessor function to get the start-up frames for the primary attack
     public int getPrimaryAttackEndFrames() {
-        return sideEffect.primaryAttackEndFrames;
+        return sideEffect.getPrimaryAttackEndFrames();
     }
 
 
@@ -118,13 +124,13 @@ public class PoisonVial
 
     // Main accessor function to get the start-up frames for the primary attack
     public int getSecondaryAttackStartFrames() {
-        return sideEffect.secondaryAttackStartFrames;
+        return sideEffect.getSecondaryAttackStartFrames();
     }
 
 
     // Main accessor function to get the start-up frames for the primary attack
     public int getSecondaryAttackEndFrames() {
-        return sideEffect.secondaryAttackEndFrames;
+        return sideEffect.getSecondaryAttackEndFrames();
     }
 
 
@@ -133,11 +139,11 @@ public class PoisonVial
     //  Post: returns true if projectile fires. Returns false if it didn't due to ammo constraints
     public bool fireSecondaryAttack(Vector3 tgtPos, Transform attacker) {
         // If not enough ammo, return
-        if (ammo < sideEffect.secondaryAttackCost) {
+        if (ammo < sideEffect.getSecondaryAttackCost()) {
             return false;
         }
 
-        ammo -= sideEffect.secondaryAttackCost;
+        ammo -= sideEffect.getSecondaryAttackCost();
         sideEffect.fireSecondaryAttack(tgtPos, attacker, this);
         return true;
     }
@@ -147,7 +153,7 @@ public class PoisonVial
     //  Pre: none
     //  Post: returns whether or not you can fire secondary projectile
     public bool canFireSecondaryLob() {
-        return ammo >= sideEffect.secondaryAttackCost;
+        return ammo >= sideEffect.getSecondaryAttackCost();
     }
 
 
@@ -155,7 +161,7 @@ public class PoisonVial
     //  Pre: none
     //  Post: returns the cooldown for the secondary attack
     public float getSecondaryAttackCooldown() {
-        return sideEffect.secondaryAttackCooldown;
+        return sideEffect.getSecondaryAttackCooldown();
     }
 
 

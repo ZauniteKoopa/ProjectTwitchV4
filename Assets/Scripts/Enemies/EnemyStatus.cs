@@ -29,14 +29,13 @@ public class EnemyStatus : IUnitStatus
 
     // Poison stacks
     private int curPoisonStacks = 0;
-    private int curPoisonTick = 0;
+    private float curPoisonTime = 0;
     private Coroutine currentPoisoningSequence = null;
     private PoisonVial curPoison = null;
     private readonly object poisonLock = new object();
 
     private const int MAX_POISON_STACKS = 6;
-    private const float POISON_TICK_DURATION = 1f;
-    private const int MAX_POISON_TICKS = 6;
+    private const float MAX_POISON_DURATION = 6f;
 
 
     // On awake, set curHealth to maxHealth
@@ -116,7 +115,7 @@ public class EnemyStatus : IUnitStatus
                 if (currentPoisoningSequence == null) {
                     currentPoisoningSequence = StartCoroutine(poisoningSequence());
                 } else {
-                    curPoisonTick = 0;
+                    curPoisonTime = 0f;
                 }
 
                 enemyStatusUI.updatePoisonHalo(curPoisonStacks, poison.getColor());
@@ -201,15 +200,17 @@ public class EnemyStatus : IUnitStatus
     private IEnumerator poisoningSequence() {
         Debug.Assert(curPoison != null && curPoisonStacks > 0);
 
-        curPoisonTick = 0;
+        curPoisonTime = 0f;
 
-        while (curPoisonTick < MAX_POISON_TICKS) {
-            yield return new WaitForSeconds(POISON_TICK_DURATION);
+        while (curPoisonTime < MAX_POISON_DURATION && curPoison != null) {
+            float curDecayRate = curPoison.getPoisonDecayRate(curPoisonStacks);
+
+            yield return new WaitForSeconds(curDecayRate);
 
             lock (poisonLock) {
                 Debug.Assert(curPoison != null && curPoisonStacks > 0);
                 damage(curPoison.getPoisonDamage(curPoisonStacks), true);
-                curPoisonTick++;
+                curPoisonTime += curDecayRate;
             }
         }
 
@@ -222,7 +223,7 @@ public class EnemyStatus : IUnitStatus
         lock (poisonLock) {
             curPoisonStacks = 0;
             curPoison = null;
-            curPoisonTick = 0;
+            curPoisonTime = 0f;
             enemyStatusUI.updatePoisonHalo(curPoisonStacks, Color.white);
 
             if (currentPoisoningSequence != null) {

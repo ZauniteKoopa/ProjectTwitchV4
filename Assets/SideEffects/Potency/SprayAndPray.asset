@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c6a27eb338677f448f30be14d5c10c9, type: 3}
   m_Name: SprayAndPray
   m_EditorClassIdentifier: 
   displayName: Spray and Pray
@@ -17,6 +17,7 @@ MonoBehaviour:
     each enemy hit by 10% (Min 60%). Bolt damage +20%
   spriteIcon: {fileID: 21300000, guid: 15c25565fa60dba4ab1565827d8929a7, type: 3}
   sideEffectType: 0
+  postContaminateHitbox: {fileID: 0}
   primaryAttackPrefab: {fileID: 683622361879638544, guid: 3b95a526ced53214ba04c62a6f563fa8, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 20
@@ -25,10 +26,3 @@ MonoBehaviour:
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 79b052de6c3abfb4ba16769592033444, type: 3}
   - {fileID: 8300000, guid: d054e84ee94e7d844a88de4b99bf30b8, type: 3}
-  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
-  secondaryAttackSpeed: 20
-  secondaryAttackStartFrames: 15
-  secondaryAttackEndFrames: 10
-  secondaryAttackCost: 3
-  secondaryAttackCooldown: 6
-  postContaminateHitbox: {fileID: 0}

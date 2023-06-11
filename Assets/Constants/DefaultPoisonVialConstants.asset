@@ -21,19 +21,35 @@ MonoBehaviour:
   tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
   tempPoisonColor: {r: 0.16359851, g: 0.3490566, b: 0.097691916, a: 1}
   baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
-  - {fileID: 11400000, guid: 8669cab18fc000d45a56409d3e6a3ee2, type: 2}
+  - {fileID: 11400000, guid: 302bf22b3842c4748abba6ad2369c9eb, type: 2}
   - {fileID: 11400000, guid: ee7350655a998b14a9c75152f49d7a6d, type: 2}
   poisonSideEffects:
   - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
+  - {fileID: 11400000, guid: 828444acff316fa4ba13b3fcbf1c86e4, type: 2}
   reactivitySideEffects:
   - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
-  - {fileID: 11400000, guid: 460377287d6ad0741896d34829a481fc, type: 2}
-  - {fileID: 11400000, guid: da1139debfef23841af30bca4e7cb843, type: 2}
+  - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}
+  - {fileID: 11400000, guid: e3049add683acfc47804d42c6ced10c8, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
-  - {fileID: 11400000, guid: 1af2e47a55db9564ea43aa7da28f61d8, type: 2}
+  - {fileID: 11400000, guid: fec4c764a33fe354c82aa46b49ee112e, type: 2}
+  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
+  primaryAttackStartFrames: 10
+  primaryAttackEndFrames: 20
+  primaryAttackMultiplier: 1
+  attackRange: 6
+  primaryAttackSoundEffects:
+  - {fileID: 8300000, guid: 0de3a2cf55e4f454f91ad26dce6dca78, type: 3}
+  - {fileID: 8300000, guid: ff6a31d50af0e524d9c21655dbfb672b, type: 3}
+  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
+  secondaryAttackSpeed: 20
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 3
+  secondaryAttackCooldown: 6
   potencyBoltMultiplier: 1.5
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25

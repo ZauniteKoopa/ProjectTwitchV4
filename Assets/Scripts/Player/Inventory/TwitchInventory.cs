@@ -142,7 +142,7 @@ public class TwitchInventory : MonoBehaviour
 
     // Main function to update attack range indicator
     private void updateAttackRangeIndicator() {
-        float curRange = (primaryVial != null) ? primaryVial.sideEffect.attackRange : PoisonVial.poisonVialConstants.defaultSideEffect.attackRange;
+        float curRange = (primaryVial != null) ? primaryVial.sideEffect.getAttackRange() : PoisonVial.poisonVialConstants.attackRange;
         curRange *= 2f;
         attackRangeIndicator.localScale = new Vector3(curRange, attackRangeIndicator.localScale.y, curRange);
     }
