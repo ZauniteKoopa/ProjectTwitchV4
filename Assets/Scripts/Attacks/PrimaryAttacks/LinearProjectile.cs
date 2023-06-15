@@ -14,6 +14,15 @@ public class LinearProjectile : IPrimaryAttack
     [Min(0.2f)]
     private float maxDistance = 6f;
 
+    [SerializeField]
+    [Range(0, 20)]
+    private int hitStopFrames = 0;
+    private bool firstHit = true;
+
+    [SerializeField]
+    [Range(0f, 1.5f)]
+    private float cameraShakeMagnitude = 0f;
+
 
     // Update is called once per frame
     void Update()
@@ -49,6 +58,13 @@ public class LinearProjectile : IPrimaryAttack
         IUnitStatus target = collider.GetComponent<IUnitStatus>();
         if (target != null) {
             damageTarget(target);
+
+            // If this was the first hit enemy, trigger hit stop
+            if (firstHit) {
+                firstHit = false;
+                PlayerCameraController.hitStop(hitStopFrames);
+                PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
+            }
             onHitEnemy();
 
         } else {

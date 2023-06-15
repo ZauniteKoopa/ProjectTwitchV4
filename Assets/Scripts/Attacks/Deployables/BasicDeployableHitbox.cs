@@ -12,6 +12,13 @@ public class BasicDeployableHitbox : DeployableHitbox
     [SerializeField]
     [Min(0)]
     private int addedStacks = 2;
+    [SerializeField]
+    [Range(0f, 1.5f)]
+    private float cameraShakeMagnitude = 0f;
+    [SerializeField]
+    [Range(0, 20)]
+    private int shakeFrames = 0;
+
     private HashSet<EnemyStatus> hit = new HashSet<EnemyStatus>();
     private PoisonVial curPoison;
 
@@ -22,6 +29,8 @@ public class BasicDeployableHitbox : DeployableHitbox
     //  Post: hitbox will stay for a duration, doing whatever it wants. by the end of it, it should kill itself
     protected override IEnumerator lifespan(PoisonVial poison) {
         curPoison = poison;
+        PlayerCameraController.shakeCamera(shakeFrames, cameraShakeMagnitude);
+
         for (int f = 0; f < numActiveFrames; f++) {
             yield return 0;
         }

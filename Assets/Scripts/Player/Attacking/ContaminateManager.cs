@@ -11,6 +11,12 @@ public class ContaminateManager : MonoBehaviour
     [SerializeField]
     private PoisonedUnitSensor poisonedSensor = null;
     private HashSet<EnemyStatus> inRange = new HashSet<EnemyStatus>();
+    [SerializeField]
+    [Range(0, 20)]
+    private int contaminateTimeStopFrames = 20;
+    [SerializeField]
+    [Range(0f, 1.5f)]
+    private float cameraShakeMagnitude = 0f;
 
     private MeshRenderer render = null;
 
@@ -56,6 +62,9 @@ public class ContaminateManager : MonoBehaviour
                 tgt.contaminate();
             }
         }
+
+        PlayerCameraController.hitStop(contaminateTimeStopFrames);
+        PlayerCameraController.shakeCamera(contaminateTimeStopFrames, cameraShakeMagnitude);
     }
 
 

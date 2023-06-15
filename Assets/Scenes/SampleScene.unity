@@ -1189,6 +1189,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347320807493061773, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: cameraShakeMagnitude
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807493061773, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: contaminateTimeStopFrames
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 3

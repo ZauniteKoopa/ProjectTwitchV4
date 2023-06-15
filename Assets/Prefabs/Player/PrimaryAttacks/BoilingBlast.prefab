@@ -254,4 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85757843431c25849a926a32866a98e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitStopFrames: 10
+  cameraShakeMagnitude: 1
   appliedStacks: 2

@@ -131,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 60
   maxDistance: 12
+  hitStopFrames: 5
+  cameraShakeMagnitude: 0.5
   appliedStacks: 1
   minDamageRatio: 0.6
   damageReductionPerEnemy: 0.1

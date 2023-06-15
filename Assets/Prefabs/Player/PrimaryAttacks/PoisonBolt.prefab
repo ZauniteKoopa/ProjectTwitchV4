@@ -131,6 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 50
   maxDistance: 7
+  hitStopFrames: 3
+  cameraShakeMagnitude: 0.3
   appliedStacks: 1
 --- !u!96 &5114424262781227561
 TrailRenderer:

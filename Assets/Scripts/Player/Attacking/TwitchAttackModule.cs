@@ -131,8 +131,6 @@ public class TwitchAttackModule : IAttackModule
             Debug.LogError("No InvisibilitySensor attached to character for ambush");
         }
         ambushProximitySensor.displaySensor(false);
-
-        Application.targetFrameRate = 60;
     }
 
 
@@ -457,7 +455,9 @@ public class TwitchAttackModule : IAttackModule
 
         while (f < numFrames && (interrupted == null || !interrupted())) {
             yield return 0;
-            f++;
+            if (Time.timeScale != 0) {
+                f++;
+            }
         }
     }
 

@@ -16,6 +16,14 @@ public class PlayerCameraController : MonoBehaviour
     private static Quaternion originalLocalRot;
 
 
+    // Static variables for time stop
+    private static int numFramesPerSecond = 60;
+
+    // Static variables for camera shake
+    private static Coroutine cameraShakeCoroutine = null;
+    private static int numFramesPerShake = 2;
+
+
     // On awake, set this to the PlayerCameraController
     private void Awake() {
         // Error check
@@ -29,6 +37,8 @@ public class PlayerCameraController : MonoBehaviour
         originalLocalPos = transform.localPosition;
         originalLocalRot = transform.localRotation;
         mainPlayerCamera = this;
+
+        Application.targetFrameRate = numFramesPerSecond;
     }
 
 
@@ -121,5 +131,70 @@ public class PlayerCameraController : MonoBehaviour
         // Finish off transition
         transform.position = globalFinish;
         cameraTransitionCoroutine = null;
+    }
+
+
+    // Main function to start hit stop
+    //  Pre: numFrames >= 0 (60 FPS)
+    //  Post: the game will freeze time for a specified number of frames
+    public static void hitStop(int numFrames) {
+        Debug.Assert(numFrames >= 0);
+
+        if (numFrames > 0) {
+            mainPlayerCamera.StartCoroutine(mainPlayerCamera.hitStopSequence(numFrames));
+        }
+    }
+
+
+    // Main IEnumerator
+    private IEnumerator hitStopSequence(int numFrames) {
+        float timePerFrame = 1f / (float)(numFramesPerSecond);
+        Time.timeScale = 0f;
+
+        for (int f = 0; f < numFrames; f++) {
+            yield return new WaitForSecondsRealtime(timePerFrame);
+        }
+
+        Time.timeScale = 1f;
+    }
+
+
+    // Static function to do a camera shake sequence
+    //  Pre: shakeFrameDuration >= 0 and shakeMagnitude >= 0
+    //  Post: Moves the camera to specific position
+    public static void shakeCamera(int shakeFrameDuration, float shakeMagnitude) {
+        Debug.Assert(mainPlayerCamera != null);
+        Debug.Assert(shakeFrameDuration >= 0 && shakeMagnitude >= 0f);
+
+        if (shakeFrameDuration > 0 && shakeMagnitude > 0f) {
+            if (cameraShakeCoroutine != null) {
+                mainPlayerCamera.StopCoroutine(cameraShakeCoroutine);
+            }
+
+            cameraShakeCoroutine = mainPlayerCamera.StartCoroutine(mainPlayerCamera.cameraShakeSequence(shakeFrameDuration, shakeMagnitude));
+        }
+    }
+
+
+    // Main IEnumerator to do camera shake
+    private IEnumerator cameraShakeSequence(int shakeFrameDuration, float maxShakeMagnitude) {
+        float timePerFrame = 1f / (float)(numFramesPerSecond);
+        Vector3 originalPos = transform.localPosition; 
+
+        for (int f = 0; f < shakeFrameDuration; f++) {
+            yield return new WaitForSecondsRealtime(timePerFrame);
+
+            if (f % numFramesPerShake == 0) {
+                Vector3 shakeDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
+                float curShakeMagnitude = Mathf.Lerp(1f, 0f, (float)f / (float)shakeFrameDuration) * maxShakeMagnitude;
+
+                transform.localPosition = originalPos;
+                transform.Translate(curShakeMagnitude * shakeDir);
+            }
+        }
+
+
+        transform.localPosition = originalPos;
+        cameraShakeCoroutine = null;
     }
 }

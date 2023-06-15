@@ -322,3 +322,5 @@ MonoBehaviour:
   numActiveFrames: 8
   hitboxDamage: 4
   addedStacks: 2
+  cameraShakeMagnitude: 0.8
+  shakeFrames: 3
