@@ -38,6 +38,8 @@ public class PulsatingCask : DeployableHitbox
     [SerializeField]
     [Min(0.01f)]
     private float pullDistance = 3f;
+    [SerializeField]
+    private LayerMask pullingCollisionMask;
     
     // Hashsets for enemy management
     private PoisonVial poison;
@@ -81,6 +83,12 @@ public class PulsatingCask : DeployableHitbox
             timer += Time.deltaTime;
 
             foreach (EnemyStatus tgt in grabbed) {
+                float curDistPulled = pullSpeed * Time.deltaTime;
+                RaycastHit hitInfo;
+                if (Physics.Raycast(tgt.transform.position, pullDirections[tgt], out hitInfo, curDistPulled, pullingCollisionMask)) {
+                    curDistPulled = hitInfo.distance - (0.5f * tgt.transform.lossyScale.x);
+                }
+
                 tgt.transform.Translate(pullSpeed * Time.deltaTime * pullDirections[tgt], Space.World);
             }
         }

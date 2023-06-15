@@ -330,3 +330,6 @@ MonoBehaviour:
   pullingDamage: 4
   addedPullingStacks: 1
   pullDistance: 1.5
+  pullingCollisionMask:
+    serializedVersion: 2
+    m_Bits: 0

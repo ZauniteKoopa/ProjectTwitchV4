@@ -78,6 +78,16 @@ public class TwitchAttackModule : IAttackModule
     private GameObject ambushBuffVisualEffect = null;
     private Coroutine runningAmbushSequence = null;
 
+
+    [Header("Cask collision aiming")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float caskThrowCollisionOffset = 0.5f;
+    [SerializeField]
+    private float caskThrowRange = 7f;
+    [SerializeField]
+    private LayerMask throwOffsetCollisionMask;
+
     // Variables for attacking
     private Coroutine runningAttackSequence;
     private bool holdingFireButton;
@@ -189,7 +199,7 @@ public class TwitchAttackModule : IAttackModule
         Debug.Assert(inventory.canFireSecondaryLob());
 
         // Set up
-        Vector3 tgt = getWorldAimLocation();
+        Vector3 tgt = caskAimPosition();
         attackAnimForward = (tgt - transform.position).normalized;
         movementState = TwitchMovementState.IN_ATTACK_ANIM;
 
@@ -419,6 +429,21 @@ public class TwitchAttackModule : IAttackModule
 
         aimPlane.Raycast(inputRay, out intersectionDist);
         return inputRay.GetPoint(intersectionDist);
+    }
+
+
+    // Main function to get cask aim position
+    private Vector3 caskAimPosition() {
+        Vector3 rawAimPosition = getWorldAimLocation();
+        Vector3 rawAimDirection = (rawAimPosition - playerCharacter.position).normalized;
+        float maxDist = Mathf.Min(Vector3.Distance(rawAimPosition, transform.position), caskThrowRange);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(playerCharacter.position, rawAimDirection, out hitInfo, maxDist, throwOffsetCollisionMask)) {
+            return hitInfo.point - (caskThrowCollisionOffset * rawAimDirection);
+        } else {
+            return playerCharacter.position + (maxDist * rawAimDirection);
+        }
     }
 
 
