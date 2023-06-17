@@ -71,7 +71,13 @@ public class EnemyStatus : IUnitStatus
     //  Pre: none
     //  Post: Returns movement speed with speed status effects in mind
     public override float getMovementSpeed() {
-        return (moving && canMove()) ? movementSpeed * speedStatus.getSpeedModifier() : 0f;
+        float curMovementSpeed = (moving && canMove()) ? movementSpeed * speedStatus.getSpeedModifier() : 0f;
+
+        if (curPoison != null) {
+            curMovementSpeed *= curPoison.getSpeedModifier(curPoisonStacks);
+        }
+
+        return curMovementSpeed;
     }
 
 

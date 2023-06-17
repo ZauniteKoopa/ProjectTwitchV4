@@ -81,6 +81,8 @@ public class PoisonVialConstants : ScriptableObject
     public float poisonDoTMultiplier = 2f;
     [Min(0.1f)]
     public float reactivityContaminateMultiplier = 1.25f;
+    [Range(0f, 0.15f)]
+    public float stickinessMovementReductionModifier = 0.05f;
 
     [Header("Post Contaminate Hitbox")]
     [Min(0)]

@@ -69,6 +69,18 @@ public class PoisonVial
     }
 
 
+    // Main function to get speed modifier
+    public float getSpeedModifier(int numStacks) {
+        float curModifier = 1f;
+
+        if (reachedPotential && sideEffect.getType() == PoisonVialStat.STICKINESS) {
+            curModifier -= (numStacks * poisonVialConstants.stickinessMovementReductionModifier);
+        }
+
+        return curModifier;
+    }
+
+
     // Main function to get the decay rate of poison (second per tick)
     public float getPoisonDecayRate(int numStacks) {
         return poisonVialConstants.secondsPerPoisonTick * sideEffect.getPoisonDecayRateModifier(numStacks);
