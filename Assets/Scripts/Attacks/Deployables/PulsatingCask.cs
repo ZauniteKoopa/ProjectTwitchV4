@@ -40,6 +40,11 @@ public class PulsatingCask : DeployableHitbox
     private float pullDistance = 3f;
     [SerializeField]
     private LayerMask pullingCollisionMask;
+
+    [SerializeField]
+    private AudioSource speaker;
+    [SerializeField]
+    private AudioClip splatSound;
     
     // Hashsets for enemy management
     private PoisonVial poison;
@@ -65,6 +70,10 @@ public class PulsatingCask : DeployableHitbox
         // Disable collider
         GetComponent<Collider>().enabled = false;
         GetComponent<Renderer>().enabled = false;
+
+        // Play splat sound
+        speaker.clip = splatSound;
+        speaker.Play();
 
         // Set up pull
         Dictionary<EnemyStatus, Vector3> pullDirections = new Dictionary<EnemyStatus, Vector3>();

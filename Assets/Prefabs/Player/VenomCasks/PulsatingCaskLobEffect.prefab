@@ -208,9 +208,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 094e18129b4c48549980ee26aedd03c5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 28c2c961724c6b543b34668f837375e9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -333,3 +333,5 @@ MonoBehaviour:
   pullingCollisionMask:
     serializedVersion: 2
     m_Bits: 0
+  speaker: {fileID: 6679721600473539541}
+  splatSound: {fileID: 8300000, guid: 46925bc18ad47774e8b79a98fb808a86, type: 3}

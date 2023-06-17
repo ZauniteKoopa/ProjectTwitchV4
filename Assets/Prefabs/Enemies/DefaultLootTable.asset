@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed19e46d2bc05c45be9fe0e80232c64, type: 3}
   m_Name: DefaultLootTable
   m_EditorClassIdentifier: 
-  lootDrops: []
-  lootDropChances: []
+  lootDrops:
+  - {fileID: 7388442604144488201, guid: 3886abbb75c049c4b8d446b0921243c3, type: 3}
+  - {fileID: 5565023274511624932, guid: 60448b9129cfbda4193e629af233983b, type: 3}
+  - {fileID: 9149333380419285481, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+  - {fileID: 7217155360507995382, guid: 596c5ec058d22cc4591aa6c5c8b0512a, type: 3}
+  lootDropChances:
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.25

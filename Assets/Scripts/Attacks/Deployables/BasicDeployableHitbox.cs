@@ -38,6 +38,7 @@ public class BasicDeployableHitbox : DeployableHitbox
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(1.0f);
+        Object.Destroy(gameObject);
     }
 
 

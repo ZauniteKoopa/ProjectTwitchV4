@@ -26,12 +26,6 @@ public class EnemyStatusUI : MonoBehaviour
     private Coroutine runningPoisonHaloVibrateSequence = null;
 
 
-    // On awake, setup
-    private void Awake() {
-        startingPoisonHaloScale = poisonHalo.transform.localScale.x;
-    }
-
-
     // Main function to update health bar
     //  Pre: maxHealth >= curHealth
     //  Post: healthBar is updated
@@ -51,6 +45,7 @@ public class EnemyStatusUI : MonoBehaviour
         bool poisoned = poisonStacks > 0;
         poisonHalo.gameObject.SetActive(poisoned);
         poisonHalo.color = poisonColor;
+        startingPoisonHaloScale = (poisonStacks >= 6) ? 1.2f : 1f;
 
         if (poisonHaloCount != null) {
             poisonHaloCount.text = "" + poisonStacks;
