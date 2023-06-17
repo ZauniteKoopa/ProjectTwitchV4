@@ -37,6 +37,20 @@ public class EnemyStatus : IUnitStatus
     private const int MAX_POISON_STACKS = 6;
     private const float MAX_POISON_DURATION = 6f;
 
+    // Loot status
+    [SerializeField]
+    private int numLootDrops = 1;
+    [SerializeField]
+    private float lootDropRange = 1f;
+    [SerializeField]
+    private LayerMask lootCollisionLayerMask;
+    [SerializeField]
+    private float lootCollisionOffset = 0.3f;
+    [SerializeField]
+    private float lootDropSpeed = 20f;
+    [SerializeField]
+    private GameObject lootSatchel = null;
+    public LootTable lootTable;
 
     // On awake, set curHealth to maxHealth
     private void Awake() {
@@ -49,6 +63,7 @@ public class EnemyStatus : IUnitStatus
 
         enemyStatusUI.updateHealthBar(curHealth, maxHealth);
         enemyStatusUI.updatePoisonHalo(0, Color.white);
+        lootSatchel.SetActive(lootTable != null);
     }
 
 
@@ -236,8 +251,38 @@ public class EnemyStatus : IUnitStatus
     // Private helper function to die
     private IEnumerator death() {
         deathEvent.Invoke();
+        dropLoot();
 
         yield return 0;
         gameObject.SetActive(false);
+    }
+
+
+    // Private helper function to drop loot
+    private void dropLoot() {
+        if (lootTable != null) {
+            for (int d = 0; d < numLootDrops; d++) {
+                // Get associated current loot
+                LobAction chosenLoot = lootTable.getLootDrop();
+                LobAction curLoot = Object.Instantiate(chosenLoot, transform.position, Quaternion.identity);
+
+                // Decide initial loot drop destination
+                float lootYPos = transform.position.y;
+                Vector3 src = new Vector3(transform.position.x, lootYPos, transform.position.z);
+
+                Vector3 lootDropDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+                float curLootDistance = Random.Range(0f, lootDropRange);
+                Vector3 dest = src + (curLootDistance * lootDropDir);
+
+                // Raycast in that direction to get the dest that considers collision
+                RaycastHit hitInfo;
+                if (Physics.Raycast(src, lootDropDir, out hitInfo, curLootDistance + 0.5f, lootCollisionLayerMask)) {
+                    dest = hitInfo.point - (lootCollisionOffset * lootDropDir);
+                }
+
+                // Fire lob action at that point
+                curLoot.lob(src, dest, lootDropSpeed, null);
+            }
+        }
     }
 }

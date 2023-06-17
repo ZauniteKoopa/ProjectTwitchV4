@@ -71,7 +71,7 @@ public class LobAction : MonoBehaviour
         // Finish
         transform.position = tgt;
         
-        if (deployable != null && poison != null) {
+        if (deployable != null) {
             deployable.transform.parent = null;
             deployable.deploy(poison);
         }
@@ -111,7 +111,7 @@ public class LobAction : MonoBehaviour
         // Finish
         transform.position = tgt.position;
         
-        if (deployable != null && poison != null) {
+        if (deployable != null) {
             deployable.transform.parent = null;
             deployable.deploy(poison);
         }
