@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public abstract class IAttackModule : MonoBehaviour {
 
     // Main unity events to consider
+    public UnityEvent primaryFireTrigger;
     public UnityEvent abilityOneTrigger;
     public UnityEvent abilityTwoTrigger;
     

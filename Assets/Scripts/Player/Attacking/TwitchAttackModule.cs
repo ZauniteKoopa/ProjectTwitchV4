@@ -159,6 +159,7 @@ public class TwitchAttackModule : IAttackModule
 
             // Startup should be interruptable
             render.material.color = Color.blue;
+            primaryFireTrigger.Invoke();
             yield return waitForFrames(startFrames, () => !holdingFireButton);
 
             // Only fire if you commited to it

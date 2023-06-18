@@ -22,6 +22,8 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     private string shootingBoolParameter;
     [SerializeField]
+    private string primaryAttackAnimationTypeParameter;
+    [SerializeField]
     private string ambushBoolParameter;
     [SerializeField]
     private string caskThrowTriggerParameter;
@@ -53,6 +55,7 @@ public class TwitchAnimatorController : MonoBehaviour
         // Listen to events from attack module
         attackModule.abilityOneTrigger.AddListener(onCaskThrowTrigger);
         attackModule.abilityTwoTrigger.AddListener(onContaminateTrigger);
+        attackModule.primaryFireTrigger.AddListener(onBeginBulletFire);
 
         // Listen to events from inventory module for crafting
         inventoryModule.startCraftEvent.AddListener(onCraftStart);
@@ -75,6 +78,12 @@ public class TwitchAnimatorController : MonoBehaviour
     }
 
 
+    // Trigger event for when unit is starting to fire an individual bullet
+    private void onBeginBulletFire() {
+        animator.SetInteger(primaryAttackAnimationTypeParameter, (int)inventoryModule.getPrimaryAttackAnimation());
+    }
+    
+    
     // Trigger event handler for throwing a cask
     private void onCaskThrowTrigger() {
         animator.SetTrigger(caskThrowTriggerParameter);

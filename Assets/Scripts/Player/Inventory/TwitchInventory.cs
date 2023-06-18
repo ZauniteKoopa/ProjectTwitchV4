@@ -167,6 +167,12 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to access the primary attack animation
+    public PrimaryAttackAnimation getPrimaryAttackAnimation() {
+        return (primaryVial != null) ? primaryVial.sideEffect.getPrimaryAttackAnimation() : PrimaryAttackAnimation.NORMAL;
+    }
+
+
     // ---------------------------------------
     //  SECONDARY ATTACK
     // ---------------------------------------

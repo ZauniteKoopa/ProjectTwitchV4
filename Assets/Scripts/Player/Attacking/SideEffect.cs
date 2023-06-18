@@ -105,4 +105,10 @@ public class SideEffect : ScriptableObject
     public virtual float getPoisonDecayRateModifier(int numStacks) {
         return 1.0f;
     }
+
+
+    // Main function to get the primary attack animation
+    public virtual PrimaryAttackAnimation getPrimaryAttackAnimation() {
+        return PrimaryAttackAnimation.NORMAL;
+    }
 }

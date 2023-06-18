@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PrimaryAttackAnimation {
+    NORMAL = 0,
+    BOILING_BLAST = 1
+}
+
+
 [CreateAssetMenu(menuName = "PoisonSideEffects/PrimaryAttackSideEffect")]
 public class PrimaryAttackSideEffect : SideEffect
 {
@@ -22,6 +28,8 @@ public class PrimaryAttackSideEffect : SideEffect
     private float attackRange = 6f;
     [SerializeField]
     private AudioClip[] primaryAttackSoundEffects = null;
+    [SerializeField]
+    private PrimaryAttackAnimation primaryAttackAnim;
 
 
     // Main function to fire the projectile towards attackDir direction starting from attacker position
@@ -57,5 +65,11 @@ public class PrimaryAttackSideEffect : SideEffect
     public override AudioClip getPrimaryAttackSound() {
         Debug.Assert(primaryAttackSoundEffects != null && primaryAttackSoundEffects.Length > 0);
         return primaryAttackSoundEffects[Random.Range(0, primaryAttackSoundEffects.Length)];
+    }
+
+
+    // Main function to get the primary attack animation
+    public override PrimaryAttackAnimation getPrimaryAttackAnimation() {
+        return primaryAttackAnim;
     }
 }

@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Twitch_Ambush_Idle
-      takeName: rig|AmbushIdle
+      name: Twitch_Primary_Attack_BoilingBlast
+      takeName: rig|Attack_BoilingBlast
       internalID: 7414896047979611091
       firstFrame: 0
-      lastFrame: 59
+      lastFrame: 49
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
