@@ -76,7 +76,7 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
         while (patrolPointIndex < patrolPointLocations.Count) {
             // Set destination
             Vector3 destPos = patrolPointLocations[patrolPointIndex];
-            yield return StartCoroutine(AI_NavLibrary.goToPosition(destPos, navMeshAgent, enemyStats, speedModifier: passiveMovementSpeedReduction));
+            yield return AI_NavLibrary.goToPosition(destPos, navMeshAgent, enemyStats, speedModifier: passiveMovementSpeedReduction);
 
             // Wait for stop duration
             yield return new WaitForSeconds(stopDuration);

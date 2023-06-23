@@ -24,6 +24,10 @@ public class PlayerStatus : IUnitStatus
     [SerializeField]
     private PlayerScreenUI playerUI = null;
 
+    [Header("Invisibility")]
+    [SerializeField]
+    private InvisibilitySensor invisSensor;
+
     public bool invisible = false;
 
 
@@ -159,5 +163,11 @@ public class PlayerStatus : IUnitStatus
     private IEnumerator death() {
         yield return 0;
         gameObject.SetActive(false);
+    }
+
+
+    // Public function to check if a unit is visible or not
+    public bool canSeePlayer(EnemyStatus enemyBody) {
+        return !invisible || invisSensor.isFoundWithinRange(enemyBody);
     }
 }

@@ -44,7 +44,12 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         unitStatus.unitDeathEvent.AddListener(onDeath);
         unitStatus.stunnedStartEvent.AddListener(onStunStart);
         unitStatus.stunnedEndEvent.AddListener(onStunEnd);
-        currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+
+        lock (treeLock) {
+            if (currentBehaviorSequence != null) {
+                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+            }
+        }
     }
 
     
@@ -71,10 +76,15 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
             lock (treeLock) {
                 passiveBranch.reset();
 
-                StopCoroutine(currentBehaviorSequence);
+                if (currentBehaviorSequence != null) {
+                    StopCoroutine(currentBehaviorSequence);
+                }
+
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
+
+        navMeshAgent.isStopped = true;
     }
 
 
@@ -91,6 +101,8 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
+
+        navMeshAgent.isStopped = true;
     }
 
 
@@ -105,6 +117,8 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
                 aggressiveBranch.reset();
             }
         }
+
+        navMeshAgent.isStopped = true;
     }
 
 

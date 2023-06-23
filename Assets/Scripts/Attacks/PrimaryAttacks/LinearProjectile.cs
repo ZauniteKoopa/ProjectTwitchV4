@@ -23,6 +23,8 @@ public class LinearProjectile : IPrimaryAttack
     [Range(0f, 1.5f)]
     private float cameraShakeMagnitude = 0f;
 
+    private const float DAMAGE_RANGE_BONUS = 0.75f;
+
 
     // Update is called once per frame
     void Update()
@@ -48,7 +50,7 @@ public class LinearProjectile : IPrimaryAttack
         transform.forward = dir.normalized;
         projectileDamage = dmg;
         if (range > 0f) {
-            maxDistance = range;
+            maxDistance = range + DAMAGE_RANGE_BONUS;
         }
     }
 

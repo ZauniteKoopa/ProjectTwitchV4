@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvisibilitySensor : MonoBehaviour
+public class InvisibilitySensor : EnemyStatusSensor
 {
     private MeshRenderer render = null;
 

@@ -21101,6 +21101,7 @@ MonoBehaviour:
   movementSpeed: 8
   maxHealth: 20
   playerUI: {fileID: 1347320806230522881}
+  invisSensor: {fileID: 1334931797}
   invisible: 0
 --- !u!114 &1347320806317760195
 MonoBehaviour:
@@ -21501,6 +21502,8 @@ MonoBehaviour:
   contaminateVisualEffect: {fileID: 9004338733468429171, guid: 328832d3eaefaa04d9f653f54ef1c1a1, type: 3}
   contaminateEffectTime: 0.25
   poisonedSensor: {fileID: 7358479898181994272}
+  contaminateTimeStopFrames: 10
+  cameraShakeMagnitude: 0
 --- !u!1 &1347320807614967887
 GameObject:
   m_ObjectHideFlags: 0
@@ -21898,6 +21901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4777b415da2625c40af48b6e1e698bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  primaryFireTrigger:
+    m_PersistentCalls:
+      m_Calls: []
   abilityOneTrigger:
     m_PersistentCalls:
       m_Calls: []
@@ -21920,9 +21926,14 @@ MonoBehaviour:
   ambushInvisibilityTime: 5
   ambushAttackSpeedBuffTime: 5
   ambushAttackSpeedBuff: 1.5
-  ambushInvisibilityMovementBuff: 1.5
+  ambushInvisibilityMovementBuff: 1.25
   ambushProximitySensor: {fileID: 1334931797}
   ambushBuffVisualEffect: {fileID: 1347320807632649043}
+  caskThrowCollisionOffset: 1.5
+  caskThrowRange: 6
+  throwOffsetCollisionMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1347320807677090373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21971,9 +21982,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &1347320807685291989
 GameObject:
@@ -23258,6 +23269,7 @@ MonoBehaviour:
   inventoryModule: {fileID: 1347320807677090373}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
+  primaryAttackAnimationTypeParameter: primaryAttackAnim
   ambushBoolParameter: inAmbush
   caskThrowTriggerParameter: secondaryTrigger
   contaminateTriggerParameter: contaminateTrigger
