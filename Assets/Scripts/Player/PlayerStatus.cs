@@ -162,7 +162,8 @@ public class PlayerStatus : IUnitStatus
     // Private helper function to die
     private IEnumerator death() {
         yield return 0;
-        gameObject.SetActive(false);
+        Debug.Log("DEAD!");
+        //gameObject.SetActive(false);
     }
 
 

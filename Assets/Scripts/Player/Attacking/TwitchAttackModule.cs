@@ -456,7 +456,7 @@ public class TwitchAttackModule : IAttackModule
 
         while (f < numFrames && (interrupted == null || !interrupted())) {
             yield return 0;
-            if (Time.timeScale != 0) {
+            if (Time.timeScale != 0f) {
                 f++;
             }
         }
