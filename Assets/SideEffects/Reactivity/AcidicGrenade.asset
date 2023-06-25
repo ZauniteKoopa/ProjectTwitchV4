@@ -23,4 +23,4 @@ MonoBehaviour:
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 6
-  secondaryAttackCooldown: 1
+  secondaryAttackCooldown: 0.2

@@ -23,6 +23,7 @@ public class ExplodingBotAggroBranch : IEnemyAggroBranch
     [Min(0.01f)]
     private float explosionDamage = 10f;
     [SerializeField]
+    [Min(0.01f)]
     private float postExplosionStunTime = 0.75f;
 
     [Header("Explosion Showcase")]

@@ -15,6 +15,10 @@ public class PlayerStatus : IUnitStatus
     [SerializeField]
     [Min(0.01f)]
     private float maxHealth = 20f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float invincibilityFrameDuration = 0.3f;
+    private Coroutine activeInvincibilityPeriod = null;
     private float curHealth;
     private float damageReduction = 0f;
     private readonly object healthLock = new object();
@@ -61,22 +65,28 @@ public class PlayerStatus : IUnitStatus
 
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
-    //  Post: unit gets inflicted with damage. returns true if it happens. else otherwise
+    //  Post: unit gets inflicted with damage. returns true if death happens. else otherwise
     public override bool damage(float dmg, bool isTrue) {
-        float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
-        lock (healthLock) {
-            if (isAlive()) {
-                curHealth -= actualDamage;
-                playerUI.displayHealth(curHealth, maxHealth);
+        if (activeInvincibilityPeriod == null) {
+            float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+            lock (healthLock) {
+                if (isAlive()) {
+                    curHealth -= actualDamage;
+                    playerUI.displayHealth(curHealth, maxHealth);
 
-                if (curHealth <= 0f) {
-                    StopAllCoroutines();
-                    StartCoroutine(death());
+                    if (curHealth <= 0f) {
+                        StopAllCoroutines();
+                        StartCoroutine(death());
+                    } else {
+                        activeInvincibilityPeriod = StartCoroutine(invincibilitySequence());
+                    }
                 }
             }
+
+            return curHealth <= 0f;
         }
 
-        return curHealth <= 0f;
+        return false;
     }
 
 
@@ -164,6 +174,13 @@ public class PlayerStatus : IUnitStatus
         yield return 0;
         Debug.Log("DEAD!");
         //gameObject.SetActive(false);
+    }
+
+
+    // Invincibility period
+    private IEnumerator invincibilitySequence() {
+        yield return new WaitForSeconds(invincibilityFrameDuration);
+        activeInvincibilityPeriod = null;
     }
 
 

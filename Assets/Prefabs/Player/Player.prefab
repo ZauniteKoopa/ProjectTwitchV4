@@ -21100,6 +21100,7 @@ MonoBehaviour:
       m_Calls: []
   movementSpeed: 8
   maxHealth: 20
+  invincibilityFrameDuration: 0.5
   playerUI: {fileID: 1347320806230522881}
   invisSensor: {fileID: 1334931797}
   invisible: 0
