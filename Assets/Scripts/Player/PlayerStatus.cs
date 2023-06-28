@@ -31,8 +31,10 @@ public class PlayerStatus : IUnitStatus
     [Header("Invisibility")]
     [SerializeField]
     private InvisibilitySensor invisSensor;
-
     public bool invisible = false;
+
+    // Key management
+    private int numKeys = 0;
 
 
 
@@ -187,5 +189,25 @@ public class PlayerStatus : IUnitStatus
     // Public function to check if a unit is visible or not
     public bool canSeePlayer(EnemyStatus enemyBody) {
         return !invisible || invisSensor.isFoundWithinRange(enemyBody);
+    }
+
+
+    // Main function to take a key
+    //  Pre: number of keys required
+    //  Post: return true if successful. false otherwise. When successful, the key decrements
+    public bool takeKey(int keysRequired) {
+        if (numKeys >= keysRequired) {
+            Debug.Log("key taken");
+            numKeys -= keysRequired;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    // Main function to add a key to the inventory
+    public void addKey() {
+        numKeys++;
     }
 }
