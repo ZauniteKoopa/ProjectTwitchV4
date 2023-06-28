@@ -69,6 +69,8 @@ public class PlayerScreenUI : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     private ScreenInventorySlot[] inventorySlots;
+    [SerializeField]
+    private TMP_Text keyText;
 
 
     [Header("Other UI Elements")]
@@ -177,6 +179,12 @@ public class PlayerScreenUI : MonoBehaviour
             inventorySlots[numProcessedSlots].turnOff();
             numProcessedSlots++;
         }
+    }
+
+
+    // Public function to display num keys the players have
+    public void displayNumKeys(int numKeys) {
+        keyText.text = "" + numKeys;
     }
 
 

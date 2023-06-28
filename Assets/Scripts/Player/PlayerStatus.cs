@@ -197,8 +197,8 @@ public class PlayerStatus : IUnitStatus
     //  Post: return true if successful. false otherwise. When successful, the key decrements
     public bool takeKey(int keysRequired) {
         if (numKeys >= keysRequired) {
-            Debug.Log("key taken");
             numKeys -= keysRequired;
+            playerUI.displayNumKeys(numKeys);
             return true;
         }
 
@@ -209,5 +209,6 @@ public class PlayerStatus : IUnitStatus
     // Main function to add a key to the inventory
     public void addKey() {
         numKeys++;
+        playerUI.displayNumKeys(numKeys);
     }
 }
