@@ -73,8 +73,6 @@ public class LockedDoor : MonoBehaviour
                 runningOpeningSequence = StartCoroutine(openingSequence());
             }
         }
-
-
     }
 
 
