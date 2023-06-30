@@ -54,12 +54,15 @@ public class EnemyStatus : IUnitStatus
 
     // On awake, set curHealth to maxHealth
     private void Awake() {
-        curHealth = maxHealth;
-
         // Initialize enemy status UI
         if (enemyStatusUI == null) {
             Debug.LogError("NO ENEMY STATUS UI CONNECTED");
         }
+    }
+
+    // Main function to spawn in unit
+    public void spawnIn() {
+        curHealth = maxHealth;
 
         enemyStatusUI.updateHealthBar(curHealth, maxHealth);
         enemyStatusUI.updatePoisonHalo(0, Color.white);
@@ -79,6 +82,7 @@ public class EnemyStatus : IUnitStatus
 
         return curMovementSpeed;
     }
+
 
 
     // Main method to get current base attack for sword swings or ranged attacks 

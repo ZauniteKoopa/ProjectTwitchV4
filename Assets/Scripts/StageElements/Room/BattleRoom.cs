@@ -9,6 +9,11 @@ public class BattleRoom : Room
     private EnemyWave[] enemyWaves;
     [SerializeField]
     private LockedDoor[] lockedDoors;
+    [SerializeField]
+    private LootTable enemyLootTable;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float lootChance = 0.6f;
 
     public UnityEvent battleRoomStartEvent;
     public UnityEvent battleRoomEndEvent;
@@ -20,9 +25,19 @@ public class BattleRoom : Room
 
     // On awake, set up
     private void Start() {
+        if (enemyLootTable == null) {
+            Debug.LogError("No enemy loot table attached to this battle room");
+        }
+
+        if (enemyWaves.Length <= 0) {
+            Debug.LogError("No enemy waves found in this battle room!");
+        }
+
         foreach (EnemyWave wave in enemyWaves) {
             wave.waveFinishedEvent.AddListener(onEnemyWaveFinish);
         }
+
+        enemyWaveLock = GetComponent<AbstractLock>();
     }
     
     
@@ -38,7 +53,7 @@ public class BattleRoom : Room
             }
 
             curEnemyWave = 0;
-            enemyWaves[0].activate();
+            enemyWaves[0].activate(enemyLootTable, lootChance);
         }
     }
 
@@ -50,7 +65,7 @@ public class BattleRoom : Room
         if (curEnemyWave >= enemyWaves.Length) {
             enemyWaveLock.unlock();
         } else {
-            enemyWaves[curEnemyWave].activate();
+            enemyWaves[curEnemyWave].activate(enemyLootTable, lootChance);
         }
     }
 
