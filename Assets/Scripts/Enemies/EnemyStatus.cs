@@ -52,11 +52,18 @@ public class EnemyStatus : IUnitStatus
     private GameObject lootSatchel = null;
     public LootTable lootTable;
 
+    [SerializeField]
+    private bool spawnInOnAwake = false;
+
     // On awake, set curHealth to maxHealth
     private void Awake() {
         // Initialize enemy status UI
         if (enemyStatusUI == null) {
             Debug.LogError("NO ENEMY STATUS UI CONNECTED");
+        }
+
+        if (spawnInOnAwake) {
+            spawnIn();
         }
     }
 

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class Room : MonoBehaviour
 {
     [Header("Room Events")]
     public UnityEvent playerEnterRoomEvent;
     public UnityEvent enemyRoomEvent;
+    public UnityEvent enemyDeathEvent;
 
     private int enemiesInRoom = 0;
     private bool visitedByPlayer = false;
@@ -19,6 +21,10 @@ public class Room : MonoBehaviour
     public bool eastOpen;
     public bool northOpen;
     public bool southOpen;
+
+
+    private static readonly float ROOM_SIZE = 20f;
+    private static readonly float WALL_OFFSET = 1.5f;
 
 
     // Main event handler for on trigger enter
@@ -77,6 +83,7 @@ public class Room : MonoBehaviour
     protected virtual void onEnemyDeath(EnemyStatus enemy) {
         enemiesInRoom--;
         enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
+        enemyDeathEvent.Invoke();
     }
 
 
@@ -89,5 +96,26 @@ public class Room : MonoBehaviour
     // Main function to see if this room is revealed on map
     public bool revealedOnMap() {
         return visitedByPlayer;
+    }
+
+
+    // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
+    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable) {
+        // Get spawn position
+        float emptySpaceLength = ROOM_SIZE - WALL_OFFSET;
+        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
+        spawnPos += transform.position;
+
+        // Get nav mesh adjusted point 
+        NavMeshHit hitInfo;
+        NavMesh.SamplePosition(spawnPos, out hitInfo, 10f, NavMesh.AllAreas);
+        spawnPos = hitInfo.position;
+
+        // Spawn in position 
+        EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, spawnPos, Quaternion.identity);
+        curEnemy.lootTable = lootTable;
+        curEnemy.spawnIn();
+
+        return curEnemy;
     }
 }

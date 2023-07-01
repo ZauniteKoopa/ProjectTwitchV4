@@ -52,6 +52,7 @@ public class BattleRoom : Room
                 door.gameObject.SetActive(true);
             }
 
+            battleRoomStartEvent.Invoke();
             curEnemyWave = 0;
             enemyWaves[0].activate(enemyLootTable, lootChance);
         }
