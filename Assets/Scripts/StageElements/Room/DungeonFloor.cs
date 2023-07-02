@@ -49,10 +49,8 @@ public class DungeonFloor : MonoBehaviour
                 Debug.LogError("ROOM IN DUNGEON ROOM HAVE BEEN FOUND TO BE NULL");
             }
 
-            if (room != finalBattleRoom) {
-                room.playerEnterRoomEvent.AddListener( delegate { onPlayerRoomUpdate(room); } );
-                room.enemyRoomEvent.AddListener(onEnemyRoomUpdate);
-            }
+            room.playerEnterRoomEvent.AddListener( delegate { onPlayerRoomUpdate(room); } );
+            room.enemyRoomEvent.AddListener(onEnemyRoomUpdate);
         }
 
         // Process battle room
@@ -94,14 +92,14 @@ public class DungeonFloor : MonoBehaviour
             enteredPlayerRoom.playerInside = true;
             playerRoom = enteredPlayerRoom;
 
-            // UPDATE MAP UI HERE
+            MapUI.mainMapUI.render(dungeonRooms);
         }
     }
 
 
     private void onEnemyRoomUpdate() {
         lock (roomTrackingLock) {
-            // UPDATE MAP UI HERE
+            MapUI.mainMapUI.render(dungeonRooms);
         }
     }
 
@@ -112,7 +110,7 @@ public class DungeonFloor : MonoBehaviour
         }
 
         lock (roomTrackingLock) {
-            // UPDATE MAP UI HERE
+            MapUI.mainMapUI.render(dungeonRooms);
         }
     }
 

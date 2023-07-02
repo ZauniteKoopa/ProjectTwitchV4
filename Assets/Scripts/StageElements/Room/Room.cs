@@ -22,8 +22,16 @@ public class Room : MonoBehaviour
     public bool northOpen;
     public bool southOpen;
 
+    
+    // Map coordinates
+    [Header("Map coordinates")]
+    [Range(0, 5)]
+    public int mapRow = 0;
+    [Range(0, 5)]
+    public int mapCol = 0;
 
-    private static readonly float ROOM_SIZE = 20f;
+
+    private static readonly float ROOM_SIZE = 15f;
     private static readonly float WALL_OFFSET = 1.5f;
 
 
@@ -69,6 +77,7 @@ public class Room : MonoBehaviour
     protected virtual void onEnemyEnter(EnemyStatus enemy) {
         enemiesInRoom++;
         enemy.deathEvent.AddListener(delegate { onEnemyDeath(enemy); });
+        enemyRoomEvent.Invoke();
     }
 
 
@@ -76,6 +85,7 @@ public class Room : MonoBehaviour
     protected virtual void onEnemyExit(EnemyStatus enemy) {
         enemiesInRoom--;
         enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
+        enemyRoomEvent.Invoke();
     }
 
 
