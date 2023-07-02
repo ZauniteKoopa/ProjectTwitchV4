@@ -13,7 +13,7 @@ public class RecipeBook
 {
     private int curPage = 0;
     private SortedDictionary<PoisonVialStat, List<Recipe>> recipes;
-    public static int RECIPE_INGREDIENT_REQUIREMENTS = 6;
+    public static int RECIPE_INGREDIENT_REQUIREMENTS = 5;
 
 
     // Main constructor

@@ -33,8 +33,11 @@ public class MapRoomUI : MonoBehaviour
 
 
     // Player indicator management
+    [Header("Room color mapping")]
     [SerializeField]
-    private Color playerInsideColor = Color.yellow;
+    private Color playerInsideColor = Color.green;
+    [SerializeField]
+    private Color battleRoomColor = Color.red;
     private Color defaultColor;
 
 
@@ -52,7 +55,7 @@ public class MapRoomUI : MonoBehaviour
 
         // Update room image body and player indicator
         baseRoomImage.enabled = room.revealedOnMap();
-        baseRoomImage.color = (room.playerInside) ? playerInsideColor : defaultColor;
+        baseRoomImage.color = getRoomColor(room);
 
         // Update walls
         westWall.enabled = (room.revealedOnMap()) ? !room.westOpen : false;
@@ -73,5 +76,19 @@ public class MapRoomUI : MonoBehaviour
     // Main function to display an empty inactive room
     public void displayEmpty() {
         gameObject.SetActive(false);
+    }
+
+
+    // Main helper function to get the color of the room
+    public Color getRoomColor(Room room) {
+        if (room.playerInside) {
+            return playerInsideColor;
+
+        } else if (room is BattleRoom) {
+            return battleRoomColor;
+
+        } else {
+            return defaultColor;
+        }
     }
 }

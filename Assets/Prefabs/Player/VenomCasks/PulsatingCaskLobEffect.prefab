@@ -321,13 +321,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialDamageDuration: 0.05
-  initialDamage: 2
+  initialDamage: 1
   initialDamageStacks: 1
   grabbingDuration: 1
   grabbingSlowModifier: 0.5
   pullingDuration: 0.2
-  stunDuration: 0.1
-  pullingDamage: 4
+  stunDuration: 0.5
+  pullingDamage: 6
   addedPullingStacks: 1
   pullDistance: 1.5
   pullingCollisionMask:

@@ -70,6 +70,7 @@ public class DungeonFloor : MonoBehaviour
     public void startDungeon() {
         if (!currentlyActive) {
             currentlyActive = true;
+            MapUI.mainMapUI.recenter(dungeonRooms);
             runningEnemySpawner = StartCoroutine(enemySpawningSequence());
         }
     }

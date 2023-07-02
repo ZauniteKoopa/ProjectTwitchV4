@@ -407,7 +407,8 @@ MonoBehaviour:
   maxEnemyThreshold: 5
   minIndicatorSize: 5
   maxIndicatorSize: 20
-  playerInsideColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  playerInsideColor: {r: 0.650085, g: 0.990566, b: 0.5108579, a: 1}
+  battleRoomColor: {r: 1, g: 0.53459114, b: 0.53459114, a: 1}
 --- !u!1 &8905061919452690749
 GameObject:
   m_ObjectHideFlags: 0

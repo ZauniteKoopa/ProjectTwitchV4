@@ -587,7 +587,7 @@ MonoBehaviour:
   maxDashDistance: 6
   dashDamage: 3
   postDashRecoil: 0.75
-  dashMovementMultiplier: 1.75
+  dashMovementMultiplier: 1.5
   dashCollisionMask:
     serializedVersion: 2
     m_Bits: 256

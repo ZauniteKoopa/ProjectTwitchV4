@@ -43,6 +43,34 @@ public class MapUI : MonoBehaviour
     }
 
 
+    // Main function to recenter the dungeon layout
+    public void recenter(Room[] dungeonLayout) {
+        // Get the center of the MAP UI layout
+        int mapRowCenter = mapRoomUnits.Length / 2;
+        int mapColCenter = mapRoomUnits[0].rooms.Length / 2;
+
+        // Get the center of the dungeon layout
+        int layoutRowCenter = 0;
+        int layoutColCenter = 0;
+
+        foreach (Room room in dungeonLayout) {
+            layoutRowCenter += room.mapRow;
+            layoutColCenter += room.mapCol;
+        }
+
+        layoutRowCenter /= dungeonLayout.Length;
+        layoutColCenter /= dungeonLayout.Length;
+
+        // Translate room's center to map's center
+        int distRowDelta = mapRowCenter - layoutRowCenter;
+        int distColDelta = mapColCenter - layoutColCenter;
+        foreach (Room room in dungeonLayout) {
+            room.mapRow += distRowDelta;
+            room.mapCol += distColDelta;
+        }
+    }
+
+
     // Main function to find a grid coordinate in a list of rooms
     //  Pre: 0 <= r < mapRoomUnits.Length, 0 <= c < mapRoomUnits[r].rooms.Length, dungeonLayout != null
     //  Post: returns a non-null room if its found. otherwise, return null

@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numActiveFrames: 8
-  hitboxDamage: 2
+  hitboxDamage: 5
   addedStacks: 2
   cameraShakeMagnitude: 0.8
   shakeFrames: 3

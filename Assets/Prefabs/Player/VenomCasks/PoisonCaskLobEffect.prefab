@@ -226,8 +226,8 @@ MonoBehaviour:
   fogTickDuration: 1
   maxFogTicks: 3
   initialDamageDuration: 0.1
-  initialDamage: 8
-  poisonFogSpeedReduction: 0.6
+  initialDamage: 4
+  poisonFogSpeedReduction: 0.4
 --- !u!82 &6165807633392831606
 AudioSource:
   m_ObjectHideFlags: 0

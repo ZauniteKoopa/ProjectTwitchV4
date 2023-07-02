@@ -107,7 +107,7 @@ public class PulsatingCask : DeployableHitbox
             tgt.poisonDamage(pullingDamage, false, poison, addedPullingStacks);
         }
 
-        yield return stunDuration;
+        yield return new WaitForSeconds(stunDuration);
         foreach (EnemyStatus tgt in grabbed) {
             tgt.stun(false);
         }
