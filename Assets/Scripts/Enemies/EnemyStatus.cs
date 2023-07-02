@@ -15,6 +15,7 @@ public class EnemyStatus : IUnitStatus
     private float curHealth;
     private bool moving = true;
     private float damageReduction = 0f;
+    private bool died = false;
 
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackMultiplierStatus = new SpeedModifierStatus();
@@ -110,7 +111,9 @@ public class EnemyStatus : IUnitStatus
                 curHealth -= actualDamage;
                 enemyStatusUI.updateHealthBar(curHealth, maxHealth);
 
-                if (curHealth <= 0f) {
+                if (curHealth <= 0f && !died) {
+                    died = true;
+                    deathEvent.Invoke();
                     StopAllCoroutines();
                     StartCoroutine(death());
                 }
@@ -267,7 +270,7 @@ public class EnemyStatus : IUnitStatus
 
     // Private helper function to die
     private IEnumerator death() {
-        deathEvent.Invoke();
+        GetComponent<Collider>().enabled = false;
         dropLoot();
 
         yield return 0;

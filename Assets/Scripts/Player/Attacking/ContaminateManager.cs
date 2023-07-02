@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using System.Linq;
 
 public class ContaminateManager : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class ContaminateManager : MonoBehaviour
     private float contaminateEffectTime = 0.1f;
     [SerializeField]
     private PoisonedUnitSensor poisonedSensor = null;
-    private HashSet<EnemyStatus> inRange = new HashSet<EnemyStatus>();
+    private Dictionary<EnemyStatus, UnityAction> inRangeEnemyDelegates = new Dictionary<EnemyStatus, UnityAction>();
     [SerializeField]
     [Range(0, 20)]
     private int contaminateTimeStopFrames = 20;
@@ -44,7 +46,7 @@ public class ContaminateManager : MonoBehaviour
     // Main sequence to contaminate
     private IEnumerator contaminateAllSequence() {
         // Get copy of targets so that they aren't effected by remove
-        HashSet<EnemyStatus> lockedTargets = new HashSet<EnemyStatus>(inRange);
+        var lockedTargets = inRangeEnemyDelegates.Keys.ToArray();
 
         // For each locked target, just contaminate them
         foreach (EnemyStatus tgt in lockedTargets) {
@@ -72,9 +74,10 @@ public class ContaminateManager : MonoBehaviour
     private void OnTriggerEnter(Collider collider) {
         EnemyStatus tgt = collider.GetComponent<EnemyStatus>();
 
-        if (tgt != null) {
-            inRange.Add(tgt);
-            tgt.deathEvent.AddListener(delegate { onEnemyDeath(tgt); });
+        if (tgt != null && !inRangeEnemyDelegates.ContainsKey(tgt)) {
+            UnityAction curDelegate;
+            tgt.deathEvent.AddListener(curDelegate = delegate { onEnemyDeath(tgt); });
+            inRangeEnemyDelegates.Add(tgt, curDelegate);
         }
     }
 
@@ -83,22 +86,26 @@ public class ContaminateManager : MonoBehaviour
     private void OnTriggerExit(Collider collider) {
         EnemyStatus tgt = collider.GetComponent<EnemyStatus>();
 
-        if (tgt != null) {
-            inRange.Remove(tgt);
-            tgt.deathEvent.RemoveListener(delegate { onEnemyDeath(tgt); });
+        if (tgt != null && inRangeEnemyDelegates.ContainsKey(tgt)) {
+            tgt.deathEvent.RemoveListener(inRangeEnemyDelegates[tgt]);
+            inRangeEnemyDelegates.Remove(tgt);
         }
     }
 
 
     // Main event handler
     private void onEnemyDeath(EnemyStatus enemy) {
-        inRange.Remove(enemy);
-        enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
+        if (enemy != null && inRangeEnemyDelegates.ContainsKey(enemy)) {
+            enemy.deathEvent.RemoveListener(inRangeEnemyDelegates[enemy]);
+            inRangeEnemyDelegates.Remove(enemy);
+        }
     }
 
 
     // Main function to check if you can contaminate or not
     public bool contaminateTargetsFound() {
+        var inRange = inRangeEnemyDelegates.Keys.ToArray();
+
         foreach(EnemyStatus tgt in inRange) {
             if (tgt.isPoisoned()) {
                 return true;

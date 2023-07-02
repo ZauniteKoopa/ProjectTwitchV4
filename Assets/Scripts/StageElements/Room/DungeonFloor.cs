@@ -51,6 +51,7 @@ public class DungeonFloor : MonoBehaviour
 
             room.playerEnterRoomEvent.AddListener( delegate { onPlayerRoomUpdate(room); } );
             room.enemyRoomEvent.AddListener(onEnemyRoomUpdate);
+            room.enemyDeathEvent.AddListener(onEnemyRoomUpdate);
         }
 
         // Process battle room

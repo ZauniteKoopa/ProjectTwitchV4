@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 // Aim assist class that works only on the XZ plane
 public class XZ_AimAssist : IAimAssist
@@ -9,6 +10,7 @@ public class XZ_AimAssist : IAimAssist
     // Collections of enemies to consider when adjusting aim
     private readonly object targetLock = new object();
     private HashSet<Transform> nearbyTargets = new HashSet<Transform>();
+    private Dictionary<EnemyStatus, UnityAction> inRangeEnemyDelegates = new Dictionary<EnemyStatus, UnityAction>();
 
     [SerializeField]
     [Min(0.1f)]
@@ -142,8 +144,11 @@ public class XZ_AimAssist : IAimAssist
         EnemyStatus tgt = collider.GetComponent<EnemyStatus>();
 
         if (tgt != null) {
+            UnityAction curDelegate;
+            tgt.deathEvent.AddListener(curDelegate = delegate { onEnemyDeath(tgt); });
+            inRangeEnemyDelegates.Add(tgt, curDelegate);
+
             nearbyTargets.Add(tgt.transform);
-            tgt.deathEvent.AddListener(delegate { onEnemyDeath(tgt); });
         }
     }
 
@@ -154,7 +159,8 @@ public class XZ_AimAssist : IAimAssist
 
         if (tgt != null) {
             nearbyTargets.Remove(tgt.transform);
-            tgt.deathEvent.RemoveListener(delegate { onEnemyDeath(tgt); });
+            tgt.deathEvent.RemoveListener(inRangeEnemyDelegates[tgt]);
+            inRangeEnemyDelegates.Remove(tgt);
         }
     }
 
@@ -162,7 +168,8 @@ public class XZ_AimAssist : IAimAssist
     // Main event handler
     private void onEnemyDeath(EnemyStatus enemy) {
         nearbyTargets.Remove(enemy.transform);
-        enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
+        enemy.deathEvent.RemoveListener(inRangeEnemyDelegates[enemy]);
+        inRangeEnemyDelegates.Remove(enemy);
     }
 
 }

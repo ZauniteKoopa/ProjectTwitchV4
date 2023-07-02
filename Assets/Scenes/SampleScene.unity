@@ -253,6 +253,14 @@ PrefabInstance:
       propertyPath: mapCol
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2577352501409713424, guid: 68fb94e82b946354fbdbd0a7ce880e57, type: 3}
+      propertyPath: eastOpen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577352501409713424, guid: 68fb94e82b946354fbdbd0a7ce880e57, type: 3}
+      propertyPath: westOpen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4116993983943169603, guid: 68fb94e82b946354fbdbd0a7ce880e57, type: 3}
       propertyPath: m_Name
       value: westwall
@@ -1040,45 +1048,12 @@ Transform:
   m_Father: {fileID: 1874072463464932045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1754535397 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8640027138704218616, guid: 68fb94e82b946354fbdbd0a7ce880e57, type: 3}
-  m_PrefabInstance: {fileID: 391755976}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1754535398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754535397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e63434a00fb1341ad9724afdd3ff86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerEnterRoomEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  enemyRoomEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  enemyDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  playerInside: 0
-  westOpen: 0
-  eastOpen: 1
-  northOpen: 0
-  southOpen: 0
-  mapRow: 0
-  mapCol: 0
 --- !u!114 &1754535400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2577352501409713424, guid: 68fb94e82b946354fbdbd0a7ce880e57, type: 3}
   m_PrefabInstance: {fileID: 391755976}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1754535397}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83e63434a00fb1341ad9724afdd3ff86, type: 3}
@@ -1285,6 +1260,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347320806948716994, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8870109
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806948716994, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.46174863
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806948716994, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1332,6 +1319,18 @@ PrefabInstance:
     - target: {fileID: 1347320807677090429, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807764432979, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807764432980, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807764432980, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_FOVAxisMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
@@ -2387,6 +2386,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2630550068102420665, guid: 81ba0096d5ed7ab4480350e617d2e5c4, type: 3}
       propertyPath: mapCol
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2630550068102420665, guid: 81ba0096d5ed7ab4480350e617d2e5c4, type: 3}
+      propertyPath: northOpen
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2820733881354846534, guid: 81ba0096d5ed7ab4480350e617d2e5c4, type: 3}

@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
     private int enemiesInRoom = 0;
     private bool visitedByPlayer = false;
     public bool playerInside = false;
+    private Dictionary<EnemyStatus, UnityAction> enemyDeathDelegates = new Dictionary<EnemyStatus, UnityAction>();
 
     // What doors are open in this room (assuming 0 rotation)
     [Header("Room Openings")]
@@ -75,25 +76,38 @@ public class Room : MonoBehaviour
 
     // Protected function for when an enemy enters a room
     protected virtual void onEnemyEnter(EnemyStatus enemy) {
-        enemiesInRoom++;
-        enemy.deathEvent.AddListener(delegate { onEnemyDeath(enemy); });
-        enemyRoomEvent.Invoke();
+        if (!enemyDeathDelegates.ContainsKey(enemy)) {
+            UnityAction curDelegate;
+
+            enemiesInRoom++;
+            enemy.deathEvent.AddListener(curDelegate = delegate { onEnemyDeath(enemy); });
+            enemyRoomEvent.Invoke();
+
+            enemyDeathDelegates.Add(enemy, curDelegate);
+        }
     }
 
 
     // Event handler function for when enemy exits a room
     protected virtual void onEnemyExit(EnemyStatus enemy) {
-        enemiesInRoom--;
-        enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
-        enemyRoomEvent.Invoke();
+        if (enemyDeathDelegates.ContainsKey(enemy)) {
+            enemiesInRoom--;
+            enemy.deathEvent.RemoveListener(enemyDeathDelegates[enemy]);
+            enemyDeathDelegates.Remove(enemy);
+            enemyRoomEvent.Invoke();
+        }
     }
 
 
     // Event handler function for when an enemy dies within the room
     protected virtual void onEnemyDeath(EnemyStatus enemy) {
-        enemiesInRoom--;
-        enemy.deathEvent.RemoveListener(delegate { onEnemyDeath(enemy); });
-        enemyDeathEvent.Invoke();
+
+        if (enemyDeathDelegates.ContainsKey(enemy)) {
+            enemiesInRoom--;
+            enemy.deathEvent.RemoveListener(enemyDeathDelegates[enemy]);
+            enemyDeathDelegates.Remove(enemy);
+            enemyRoomEvent.Invoke();
+        }
     }
 
 
