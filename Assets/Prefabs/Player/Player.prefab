@@ -12215,7 +12215,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281440391}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13255,7 +13255,7 @@ Transform:
   m_GameObject: {fileID: 1334931792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 6, z: 7}
+  m_LocalScale: {x: 5.5, y: 5, z: 5.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1347320806317760249}
@@ -21408,6 +21408,12 @@ MonoBehaviour:
   playerUI: {fileID: 1347320806230522881}
   invisSensor: {fileID: 1334931797}
   invisible: 0
+  playerHurtEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  deathEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1347320806317760195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21684,7 +21690,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347320806948716995}
-  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
+  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
   m_LocalPosition: {x: 0, y: 0, z: 2.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21692,7 +21698,7 @@ Transform:
   - {fileID: 1347320807764432979}
   m_Father: {fileID: 1347320807677090374}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
 --- !u!1 &1347320807493061774
 GameObject:
   m_ObjectHideFlags: 0
@@ -22228,7 +22234,7 @@ MonoBehaviour:
   contaminateEndFrames: 8
   contaminateZone: {fileID: 1347320807493061773}
   ambushStartupTime: 1
-  ambushInvisibilityTime: 5
+  ambushInvisibilityTime: 6
   ambushAttackSpeedBuffTime: 5
   ambushAttackSpeedBuff: 1.5
   ambushInvisibilityMovementBuff: 1.25
@@ -22446,7 +22452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347320807764432982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -22.5}
+  m_LocalPosition: {x: 0, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22467,7 +22473,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 1
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -24310,7 +24316,15 @@ MonoBehaviour:
   craftStartTriggerParameter: craftStartTrigger
   craftEndTriggerParameter: craftEndTrigger
   sideEffectTriggerParameter: obtainSideEffectTrigger
+  randomIntParameter: randomization
   sideEffectFreezeTime: 0.5
+  numHurtAnimations: 2
+  cameraShakeFrames: 8
+  hitStopFrames: 30
+  cameraShakeMagnitude: 0.5
+  hurtTriggerName: hurtTrigger
+  unHurtTriggerName: unhurtTrigger
+  deathTriggerName: deathTrigger
 --- !u!23 &4527573279414321107 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3199683058971971800, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
