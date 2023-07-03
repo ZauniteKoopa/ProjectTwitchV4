@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStatus : IUnitStatus
 {
@@ -35,6 +36,11 @@ public class PlayerStatus : IUnitStatus
 
     // Key management
     private int numKeys = 0;
+
+    // Events
+    [Header("Events")]
+    public UnityEvent playerHurtEvent;
+    public UnityEvent deathEvent;
 
 
 
@@ -80,6 +86,7 @@ public class PlayerStatus : IUnitStatus
                         StopAllCoroutines();
                         StartCoroutine(death());
                     } else {
+                        playerHurtEvent.Invoke();
                         activeInvincibilityPeriod = StartCoroutine(invincibilitySequence());
                     }
                 }
@@ -174,7 +181,8 @@ public class PlayerStatus : IUnitStatus
     // Private helper function to die
     private IEnumerator death() {
         yield return 0;
-        Debug.Log("DEAD!");
+        
+        deathEvent.Invoke();
         //gameObject.SetActive(false);
     }
 

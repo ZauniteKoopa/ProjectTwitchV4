@@ -36,9 +36,37 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     private string sideEffectTriggerParameter;
     [SerializeField]
+    private string randomIntParameter;
+
+    [Header("Obtaining side effect")]
+    [SerializeField]
     [Min(0.1f)]
     private float sideEffectFreezeTime = 1.5f;
 
+
+    [Header("Hurt animation")]
+    [SerializeField]
+    [Min(1)]
+    private int numHurtAnimations = 1;
+    [SerializeField]
+    [Min(0)]
+    private int cameraShakeFrames = 0;
+    [SerializeField]
+    [Min(0)]
+    private int hitStopFrames = 0;
+    [SerializeField]
+    [Range(0f, 1.5f)]
+    private float cameraShakeMagnitude = 0f;
+    [SerializeField]
+    private string hurtTriggerName;
+    [SerializeField]
+    private string unHurtTriggerName;
+
+
+    [Header("Death Animation")]
+    [SerializeField]
+    private string deathTriggerName;
+    
 
     // On awake, set everything
     private void Awake() {
@@ -61,6 +89,11 @@ public class TwitchAnimatorController : MonoBehaviour
         inventoryModule.startCraftEvent.AddListener(onCraftStart);
         inventoryModule.endCraftEvent.AddListener(onCraftEnd);
         inventoryModule.obtainedSideEffect.AddListener(onObtainSideEffect);
+
+
+        // Player status
+        twitchStatus.playerHurtEvent.AddListener(onTwitchHurt);
+        twitchStatus.deathEvent.AddListener(onTwitchDeath);
     }
 
 
@@ -113,11 +146,40 @@ public class TwitchAnimatorController : MonoBehaviour
 
     // Obtain Side Effect freeze sequence
     private IEnumerator sideEffectFreezeSequence() {
+        transform.parent.forward = Vector3.back;
         animator.SetTrigger(sideEffectTriggerParameter);
         Time.timeScale = 0f;
 
         yield return new WaitForSecondsRealtime(sideEffectFreezeTime);
 
         Time.timeScale = 1f;
+    }
+
+
+    // onHurt sequence
+    //  Pre: The player got hurt by an enemy
+    private void onTwitchHurt() {
+        StartCoroutine(hurtSequence());
+    }
+
+
+    // The hurt sequence
+    private IEnumerator hurtSequence() {
+        animator.SetTrigger(hurtTriggerName);
+        animator.SetInteger(randomIntParameter, Random.Range(0, numHurtAnimations));
+
+        PlayerCameraController.hitStop(hitStopFrames);
+        PlayerCameraController.shakeCamera(cameraShakeFrames, cameraShakeMagnitude);
+
+        float waitedTime = (1f / 60f) * hitStopFrames;
+        yield return new WaitForSeconds(0.01f);
+
+        animator.SetTrigger(unHurtTriggerName);
+    }
+
+
+    // Event handler for when player dies
+    private void onTwitchDeath() {
+        animator.SetTrigger(deathTriggerName);
     }
 }

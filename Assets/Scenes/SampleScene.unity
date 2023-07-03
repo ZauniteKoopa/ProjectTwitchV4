@@ -1272,6 +1272,38 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 5.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: hitStopFrames
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: hurtTriggerName
+      value: hurtTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: deathTriggerName
+      value: deathTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: cameraShakeFrames
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: numHurtAnimations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: unHurtTriggerName
+      value: unhurtTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: randomIntParameter
+      value: randomization
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: cameraShakeMagnitude
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320806948716994, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.8870109
