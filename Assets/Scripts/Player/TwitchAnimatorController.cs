@@ -15,6 +15,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private PlayerStatus twitchStatus;
     [SerializeField]
     private TwitchInventory inventoryModule;
+    [SerializeField]
+    private PlayerAudioManager audioModule;
 
     [Header("Animator Parameter Names")]
     [SerializeField]
@@ -66,6 +68,21 @@ public class TwitchAnimatorController : MonoBehaviour
     [Header("Death Animation")]
     [SerializeField]
     private string deathTriggerName;
+    [SerializeField]
+    [Min(0)]
+    private int deathCameraShakeFrames = 0;
+    [SerializeField]
+    [Range(0f, 1.5f)]
+    private float deathCameraShakeMagnitude = 0f;
+    [SerializeField]
+    [Min(0f)]
+    private float deathDelayBetweenAnimAndShake = 0f;
+    [SerializeField]
+    [Range(0.2f, 1f)]
+    private float deathSlowMotionFactor = 0.6f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float timeUntilDeathFadeOut = 5f;
     
 
     // On awake, set everything
@@ -170,8 +187,8 @@ public class TwitchAnimatorController : MonoBehaviour
 
         PlayerCameraController.hitStop(hitStopFrames);
         PlayerCameraController.shakeCamera(cameraShakeFrames, cameraShakeMagnitude);
+        audioModule.playHurtVoice();
 
-        float waitedTime = (1f / 60f) * hitStopFrames;
         yield return new WaitForSeconds(0.01f);
 
         animator.SetTrigger(unHurtTriggerName);
@@ -180,6 +197,28 @@ public class TwitchAnimatorController : MonoBehaviour
 
     // Event handler for when player dies
     private void onTwitchDeath() {
+        StartCoroutine(deathSequence());
+    }
+
+
+    private IEnumerator deathSequence() {
+        audioModule.playDeathImpact();
         animator.SetTrigger(deathTriggerName);
+        yield return new WaitForSeconds(0.05f);
+
+        Time.timeScale = 0f;
+        animator.speed = deathSlowMotionFactor;
+        PlayerCameraController.shakeCamera(deathCameraShakeFrames, deathCameraShakeMagnitude);
+
+        float waitedTime = (1f / 60f) * deathCameraShakeFrames;
+
+        yield return new WaitForSecondsRealtime(waitedTime + deathDelayBetweenAnimAndShake);
+
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        audioModule.playDeathVoice();
+
+        yield return new WaitForSecondsRealtime(timeUntilDeathFadeOut);
+
+        Debug.Log("Fade out!");
     }
 }

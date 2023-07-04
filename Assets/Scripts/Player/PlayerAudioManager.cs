@@ -34,6 +34,13 @@ public class PlayerAudioManager : MonoBehaviour
     [Range(0f, 1f)]
     private float ambushBuffVoiceChance = 1f;
 
+    [SerializeField]
+    private AudioClip[] hurtVoiceEffects;
+    [SerializeField]
+    private AudioClip[] deathVoiceEffects;
+    [SerializeField]
+    private AudioClip deathImpactSoundEffect;
+
 
 
     // Start is called before the first frame update
@@ -78,6 +85,12 @@ public class PlayerAudioManager : MonoBehaviour
     }
 
 
+    // Main function to silence all voices
+    public void silenceVoiceover() {
+        voiceSpeaker.Stop();
+    }
+
+
     // Main function to play stealth startup sounds
     public void playAmbushStartup() {
         // Sound effects
@@ -93,9 +106,28 @@ public class PlayerAudioManager : MonoBehaviour
     }
 
 
+    // Main function to play death impact sound
+    public void playDeathImpact() {
+        soundEffectsSpeaker.clip = deathImpactSoundEffect;
+        soundEffectsSpeaker.Play();
+    }
+
+
     // Main function to play ambush buff sounds
     public void playAmbushBuff() {
         playVoice(ambushBuffVoiceClips, ambushBuffVoiceChance);
+    }
+
+
+    // Main function to play death sound effect
+    public void playDeathVoice() {
+        playVoice(deathVoiceEffects, 1f);
+    }
+
+
+    // Main function to play hurt sound effect
+    public void playHurtVoice() {
+        playVoice(hurtVoiceEffects, 1f);
     }
 
 
