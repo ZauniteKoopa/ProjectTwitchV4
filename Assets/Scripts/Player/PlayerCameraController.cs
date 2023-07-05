@@ -8,12 +8,12 @@ public class PlayerCameraController : MonoBehaviour
     // Static variables concerning camera transition
     private static PlayerCameraController mainPlayerCamera = null;
     private static Coroutine cameraTransitionCoroutine = null;
-    private readonly static float TRANSITION_SPEED = 30f;
 
     // Static variables concerning original transition spot
     private static Transform playerPackage;
     private static Vector3 originalLocalPos;
     private static Quaternion originalLocalRot;
+    private static Transform cameraPivot;
 
 
     // Static variables for time stop
@@ -33,7 +33,8 @@ public class PlayerCameraController : MonoBehaviour
         }
 
         // set to main player camera
-        playerPackage = transform.parent;
+        cameraPivot = transform.parent;
+        playerPackage = cameraPivot.parent;
         originalLocalPos = transform.localPosition;
         originalLocalRot = transform.localRotation;
         mainPlayerCamera = this;
@@ -43,26 +44,43 @@ public class PlayerCameraController : MonoBehaviour
 
 
     // Static function to do camera coroutine sequence
-    //  Pre: parent is the transform you want the camera to parent to, localPosition is the local position of the camera relative to the parent, mainPlayerCamera != null
-    //  Post: Moves the camera to specific position
-    public static void moveCamera(Transform parent, Vector3 localPosition, Quaternion localRotation) {
+    //  Pre: target is the target the camera will focus on, pitch is the x rot, yaw is the y rot, zoom is how zoomed in the camera is on target
+    //       transSpeed is the transition speed of the camera
+    //  Post: Moves the camera to focus on a specific target, with specified zoom, pitch (x rot), yaw (y rot). tranSpeed is the speed at which you move to a location
+    public static void moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed) {
         Debug.Assert(mainPlayerCamera != null);
 
         if (cameraTransitionCoroutine != null) {
             mainPlayerCamera.StopCoroutine(cameraTransitionCoroutine);
         }
 
-        cameraTransitionCoroutine = mainPlayerCamera.StartCoroutine(mainPlayerCamera.moveCameraSequence(parent, localPosition, localRotation));
+        cameraTransitionCoroutine = mainPlayerCamera.StartCoroutine(mainPlayerCamera.moveCameraSequence(
+            target,
+            pitch,
+            yaw,
+            zoom,
+            transSpeed
+        ));
+    }
+
+
+    // Main static function to just move a camera instantly
+    public static void instantMoveCamera(Transform target, float pitch, float yaw, float zoom) {
+        cameraPivot.parent = target;
+        cameraPivot.rotation = Quaternion.Euler(pitch, yaw, 0f);
+        cameraPivot.localPosition = Vector3.zero;
+        
+        mainPlayerCamera.transform.localPosition = zoom * Vector3.back;
     }
 
 
     // Static function to reset the camera
     //  Pre: mainPlayerCamera != null
     //  Post: moves the camera back to the default position on top of the player
-    public static void reset() {
-        Debug.Assert(mainPlayerCamera != null);
-        moveCamera(playerPackage, originalLocalPos, originalLocalRot);
-    }
+    // public static void reset() {
+    //     Debug.Assert(mainPlayerCamera != null);
+    //     moveCamera(playerPackage, originalLocalPos, originalLocalRot);
+    // }
 
 
     // Static function to instantly reset the camera
@@ -102,34 +120,45 @@ public class PlayerCameraController : MonoBehaviour
     // Main IE numerator to moving the camera
     //  Pre: parent is the transform you want the camera to parent to, localPosition is the local position of the camera relative to the parent, mainPlayerCamera != null
     //  Post: moves the camera
-    private IEnumerator moveCameraSequence(Transform parent, Vector3 localPosition, Quaternion localRotation) {
-        // Set the parent of the camera
-        transform.parent = parent;
+    private IEnumerator moveCameraSequence(Transform target, float pitch, float yaw, float zoom, float transSpeed) {
+        // Calculate the time to be in final position and calculate positions points for PIVOT (actual camera does no position change)
+        Vector3 globalPivotStart = transform.position;
+        Vector3 globalPivotFinish = target.position;
+        float pivotDist = Vector3.Distance(globalPivotStart, globalPivotFinish);
+        float pivotTime = pivotDist / transSpeed;
 
-        // Calculate the time it takes to get to position with speed
-        Vector3 globalStart = transform.position;
-        Vector3 globalFinish = (parent == null) ? localPosition : parent.TransformPoint(localPosition);
-        float dist = Vector3.Distance(globalStart, globalFinish);
-        float time = dist / TRANSITION_SPEED;
+        // Calculate the time to be in final zoom position of camera
+        Vector3 cameraLocalZoomStart = transform.localPosition;
+        Vector3 cameraZoomFinish = transform.parent.TransformPoint(zoom * Vector3.back);
+        float zoomDist = Vector3.Distance(transform.position, cameraZoomFinish);
+        float zoomTime = zoomDist / transSpeed;
+        float usedTime = Mathf.Max(zoomTime, pivotTime);
 
         // Get rotation starts
-        Quaternion rotStart = transform.localRotation;
-        Quaternion rotFinish = localRotation;
+        Quaternion rotStart = cameraPivot.rotation;
+        Quaternion rotFinish = Quaternion.Euler(pitch, yaw, 0f);
 
-        // Transition timer
+        // Transition timer and set up
+        cameraPivot.parent = target;
         float timer = 0f;
-        WaitForEndOfFrame waitFrame = new WaitForEndOfFrame();
+        WaitForSecondsRealtime waitFrame = new WaitForSecondsRealtime(0.04f);
 
-        while (timer < time) {
+        while (timer < usedTime) {
             yield return waitFrame;
 
-            timer += Time.deltaTime;
-            transform.position = Vector3.Lerp(globalStart, globalFinish, timer / time);
-            transform.localRotation = Quaternion.Lerp(rotStart, rotFinish, timer / time);
+            timer += 0.04f;
+
+            // Update camera pivot and rotation
+            cameraPivot.position = Vector3.Lerp(globalPivotStart, globalPivotFinish, timer / usedTime);
+            cameraPivot.rotation = Quaternion.Lerp(rotStart, rotFinish, timer / usedTime);
+
+            // Update camera zoom
+            transform.localPosition = Vector3.Lerp(cameraLocalZoomStart, zoom * Vector3.back, timer / usedTime);
         }
 
         // Finish off transition
-        transform.position = globalFinish;
+        transform.localPosition = zoom * Vector3.back;
+        cameraPivot.position = globalPivotFinish;
         cameraTransitionCoroutine = null;
     }
 

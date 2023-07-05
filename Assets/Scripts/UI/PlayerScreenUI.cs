@@ -188,15 +188,29 @@ public class PlayerScreenUI : MonoBehaviour
     }
 
 
+    // Main function to do fade to black
+    public void fadeToBlack(float fadeDuration, bool scaledTime = true) {
+        if (runningColorScreenSequence != null) {
+            StopCoroutine(runningColorScreenSequence);
+        }
+
+        runningColorScreenSequence = StartCoroutine(colorScreenSequence(Color.black, fadeDuration, scaledTime));
+    }
+
+
     // Main coroutine to handle color screen
-    private IEnumerator colorScreenSequence(Color screenEndColor, float fadeTime) {
+    private IEnumerator colorScreenSequence(Color screenEndColor, float fadeTime, bool scaledTime = true) {
         float fadeTimer = 0f;
         Color startColor = colorScreen.color;
 
         while (fadeTimer < fadeTime) {
-            yield return 0;
+            if (scaledTime) {
+                yield return 0;
+            } else {
+                yield return new WaitForSecondsRealtime(0.04f);
+            }
 
-            fadeTimer += Time.deltaTime;
+            fadeTimer += (scaledTime) ? Time.deltaTime : 0.04f;
             colorScreen.color = Color.Lerp(startColor, screenEndColor, fadeTimer / fadeTime);
         }
 

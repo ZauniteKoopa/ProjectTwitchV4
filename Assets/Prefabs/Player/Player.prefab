@@ -21444,6 +21444,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a702e8adc114364191b5d597cc414a4, type: 3}
   - {fileID: 8300000, guid: 8f1c232e2e17fdc47a0e926eb58789e1, type: 3}
   ambushBuffVoiceChance: 1
+  hurtVoiceEffects:
+  - {fileID: 8300000, guid: fd53b23977171c643ae04241ba291ed8, type: 3}
+  - {fileID: 8300000, guid: 1368b8ea90da9af4e97f55b2a97de7de, type: 3}
+  - {fileID: 8300000, guid: bed29dcd56d624945a188e3813a261bb, type: 3}
+  deathVoiceEffects:
+  - {fileID: 8300000, guid: e420aa70c39b9174a874df3ee9615b00, type: 3}
+  deathImpactSoundEffect: {fileID: 8300000, guid: f718ce488aee63245a16d83e38024659, type: 3}
 --- !u!82 &1347320806317760196
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21690,15 +21697,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347320806948716995}
-  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 0, z: 2.25}
+  m_LocalRotation: {x: 0.40673664, y: -0, z: -0, w: 0.9135455}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347320807764432979}
   m_Father: {fileID: 1347320807677090374}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 48, y: 0, z: 0}
 --- !u!1 &1347320807493061774
 GameObject:
   m_ObjectHideFlags: 0
@@ -24307,6 +24314,8 @@ MonoBehaviour:
   attackModule: {fileID: 1347320807677090428}
   twitchStatus: {fileID: 1347320806317760197}
   inventoryModule: {fileID: 1347320807677090373}
+  audioModule: {fileID: 1347320806317760195}
+  screenUiModule: {fileID: 1347320806230522881}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
   primaryAttackAnimationTypeParameter: primaryAttackAnim
@@ -24325,6 +24334,14 @@ MonoBehaviour:
   hurtTriggerName: hurtTrigger
   unHurtTriggerName: unhurtTrigger
   deathTriggerName: deathTrigger
+  deathCameraShakeFrames: 10
+  deathCameraShakeMagnitude: 1.5
+  deathDelayBetweenAnimAndShake: 0.65
+  deathSlowMotionFactor: 0.6
+  timeUntilDeathFadeOut: 5
+  deathZoom: 12
+  deathAngle: 40
+  deathFadeDuration: 0.75
 --- !u!23 &4527573279414321107 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3199683058971971800, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}

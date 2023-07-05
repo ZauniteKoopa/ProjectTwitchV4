@@ -17,6 +17,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private TwitchInventory inventoryModule;
     [SerializeField]
     private PlayerAudioManager audioModule;
+    [SerializeField]
+    private PlayerScreenUI screenUiModule;
 
     [Header("Animator Parameter Names")]
     [SerializeField]
@@ -83,6 +85,15 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     [Min(0.1f)]
     private float timeUntilDeathFadeOut = 5f;
+    [SerializeField]
+    [Range(4f, 25f)]
+    private float deathZoom = 12f;
+    [SerializeField]
+    [Range(0f, 70f)]
+    private float deathAngle = 48f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float deathFadeDuration = 0.75f;
     
 
     // On awake, set everything
@@ -120,10 +131,12 @@ public class TwitchAnimatorController : MonoBehaviour
         animator.SetBool(shootingBoolParameter, attackModule.isShooting());
         animator.SetBool(ambushBoolParameter, attackModule.isDashing());
 
-        if (animator.GetBool(shootingBoolParameter)) {
-            animator.speed = twitchStatus.getAttackSpeedModifier();
-        } else {
-            animator.speed = twitchStatus.getMovementSpeedModifier();
+        if (twitchStatus.isAlive()) {
+            if (animator.GetBool(shootingBoolParameter)) {
+                animator.speed = twitchStatus.getAttackSpeedModifier();
+            } else {
+                animator.speed = twitchStatus.getMovementSpeedModifier();
+            }
         }
     }
 
@@ -204,10 +217,10 @@ public class TwitchAnimatorController : MonoBehaviour
     private IEnumerator deathSequence() {
         audioModule.playDeathImpact();
         animator.SetTrigger(deathTriggerName);
-        yield return new WaitForSeconds(0.05f);
 
         Time.timeScale = 0f;
         animator.speed = deathSlowMotionFactor;
+        PlayerCameraController.instantMoveCamera(transform.parent, deathAngle, 0f, deathZoom);
         PlayerCameraController.shakeCamera(deathCameraShakeFrames, deathCameraShakeMagnitude);
 
         float waitedTime = (1f / 60f) * deathCameraShakeFrames;
@@ -219,6 +232,6 @@ public class TwitchAnimatorController : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(timeUntilDeathFadeOut);
 
-        Debug.Log("Fade out!");
+        screenUiModule.fadeToBlack(deathFadeDuration, false);
     }
 }
