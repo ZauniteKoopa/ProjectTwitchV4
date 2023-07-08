@@ -16,6 +16,10 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip ambushStartupSoundClip;
     [SerializeField]
     private SideEffect noVialSideEffectSounds;
+    [SerializeField]
+    private AudioClip obtainedSideEffectSound;
+    [SerializeField]
+    private AudioClip finishedCraftingSound;
 
 
     [Header("VoiceOver")]
@@ -43,6 +47,9 @@ public class PlayerAudioManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip[] errorMessageVoiceover;
+
+    [SerializeField]
+    private AudioClip[] sideEffectObtainedVoiceover;
 
 
 
@@ -84,6 +91,28 @@ public class PlayerAudioManager : MonoBehaviour
         }
 
         soundEffectsSpeaker.clip = contaminateSoundClip;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play the obtained side effect sound
+    public void playObtainedSideEffectSound() {
+        if (obtainedSideEffectSound == null) {
+            Debug.LogWarning("No sound clip for obtaining side effect");
+        }
+
+        soundEffectsSpeaker.clip = obtainedSideEffectSound;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play the obtained side effect sound
+    public void playFinishedCraftingSound() {
+        if (finishedCraftingSound == null) {
+            Debug.LogWarning("No sound clip for finished crafting");
+        }
+
+        soundEffectsSpeaker.clip = finishedCraftingSound;
         soundEffectsSpeaker.Play();
     }
 
@@ -137,6 +166,12 @@ public class PlayerAudioManager : MonoBehaviour
     // Main function to play error message voice
     public void playErrorMessageVoice() {
         playVoice(errorMessageVoiceover, 1f);
+    }
+
+
+    // Main function to play side effect obtained voice
+    public void playSideEffectObtainedVoice() {
+        playVoice(sideEffectObtainedVoiceover, 1f);
     }
 
 

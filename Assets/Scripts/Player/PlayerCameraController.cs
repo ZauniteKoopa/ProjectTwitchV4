@@ -15,13 +15,22 @@ public class PlayerCameraController : MonoBehaviour
     private static Quaternion originalLocalRot;
     private static Transform cameraPivot;
 
-
     // Static variables for time stop
     private static int numFramesPerSecond = 60;
 
     // Static variables for camera shake
     private static Coroutine cameraShakeCoroutine = null;
     private static int numFramesPerShake = 2;
+
+
+    // Main runtime variable for getting the runtime zoom (you can get actual position by multiplying this value by Vector3.back)
+    public float curRuntimeZoom = 0f;
+
+    // Default variables for resetting
+    private static float defaultPitch;
+    private static float defaultYaw;
+    private static float defaultZoom;
+    private static Vector3 defaultTgtLocalPos;
 
 
     // On awake, set this to the PlayerCameraController
@@ -39,6 +48,14 @@ public class PlayerCameraController : MonoBehaviour
         originalLocalRot = transform.localRotation;
         mainPlayerCamera = this;
 
+        // set default variables
+        defaultPitch = cameraPivot.eulerAngles.x;
+        defaultYaw = cameraPivot.eulerAngles.y;
+        defaultZoom = -transform.localPosition.z;
+        defaultTgtLocalPos = cameraPivot.localPosition;
+
+        // Set runtime variables
+        curRuntimeZoom = -transform.localPosition.z;
         Application.targetFrameRate = numFramesPerSecond;
     }
 
@@ -47,7 +64,7 @@ public class PlayerCameraController : MonoBehaviour
     //  Pre: target is the target the camera will focus on, pitch is the x rot, yaw is the y rot, zoom is how zoomed in the camera is on target
     //       transSpeed is the transition speed of the camera
     //  Post: Moves the camera to focus on a specific target, with specified zoom, pitch (x rot), yaw (y rot). tranSpeed is the speed at which you move to a location
-    public static void moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed) {
+    public static void moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPosition) {
         Debug.Assert(mainPlayerCamera != null);
 
         if (cameraTransitionCoroutine != null) {
@@ -59,44 +76,56 @@ public class PlayerCameraController : MonoBehaviour
             pitch,
             yaw,
             zoom,
-            transSpeed
+            transSpeed,
+            tgtLocalPosition
         ));
     }
 
 
     // Main static function to just move a camera instantly
-    public static void instantMoveCamera(Transform target, float pitch, float yaw, float zoom) {
+    public static void instantMoveCamera(Transform target, float pitch, float yaw, float zoom, Vector3 tgtLocalPos) {
+        if (cameraTransitionCoroutine != null) {
+            mainPlayerCamera.StopCoroutine(cameraTransitionCoroutine);
+            cameraTransitionCoroutine = null;
+        }
+        
         cameraPivot.parent = target;
         cameraPivot.rotation = Quaternion.Euler(pitch, yaw, 0f);
-        cameraPivot.localPosition = Vector3.zero;
+        cameraPivot.localPosition = tgtLocalPos;
         
         mainPlayerCamera.transform.localPosition = zoom * Vector3.back;
+        mainPlayerCamera.curRuntimeZoom = zoom;
     }
 
 
     // Static function to reset the camera
     //  Pre: mainPlayerCamera != null
     //  Post: moves the camera back to the default position on top of the player
-    // public static void reset() {
-    //     Debug.Assert(mainPlayerCamera != null);
-    //     moveCamera(playerPackage, originalLocalPos, originalLocalRot);
-    // }
+    public static void reset(float transSpeed) {
+        Debug.Assert(mainPlayerCamera != null && transSpeed > 0f);
+        moveCamera(
+            playerPackage,
+            defaultPitch,
+            defaultYaw,
+            defaultZoom,
+            transSpeed,
+            defaultTgtLocalPos
+        );
+    }
 
 
-    // Static function to instantly reset the camera
-    //  Pre: mainPlayerCamera != null
-    //  Post: moves the camera back to the default position on top of the player
+    // // Static function to instantly reset the camera
+    // //  Pre: mainPlayerCamera != null
+    // //  Post: moves the camera back to the default position on top of the player
     public static void instantReset() {
         Debug.Assert(mainPlayerCamera != null);
-
-        if (cameraTransitionCoroutine != null) {
-            mainPlayerCamera.StopCoroutine(cameraTransitionCoroutine);
-            cameraTransitionCoroutine = null;
-        }
-        
-        mainPlayerCamera.transform.parent = playerPackage;
-        mainPlayerCamera.transform.localPosition = originalLocalPos;
-        mainPlayerCamera.transform.localRotation = originalLocalRot;
+        instantMoveCamera(
+            playerPackage,
+            defaultPitch,
+            defaultYaw,
+            defaultZoom,
+            defaultTgtLocalPos
+        );
     }
 
 
@@ -120,10 +149,10 @@ public class PlayerCameraController : MonoBehaviour
     // Main IE numerator to moving the camera
     //  Pre: parent is the transform you want the camera to parent to, localPosition is the local position of the camera relative to the parent, mainPlayerCamera != null
     //  Post: moves the camera
-    private IEnumerator moveCameraSequence(Transform target, float pitch, float yaw, float zoom, float transSpeed) {
+    private IEnumerator moveCameraSequence(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPos) {
         // Calculate the time to be in final position and calculate positions points for PIVOT (actual camera does no position change)
-        Vector3 globalPivotStart = transform.position;
-        Vector3 globalPivotFinish = target.position;
+        Vector3 globalPivotStart = transform.parent.position;
+        Vector3 globalPivotFinish = target.TransformPoint(tgtLocalPos);
         float pivotDist = Vector3.Distance(globalPivotStart, globalPivotFinish);
         float pivotTime = pivotDist / transSpeed;
 
@@ -152,12 +181,14 @@ public class PlayerCameraController : MonoBehaviour
             cameraPivot.position = Vector3.Lerp(globalPivotStart, globalPivotFinish, timer / usedTime);
             cameraPivot.rotation = Quaternion.Lerp(rotStart, rotFinish, timer / usedTime);
 
-            // Update camera zoom
-            transform.localPosition = Vector3.Lerp(cameraLocalZoomStart, zoom * Vector3.back, timer / usedTime);
+            // Update camera zoom (zoom tends to be positive, but in the transform its negative)
+            curRuntimeZoom = Mathf.Lerp(-cameraLocalZoomStart.z, zoom, timer / usedTime);
+            transform.localPosition = curRuntimeZoom * Vector3.back;
         }
 
         // Finish off transition
         transform.localPosition = zoom * Vector3.back;
+        curRuntimeZoom = zoom;
         cameraPivot.position = globalPivotFinish;
         cameraTransitionCoroutine = null;
     }
@@ -208,7 +239,6 @@ public class PlayerCameraController : MonoBehaviour
     // Main IEnumerator to do camera shake
     private IEnumerator cameraShakeSequence(int shakeFrameDuration, float maxShakeMagnitude) {
         float timePerFrame = 1f / (float)(numFramesPerSecond);
-        Vector3 originalPos = transform.localPosition; 
 
         for (int f = 0; f < shakeFrameDuration; f++) {
             yield return new WaitForSecondsRealtime(timePerFrame);
@@ -217,13 +247,13 @@ public class PlayerCameraController : MonoBehaviour
                 Vector3 shakeDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
                 float curShakeMagnitude = Mathf.Lerp(1f, 0f, (float)f / (float)shakeFrameDuration) * maxShakeMagnitude;
 
-                transform.localPosition = originalPos;
+                transform.localPosition = curRuntimeZoom * Vector3.back;
                 transform.Translate(curShakeMagnitude * shakeDir);
             }
         }
 
 
-        transform.localPosition = originalPos;
+        transform.localPosition = curRuntimeZoom * Vector3.back;
         cameraShakeCoroutine = null;
     }
 }

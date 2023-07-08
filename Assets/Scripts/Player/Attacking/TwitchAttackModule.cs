@@ -368,7 +368,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Event handler method for when secondary fire button click
     public void onSecondaryButtonAction(InputAction.CallbackContext value) {
-        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && Time.timeScale > 0.3f) {
             // Check if you can actually fire
             if (inventory.canFireSecondaryLob()) {
                 // Cancel running attack sequence
@@ -394,7 +394,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Event handler method for when secondary fire button click
     public void onContaminateButtonAction(InputAction.CallbackContext value) {
-        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && Time.timeScale > 0.3f) {
             bool poisonedUnitsNearby = contaminateZone.contaminateTargetsFound();
 
             // Check if you can actually fire

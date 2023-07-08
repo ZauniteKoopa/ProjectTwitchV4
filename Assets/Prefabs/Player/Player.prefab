@@ -21752,6 +21752,8 @@ MonoBehaviour:
   contaminateSoundClip: {fileID: 8300000, guid: 73945c5769c383c47a50a6e5a390942d, type: 3}
   ambushStartupSoundClip: {fileID: 8300000, guid: 9223eab0504334943a8b7c5fdbd7d447, type: 3}
   noVialSideEffectSounds: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
+  obtainedSideEffectSound: {fileID: 8300000, guid: c67d98dd4db023e4d90e208b09df695c, type: 3}
+  finishedCraftingSound: {fileID: 8300000, guid: 85276c9fadbcb5f429b8cedc9f7ab7d6, type: 3}
   voiceSpeaker: {fileID: 1347320808158845656}
   ambushStartupVoiceClips:
   - {fileID: 8300000, guid: 1caecc311a3ac084a8193889185869ee, type: 3}
@@ -21774,6 +21776,11 @@ MonoBehaviour:
   deathImpactSoundEffect: {fileID: 8300000, guid: f718ce488aee63245a16d83e38024659, type: 3}
   errorMessageVoiceover:
   - {fileID: 8300000, guid: a0e97f9a8ee2c7048ab1ab5b36c5734a, type: 3}
+  sideEffectObtainedVoiceover:
+  - {fileID: 8300000, guid: 14c8a695f067a904db5299e7edd564f2, type: 3}
+  - {fileID: 8300000, guid: fd0ac21f9d034db48b0ed36591d94fd4, type: 3}
+  - {fileID: 8300000, guid: 1824460bb246e8d45a7e8ff8607cff9b, type: 3}
+  - {fileID: 8300000, guid: 130de36c01f2a9141852a0ec8c4b7330, type: 3}
 --- !u!82 &1347320806317760196
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22858,6 +22865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e33071ae73aaae49aba6b4b5a9a69a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curRuntimeZoom: 0
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24308,15 +24316,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24654,7 +24662,10 @@ MonoBehaviour:
   craftEndTriggerParameter: craftEndTrigger
   sideEffectTriggerParameter: obtainSideEffectTrigger
   randomIntParameter: randomization
-  sideEffectFreezeTime: 0.5
+  sideEffectFreezeTime: 1.5
+  sideEffectCameraZoom: 15
+  sideEffectCameraPitchAngle: 48
+  sideEffectCameraTransitionSpeed: 75
   numHurtAnimations: 2
   cameraShakeFrames: 8
   hitStopFrames: 30

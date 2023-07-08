@@ -46,6 +46,15 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     [Min(0.1f)]
     private float sideEffectFreezeTime = 1.5f;
+    [SerializeField]
+    [Range(1f, 30f)]
+    private float sideEffectCameraZoom = 10f;
+    [SerializeField]
+    [Range(0f, 90f)]
+    private float sideEffectCameraPitchAngle = 48f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float sideEffectCameraTransitionSpeed = 500f;
 
 
     [Header("Hurt animation")]
@@ -165,6 +174,7 @@ public class TwitchAnimatorController : MonoBehaviour
 
     // Trigger event handler for contamination
     private void onCraftEnd() {
+        audioModule.playFinishedCraftingSound();
         animator.SetTrigger(craftEndTriggerParameter);
     }
 
@@ -180,7 +190,24 @@ public class TwitchAnimatorController : MonoBehaviour
         animator.SetTrigger(sideEffectTriggerParameter);
         Time.timeScale = 0f;
 
+        // Play audio
+        audioModule.playObtainedSideEffectSound();
+        audioModule.playSideEffectObtainedVoice();
+
+        // Move camera
+        PlayerCameraController.moveCamera(
+            transform.parent,
+            sideEffectCameraPitchAngle,
+            0f,
+            sideEffectCameraZoom,
+            sideEffectCameraTransitionSpeed,
+            Vector3.zero
+        );
+
         yield return new WaitForSecondsRealtime(sideEffectFreezeTime);
+
+        // Move camera back to default position
+        PlayerCameraController.reset(sideEffectCameraTransitionSpeed);
 
         Time.timeScale = 1f;
     }
@@ -220,7 +247,7 @@ public class TwitchAnimatorController : MonoBehaviour
 
         Time.timeScale = 0f;
         animator.speed = deathSlowMotionFactor;
-        PlayerCameraController.instantMoveCamera(transform.parent, deathAngle, 0f, deathZoom);
+        PlayerCameraController.instantMoveCamera(transform.parent, deathAngle, 0f, deathZoom, Vector3.zero);
         PlayerCameraController.shakeCamera(deathCameraShakeFrames, deathCameraShakeMagnitude);
 
         float waitedTime = (1f / 60f) * deathCameraShakeFrames;
