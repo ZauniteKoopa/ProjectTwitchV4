@@ -50,6 +50,16 @@ public class TwitchInventory : MonoBehaviour
     private Renderer[] secondaryVialMeshes;
     private Color originalMeshColor;
 
+    // Error messages from inventory
+    [SerializeField]
+    private string abilityCooldownErrorMessage = "Ability is currently on cooldown";
+    [SerializeField]
+    private string noVialEquippedErrorMessage = "No vial currently equipped";
+    [SerializeField]
+    private string runOutOfAmmoMessage = "No ammo left for ability";
+    [SerializeField]
+    private string inventoryFilledErrorMessage = "No space in inventory";
+
     // Audio
     [SerializeField]
     private PlayerAudioManager twitchAudioManager;
@@ -160,6 +170,8 @@ public class TwitchInventory : MonoBehaviour
         bool success = primaryVial.firePrimaryAttack(attackDir, attacker, primaryAttackModifier);
         if (success && primaryVial.getAmmo() <= 0) {
             primaryVial = null;
+        } else if (!success) {
+            screenUI.displayErrorMessage(runOutOfAmmoMessage);
         }
 
         updateVialDisplays();
@@ -194,7 +206,8 @@ public class TwitchInventory : MonoBehaviour
     //  Pre: the attackDirection is the direction of attack
     //  Post: returns true if successful. false otherwise
     public bool fireSecondaryLob(Vector3 tgtPos, Transform attacker) {
-        if (primaryVial == null && runningCaskCooldownSequence != null) {
+        if (primaryVial == null || runningCaskCooldownSequence != null) {
+            string curError = (primaryVial == null) ? noVialEquippedErrorMessage : abilityCooldownErrorMessage;
             return false;
         }
 
@@ -215,6 +228,15 @@ public class TwitchInventory : MonoBehaviour
 
     // Main function to check if you can actually fire secondary attack
     public bool canFireSecondaryLob() {
+        if (runningCaskCooldownSequence != null) {
+            screenUI.displayErrorMessage(abilityCooldownErrorMessage);
+        } else if (primaryVial == null) {
+            screenUI.displayErrorMessage(noVialEquippedErrorMessage);
+        } else if (!primaryVial.canFireSecondaryLob()) {
+            screenUI.displayErrorMessage(runOutOfAmmoMessage);
+
+        }
+
         return primaryVial != null && primaryVial.canFireSecondaryLob() && runningCaskCooldownSequence == null;
     }
 
@@ -264,6 +286,10 @@ public class TwitchInventory : MonoBehaviour
 
     // Main public function to check if you can conatminate (not on cooldown)
     public bool canContaminate() {
+        if (runningContaminateCooldownSequence != null) {
+            screenUI.displayErrorMessage(abilityCooldownErrorMessage);
+        }
+
         return runningContaminateCooldownSequence == null;
     }
 
@@ -301,6 +327,10 @@ public class TwitchInventory : MonoBehaviour
 
     // Main public function to check if you can conatminate (not on cooldown)
     public bool canAmbush() {
+        if (runningAmbushCooldownSequence != null) {
+            screenUI.displayErrorMessage(abilityCooldownErrorMessage);
+        }
+        
         return runningAmbushCooldownSequence == null;
     }
 
@@ -383,6 +413,7 @@ public class TwitchInventory : MonoBehaviour
             return true;
         }
 
+        screenUI.displayErrorMessage(inventoryFilledErrorMessage);
         return false;
     }
 

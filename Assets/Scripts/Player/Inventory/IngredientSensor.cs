@@ -49,11 +49,7 @@ public class IngredientSensor : MonoBehaviour
     // Event handler method for when mouse position changes
     public void onPickupPress(InputAction.CallbackContext context) {
         if (context.started && targetIngredient != null) {
-
-            // Try to pick up the ingredient if you can
-            if (!inventory.addIngredient(targetIngredient)) {
-                Debug.Log("NO ROOM IN INVENTORY");
-            }
+            inventory.addIngredient(targetIngredient);
         }
     }
 

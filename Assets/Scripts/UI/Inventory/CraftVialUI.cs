@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
+using TMPro;
 
 public class CraftParameters {
     public PoisonVialStat stat;
@@ -32,6 +33,16 @@ public class CraftVialUI : MonoBehaviour
     private Color offColor = Color.black;
     private Color filledColor;
 
+    [Header("Error messaging")]
+    [SerializeField]
+    private string noIngredientFoundError = "No Ingredient Found";
+    [SerializeField]
+    private string ranOutOfUpgradesError = "Run Out of Upgrades";
+    [SerializeField]
+    private TMP_Text errorMessageText = null;
+    [SerializeField]
+    private PlayerAudioManager twitchVoice;
+
     // Runtime variables
     private PoisonVial primaryVial;
     private PoisonVial secondaryVial;
@@ -50,6 +61,7 @@ public class CraftVialUI : MonoBehaviour
 
         turnOffValve(primaryValve);
         turnOffValve(secondaryValve);
+        clearErrorMessage();
 
         ingSlot.Reset();
     }
@@ -85,14 +97,14 @@ public class CraftVialUI : MonoBehaviour
         // Case where ingredient has not been found
         PoisonVialStat ingStat;
         if (!ingSlot.hasIngredient(out ingStat)) {
-            Debug.LogWarning("CANNOT CRAFT, NO INGREDIENT FOUND");
+            displayErrorMessage(noIngredientFoundError);
             return;
         }
 
         // Check for case where vial can't be crafted
         PoisonVial tgtVial = (linkedToPrimary) ? primaryVial : secondaryVial;
         if (tgtVial != null && !tgtVial.canCraft()) {
-            Debug.LogWarning("CANNOT CRAFT, EXCEEDED NUMBER OF UPGRADES POSSIBLE");
+            displayErrorMessage(ranOutOfUpgradesError);
             return;
         }
 
@@ -104,6 +116,7 @@ public class CraftVialUI : MonoBehaviour
         craftParameters.vial = tgtVial;
         craftParameters.isPrimary = linkedToPrimary;
         craftingVialEvent.Invoke(craftParameters);
+        clearErrorMessage();
     }
 
 
@@ -112,7 +125,7 @@ public class CraftVialUI : MonoBehaviour
         // Case where ingredient has not been found
         PoisonVialStat ingStat;
         if (!ingSlot.hasIngredient(out ingStat)) {
-            Debug.LogWarning("CANNOT CRAFT, NO INGREDIENT FOUND");
+            displayErrorMessage(noIngredientFoundError);
             return;
         }
 
@@ -125,6 +138,7 @@ public class CraftVialUI : MonoBehaviour
         craftParameters.vial = null;
         craftParameters.isPrimary = linkedToPrimary;
         craftingVialEvent.Invoke(craftParameters);
+        clearErrorMessage();
     }
 
 
@@ -137,6 +151,20 @@ public class CraftVialUI : MonoBehaviour
     // Main event handler function for when you want to lookup the secondary vial's side effect
     public void lookAtSecondarySideEffect() {
         recipeBookDisplay.displaySpecificSideEffect(secondaryVial.sideEffect);
+    }
+
+
+    // Main function to display error message
+    private void displayErrorMessage(string errorMessage) {
+        errorMessageText.gameObject.SetActive(true);
+        errorMessageText.text = errorMessage;
+        twitchVoice.playErrorMessageVoice();
+    }
+
+
+    // Main function to clear the error message
+    private void clearErrorMessage() {
+        errorMessageText.gameObject.SetActive(false);
     }
 
 

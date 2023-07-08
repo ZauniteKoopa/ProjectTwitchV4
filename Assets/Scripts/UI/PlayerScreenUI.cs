@@ -73,9 +73,32 @@ public class PlayerScreenUI : MonoBehaviour
     private TMP_Text keyText;
 
 
+    [Header("Error Messaging")]
+    [SerializeField]
+    private GameObject errorMessageObject;
+    [SerializeField]
+    private TMP_Text errorMessageText;
+    [SerializeField]
+    [Min(0.01f)]
+    private float errorMessageDuration = 5f;
+    [SerializeField]
+    private PlayerAudioManager twitchVoice;
+    [SerializeField]
+    [Min(1)]
+    private int errorVoiceFrequency = 4;
+    private int curErrorFreq = 0;
+    private Coroutine runningErrorMessageSequence = null;
+
+
     [Header("Other UI Elements")]
     [SerializeField]
     private PlayerWorldUI worldUI;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioSource speaker;
+    [SerializeField]
+    private AudioClip errorSound;
 
 
     // Main function to display health
@@ -237,5 +260,47 @@ public class PlayerScreenUI : MonoBehaviour
         float cooldownFillAmount = 1f - cooldownProgress;
         icon.color = (cooldownFillAmount < 0.01f) ? Color.white : Color.blue;
         cooldownFill.fillAmount = cooldownFillAmount;
+    }
+
+
+    // Public function for displaying an error message
+    //  Pre: errorMessage is the message you want to display
+    //  Post: displays the error message on screen for a specified amount of seconds
+    public void displayErrorMessage(string errorMessage) {
+        if (runningErrorMessageSequence != null) {
+            StopCoroutine(runningErrorMessageSequence);
+        }
+
+        curErrorFreq++;
+        if (curErrorFreq == errorVoiceFrequency) {
+            curErrorFreq = 0;
+            twitchVoice.playErrorMessageVoice();
+        }
+
+        runningErrorMessageSequence = StartCoroutine(errorMessageSequence(errorMessage));
+    }
+
+
+
+    // Main Coroutine sequence for error message handling
+    private IEnumerator errorMessageSequence(string errorMessage) {
+        Debug.Assert(errorMessageObject != null && errorMessageText != null);
+
+        // Display message
+        errorMessageObject.SetActive(true);
+        errorMessageText.text = errorMessage;
+
+        // Play sound
+        speaker.clip = errorSound;
+        speaker.Play();
+
+        // Wait
+        yield return new WaitForSeconds(errorMessageDuration);
+
+        // Clear message
+        errorMessageObject.SetActive(false);
+
+        // Clear runningSequence variable
+        runningErrorMessageSequence = null;
     }
 }

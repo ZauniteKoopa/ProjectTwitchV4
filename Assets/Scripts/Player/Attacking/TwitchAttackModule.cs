@@ -88,6 +88,10 @@ public class TwitchAttackModule : IAttackModule
     [SerializeField]
     private LayerMask throwOffsetCollisionMask;
 
+    [Header("Error messaging")]
+    [SerializeField]
+    private string contaminateErrorMessage = "No poisoned units nearby to contaminate";
+
     // Variables for attacking
     private Coroutine runningAttackSequence;
     private bool holdingFireButton;
@@ -375,8 +379,6 @@ public class TwitchAttackModule : IAttackModule
                 // Set this as the runnning attack sequence
                 runningAttackSequence = StartCoroutine(secondaryFireSequence());
 
-            } else {
-                Debug.Log("Cannot throw cask!");
             }
         }
     }
@@ -393,8 +395,10 @@ public class TwitchAttackModule : IAttackModule
     // Event handler method for when secondary fire button click
     public void onContaminateButtonAction(InputAction.CallbackContext value) {
         if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
+            bool poisonedUnitsNearby = contaminateZone.contaminateTargetsFound();
+
             // Check if you can actually fire
-            if (inventory.canContaminate() && contaminateZone.contaminateTargetsFound()) {
+            if (inventory.canContaminate() && poisonedUnitsNearby) {
                 // Cancel running attack sequence
                 if (runningAttackSequence != null) {
                     StopCoroutine(runningAttackSequence);
@@ -404,8 +408,8 @@ public class TwitchAttackModule : IAttackModule
                 inventory.activateContaminationCooldown();
                 runningAttackSequence = StartCoroutine(contaminateSequence());
 
-            } else {
-                Debug.Log("Cannot contaminate!");
+            } else if (!poisonedUnitsNearby) {
+                screenUI.displayErrorMessage(contaminateErrorMessage);
             }
         }
     }

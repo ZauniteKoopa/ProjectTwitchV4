@@ -41,6 +41,9 @@ public class PlayerAudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip deathImpactSoundEffect;
 
+    [SerializeField]
+    private AudioClip[] errorMessageVoiceover;
+
 
 
     // Start is called before the first frame update
@@ -128,6 +131,12 @@ public class PlayerAudioManager : MonoBehaviour
     // Main function to play hurt sound effect
     public void playHurtVoice() {
         playVoice(hurtVoiceEffects, 1f);
+    }
+
+
+    // Main function to play error message voice
+    public void playErrorMessageVoice() {
+        playVoice(errorMessageVoiceover, 1f);
     }
 
 
