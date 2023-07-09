@@ -170,12 +170,12 @@ public class PlayerCameraController : MonoBehaviour
         // Transition timer and set up
         cameraPivot.parent = target;
         float timer = 0f;
-        WaitForSecondsRealtime waitFrame = new WaitForSecondsRealtime(0.04f);
+        WaitForSecondsRealtime waitFrame = new WaitForSecondsRealtime(0.016f);
 
         while (timer < usedTime) {
             yield return waitFrame;
 
-            timer += 0.04f;
+            timer += 0.016f;
 
             // Update camera pivot and rotation
             cameraPivot.position = Vector3.Lerp(globalPivotStart, globalPivotFinish, timer / usedTime);

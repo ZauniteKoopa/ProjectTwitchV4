@@ -211,5 +211,5 @@ MonoBehaviour:
   initialDamageDurationPercent: 0.05
   scaleIncreaseOnDeath: 0.75
   durationIncreaseOnDeath: 1
-  contaminateDamageRatio: 0.1
+  contaminateDamageRatio: 0.01
   fogTickDuration: 1

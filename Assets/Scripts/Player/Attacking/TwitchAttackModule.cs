@@ -368,7 +368,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Event handler method for when secondary fire button click
     public void onSecondaryButtonAction(InputAction.CallbackContext value) {
-        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && Time.timeScale > 0.3f) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && !inUninterruptableAnimationSequence) {
             // Check if you can actually fire
             if (inventory.canFireSecondaryLob()) {
                 // Cancel running attack sequence
@@ -394,7 +394,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Event handler method for when secondary fire button click
     public void onContaminateButtonAction(InputAction.CallbackContext value) {
-        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && Time.timeScale > 0.3f) {
+        if (value.started && movementState != TwitchMovementState.IN_ATTACK_ANIM && !inUninterruptableAnimationSequence) {
             bool poisonedUnitsNearby = contaminateZone.contaminateTargetsFound();
 
             // Check if you can actually fire
@@ -417,7 +417,7 @@ public class TwitchAttackModule : IAttackModule
 
     // Main event handler function for stealth
     public void onAmbushButtonAction(InputAction.CallbackContext value) {
-        if (value.started && inventory.canAmbush() && runningAmbushSequence == null) {
+        if (value.started && inventory.canAmbush() && runningAmbushSequence == null && !inUninterruptableAnimationSequence) {
             runningAmbushSequence = StartCoroutine(ambushSequence());
         }
     }

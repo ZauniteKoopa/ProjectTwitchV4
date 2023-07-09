@@ -190,6 +190,8 @@ public class TwitchAnimatorController : MonoBehaviour
         animator.SetTrigger(sideEffectTriggerParameter);
         Time.timeScale = 0f;
 
+        attackModule.inUninterruptableAnimationSequence = true;
+
         // Play audio
         audioModule.playObtainedSideEffectSound();
         audioModule.playSideEffectObtainedVoice();
@@ -209,6 +211,7 @@ public class TwitchAnimatorController : MonoBehaviour
         // Move camera back to default position
         PlayerCameraController.reset(sideEffectCameraTransitionSpeed);
 
+        attackModule.inUninterruptableAnimationSequence = false;
         Time.timeScale = 1f;
     }
 
@@ -229,8 +232,11 @@ public class TwitchAnimatorController : MonoBehaviour
         PlayerCameraController.shakeCamera(cameraShakeFrames, cameraShakeMagnitude);
         audioModule.playHurtVoice();
 
+        attackModule.inUninterruptableAnimationSequence = true;
+
         yield return new WaitForSeconds(0.01f);
 
+        attackModule.inUninterruptableAnimationSequence = false;
         animator.SetTrigger(unHurtTriggerName);
     }
 

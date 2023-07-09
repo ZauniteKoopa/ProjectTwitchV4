@@ -11,6 +11,7 @@ public abstract class IAttackModule : MonoBehaviour {
     public UnityEvent primaryFireTrigger;
     public UnityEvent abilityOneTrigger;
     public UnityEvent abilityTwoTrigger;
+    public bool inUninterruptableAnimationSequence = false;
     
 
     // Function to return movement speed factor affected by this attack module
