@@ -1850,6 +1850,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13, y: 2, z: 13}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!1001 &2727420182499313010
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727420183915984270, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: m_Name
+      value: TreasureChest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
 --- !u!4 &2875080792866805197
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class PlayerScreenUI : MonoBehaviour
     [Header("Health")]
     [SerializeField]
     private Image healthBarFill;
+    [SerializeField]
+    private TMP_Text healthText;
     
     [Header("Primary Vial")]
     [SerializeField]
@@ -103,7 +105,13 @@ public class PlayerScreenUI : MonoBehaviour
 
     // Main function to display health
     public void displayHealth(float curHealth, float maxHealth) {
+        float displayedCurHealth = Mathf.Round(curHealth);
+        if (displayedCurHealth < 0.1f) {
+            displayedCurHealth = 1f;
+        }
+
         healthBarFill.fillAmount = curHealth / maxHealth;
+        healthText.text = displayedCurHealth + "/" + maxHealth;
         worldUI.displayHealthBar(curHealth, maxHealth);
     }
 

@@ -36,6 +36,7 @@ public class PoisonVialConstants : ScriptableObject
     [SerializeField]
     private SideEffect[] stickinessSideEffects;
     private Dictionary<PoisonVialStat, SideEffect[]> sideEffectDictionary = null;
+    private List<SideEffect> sideEffectList = null;
 
     [Header("Default Primary Attack")]
     [SerializeField]
@@ -151,11 +152,20 @@ public class PoisonVialConstants : ScriptableObject
     private void initializeSideEffectDictionary() {
         Debug.Assert(sideEffectDictionary == null);
 
+        // Init dict
         sideEffectDictionary = new Dictionary<PoisonVialStat, SideEffect[]>();
         sideEffectDictionary.Add(PoisonVialStat.POTENCY, potencySideEffects);
         sideEffectDictionary.Add(PoisonVialStat.POISON, poisonSideEffects);
         sideEffectDictionary.Add(PoisonVialStat.REACTIVITY, reactivitySideEffects);
         sideEffectDictionary.Add(PoisonVialStat.STICKINESS, stickinessSideEffects);
+
+        // Init list
+        sideEffectList = new List<SideEffect>();
+        foreach(KeyValuePair<PoisonVialStat, SideEffect[]> entry in sideEffectDictionary) {
+            foreach (SideEffect effect in entry.Value) {
+                sideEffectList.Add(effect);
+            }
+        }
     }
 
 
@@ -185,5 +195,40 @@ public class PoisonVialConstants : ScriptableObject
 
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
         curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
+    }
+
+
+    // Main function to obtain a random side effect based on a recipe book
+    public SideEffect obtainRandomSideEffect(RecipeBook recipeBook) {
+        // Initialize
+        if (sideEffectDictionary == null) {
+            initializeSideEffectDictionary();
+        }
+
+        // Only do it if recipes found < total side effects possible
+        if (recipeBook.getTotalCompletedRecipes() < sideEffectList.Count) {
+            int curIndex = Random.Range(0, sideEffectList.Count);
+
+            while (recipeBook.containsSideEffect(sideEffectList[curIndex])) {
+                curIndex = (curIndex + 1) % sideEffectList.Count;
+            }
+
+            return sideEffectList[curIndex];
+        } else {
+
+            Debug.LogError("RECIPE BOOK IS ALREADY FULL! WHY ARE WE CALLING THIS??");
+            return null;
+        }
+    }
+
+
+    // Main function to get the total number of side effects in the game
+    public int getTotalNumberOfSideEffects() {
+        // Initialize
+        if (sideEffectDictionary == null) {
+            initializeSideEffectDictionary();
+        }
+
+        return sideEffectList.Count;
     }
 }

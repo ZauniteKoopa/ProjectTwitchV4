@@ -13,7 +13,19 @@ public class RecipeBook
 {
     private int curPage = 0;
     private SortedDictionary<PoisonVialStat, List<Recipe>> recipes;
+    private int numCompletedRecipes = 0;
+
+
     public static int RECIPE_INGREDIENT_REQUIREMENTS = 5;
+    private static int MAX_STAT = 3;
+    private static int[,] POSSIBLE_STAT_COMBOS = {
+        {2, 0, 0},
+        {0, 2, 0},
+        {0, 0, 2},
+        {1, 1, 0},
+        {0, 1, 1},
+        {1, 0, 1}
+    };
 
 
     // Main constructor
@@ -84,6 +96,11 @@ public class RecipeBook
         return count;
     }
 
+    // Main function to get the total number of recipes
+    public int getTotalCompletedRecipes() {
+        return numCompletedRecipes;
+    }
+
 
     // Main function to get a recipe from the current page of the book
     public Recipe getRecipeAtCurrentPage() {
@@ -109,6 +126,7 @@ public class RecipeBook
     // Main function to clear the recipe book
     public void clear() {
         curPage = 0;
+        numCompletedRecipes = 0;
 
         recipes[PoisonVialStat.POTENCY].Clear();
         recipes[PoisonVialStat.POISON].Clear();
@@ -146,6 +164,10 @@ public class RecipeBook
         // Set curPage to the new side effect IFF something updated
         if (updated) {
             curPage = findSideEffect(recipe.resultingSideEffect);
+
+            if (recipe.ingredients != null) {
+                numCompletedRecipes++;
+            }
         }
     }
 
@@ -162,6 +184,13 @@ public class RecipeBook
 
         curPage = tempPage;
         return getRecipeAtCurrentPage();
+    }
+
+
+    // Main function to check if the recipe book contains a side effect
+    public bool containsSideEffect(SideEffect s) {
+        Recipe recipe = jumpToSideEffect(s);
+        return recipe != null && recipe.ingredients != null;
     }
 
 
@@ -187,5 +216,90 @@ public class RecipeBook
         }
 
         return null;
+    }
+
+
+    // Main function to check if you can add a new side effect
+    public bool canAddNewRecipe() {
+        return getTotalCompletedRecipes() < PoisonVial.poisonVialConstants.getTotalNumberOfSideEffects();
+    }
+
+
+    // Main function to add a random recipe to the recipe book
+    public void addRandomRecipe() {
+        // Obtain the targeted side effect
+        SideEffect targetSideEffect = PoisonVial.poisonVialConstants.obtainRandomSideEffect(this);
+
+        // Figure out which ingredients and make sure this isn't a duplicated version of another recipe
+        Dictionary<PoisonVialStat, int> ingredientCombo = getRandomCombinationForEffect(targetSideEffect);
+
+        // Add to the list of side effects
+        Recipe newRecipe = jumpToSideEffect(targetSideEffect);
+        if (newRecipe == null) {
+            newRecipe = new Recipe();
+            newRecipe.resultingSideEffect = targetSideEffect;
+            newRecipe.ingredients = ingredientCombo;
+            addNewRecipe(newRecipe);
+
+        } else {
+            newRecipe.ingredients = ingredientCombo;
+        }
+
+        numCompletedRecipes++;
+    }
+
+
+    // Main function to get a random combination
+    private Dictionary<PoisonVialStat, int> getRandomCombinationForEffect(SideEffect s) {
+        // Init
+        PoisonVialStat specialization = s.getType();
+        Dictionary<PoisonVialStat, int> curRecipe = new Dictionary<PoisonVialStat, int>();
+        int curStatComboIndex = Random.Range(0, POSSIBLE_STAT_COMBOS.GetLength(0));
+
+        do {
+            // Clear current dictionary
+            curRecipe.Clear();
+            int curStatIndex = 0;
+
+            // Create recipe via stat values O(4)
+            foreach(KeyValuePair<PoisonVialStat, List<Recipe>> entry in recipes) {
+                PoisonVialStat curStat = entry.Key;
+
+                int statVal = (specialization == curStat) ? MAX_STAT : POSSIBLE_STAT_COMBOS[curStatComboIndex, curStatIndex];
+                curRecipe.Add(curStat, statVal);
+                curStatIndex += (specialization == curStat) ? 0 : 1; 
+            }
+
+            // Update curStatComboIndex for next iteration
+            curStatComboIndex = (curStatComboIndex + 1) % POSSIBLE_STAT_COMBOS.GetLength(0);
+
+        } while (isIngComboUsed(specialization, curRecipe));
+
+        return curRecipe;
+    }
+
+
+    // Main checker function to see if a stat combination is used
+    //  Pre: specialization is the specialization of the side effect, ingCombo is the ingredient combo being compared
+    //  Post: return whether statCombo is used. This is O(M*N) where M = number of recipes for specialization and N = number of stats (4)
+    private bool isIngComboUsed(PoisonVialStat specialization, Dictionary<PoisonVialStat, int> ingCombo) {
+        List<Recipe> recipeSection = recipes[specialization];
+
+        foreach (Recipe recipe in recipeSection) {
+            Dictionary<PoisonVialStat, int> ingredients = recipe.ingredients;
+            int matchedStats = 0;
+
+            foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
+                if (entry.Key != specialization && entry.Value == ingCombo[entry.Key]) {
+                    matchedStats++;
+                }
+            }
+
+            if (matchedStats == ingredients.Count - 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

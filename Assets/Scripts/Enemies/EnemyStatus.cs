@@ -46,8 +46,6 @@ public class EnemyStatus : IUnitStatus
     [SerializeField]
     private LayerMask lootCollisionLayerMask;
     [SerializeField]
-    private float lootCollisionOffset = 0.3f;
-    [SerializeField]
     private float lootDropSpeed = 20f;
     [SerializeField]
     private GameObject lootSatchel = null;
@@ -286,22 +284,7 @@ public class EnemyStatus : IUnitStatus
                 LobAction chosenLoot = lootTable.getLootDrop();
                 LobAction curLoot = Object.Instantiate(chosenLoot, transform.position, Quaternion.identity);
 
-                // Decide initial loot drop destination
-                float lootYPos = transform.position.y;
-                Vector3 src = new Vector3(transform.position.x, lootYPos, transform.position.z);
-
-                Vector3 lootDropDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
-                float curLootDistance = Random.Range(0f, lootDropRange);
-                Vector3 dest = src + (curLootDistance * lootDropDir);
-
-                // Raycast in that direction to get the dest that considers collision
-                RaycastHit hitInfo;
-                if (Physics.Raycast(src, lootDropDir, out hitInfo, curLootDistance + 0.5f, lootCollisionLayerMask)) {
-                    dest = hitInfo.point - (lootCollisionOffset * lootDropDir);
-                }
-
-                // Fire lob action at that point
-                curLoot.lob(src, dest, lootDropSpeed, null);
+                curLoot.lobAroundRadius(transform.position, lootDropRange, lootDropSpeed, lootCollisionLayerMask);
             }
         }
     }

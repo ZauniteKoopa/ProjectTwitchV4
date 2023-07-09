@@ -247,9 +247,6 @@ public class PoisonVial
                         newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);
-
-                    } else if (filledRecipe) {
-                        existingRecipe.ingredients = vialStats;
                     }
                 }
             }

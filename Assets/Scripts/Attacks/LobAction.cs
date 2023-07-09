@@ -9,6 +9,7 @@ public class LobAction : MonoBehaviour
     private DeployableHitbox deployable;
     private const float MIN_START_TIME = 0.25f;
     private const float MAX_LOB_HEIGHT = 2f;
+    private const float LOB_COLLISION_LAYER_OFFSET = 0.7f;
     
 
     // Main function to lob the projectile from src to tgt
@@ -37,6 +38,25 @@ public class LobAction : MonoBehaviour
     public void dynamicLobWithTime(Vector3 src, Transform tgt, float lobTime, PoisonVial poison) {
         Debug.Assert(lobTime > 0f);
         StartCoroutine(dynamicLobSequence(src, tgt, lobTime, poison));
+    }
+
+
+    // Main function to lob a projectile around a source position
+    public void lobAroundRadius(Vector3 src, float lobRadius, float lobSpeed, LayerMask lobCollisionMask) {
+        Debug.Assert(lobRadius > 0f && lobSpeed > 0f);
+
+        Vector3 lootDropDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
+        float curLootDistance = Random.Range(0f, lobRadius);
+        Vector3 dest = src + (curLootDistance * lootDropDir);
+
+        // Raycast in that direction to get the dest that considers collision
+        RaycastHit hitInfo;
+        if (Physics.Raycast(src, lootDropDir, out hitInfo, curLootDistance + 0.5f, lobCollisionMask)) {
+            dest = hitInfo.point - (LOB_COLLISION_LAYER_OFFSET * lootDropDir);
+        }
+
+        // Fire lob action at that point
+        lob(src, dest, lobSpeed, null);
     }
 
 

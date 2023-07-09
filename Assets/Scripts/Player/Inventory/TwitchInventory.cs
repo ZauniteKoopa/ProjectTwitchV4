@@ -83,8 +83,8 @@ public class TwitchInventory : MonoBehaviour
         resetScreenUI();
         updateAttackRangeIndicator();
 
-        primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
-        primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
+        // primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
+        // primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         updateVialDisplays();
         originalMeshColor = playerMesh.material.color;
     }
@@ -103,13 +103,13 @@ public class TwitchInventory : MonoBehaviour
     // Main function to initialize the ingredient dictionary
     private void initializeIngredientDictionary() {
         if (ingredientInventory.Count <= 0) {
-            ingredientInventory.Add(PoisonVialStat.POTENCY, 3);
-            ingredientInventory.Add(PoisonVialStat.POISON, 3);
-            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 3);
-            ingredientInventory.Add(PoisonVialStat.STICKINESS, 3);
+            ingredientInventory.Add(PoisonVialStat.POTENCY, 0);
+            ingredientInventory.Add(PoisonVialStat.POISON, 0);
+            ingredientInventory.Add(PoisonVialStat.REACTIVITY, 0);
+            ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
-            numIngredients = 12;
-            curMaxInventory = 12;
+            numIngredients = 0;
+            curMaxInventory = 6;
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         }
@@ -496,6 +496,14 @@ public class TwitchInventory : MonoBehaviour
             if (secondaryVial != null) {
                 secondaryVialMesh.material.color = secondaryVial.getColor();
             }
+        }
+    }
+
+
+    // Main function to add a new recipe to the recipe book
+    public void addRandomRecipe() {
+        if (recipeBook.canAddNewRecipe()) {
+            recipeBook.addRandomRecipe();
         }
     }
     

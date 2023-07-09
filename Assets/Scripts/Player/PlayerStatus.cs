@@ -107,6 +107,17 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main function to gain health bonuses
+    //  Pre: healthGain > 0f
+    //  Post: increase max health and curHealth by gain
+    public void gainHealth(float addedHealth) {
+        curHealth += addedHealth;
+        maxHealth += addedHealth;
+
+        playerUI.displayHealth(curHealth, maxHealth);
+    }
+
+
     // Main function to reset unit, especially when player dies
     //  Pre: none
     //  Post: If enemy, reset to passive state, not sensing any enemies
