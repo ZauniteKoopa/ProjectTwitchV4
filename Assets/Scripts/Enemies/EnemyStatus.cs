@@ -153,7 +153,7 @@ public class EnemyStatus : IUnitStatus
                     curPoisonTime = 0f;
                 }
 
-                enemyStatusUI.updatePoisonHalo(curPoisonStacks, poison.getColor());
+                enemyStatusUI.updatePoisonHalo(curPoisonStacks, curPoison.getColor());
             }
         }
 
