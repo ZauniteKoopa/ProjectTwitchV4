@@ -747,9 +747,9 @@ MonoBehaviour:
   timeBetweenEnemySpawns: 4
   spawnTimeVariance: 1
   possibleEnemies:
-  - {fileID: 7276044789255310391, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
-  - {fileID: 1545661024895989291, guid: 49a0d93caf953204c9a662c0ef9a28c1, type: 3}
-  - {fileID: 7304168298375891576, guid: 8fe2a61483512f24389d9f1f55f76515, type: 3}
+  - {fileID: 3731168258028753952, guid: 5c76440c99ac8d24e854ddcdd1105ad9, type: 3}
+  - {fileID: 6573688301128885070, guid: 1fd8ff9516aa14748bf74892a2169a65, type: 3}
+  - {fileID: 8529896754578589144, guid: 0400f470524e015408d4f74bd7f8b2a5, type: 3}
 --- !u!4 &1133831979
 Transform:
   m_ObjectHideFlags: 0
@@ -1260,6 +1260,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.b
+      value: 0.4433962
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.g
+      value: 0.161742
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.r
+      value: 0.161742
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1303,6 +1319,10 @@ PrefabInstance:
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090428, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityTime
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090429, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_Name

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3512dbefc22944c98723c7812e5c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 60
+  projectileSpeed: 55
   maxDistance: 12
   hitStopFrames: 5
   cameraShakeMagnitude: 0.5

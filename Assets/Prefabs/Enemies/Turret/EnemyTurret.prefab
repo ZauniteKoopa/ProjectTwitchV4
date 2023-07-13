@@ -598,7 +598,7 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 7
+  movementSpeed: 5
   maxHealth: 30
   enemyStatusUI: {fileID: 7304168298935888429}
   deathEvent:
@@ -609,7 +609,6 @@ MonoBehaviour:
   lootCollisionLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  lootCollisionOffset: 0.7
   lootDropSpeed: 15
   lootSatchel: {fileID: 6564555212678134467}
   lootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}

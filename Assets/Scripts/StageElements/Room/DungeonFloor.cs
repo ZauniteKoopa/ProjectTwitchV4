@@ -16,6 +16,7 @@ public class DungeonFloor : MonoBehaviour
     [Header("Enemy Management")]
     [SerializeField]
     private LootTable dungeonFloorLootTable;
+    private DungeonFloorLayout dungeonFloorMap;
     [SerializeField]
     [Range(0f, 1f)]
     private float lootChance = 0.6f;
@@ -59,6 +60,7 @@ public class DungeonFloor : MonoBehaviour
             Debug.LogError("BATTLE ROOM IN DUNGEON FOUND TO BE NULL");
         }
 
+        dungeonFloorMap = new DungeonFloorLayout(dungeonRooms, finalBattleRoom);
         finalBattleRoom.battleRoomStartEvent.AddListener(onFinalBattleRoomStart);
 
         // Start the dungeon
@@ -149,7 +151,7 @@ public class DungeonFloor : MonoBehaviour
         LootTable givenLoot = (Random.Range(0f, 1f) < lootChance) ? dungeonFloorLootTable : null;
 
         lock (enemyTrackingLock) {
-            EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot);
+            EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot, dungeonFloorMap);
             activeEnemies.Add(enemyInstance);
             enemyInstance.deathEvent.AddListener(delegate { onEnemyDeath(enemyInstance); });
         }

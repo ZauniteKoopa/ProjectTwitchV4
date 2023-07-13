@@ -32,8 +32,8 @@ public class Room : MonoBehaviour
     public int mapCol = 0;
 
 
-    private static readonly float ROOM_SIZE = 15f;
-    private static readonly float WALL_OFFSET = 1.5f;
+    public static readonly float ROOM_SIZE = 15f;
+    public static readonly float WALL_OFFSET = 1.5f;
 
 
     // Main event handler for on trigger enter
@@ -124,7 +124,7 @@ public class Room : MonoBehaviour
 
 
     // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
-    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable) {
+    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav) {
         // Get spawn position
         float emptySpaceLength = ROOM_SIZE - WALL_OFFSET;
         Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
@@ -135,9 +135,15 @@ public class Room : MonoBehaviour
         NavMesh.SamplePosition(spawnPos, out hitInfo, 10f, NavMesh.AllAreas);
         spawnPos = hitInfo.position;
 
-        // Spawn in position 
+        // Spawn in position and set properties
         EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, spawnPos, Quaternion.identity);
         curEnemy.lootTable = lootTable;
+
+        DungeonPatrolPointBranch dynamicDungeonAI = curEnemy.GetComponent<DungeonPatrolPointBranch>();
+        if (dynamicDungeonAI != null) {
+            dynamicDungeonAI.setAssignedLayout(dungeonNav);
+        }
+
         curEnemy.spawnIn();
 
         return curEnemy;

@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PassivePatrolPointBranch : IEnemyPassiveBranch
+public class DungeonPatrolPointBranch : IEnemyPassiveBranch
 {
     private IUnitStatus enemyStats;
 
-    private int patrolPointIndex = 0;
-    private List<Vector3> patrolPointLocations;
     private NavMeshAgent navMeshAgent;
     private bool wasReset = true;
+    private DungeonFloorLayout dungeonFloorNav;
 
-    [SerializeField]
-    private Transform[] patrolPoints;
     [SerializeField]
     [Min(0.1f)]
     private float stopDuration = 1.0f;
@@ -24,22 +21,13 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
     [Range(0.1f, 1f)]
     private float passiveMovementSpeedReduction = 0.75f;
 
-    // Audio
-    // private EnemyAudioManager enemyAudio;
-
 
     // On awake, set patrolPointLocations immediately and get NavMeshAgent
     private void Awake() {
-        if (patrolPoints.Length <= 0) {
-            Debug.LogError("NO PATROL POINTS FOUND FOR THIS UNIT");
-        }
-
         // Initialize variables
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         enemyStats = GetComponent<IUnitStatus>();
         // enemyAudio = GetComponent<EnemyAudioManager>();
-        patrolPointLocations = new List<Vector3>();
-        float yPos = transform.position.y;
 
         if (navMeshAgent == null){
             Debug.LogError("No nav mesh agent connected to this unit: " + transform, transform);
@@ -52,13 +40,8 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
         // if (enemyAudio == null) {
         //     Debug.LogError("No EnemyAudioManager connected to this unit: " + transform, transform);
         // }
-
-        // record each patrol point location
-        foreach (Transform patrolPoint in patrolPoints) {
-            patrolPointLocations.Add(new Vector3(patrolPoint.position.x, yPos, patrolPoint.position.z));
-            patrolPoint.gameObject.SetActive(false);
-        }
     }
+
 
 
     // Main function to run the branch
@@ -66,26 +49,19 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
         // If this is the first time running branch or branch was reset, find nearest patrol point to start
         if (wasReset) {
             wasReset = false;
-            patrolPointIndex = getNearestPatrolPoint();
             navMeshAgent.isStopped = true;
 
             yield return new WaitForSeconds(firstConfusedDuration);
-
-        } else {
-            patrolPointIndex = 0;
         }
 
-        // Go through the entire path in chronological order
-        while (patrolPointIndex < patrolPointLocations.Count) {
+        // Main loop of branch. Actually move if nav was set
+        while (dungeonFloorNav != null) {
             // Set destination
-            Vector3 destPos = patrolPointLocations[patrolPointIndex];
+            Vector3 destPos = dungeonFloorNav.getRandomPosition();
             yield return AI_NavLibrary.goToPosition(destPos, navMeshAgent, enemyStats, speedModifier: passiveMovementSpeedReduction);
 
             // Wait for stop duration
             yield return new WaitForSeconds(stopDuration);
-
-            // Increment patrol point index and start over
-            patrolPointIndex++;
         }
     }
 
@@ -99,29 +75,9 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
     }
 
 
-    // Main helper function to get the index of the nearest patrol point location
-    //  Returns the index of the nearest patrol point
-    private int getNearestPatrolPoint() {
-        float minDistance = Vector3.Distance(transform.position, patrolPointLocations[0]);
-        int closestIndex = 0;
-
-        for (int i = 1; i < patrolPointLocations.Count; i++) {
-            float curDistance = Vector3.Distance(transform.position, patrolPointLocations[i]);
-
-            if (minDistance > curDistance) {
-                minDistance = curDistance;
-                closestIndex = i;
-            }
-        }
-
-        return closestIndex;
-    }
-
-
-    // Main function to set passive patrol point branch, must be set before enemy is awake
-    public void setPatrolPoints(Transform[] newPatrolPoints) {
-        Debug.Assert(newPatrolPoints.Length > 0);
-
-        patrolPoints = newPatrolPoints;
+    // Main function to assign IEnemyPassiveBranch layout
+    public void setAssignedLayout(DungeonFloorLayout dungeonNav) {
+        Debug.Assert(dungeonNav != null);
+        dungeonFloorNav = dungeonNav;
     }
 }

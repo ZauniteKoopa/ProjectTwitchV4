@@ -45,18 +45,16 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         unitStatus.stunnedStartEvent.AddListener(onStunStart);
         unitStatus.stunnedEndEvent.AddListener(onStunEnd);
 
-        lock (treeLock) {
-            if (currentBehaviorSequence != null) {
-                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
-            }
+        if (currentBehaviorSequence != null) {
+            StopCoroutine(currentBehaviorSequence);
         }
+        currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
     }
 
     
     // The main behavior tree sequence
     private IEnumerator behaviorTreeSequence() {
         while (true) {
-
             // Test to see if unit is aggressive (they are aggressive IFF a playerTgt is found)
             if (playerTgt == null) {
                 yield return StartCoroutine(passiveBranch.execute());
