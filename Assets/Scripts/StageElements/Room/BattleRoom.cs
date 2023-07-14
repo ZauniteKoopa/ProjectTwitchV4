@@ -14,9 +14,15 @@ public class BattleRoom : Room
     [SerializeField]
     [Range(0f, 1f)]
     private float lootChance = 0.6f;
+    [SerializeField]
+    private DungeonFloorEntrance[] possibleDungeonFloorEntrances;
+    [SerializeField]
+    private ItemChest rewardChest;
+
 
     public UnityEvent battleRoomStartEvent;
     public UnityEvent battleRoomEndEvent;
+    public UnityEvent dungeonExitEvent;
     
     private AbstractLock enemyWaveLock;
     private bool activated = false;
@@ -33,8 +39,20 @@ public class BattleRoom : Room
             Debug.LogError("No enemy waves found in this battle room!");
         }
 
+        // Set up each enemy wave
         foreach (EnemyWave wave in enemyWaves) {
             wave.waveFinishedEvent.AddListener(onEnemyWaveFinish);
+        }
+
+        // Disable all dungeon floor entrances
+        foreach (DungeonFloorEntrance entrance in possibleDungeonFloorEntrances) {
+            entrance.playerEnterFloorEvent.AddListener(onDungeonExit);
+            entrance.gameObject.SetActive(false);
+        }
+
+        // Disable chest
+        if (rewardChest != null) {
+            rewardChest.gameObject.SetActive(false);
         }
 
         enemyWaveLock = GetComponent<AbstractLock>();
@@ -63,12 +81,57 @@ public class BattleRoom : Room
     private void onEnemyWaveFinish() {
         curEnemyWave++;
 
+        // Case where you finish all enemy waves
         if (curEnemyWave >= enemyWaves.Length) {
+            // Unlock door of battle room
             enemyWaveLock.unlock();
+
+            // Activate entrances to the next floor
+            foreach (DungeonFloorEntrance entrance in possibleDungeonFloorEntrances) {
+                entrance.gameObject.SetActive(true);
+            }
+
+            // Activate rewards chest
+            if (rewardChest != null && rewardChest.getNumPrizes() > 0) {
+                rewardChest.gameObject.SetActive(true);
+            }
+
+        // Case where you still have enemy waves left to go
         } else {
             enemyWaves[curEnemyWave].activate(enemyLootTable, lootChance);
         }
     }
 
+
+    // Main event handler for when player exits the dungeon
+    public void onDungeonExit() {
+        dungeonExitEvent.Invoke();
+    }
+
+
+    // Function to add prize to rewards chest
+    public void addPrize(LobAction reward) {
+        Debug.Assert(reward != null && rewardChest != null);
+
+        rewardChest.addItem(reward);
+    }
+
+
+    // Main function to set up prizes for the battle room
+    public void setUpNextFloorRewards(PrizePool prizePool) {
+        List<EndReward> rewards = prizePool.getDistinctEndRewards(possibleDungeonFloorEntrances.Length);
+
+        for (int e = 0; e < possibleDungeonFloorEntrances.Length; e++) {
+            possibleDungeonFloorEntrances[e].setProjectedEndPrize(rewards[e]);
+        }
+    }
+
+
+    // Main function to set up the actual rewards of the floor
+    public void setBattleRoomRewards(EndReward endReward) {
+        foreach (LobAction reward in endReward.rewards) {
+            rewardChest.addItem(reward);
+        }
+    }
 
 }

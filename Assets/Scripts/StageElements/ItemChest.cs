@@ -48,4 +48,12 @@ public class ItemChest : MonoBehaviour
         chestContents.Add(item);
     }
 
+
+    // Main function to get the number of prizes in this chest
+    //  Pre: none
+    //  Post: returns a non-negative number representing how much items are in this chest
+    public int getNumPrizes() {
+        return chestContents.Count;
+    }
+
 }

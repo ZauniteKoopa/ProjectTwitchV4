@@ -9,9 +9,15 @@ public class DungeonFloor : MonoBehaviour
     [SerializeField]
     private Room[] dungeonRooms;
     [SerializeField]
+    private SpawnRoom spawnRoom;
+    [SerializeField]
     private BattleRoom finalBattleRoom;
     private Room playerRoom;
     private readonly object roomTrackingLock = new object();
+    [SerializeField]
+    private bool startDungeonOnAwake = false;
+    [SerializeField]
+    private bool isHostileFloor = true;
 
     [Header("Enemy Management")]
     [SerializeField]
@@ -38,42 +44,77 @@ public class DungeonFloor : MonoBehaviour
     private Coroutine runningEnemySpawner = null;
     private readonly object enemyTrackingLock = new object();
 
+    [Header("Prize Management")]
+    [SerializeField]
+    private PrizePool prizePool;
+    [SerializeField]
+    private DungeonFloorEntrance[] nonHostileEntrances;
+
     // Only update the map if this dungeon is currently active
     private bool currentlyActive = false;
 
     
     // On start, listen to all events associated to rooms
-    private void Awake() {
-        // Process rooms
-        foreach (Room room in dungeonRooms) {
-            if (room == null) {
-                Debug.LogError("ROOM IN DUNGEON ROOM HAVE BEEN FOUND TO BE NULL");
-            }
-
-            room.playerEnterRoomEvent.AddListener( delegate { onPlayerRoomUpdate(room); } );
-            room.enemyRoomEvent.AddListener(onEnemyRoomUpdate);
-            room.enemyDeathEvent.AddListener(onEnemyRoomUpdate);
+    private void Start() {
+        // Process battle room if battle room is null
+        if (finalBattleRoom == null && isHostileFloor) {
+            Debug.LogError("BATTLE ROOM IN DUNGEON FOUND TO BE NULL IN A DUNGEON FLOOR THAT'S SUPPOSED TO SPAWN IN ENEMIES");
         }
 
-        // Process battle room
-        if (finalBattleRoom == null) {
-            Debug.LogError("BATTLE ROOM IN DUNGEON FOUND TO BE NULL");
+        if (isHostileFloor) {
+            dungeonFloorMap = new DungeonFloorLayout(dungeonRooms, finalBattleRoom);
+            finalBattleRoom.battleRoomStartEvent.AddListener(onFinalBattleRoomStart);
+            finalBattleRoom.dungeonExitEvent.AddListener(exitDungeon);
         }
 
-        dungeonFloorMap = new DungeonFloorLayout(dungeonRooms, finalBattleRoom);
-        finalBattleRoom.battleRoomStartEvent.AddListener(onFinalBattleRoomStart);
-
-        // Start the dungeon
-        startDungeon();
+        if (startDungeonOnAwake) {
+            PlayerStatus player = FindObjectOfType<PlayerStatus>();
+            startDungeon(player, null);
+        }
     }
     
     
     // Main function to start the dungeon
-    public void startDungeon() {
+    public void startDungeon(PlayerStatus playerStatus, EndReward endReward) {
         if (!currentlyActive) {
+            // Process rooms
+            foreach (Room room in dungeonRooms) {
+                if (room == null) {
+                    Debug.LogError("ROOM IN DUNGEON ROOM HAVE BEEN FOUND TO BE NULL");
+                }
+
+                room.playerEnterRoomEvent.AddListener( delegate { onPlayerRoomUpdate(room); } );
+                room.enemyRoomEvent.AddListener(onEnemyRoomUpdate);
+                room.enemyDeathEvent.AddListener(onEnemyRoomUpdate);
+            }
+
+            // Set up
             currentlyActive = true;
             MapUI.mainMapUI.recenter(dungeonRooms);
-            runningEnemySpawner = StartCoroutine(enemySpawningSequence());
+
+            // Have enemies spawn
+            if (isHostileFloor) {
+                runningEnemySpawner = StartCoroutine(enemySpawningSequence());
+            }
+
+            // Set up rewards in the entrances of the next floor and the rewards of this floor
+            if (finalBattleRoom == null) {
+                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length);
+
+                for (int e = 0; e < nonHostileEntrances.Length; e++) {
+                    nonHostileEntrances[e].setProjectedEndPrize(rewards[e]);
+                }
+
+            } else {
+                Debug.Assert(endReward != null);
+                finalBattleRoom.setUpNextFloorRewards(prizePool);
+                finalBattleRoom.setBattleRoomRewards(endReward);
+            }
+
+            // Spawn in player
+            if (spawnRoom != null) {
+                spawnRoom.spawnInPlayer(playerStatus);
+            }
         }
     }
 
@@ -96,14 +137,18 @@ public class DungeonFloor : MonoBehaviour
             enteredPlayerRoom.playerInside = true;
             playerRoom = enteredPlayerRoom;
 
-            MapUI.mainMapUI.render(dungeonRooms);
+            if (currentlyActive) {
+                MapUI.mainMapUI.render(dungeonRooms);
+            }
         }
     }
 
 
     private void onEnemyRoomUpdate() {
         lock (roomTrackingLock) {
-            MapUI.mainMapUI.render(dungeonRooms);
+            if (currentlyActive) {
+                MapUI.mainMapUI.render(dungeonRooms);
+            }
         }
     }
 
@@ -114,7 +159,9 @@ public class DungeonFloor : MonoBehaviour
         }
 
         lock (roomTrackingLock) {
-            MapUI.mainMapUI.render(dungeonRooms);
+            if (currentlyActive) {
+                MapUI.mainMapUI.render(dungeonRooms);
+            }
         }
     }
 
