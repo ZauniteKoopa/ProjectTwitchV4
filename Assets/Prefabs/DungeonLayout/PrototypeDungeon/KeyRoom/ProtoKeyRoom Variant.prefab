@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1547057935786358370
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6780014410388860675}
+    m_Modifications:
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364097, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121649129229364103, guid: cda725cd790c3674c874edba71aef001, type: 3}
+      propertyPath: m_Name
+      value: RustedKey
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cda725cd790c3674c874edba71aef001, type: 3}
+--- !u!1001 &7811973776664013845
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1521293690922145778, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_Name
+      value: ProtoKeyRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -167.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4701663569093821210, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+--- !u!4 &6780014410388860675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+  m_PrefabInstance: {fileID: 7811973776664013845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8751914986970594279 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1521293690922145778, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+  m_PrefabInstance: {fileID: 7811973776664013845}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6057556638987195448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8751914986970594279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abf20ab2466ac7489ef16bc94579c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerEnterRoomEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  enemyRoomEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  enemyDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  playerInside: 0
+  westOpen: 0
+  eastOpen: 0
+  northOpen: 0
+  southOpen: 0
+  mapRow: 0
+  mapCol: 0
