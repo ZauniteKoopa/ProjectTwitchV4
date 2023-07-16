@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1521293690922145778, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
       propertyPath: m_Name
-      value: Proto4Way-Empty
+      value: Proto4Way-Empty Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
       propertyPath: m_RootOrder
@@ -54,6 +54,22 @@ PrefabInstance:
     - target: {fileID: 3638565371964310294, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701663569093821210, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: eastOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701663569093821210, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: westOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701663569093821210, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: northOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4701663569093821210, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
+      propertyPath: southOpen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4907289207046891833, guid: 2861b8113bfb0824b81f9b0ab17a60e5, type: 3}
       propertyPath: m_IsActive

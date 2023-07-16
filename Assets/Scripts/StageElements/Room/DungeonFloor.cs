@@ -93,7 +93,7 @@ public class DungeonFloor : MonoBehaviour
             MapUI.mainMapUI.recenter(dungeonRooms);
 
             // Have enemies spawn
-            if (isHostileFloor) {
+            if (isHostileFloor && maxEnemies > 0) {
                 runningEnemySpawner = StartCoroutine(enemySpawningSequence());
             }
 
@@ -168,7 +168,9 @@ public class DungeonFloor : MonoBehaviour
 
     // Main event handler function for when the final battle room starts
     private void onFinalBattleRoomStart() {
-        StopCoroutine(runningEnemySpawner);
+        if (runningEnemySpawner != null) {
+            StopCoroutine(runningEnemySpawner);
+        }
         runningEnemySpawner = null;
     }
 
