@@ -201,17 +201,20 @@ public class RecipeBook
         List<Recipe> recipeSection = recipes[specialization];
 
         foreach (Recipe recipe in recipeSection) {
+            // If recipe was actually filled out, check the combination with that recipe
             Dictionary<PoisonVialStat, int> ingredients = recipe.ingredients;
-            int matchedStats = 0;
+            if (recipe.ingredients != null) {
+                int matchedStats = 0;
 
-            foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
-                if (entry.Key != specialization && entry.Value == poisonComposition[entry.Key]) {
-                    matchedStats++;
+                foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
+                    if (entry.Key != specialization && entry.Value == poisonComposition[entry.Key]) {
+                        matchedStats++;
+                    }
                 }
-            }
 
-            if (matchedStats == ingredients.Count - 1) {
-                return recipe.resultingSideEffect;
+                if (matchedStats == ingredients.Count - 1) {
+                    return recipe.resultingSideEffect;
+                }
             }
         }
 
@@ -287,16 +290,18 @@ public class RecipeBook
 
         foreach (Recipe recipe in recipeSection) {
             Dictionary<PoisonVialStat, int> ingredients = recipe.ingredients;
-            int matchedStats = 0;
 
-            foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
-                if (entry.Key != specialization && entry.Value == ingCombo[entry.Key]) {
-                    matchedStats++;
+            if (ingredients != null) {
+                int matchedStats = 0;
+                foreach(KeyValuePair<PoisonVialStat, int> entry in ingredients) {
+                    if (entry.Key != specialization && entry.Value == ingCombo[entry.Key]) {
+                        matchedStats++;
+                    }
                 }
-            }
 
-            if (matchedStats == ingredients.Count - 1) {
-                return true;
+                if (matchedStats == ingredients.Count - 1) {
+                    return true;
+                }
             }
         }
 

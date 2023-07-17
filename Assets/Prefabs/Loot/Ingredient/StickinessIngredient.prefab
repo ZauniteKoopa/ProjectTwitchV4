@@ -115,6 +115,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statType: 3
   controlsIndicator: {fileID: 6877921696108967853}
+  solidPeriod: 6
+  fadingPeriod: 3
 --- !u!114 &6877921697493334451
 MonoBehaviour:
   m_ObjectHideFlags: 0

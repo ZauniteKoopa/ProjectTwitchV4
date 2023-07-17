@@ -22,7 +22,7 @@ MonoBehaviour:
   primaryAttackStartFrames: 20
   primaryAttackEndFrames: 30
   primaryAttackMultiplier: 1.5
-  attackRange: 4
+  attackRange: 5
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 12d2a11c14a42584989615d48ccc7c83, type: 3}
   primaryAttackAnim: 1

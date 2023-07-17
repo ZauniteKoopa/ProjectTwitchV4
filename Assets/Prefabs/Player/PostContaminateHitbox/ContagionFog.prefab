@@ -212,4 +212,4 @@ MonoBehaviour:
   scaleIncreaseOnDeath: 0.75
   durationIncreaseOnDeath: 1
   contaminateDamageRatio: 0.01
-  fogTickDuration: 1
+  fogTickDuration: 0.5

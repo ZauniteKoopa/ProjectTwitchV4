@@ -11,6 +11,8 @@ public class DungeonFloorEntrance : MonoBehaviour
     private DungeonFloor dungeonFloor;
     [SerializeField]
     private TMP_Text prizeDisplay;
+    [SerializeField]
+    private float entranceHeal = 5f;
     private PlayerStatus playerTgt;
     private EndReward projectedEndPrize;
 
@@ -41,6 +43,7 @@ public class DungeonFloorEntrance : MonoBehaviour
     public void onInteractPress(InputAction.CallbackContext context) {
         if (context.started && playerTgt != null) {
             playerEnterFloorEvent.Invoke();
+            playerTgt.heal(entranceHeal);
             dungeonFloor.startDungeon(playerTgt, projectedEndPrize);
         }
     }

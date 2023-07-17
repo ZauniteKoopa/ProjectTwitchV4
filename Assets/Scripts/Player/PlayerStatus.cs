@@ -118,6 +118,14 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main function to just heal
+    public void heal(float healedHealth) {
+        curHealth = Mathf.Min(maxHealth, curHealth + healedHealth);
+
+        playerUI.displayHealth(curHealth, maxHealth);
+    }
+
+
     // Main function to reset unit, especially when player dies
     //  Pre: none
     //  Post: If enemy, reset to passive state, not sensing any enemies

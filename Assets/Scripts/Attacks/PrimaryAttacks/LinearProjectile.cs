@@ -23,7 +23,7 @@ public class LinearProjectile : IPrimaryAttack
     [Range(0f, 1.5f)]
     private float cameraShakeMagnitude = 0f;
 
-    private const float DAMAGE_RANGE_BONUS = 0.75f;
+    private const float DAMAGE_RANGE_BONUS = 1.25f;
 
 
     // Update is called once per frame
