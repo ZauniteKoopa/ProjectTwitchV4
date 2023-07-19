@@ -21683,7 +21683,7 @@ MonoBehaviour:
   contaminateCooldown: {fileID: 541306836}
   contaminateIcon: {fileID: 34400494}
   colorScreen: {fileID: 1347320806228952370}
-  ambushInvisibilityColor: {r: 0.003921569, g: 0.003921569, b: 0.14117648, a: 0.8509804}
+  ambushInvisibilityColor: {r: 0.161742, g: 0.161742, b: 0.4433962, a: 0.5019608}
   ambushInvisibilityFadeIn: 0.48
   ambushInvisibilityFadeOut: 0.1
   invisBarObject: {fileID: 512532956}
@@ -21937,8 +21937,8 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 8
-  maxHealth: 20
+  movementSpeed: 6
+  maxHealth: 25
   invincibilityFrameDuration: 0.5
   playerUI: {fileID: 1347320806230522881}
   invisSensor: {fileID: 1334931797}
@@ -21986,13 +21986,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f5c6628988863e2499bd0b9254fb9295, type: 3}
   - {fileID: 8300000, guid: ff089415b7a3f9c459f89cb1ce2f0551, type: 3}
   - {fileID: 8300000, guid: 15e8b1522b955984f82f565d25fe3cd9, type: 3}
-  ambushStartupVoiceChance: 0.5
+  ambushStartupVoiceChance: 0.3
   ambushBuffVoiceClips:
   - {fileID: 8300000, guid: 836e53c0616c10b489c06b744f1151e0, type: 3}
   - {fileID: 8300000, guid: 7bb4620e74fadbe42838bdab0dc09625, type: 3}
   - {fileID: 8300000, guid: 0a702e8adc114364191b5d597cc414a4, type: 3}
   - {fileID: 8300000, guid: 8f1c232e2e17fdc47a0e926eb58789e1, type: 3}
-  ambushBuffVoiceChance: 1
+  ambushBuffVoiceChance: 0.5
   hurtVoiceEffects:
   - {fileID: 8300000, guid: fd53b23977171c643ae04241ba291ed8, type: 3}
   - {fileID: 8300000, guid: 1368b8ea90da9af4e97f55b2a97de7de, type: 3}
@@ -22253,15 +22253,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347320806948716995}
-  m_LocalRotation: {x: 0.40673664, y: -0, z: -0, w: 0.9135455}
-  m_LocalPosition: {x: 0, y: 2.25, z: 0}
+  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347320807764432979}
   m_Father: {fileID: 1347320807677090374}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 48, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
 --- !u!1 &1347320807493061774
 GameObject:
   m_ObjectHideFlags: 0
@@ -22291,7 +22291,7 @@ Transform:
   m_GameObject: {fileID: 1347320807493061774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 13, y: 10, z: 13}
+  m_LocalScale: {x: 18, y: 10, z: 18}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3489270177951465898}
@@ -22798,7 +22798,7 @@ MonoBehaviour:
   contaminateEndFrames: 8
   contaminateZone: {fileID: 1347320807493061773}
   ambushStartupTime: 1
-  ambushInvisibilityTime: 6
+  ambushInvisibilityTime: 8
   ambushAttackSpeedBuffTime: 5
   ambushAttackSpeedBuff: 1.5
   ambushInvisibilityMovementBuff: 1.25
@@ -23021,7 +23021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347320807764432982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -25}
+  m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23038,8 +23038,8 @@ Camera:
   m_GameObject: {fileID: 1347320807764432982}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -23054,7 +23054,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 29.424007
+  field of view: 18.7
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -23555,7 +23555,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 1
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_FocalLength: 50
@@ -23567,7 +23567,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 29.424007
+  field of view: 18.7
   orthographic: 0
   orthographic size: 5
   m_Depth: 10

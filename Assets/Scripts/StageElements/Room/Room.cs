@@ -32,7 +32,7 @@ public class Room : MonoBehaviour
     public int mapCol = 0;
 
 
-    public static readonly float ROOM_SIZE = 15f;
+    public static readonly float ROOM_SIZE = 18f;
     public static readonly float WALL_OFFSET = 1.5f;
 
 
@@ -70,6 +70,9 @@ public class Room : MonoBehaviour
         }
 
         // Invoke event. THE PARENT SHOULD HANDLE THE playerInside boolean
+        if (!playerInside) {
+            PlayerCameraController.startCameraRoomSequence(this, true);
+        }
         playerEnterRoomEvent.Invoke();
     }
 

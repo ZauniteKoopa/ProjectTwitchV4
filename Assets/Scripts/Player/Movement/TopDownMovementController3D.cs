@@ -149,8 +149,8 @@ public class TopDownMovementController3D : MonoBehaviour
         float inputY = inputVector.y;
 
         // Get camera axis values
-        Vector3 forwardVector = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up);
-        Vector3 rightVector = Vector3.Cross(Vector3.up, forwardVector);
+        Vector3 forwardVector = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
+        Vector3 rightVector = Vector3.Cross(Vector3.up, forwardVector).normalized;
 
         // Get movement vector by checking sensors
         float movementX = (inputX < 0 && leftSensor.isBlocked()) ? 0 : inputX;

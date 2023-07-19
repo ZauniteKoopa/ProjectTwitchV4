@@ -14,6 +14,8 @@ public class PlayerCameraController : MonoBehaviour
     private static Vector3 originalLocalPos;
     private static Quaternion originalLocalRot;
     private static Transform cameraPivot;
+    private static Coroutine runningCameraRoomSequence = null;
+    private static bool overrideRoomCamera = false;
 
     // Static variables for time stop
     private static int numFramesPerSecond = 60;
@@ -21,6 +23,10 @@ public class PlayerCameraController : MonoBehaviour
     // Static variables for camera shake
     private static Coroutine cameraShakeCoroutine = null;
     private static int numFramesPerShake = 2;
+
+    // Static variables for room mode
+    private static readonly float CAMERA_OFFSET_X = 8f;
+    private static readonly float CAMERA_OFFSET_Z = 5f;
 
 
     // Main runtime variable for getting the runtime zoom (you can get actual position by multiplying this value by Vector3.back)
@@ -54,10 +60,15 @@ public class PlayerCameraController : MonoBehaviour
         defaultZoom = -transform.localPosition.z;
         defaultTgtLocalPos = cameraPivot.localPosition;
 
+        // Routines
+        runningCameraRoomSequence = null;
+        cameraTransitionCoroutine = null;
+
         // Set runtime variables
         curRuntimeZoom = -transform.localPosition.z;
         Application.targetFrameRate = numFramesPerSecond;
     }
+
 
 
     // Static function to do camera coroutine sequence
@@ -191,6 +202,71 @@ public class PlayerCameraController : MonoBehaviour
         curRuntimeZoom = zoom;
         cameraPivot.position = globalPivotFinish;
         cameraTransitionCoroutine = null;
+    }
+
+
+    // Main function to start the room sequence
+    public static void startCameraRoomSequence(Room tgtRoom, bool transition) {
+        if (runningCameraRoomSequence != null) {
+            mainPlayerCamera.StopCoroutine(runningCameraRoomSequence);
+        }
+
+        runningCameraRoomSequence = mainPlayerCamera.StartCoroutine(mainPlayerCamera.cameraRoomSequence(tgtRoom, transition));
+    }
+
+
+
+    // Private IEnumerator for the running room sequence that should go on forever until the end of the dungeon
+    private IEnumerator cameraRoomSequence(Room tgtRoom, bool gradualTransition = true) {
+        while (true) {
+            cameraPivot.parent = tgtRoom.transform;
+
+            // Transition to current room quickly if established
+            if (gradualTransition && !overrideRoomCamera) {
+                Time.timeScale = 0f;
+                yield return moveCameraSequence(
+                    tgtRoom.transform,
+                    defaultPitch,
+                    defaultYaw,
+                    defaultZoom,
+                    30f,
+                    getLocalCameraPivotRoomPosition(tgtRoom)
+                );
+                Time.timeScale = 1f;
+            }
+
+            // Afterwards, keep local position of camera pivot until someone overrides camera sequence
+            while (!overrideRoomCamera) {
+                cameraPivot.localPosition = getLocalCameraPivotRoomPosition(tgtRoom);
+                yield return 0;
+            }
+
+            // If someone overrides room camera, wait until the override stops
+            while (overrideRoomCamera) {
+                yield return 0;
+            }
+
+            // Set gradual transition to true for a gradual transition back to room mode
+            gradualTransition = true;
+        }
+    }
+
+
+    // Main private helper function to get the local coordinates of the current room
+    private Vector3 getLocalCameraPivotRoomPosition(Room curRoom) {
+        // Calculate room limits 
+        float xRoomLimits = Mathf.Max((Room.ROOM_SIZE / 2f) - CAMERA_OFFSET_X, 0f);
+        float zRoomLimits = Mathf.Max((Room.ROOM_SIZE / 2f) - CAMERA_OFFSET_Z, 0f);
+
+        // Get the players position given that he's in this room
+        Vector3 playerRawLocalPos = curRoom.transform.InverseTransformPoint(playerPackage.position);
+
+        // Return a clamped version of this raw local position
+        return new Vector3(
+            Mathf.Clamp(playerRawLocalPos.x, -xRoomLimits, xRoomLimits),
+            playerRawLocalPos.y,
+            Mathf.Clamp(playerRawLocalPos.z, -zRoomLimits, zRoomLimits)
+        );
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class AI_NavLibrary
 {
-    private static readonly float UNIT_SPEED_TO_NAVMESH_CONVERSION = 0.625f;
+    private static readonly float UNIT_SPEED_TO_NAVMESH_CONVERSION = 1f;
     
     // Main function to get unit to go to a specific location
     //  Pre: dest is the position on the nav mesh that the unit is trying to go to, pathExpiration is the time it takes for path to be stale (> 0f)
