@@ -12,7 +12,7 @@ public class Room : MonoBehaviour
     public UnityEvent enemyDeathEvent;
 
     private int enemiesInRoom = 0;
-    private bool visitedByPlayer = false;
+    protected bool visitedByPlayer = false;
     public bool playerInside = false;
     private Dictionary<EnemyStatus, UnityAction> enemyDeathDelegates = new Dictionary<EnemyStatus, UnityAction>();
 
@@ -64,16 +64,23 @@ public class Room : MonoBehaviour
 
     // Protected function for when player enters a room
     protected virtual void onPlayerEnter(PlayerStatus player) {
+        // Invoke event. THE PARENT SHOULD HANDLE THE playerInside boolean
+        if (!playerInside) {
+            PlayerCameraController.startCameraRoomSequence(this, hasCameraTransition());
+        }
+        
         // Mark this as visited by the player if not visited yet
         if (!visitedByPlayer) {
             visitedByPlayer = true;
         }
 
-        // Invoke event. THE PARENT SHOULD HANDLE THE playerInside boolean
-        if (!playerInside) {
-            PlayerCameraController.startCameraRoomSequence(this, true);
-        }
         playerEnterRoomEvent.Invoke();
+    }
+
+
+    // Main function to check if you have a camera transition
+    protected virtual bool hasCameraTransition() {
+        return true;
     }
 
 

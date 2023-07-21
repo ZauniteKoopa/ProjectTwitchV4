@@ -113,6 +113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitboxDuration: 0.1
   initialDamageDurationPercent: 1
-  scaleIncreaseOnDeath: 0.5
+  scaleIncreaseOnDeath: 0.375
   durationIncreaseOnDeath: 0
-  contaminateDamageRatio: 0.25
+  contaminateDamageRatio: 0.5

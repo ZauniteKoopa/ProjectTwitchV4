@@ -20,4 +20,10 @@ public class SpawnRoom : Room
     public void spawnInPlayer(PlayerStatus player) {
         player.transform.parent.position = spawnPoint.position;
     }
+
+
+    // Main function to check if you have a camera transition
+    protected override bool hasCameraTransition() {
+        return visitedByPlayer;
+    }
 }

@@ -90,6 +90,8 @@ public class PlayerCameraController : MonoBehaviour
             transSpeed,
             tgtLocalPosition
         ));
+
+        overrideRoomCamera = true;
     }
 
 
@@ -106,6 +108,7 @@ public class PlayerCameraController : MonoBehaviour
         
         mainPlayerCamera.transform.localPosition = zoom * Vector3.back;
         mainPlayerCamera.curRuntimeZoom = zoom;
+        overrideRoomCamera = true;
     }
 
 
@@ -114,14 +117,7 @@ public class PlayerCameraController : MonoBehaviour
     //  Post: moves the camera back to the default position on top of the player
     public static void reset(float transSpeed) {
         Debug.Assert(mainPlayerCamera != null && transSpeed > 0f);
-        moveCamera(
-            playerPackage,
-            defaultPitch,
-            defaultYaw,
-            defaultZoom,
-            transSpeed,
-            defaultTgtLocalPos
-        );
+        overrideRoomCamera = false;
     }
 
 
@@ -229,7 +225,7 @@ public class PlayerCameraController : MonoBehaviour
                     defaultPitch,
                     defaultYaw,
                     defaultZoom,
-                    30f,
+                    75f,
                     getLocalCameraPivotRoomPosition(tgtRoom)
                 );
                 Time.timeScale = 1f;
@@ -259,14 +255,15 @@ public class PlayerCameraController : MonoBehaviour
         float zRoomLimits = Mathf.Max((Room.ROOM_SIZE / 2f) - CAMERA_OFFSET_Z, 0f);
 
         // Get the players position given that he's in this room
-        Vector3 playerRawLocalPos = curRoom.transform.InverseTransformPoint(playerPackage.position);
-
-        // Return a clamped version of this raw local position
-        return new Vector3(
+        Vector3 playerRawLocalPos = playerPackage.position - curRoom.transform.position;
+        Vector3 cameraFocusPosition = curRoom.transform.position + new Vector3(
             Mathf.Clamp(playerRawLocalPos.x, -xRoomLimits, xRoomLimits),
-            playerRawLocalPos.y,
+            playerPackage.position.y,
             Mathf.Clamp(playerRawLocalPos.z, -zRoomLimits, zRoomLimits)
         );
+
+        // Return a clamped version of this raw local position
+        return curRoom.transform.InverseTransformPoint(cameraFocusPosition);
     }
 
 
