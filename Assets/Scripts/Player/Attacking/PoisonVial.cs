@@ -200,7 +200,8 @@ public class PoisonVial
         }
 
         // Spawn a post contaminate side effect if it exists for this side effect
-        if (sideEffect.postContaminateHitbox != null && poisonStacks >= poisonVialConstants.minPostContaminateStacks) {
+        bool metPostConHitboxReq = tgtKilled || poisonStacks >= poisonVialConstants.minPostContaminateStacks;
+        if (sideEffect.postContaminateHitbox != null && metPostConHitboxReq) {
             PostContaminateHitbox curHitbox = Object.Instantiate(sideEffect.postContaminateHitbox, enemyPosition, Quaternion.identity);
             curHitbox.setUp(contaminateDmg, this, tgtKilled);
         }

@@ -41,7 +41,7 @@ public class PlayerStatus : IUnitStatus
     [Header("Events")]
     public UnityEvent playerHurtEvent;
     public UnityEvent deathEvent;
-
+    public UnityEvent<int> keyCountEvent = new UnityEvent<int>();
 
 
     // On awake, set up
@@ -226,6 +226,7 @@ public class PlayerStatus : IUnitStatus
         if (numKeys >= keysRequired) {
             numKeys -= keysRequired;
             playerUI.displayNumKeys(numKeys);
+            keyCountEvent.Invoke(numKeys);
             return true;
         }
 
@@ -237,5 +238,6 @@ public class PlayerStatus : IUnitStatus
     public void addKey() {
         numKeys++;
         playerUI.displayNumKeys(numKeys);
+        keyCountEvent.Invoke(numKeys);
     }
 }

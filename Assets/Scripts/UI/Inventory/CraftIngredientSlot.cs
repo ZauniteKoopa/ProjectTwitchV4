@@ -80,8 +80,8 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
         icon.color = emptyColor;
     }
 
-    //Method to craft ingredient in a visual level
-    public void CraftIngredient()
+    //Method to clear the ingredient without having any affect on ingredient counts
+    public void ClearIngredient()
     {
         ingredientIcon = null;
         Reset();

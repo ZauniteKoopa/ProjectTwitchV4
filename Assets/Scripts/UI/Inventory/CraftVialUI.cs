@@ -63,7 +63,7 @@ public class CraftVialUI : MonoBehaviour
         turnOffValve(secondaryValve);
         clearErrorMessage();
 
-        ingSlot.Reset();
+        ingSlot.ClearIngredient();
     }
 
 
@@ -108,8 +108,8 @@ public class CraftVialUI : MonoBehaviour
             return;
         }
 
-        // Go ahead and craft
-        ingSlot.CraftIngredient();
+        // Go ahead and craft, clearing slot
+        ingSlot.ClearIngredient();
 
         CraftParameters craftParameters = new CraftParameters();
         craftParameters.stat = ingStat;
@@ -130,7 +130,7 @@ public class CraftVialUI : MonoBehaviour
         }
 
         // Go ahead and craft
-        ingSlot.CraftIngredient();
+        ingSlot.ClearIngredient();
 
         // Set craftparameters.vial to null so that it will always replace the poison vial
         CraftParameters craftParameters = new CraftParameters();

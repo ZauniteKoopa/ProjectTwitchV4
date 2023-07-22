@@ -87,6 +87,7 @@ public class TwitchInventory : MonoBehaviour
         // primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         updateVialDisplays();
         originalMeshColor = playerMesh.material.color;
+        PauseConstraints.setInventoryModule(this);
     }
 
 
@@ -383,6 +384,12 @@ public class TwitchInventory : MonoBehaviour
     // Main event handler function for when the menu was closed directly
     public void onInventoryMenuClose() {
         StartCoroutine(enableControls());
+    }
+
+
+    // Main accessor method to check if inventory menu is open
+    public bool isInventoryMenuOpen() {
+        return inventoryUI.isMenuOpen();
     }
 
 

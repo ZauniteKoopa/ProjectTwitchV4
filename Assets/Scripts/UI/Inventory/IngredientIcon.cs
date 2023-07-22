@@ -84,6 +84,7 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
         icon.color = emptyColor;
         countText.text = "0";
+        count = 0;
 
         rectTransform.anchoredPosition = startPosition;
         startPosition = rectTransform.anchoredPosition;

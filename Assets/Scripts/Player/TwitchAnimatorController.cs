@@ -206,7 +206,7 @@ public class TwitchAnimatorController : MonoBehaviour
             Vector3.zero
         );
 
-        yield return new WaitForSecondsRealtime(sideEffectFreezeTime);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(sideEffectFreezeTime);
 
         // Move camera back to default position
         PlayerCameraController.reset(sideEffectCameraTransitionSpeed);

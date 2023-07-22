@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class PauseConstraints
+{
+    private static TwitchInventory inventoryModule;
+    private static readonly float FRAME_TIME_DELTA = 0.014f;
+
+    // Main function to connect twitch inventory
+    public static void setInventoryModule(TwitchInventory inv) {
+        Debug.Assert(inv != null);
+        inventoryModule = inv;
+    }
+
+
+    // Main function to check if you're currently paused
+    public static bool isPaused() {
+        return inventoryModule.isInventoryMenuOpen();
+    }
+
+
+    // Main sequence function to fun in realtime 
+    public static IEnumerator waitForSecondsRealtimeWithPause(float numSecs) {
+        int numWaitFrames = (int)Mathf.Ceil(numSecs / FRAME_TIME_DELTA);
+        WaitForSecondsRealtime waitFrame = new WaitForSecondsRealtime(FRAME_TIME_DELTA);
+
+        for (int f = 0; f < numWaitFrames; f++) {
+            yield return waitFrame;
+            while (isPaused()) {
+                yield return waitFrame;
+            }
+        }
+    }
+}

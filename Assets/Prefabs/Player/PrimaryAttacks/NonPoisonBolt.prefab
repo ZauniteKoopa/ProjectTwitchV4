@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 45
   maxDistance: 9
-  hitStopFrames: 3
+  hitStopFrames: 5
   cameraShakeMagnitude: 0.3
 --- !u!65 &8139350676137732301
 BoxCollider:

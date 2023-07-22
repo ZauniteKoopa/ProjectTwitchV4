@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e220acac62af06b4cac40896d3d5086d, type: 3}
+  m_Name: TestVialConstants
+  m_EditorClassIdentifier: 
+  purePotencyColor: {r: 1, g: 0, b: 0.6246929, a: 1}
+  pureReactivityColor: {r: 0.76599145, g: 0.8018868, b: 0.012608201, a: 1}
+  pureStickinessColor: {r: 0, g: 0.7216792, b: 1, a: 1}
+  purePoisonColor: {r: 0.3470919, g: 0.7264151, b: 0.004568558, a: 1}
+  tempPotencyColor: {r: 0.6886792, g: 0, b: 0.57775146, a: 1}
+  tempReactivityColor: {r: 0.5660378, g: 0.45706794, b: 0, a: 1}
+  tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
+  tempPoisonColor: {r: 0.16359851, g: 0.3490566, b: 0.097691916, a: 1}
+  baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  secondsPerPoisonTick: 1
+  defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
+  potencySideEffects:
+  - {fileID: 11400000, guid: ee7350655a998b14a9c75152f49d7a6d, type: 2}
+  poisonSideEffects:
+  - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
+  - {fileID: 11400000, guid: 828444acff316fa4ba13b3fcbf1c86e4, type: 2}
+  reactivitySideEffects:
+  - {fileID: 11400000, guid: e3049add683acfc47804d42c6ced10c8, type: 2}
+  - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}
+  - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
+  stickinessSideEffects:
+  - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
+  - {fileID: 11400000, guid: fec4c764a33fe354c82aa46b49ee112e, type: 2}
+  primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
+  primaryAttackStartFrames: 10
+  primaryAttackEndFrames: 20
+  primaryAttackMultiplier: 1
+  attackRange: 8
+  primaryAttackSoundEffects:
+  - {fileID: 8300000, guid: 0de3a2cf55e4f454f91ad26dce6dca78, type: 3}
+  - {fileID: 8300000, guid: ff6a31d50af0e524d9c21655dbfb672b, type: 3}
+  secondaryAttackPrefab: {fileID: 5409704289607487483, guid: a1e47fdad704e824280ba700b158f90a, type: 3}
+  secondaryAttackSpeed: 40
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 3
+  secondaryAttackCooldown: 6
+  potencyBoltMultiplier: 1.5
+  poisonDoTMultiplier: 2.5
+  reactivityContaminateMultiplier: 1.25
+  stickinessMovementReductionModifier: 0.05
+  minPostContaminateStacks: 4
