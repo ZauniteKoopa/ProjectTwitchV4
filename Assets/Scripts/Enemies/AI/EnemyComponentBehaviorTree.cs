@@ -57,9 +57,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         while (true) {
             // Test to see if unit is aggressive (they are aggressive IFF a playerTgt is found)
             if (playerTgt == null) {
-                yield return StartCoroutine(passiveBranch.execute());
+                yield return passiveBranch.execute();
             } else {
-                yield return StartCoroutine(aggressiveBranch.execute(playerTgt));
+                yield return aggressiveBranch.execute(playerTgt);
             }
         }
     }
@@ -78,7 +78,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
                     StopCoroutine(currentBehaviorSequence);
                 }
 
-                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+                if (unitStatus.isAlive()) {
+                    currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+                }
             }
         }
 
@@ -96,7 +98,10 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
                 aggressiveBranch.reset();
 
                 StopCoroutine(currentBehaviorSequence);
-                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+
+                if (unitStatus.isAlive()) {
+                    currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+                }
             }
         }
 
@@ -123,7 +128,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     // Main function for handling when this enemy stun ended
     public void onStunEnd() {
         lock (treeLock) {
-            currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+            if (unitStatus.isAlive()) {
+                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+            }
         }
     }
 
@@ -137,7 +144,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
             passiveBranch.hardReset();
 
             StopCoroutine(currentBehaviorSequence);
-            currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+            if (unitStatus.isAlive()) {
+                currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
+            }
         }
 
         behaviorResetEvent.Invoke();

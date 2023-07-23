@@ -21961,6 +21961,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  keyCountEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1347320806317760195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22798,7 +22801,7 @@ MonoBehaviour:
   contaminateEndFrames: 8
   contaminateZone: {fileID: 1347320807493061773}
   ambushStartupTime: 1
-  ambushInvisibilityTime: 8
+  ambushInvisibilityTime: 6
   ambushAttackSpeedBuffTime: 5
   ambushAttackSpeedBuff: 1.5
   ambushInvisibilityMovementBuff: 1.25
@@ -22849,7 +22852,19 @@ MonoBehaviour:
       m_Calls: []
   obtainedSideEffect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1347320807677090427}
+        m_TargetAssemblyTypeName: TopDownMovementController3D, Assembly-CSharp
+        m_MethodName: faceCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &117066418
 Rigidbody:
   m_ObjectHideFlags: 0

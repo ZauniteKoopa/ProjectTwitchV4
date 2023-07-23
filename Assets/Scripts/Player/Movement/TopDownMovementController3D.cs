@@ -178,4 +178,11 @@ public class TopDownMovementController3D : MonoBehaviour
 
         return forwardWorldDir;
     }
+
+
+    // Public function to face the camera on an event
+    public void faceCamera() {
+        inputVector = Vector2.down;
+        movementForward = Vector3.back;
+    }
 }

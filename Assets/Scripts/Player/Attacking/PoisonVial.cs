@@ -16,13 +16,13 @@ public enum PoisonVialStat {
 public class PoisonVial
 {
     // Static const variables
-    private static readonly int STARTING_AMMO = 40;
+    private static readonly int STARTING_AMMO = 45;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
     private static readonly float POISON_DMG_PER_STACK = 0.15f;
     private static readonly float BASE_CONTAMINATE_DMG = 5.5f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 1f;
 
-    private static readonly int AMMO_GAIN_PER_INGREDIENT = 10;
+    private static readonly int AMMO_GAIN_PER_INGREDIENT = 12;
     private static readonly int MAX_STAT = 3;
     private static readonly int MAX_CRAFT_ATTEMPTS = 8;
     public static readonly int MAX_AMMO = 60;

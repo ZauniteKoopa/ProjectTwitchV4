@@ -5,7 +5,7 @@ using UnityEngine;
 public static class PauseConstraints
 {
     private static TwitchInventory inventoryModule;
-    private static readonly float FRAME_TIME_DELTA = 0.014f;
+    private static readonly float FRAME_TIME_DELTA = 0.01f;
 
     // Main function to connect twitch inventory
     public static void setInventoryModule(TwitchInventory inv) {
@@ -22,14 +22,11 @@ public static class PauseConstraints
 
     // Main sequence function to fun in realtime 
     public static IEnumerator waitForSecondsRealtimeWithPause(float numSecs) {
-        int numWaitFrames = (int)Mathf.Ceil(numSecs / FRAME_TIME_DELTA);
         WaitForSecondsRealtime waitFrame = new WaitForSecondsRealtime(FRAME_TIME_DELTA);
 
-        for (int f = 0; f < numWaitFrames; f++) {
+        yield return new WaitForSecondsRealtime(numSecs);
+        while (isPaused()) {
             yield return waitFrame;
-            while (isPaused()) {
-                yield return waitFrame;
-            }
         }
     }
 }
