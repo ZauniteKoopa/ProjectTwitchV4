@@ -76,6 +76,7 @@ public class TwitchAttackModule : IAttackModule
     private InvisibilitySensor ambushProximitySensor = null;
     [SerializeField]
     private GameObject ambushBuffVisualEffect = null;
+    private bool ambushBuffed = false;
     private Coroutine runningAmbushSequence = null;
 
 
@@ -155,6 +156,11 @@ public class TwitchAttackModule : IAttackModule
 
         // While you're still holding on to the button
         while (holdingFireButton) {
+            // If you're invisible and haven't been buffed yet, buff immediately before doing an attack
+            if (status.invisible) {
+                applyAmbushBuff();
+            }
+
             // Get data
             int startFrames = (inventory.carryingPrimaryVial()) ? inventory.getPrimaryStartFrame() : weakBoltStartFrames;
             int endFrames = (inventory.carryingPrimaryVial()) ? inventory.getPrimaryEndFrame() : weakBoltEndFrames;
@@ -285,7 +291,7 @@ public class TwitchAttackModule : IAttackModule
             screenUI.setInvisBarFill(timer, ambushInvisibilityTime);
         }
 
-        // Attack speed buff
+        // Attack speed buff (apply it if it hasn't been applied already)
         status.invisible = false;
         status.revertSpeedModifier(ambushInvisibilityMovementBuff);
         runningAmbushSequence = null;
@@ -293,11 +299,8 @@ public class TwitchAttackModule : IAttackModule
         screenUI.removeAmbushInvisibility();
         ambushProximitySensor.displaySensor(false);
 
-        status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
-        audioManager.playAmbushBuff();
-        if (ambushBuffVisualEffect != null) {
-            ambushBuffVisualEffect.SetActive(true);
-        }
+        applyAmbushBuff();
+        
         yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
 
         // Cleanup
@@ -305,6 +308,21 @@ public class TwitchAttackModule : IAttackModule
             ambushBuffVisualEffect.SetActive(false);
         }
         status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
+        ambushBuffed = false;
+    }
+
+
+    // Private helper function to apply ambush buff
+    private void applyAmbushBuff() {
+        if (!ambushBuffed) {
+            ambushBuffed = true;
+
+            status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
+            audioManager.playAmbushBuff();
+            if (ambushBuffVisualEffect != null) {
+                ambushBuffVisualEffect.SetActive(true);
+            }
+        }
     }
 
     
