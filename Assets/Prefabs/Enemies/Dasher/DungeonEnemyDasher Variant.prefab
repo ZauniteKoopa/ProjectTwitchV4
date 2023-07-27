@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonEnemyDasher Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7276044789255310391, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
+      propertyPath: spawnVFX
+      value: 
+      objectReference: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
     - target: {fileID: 7276044789255310395, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
       propertyPath: m_RootOrder
       value: 0

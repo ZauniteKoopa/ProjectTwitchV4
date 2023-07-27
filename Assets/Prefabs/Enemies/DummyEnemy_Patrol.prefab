@@ -1160,10 +1160,11 @@ MonoBehaviour:
   lootCollisionLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  lootCollisionOffset: 0.7
   lootDropSpeed: 15
   lootSatchel: {fileID: 326352760}
   lootTable: {fileID: 0}
+  spawnInOnAwake: 0
+  spawnVFX: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
 --- !u!54 &2928702258501045064
 Rigidbody:
   m_ObjectHideFlags: 0

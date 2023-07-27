@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonMovingExplosionDrone Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1545661024895989291, guid: 49a0d93caf953204c9a662c0ef9a28c1, type: 3}
+      propertyPath: spawnVFX
+      value: 
+      objectReference: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
     - target: {fileID: 4209098207824214165, guid: 49a0d93caf953204c9a662c0ef9a28c1, type: 3}
       propertyPath: passiveBranch
       value: 

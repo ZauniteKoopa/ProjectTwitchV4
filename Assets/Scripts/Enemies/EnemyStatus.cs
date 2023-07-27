@@ -53,6 +53,9 @@ public class EnemyStatus : IUnitStatus
 
     [SerializeField]
     private bool spawnInOnAwake = false;
+    [SerializeField]
+    private BasicAppearEffect spawnVFX = null;
+    private bool spawned;
 
     // On awake, set curHealth to maxHealth
     private void Awake() {
@@ -61,6 +64,8 @@ public class EnemyStatus : IUnitStatus
             Debug.LogError("NO ENEMY STATUS UI CONNECTED");
         }
 
+        gameObject.SetActive(false);
+
         if (spawnInOnAwake) {
             spawnIn();
         }
@@ -68,11 +73,28 @@ public class EnemyStatus : IUnitStatus
 
     // Main function to spawn in unit
     public void spawnIn() {
-        curHealth = maxHealth;
+        // Only spawn in a unit once
+        if (!spawned) {
+            gameObject.SetActive(false);
+            spawned = true;
+            curHealth = maxHealth;
 
-        enemyStatusUI.updateHealthBar(curHealth, maxHealth);
-        enemyStatusUI.updatePoisonHalo(0, Color.white);
-        lootSatchel.SetActive(lootTable != null);
+            enemyStatusUI.updateHealthBar(curHealth, maxHealth);
+            enemyStatusUI.updatePoisonHalo(0, Color.white);
+            lootSatchel.SetActive(lootTable != null);
+
+            // Set up affect
+            BasicAppearEffect curSpawnEffect = Object.Instantiate(spawnVFX, transform.position, Quaternion.identity);
+            curSpawnEffect.transform.localScale = transform.localScale;
+            curSpawnEffect.effectEndEvent.AddListener(onSpawnInSequenceEnd);
+            curSpawnEffect.executeEffect();
+        }
+    }
+
+
+    // Main event handler for when spawn in function finishes
+    private void onSpawnInSequenceEnd() {
+        gameObject.SetActive(true);
     }
 
 
