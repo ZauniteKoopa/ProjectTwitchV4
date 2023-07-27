@@ -21673,6 +21673,7 @@ MonoBehaviour:
   healthText: {fileID: 1470683547}
   primaryVialFill: {fileID: 2008704228}
   primaryVialAmmo: {fileID: 1289627862}
+  primaryCaskCostText: {fileID: 1484840969}
   secondaryVialFill: {fileID: 1137356905}
   secondaryVialAmmo: {fileID: 126423871}
   ambushCooldown: {fileID: 4567530}

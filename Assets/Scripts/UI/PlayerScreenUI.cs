@@ -17,6 +17,8 @@ public class PlayerScreenUI : MonoBehaviour
     private Image primaryVialFill;
     [SerializeField]
     private TMP_Text primaryVialAmmo;
+    [SerializeField]
+    private TMP_Text primaryCaskCostText;
 
     [Header("Secondary Vial")]
     [SerializeField]
@@ -139,6 +141,7 @@ public class PlayerScreenUI : MonoBehaviour
         displayPoisonVial(vial, primaryVialAmmo, primaryVialFill);
         worldUI.displayPrimaryVial(vial);
         caskGameobject.SetActive(vial != null);
+        primaryCaskCostText.text = (vial != null) ? vial.sideEffect.getSecondaryAttackCost().ToString() : "0";
 
         if (vial != null) {
             caskIcon.color = vial.getColor();
