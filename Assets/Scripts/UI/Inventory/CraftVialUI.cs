@@ -31,6 +31,10 @@ public class CraftVialUI : MonoBehaviour
     private Image[] secondaryValve;
     [SerializeField]
     private Color offColor = Color.black;
+    [SerializeField]
+    private Button primaryVialSideEffectButton;
+    [SerializeField]
+    private Button secondaryVialSideEffectButton;
     private Color filledColor;
 
     [Header("Error messaging")]
@@ -58,6 +62,9 @@ public class CraftVialUI : MonoBehaviour
         
         primaryVial = p;
         secondaryVial = s;
+
+        primaryVialSideEffectButton.interactable = p != null && p.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
+        secondaryVialSideEffectButton.interactable = s != null && s.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
 
         turnOffValve(primaryValve);
         turnOffValve(secondaryValve);
