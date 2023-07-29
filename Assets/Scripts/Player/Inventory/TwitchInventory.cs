@@ -409,11 +409,10 @@ public class TwitchInventory : MonoBehaviour
 
 
     // Main function to add ingredient to inventory. returns true if successful. false if not
-    public bool addIngredient(Ingredient ing) {
+    public bool addIngredient(PoisonVialStat vialStat) {
         if (numIngredients < curMaxInventory) {
             numIngredients++;
-            ingredientInventory[ing.statType]++;
-            ing.destroyObj();
+            ingredientInventory[vialStat]++;
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
 

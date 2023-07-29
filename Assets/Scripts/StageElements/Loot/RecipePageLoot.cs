@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class RecipePageLoot : PrizeLoot
 {
+
     // Abstract function on what to do with the player if player collected
     //  Pre: player != null
-    protected override void collect(PlayerStatus player) {
-        TwitchInventory playerInv = player.transform.parent.GetComponent<TwitchInventory>();
-        playerInv.addRandomRecipe();
+    //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
+    protected override bool activate(PlayerStatus player, TwitchInventory inv) {
+        inv.addRandomRecipe();
+        return true;
     }
 }

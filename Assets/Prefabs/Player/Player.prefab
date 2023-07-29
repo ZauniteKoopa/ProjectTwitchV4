@@ -15965,7 +15965,7 @@ GameObject:
   - component: {fileID: 1599373156}
   - component: {fileID: 1599373155}
   m_Layer: 13
-  m_Name: IngredientSensor
+  m_Name: LootSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16020,6 +16020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 1347320807677090373}
+  status: {fileID: 1347320806317760197}
 --- !u!1 &1604630219
 GameObject:
   m_ObjectHideFlags: 0

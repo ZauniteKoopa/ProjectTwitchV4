@@ -4,21 +4,50 @@ using UnityEngine;
 
 public abstract class PrizeLoot : MonoBehaviour
 {
-    private bool collected = false;
+    [SerializeField]
+    private GameObject controlsIndicator;
+    private bool destroyed = false;
+    
+    
+    public void glow() {
+        if (!controlsIndicator.activeInHierarchy) {
+            controlsIndicator.SetActive(true);
+        }
+    }
 
-    // On trigger enter, if a player enters it, collect it
-    private void OnTriggerEnter(Collider collider) {
-        PlayerStatus player = collider.GetComponent<PlayerStatus>();
 
-        if (player != null && !collected) {
-            collected = true;
-            collect(player);
-            Object.Destroy(gameObject);
+    public void removeGlow() {
+        if (controlsIndicator.activeInHierarchy) {
+            controlsIndicator.SetActive(false);
+        }
+    }
+
+
+    protected void destroyObj() {
+        if (!destroyed) {
+            destroyed = true;
+            StartCoroutine(destroySequence());
+        }
+    }
+
+
+    private IEnumerator destroySequence() {
+        transform.Translate(10000000f * Vector3.up);
+        yield return 0;
+        Object.Destroy(gameObject);
+    }
+
+
+    // Public function to collect
+    public void collect(PlayerStatus player, TwitchInventory inv) {
+        if (activate(player, inv)) {
+            destroyObj();
         }
     }
 
 
     // Abstract function on what to do with the player if player collected
     //  Pre: player != null
-    protected abstract void collect(PlayerStatus player);
+    //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
+    protected abstract bool activate(PlayerStatus player, TwitchInventory inv);
 }

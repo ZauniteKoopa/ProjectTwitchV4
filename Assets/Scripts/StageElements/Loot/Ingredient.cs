@@ -2,42 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ingredient : MonoBehaviour
+public class Ingredient : PrizeLoot
 {
-    public PoisonVialStat statType;
     [SerializeField]
-    private GameObject controlsIndicator;
+    private PoisonVialStat statType;
     [SerializeField]
     private float solidPeriod = 3f;
     [SerializeField]
     private float fadingPeriod = 1.5f;
     private const float BLINKING_TIME = 0.1f;
-    private bool destroyed = false;
+
     
     private void Awake() {
         StartCoroutine(lifeCycle());
-    }
-
-    
-    public void glow() {
-        if (!controlsIndicator.activeInHierarchy) {
-            controlsIndicator.SetActive(true);
-        }
-    }
-
-
-    public void removeGlow() {
-        if (controlsIndicator.activeInHierarchy) {
-            controlsIndicator.SetActive(false);
-        }
-    }
-
-
-    public void destroyObj() {
-        if (!destroyed) {
-            destroyed = true;
-            StartCoroutine(destroySequence());
-        }
     }
 
 
@@ -64,9 +41,9 @@ public class Ingredient : MonoBehaviour
     }
 
 
-    private IEnumerator destroySequence() {
-        transform.Translate(10000000f * Vector3.up);
-        yield return 0;
-        Object.Destroy(gameObject);
+    // Abstract function on what to do with the player if player collected
+    //  Pre: player != null
+    protected override bool activate(PlayerStatus player, TwitchInventory inv) {
+        return inv.addIngredient(statType);
     }
 }
