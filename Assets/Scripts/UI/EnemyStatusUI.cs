@@ -22,6 +22,14 @@ public class EnemyStatusUI : MonoBehaviour
     [SerializeField]
     [Min(0.001f)]
     private float tickVibrateDuration = 0.2f;
+    [SerializeField]
+    [Min(1.0f)]
+    private float maxStackScaleRatio = 1.2f;
+    [SerializeField]
+    [Min(1.0f)]
+    private float maxStackAmplifiedScaleRatio = 1.3f;
+    [SerializeField]
+    private CollapsingHalo postContaminatHitboxIndicator = null;
 
     private Coroutine runningPoisonHaloVibrateSequence = null;
 
@@ -39,20 +47,31 @@ public class EnemyStatusUI : MonoBehaviour
     // Main function to update poison halo
     //  Pre: poisonStacks >= 0
     //  Post: update poison stacks display
-    public void updatePoisonHalo(int poisonStacks, Color poisonColor) {
+    public void updatePoisonHalo(int poisonStacks, Color poisonColor, bool maxStackAmplified, bool showPCH) {
         Debug.Assert(poisonStacks >= 0);
 
         bool poisoned = poisonStacks > 0;
         poisonHalo.gameObject.SetActive(poisoned);
         poisonHalo.color = poisonColor;
-        startingPoisonHaloScale = (poisonStacks >= 6) ? 1.2f : 1f;
 
-        if (poisonHaloCount != null) {
-            poisonHaloCount.text = "" + poisonStacks;
+        // Update poison halo scale
+        if (poisonStacks >= 6) {
+            startingPoisonHaloScale = (maxStackAmplified) ? maxStackAmplifiedScaleRatio : maxStackScaleRatio;
+        } else {
+            startingPoisonHaloScale = 1f;
         }
 
+        // Show post contaminate hitbox indicator (enemy scale + 0.5f)
+        if (showPCH) {
+            postContaminatHitboxIndicator.showHalo(poisonColor);
+        } else {
+            postContaminatHitboxIndicator.clearHalo();
+        }
+
+        // Update animator
         if (poisonHaloAnimator != null) {
             poisonHaloAnimator.SetInteger("NumPoisonStacks", poisonStacks);
+            poisonHaloAnimator.SetBool("MaxStackAmplified", maxStackAmplified);
         }
     }
 

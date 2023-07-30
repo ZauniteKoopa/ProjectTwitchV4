@@ -14,6 +14,7 @@ public class SideEffect : ScriptableObject
     public Sprite spriteIcon;
     [SerializeField]
     private PoisonVialStat sideEffectType;
+    public bool maxStackEffect = false;
 
 
     [Header("Post Contaminate Hitbox")]

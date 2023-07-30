@@ -80,7 +80,7 @@ public class EnemyStatus : IUnitStatus
             curHealth = maxHealth;
 
             enemyStatusUI.updateHealthBar(curHealth, maxHealth);
-            enemyStatusUI.updatePoisonHalo(0, Color.white);
+            enemyStatusUI.updatePoisonHalo(0, Color.white, false, false);
             lootSatchel.SetActive(lootTable != null);
 
             // Set up affect
@@ -140,6 +140,15 @@ public class EnemyStatus : IUnitStatus
             }
         }
 
+        if (curPoison != null) {
+            enemyStatusUI.updatePoisonHalo(
+                curPoisonStacks,
+                curPoison.getColor(),
+                curPoison.sideEffect.maxStackEffect,
+                willApplyPostContaminateHitbox()
+            );
+        }
+
         return curHealth <= 0f;
     }
 
@@ -172,8 +181,6 @@ public class EnemyStatus : IUnitStatus
                 } else {
                     curPoisonTime = 0f;
                 }
-
-                enemyStatusUI.updatePoisonHalo(curPoisonStacks, curPoison.getColor());
             }
         }
 
@@ -195,6 +202,22 @@ public class EnemyStatus : IUnitStatus
     //  Post: If enemy, reset to passive state, not sensing any enemies
     //        If player, reset all cooldowns to 0 and lose collectibles upon death
     public override void reset() {}
+
+
+    
+    // Main private helper function to check if user will apply post contaminate side effect
+    private bool willApplyPostContaminateHitbox() {
+        if (curPoison == null) {
+            return false;
+        }
+
+        float contaminateDmg = curPoison.getProjectedContaminateDamage(curPoisonStacks);
+        float actualDamage = contaminateDmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+
+        return curPoison.sideEffect.postContaminateHitbox != null &&
+            (curPoisonStacks >= PoisonVial.poisonVialConstants.minPostContaminateStacks ||
+             actualDamage >= curHealth);
+    }
 
 
     // Main function to slow down or speed up by a specifed speed factor
@@ -279,7 +302,7 @@ public class EnemyStatus : IUnitStatus
             curPoisonStacks = 0;
             curPoison = null;
             curPoisonTime = 0f;
-            enemyStatusUI.updatePoisonHalo(curPoisonStacks, Color.white);
+            enemyStatusUI.updatePoisonHalo(curPoisonStacks, Color.white, false, false);
 
             if (currentPoisoningSequence != null) {
                 StopCoroutine(currentPoisoningSequence);

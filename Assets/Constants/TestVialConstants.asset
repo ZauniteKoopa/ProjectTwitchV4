@@ -26,7 +26,6 @@ MonoBehaviour:
   potencySideEffects:
   - {fileID: 11400000, guid: ee7350655a998b14a9c75152f49d7a6d, type: 2}
   poisonSideEffects:
-  - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
   - {fileID: 11400000, guid: 828444acff316fa4ba13b3fcbf1c86e4, type: 2}
   reactivitySideEffects:
   - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}

@@ -22853,7 +22853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1f37a209886144dbbb27f670aa544d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poisonVialParameters: {fileID: 11400000, guid: 4082118b64699db4e8d491a44480d91b, type: 2}
+  poisonVialParameters: {fileID: 11400000, guid: fb2988f4417c0f74d99de54ccbf1bcba, type: 2}
   attackRangeIndicator: {fileID: 9218362879205047891}
   contaminateCooldown: 8
   ambushCooldown: 12

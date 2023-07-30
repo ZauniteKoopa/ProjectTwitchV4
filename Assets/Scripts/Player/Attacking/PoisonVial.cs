@@ -191,8 +191,7 @@ public class PoisonVial
 
         Vector3 enemyPosition = tgt.transform.position;
 
-        float contaminateDmg = (CONTAMINATE_DMG_PER_STACK * poisonStacks) + BASE_CONTAMINATE_DMG;
-        contaminateDmg *= (reachedPotential && sideEffect.getType() == PoisonVialStat.REACTIVITY) ? poisonVialConstants.reactivityContaminateMultiplier : 1f;
+        float contaminateDmg = getProjectedContaminateDamage(poisonStacks);
         bool tgtKilled = tgt.damage(contaminateDmg, false);
 
         if (tgtKilled) {
@@ -205,6 +204,15 @@ public class PoisonVial
             PostContaminateHitbox curHitbox = Object.Instantiate(sideEffect.postContaminateHitbox, enemyPosition, Quaternion.identity);
             curHitbox.setUp(contaminateDmg, this, tgtKilled);
         }
+    }
+
+
+    // Main function to get projected contaminate damage
+    //  Pre: poisonStacks >= 0
+    public float getProjectedContaminateDamage(int poisonStacks) {
+        float contaminateDmg = (CONTAMINATE_DMG_PER_STACK * poisonStacks) + BASE_CONTAMINATE_DMG;
+        contaminateDmg *= (reachedPotential && sideEffect.getType() == PoisonVialStat.REACTIVITY) ? poisonVialConstants.reactivityContaminateMultiplier : 1f;
+        return contaminateDmg;
     }
 
 
