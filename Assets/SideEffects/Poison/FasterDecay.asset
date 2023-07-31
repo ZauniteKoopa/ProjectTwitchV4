@@ -19,4 +19,4 @@ MonoBehaviour:
   sideEffectType: 1
   maxStackEffect: 1
   postContaminateHitbox: {fileID: 0}
-  maxStackPoisonDecayRateModifier: 0.4
+  maxStackPoisonDecayRateModifier: 0.6667

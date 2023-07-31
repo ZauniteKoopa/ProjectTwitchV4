@@ -14,6 +14,8 @@ public class EnemyStatus : IUnitStatus
     private float maxHealth = 20f;
     private float curHealth;
     private bool moving = true;
+    [SerializeField]
+    [Range(0f, 0.8f)]
     private float damageReduction = 0f;
     private bool died = false;
 
