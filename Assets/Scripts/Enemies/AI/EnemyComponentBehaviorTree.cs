@@ -161,4 +161,10 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
             StopAllCoroutines();
         }
     }
+
+
+    // Main function to access whether or not you're in the passive state or aggressive state
+    public override bool inAggroState() {
+        return playerTgt != null;
+    }
 }

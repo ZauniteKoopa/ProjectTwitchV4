@@ -293,8 +293,8 @@ GameObject:
   - component: {fileID: 1823870011}
   - component: {fileID: 1823870010}
   - component: {fileID: 1823870009}
-  - component: {fileID: 1823870008}
   - component: {fileID: 1161911490}
+  - component: {fileID: 1757321683}
   m_Layer: 11
   m_Name: EnemySensor (1)
   m_TagString: Untagged
@@ -382,24 +382,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1823870008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823870006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65580a93db4c2c444b994c51be70ed0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visionMask:
-    serializedVersion: 2
-    m_Bits: 256
-  forgetDuration: 0.5
-  brain: {fileID: 1251596585810333869}
-  enemyStatus: {fileID: 4486819366395846163}
 --- !u!114 &1161911490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +400,26 @@ MonoBehaviour:
     m_Bits: 256
   meshResolution: 1
   viewMeshFilter: {fileID: 495403077}
+  flashlight: {fileID: 282330911}
+--- !u!114 &1757321683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823870006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cbd3c510a6c3742bce9b71ac8885e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  forgetDuration: 1
+  brain: {fileID: 1251596585810333869}
+  enemyStatus: {fileID: 4486819366395846163}
+  fieldOfVision: {fileID: 1161911490}
 --- !u!1 &2003783669
 GameObject:
   m_ObjectHideFlags: 0

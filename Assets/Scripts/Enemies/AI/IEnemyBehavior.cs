@@ -22,4 +22,8 @@ public abstract class IEnemyBehavior : MonoBehaviour
 
     // Main function to handle death event of this unit
     public abstract void onDeath(IUnitStatus corpse);
+
+
+    // Main function to access whether or not you're in the passive state or aggressive state
+    public abstract bool inAggroState();
 }

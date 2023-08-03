@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Main class for a simple enemy vision sensor in which the enemy just does radius vision
 public class EnemyVisionSensor : MonoBehaviour
 {
     // Main variables for vision
     [SerializeField]
     private LayerMask visionMask;
     private PlayerStatus nearbyTarget;
-    private bool playerSpotted = false;
 
     // Main variables for short term memory
     [SerializeField]
@@ -17,14 +18,19 @@ public class EnemyVisionSensor : MonoBehaviour
 
     // Main method to invoke events onto brain
     [SerializeField]
-    private IEnemyBehavior brain;
+    protected IEnemyBehavior brain;
     [SerializeField]
-    private EnemyStatus enemyStatus;
-    private Collider body;
+    protected EnemyStatus enemyStatus;
 
 
-    // On awake, error check and get body
+    // On awake, error check
     private void Awake() {
+        initialize();
+    }
+
+
+    // Main funtion to initialize
+    protected virtual void initialize() {
         if (forgetDuration < 0f) {
             Debug.LogError("Forget duration for enemy sensor is negative. Should be zero or positive", transform);
         }
@@ -32,44 +38,43 @@ public class EnemyVisionSensor : MonoBehaviour
         if (brain == null) {
             Debug.LogError("Enemy Sensor is not connected to a behavior tree or AI behavior handler", transform);
         }
-
-        brain.behaviorResetEvent.AddListener(onEnemyBehavReset);
-        body = brain.GetComponent<Collider>();
-        if (body == null) {
-            Debug.LogError("Enemy sensor not connected to a collider to check with. Ensure that a collider is connected to the part with the brain", brain.transform);
-        }
-    }
-
-
-    // Main event handler function for when brain has been reset
-    private void onEnemyBehavReset() {
-        playerSpotted = false;
     }
 
 
     // On each fixed update frame, 
-    private void FixedUpdate() {
-        bool seePlayer = canSeePlayer();
-
-        // Cases where enemy can see the player
-        if (seePlayer) {
-
-            // If player wasn't spotted already, set flag to true and trigger event
-            if (!playerSpotted) {
-                playerSpotted = true;
-                brain.onSensedPlayer(nearbyTarget.transform);
-
-            // If player was in the middle of forgetting, stop forget routine
-            } else if (forgetRoutine != null) {
-                StopCoroutine(forgetRoutine);
-                forgetRoutine = null;
-            }
-
-        // Case where enemy cannot see the player anymore
+    private void Update() {
+        // If in aggro state, do radius sensing
+        if (brain.inAggroState()) {
+            manageAggressiveSensing();
         } else {
-            if (playerSpotted && forgetRoutine == null) {
-                forgetRoutine = StartCoroutine(forgetPlayerSequence());
-            }
+            managePassiveSensing();
+        }
+    }
+
+
+    // Main function to manage aggressive sensing each frame
+    protected virtual void manageAggressiveSensing() {
+        bool playerInRange = canSeePlayerInRange();
+
+        // If player is in range and a forgetting sequence is occuring, stop forget sequence
+        if (playerInRange && forgetRoutine != null) {
+            StopCoroutine(forgetRoutine);
+            forgetRoutine = null;
+        
+        // If player leaves range and no forget sequence is found, start forgetting
+        } else if (!playerInRange && forgetRoutine == null) {
+            forgetRoutine = StartCoroutine(forgetPlayerSequence());
+
+        }
+    }
+
+
+    // Main function to manage passive sensing each frame
+    protected virtual void managePassiveSensing() {
+        bool seenPlayer = canSeePlayerInRange();
+
+        if (seenPlayer) {
+            brain.onSensedPlayer(nearbyTarget.transform);
         }
     }
 
@@ -80,7 +85,12 @@ public class EnemyVisionSensor : MonoBehaviour
         yield return new WaitForSeconds(forgetDuration);
 
         // Forget player
-        playerSpotted = false;
+        forgetPlayer();
+    }
+
+
+    // Main action of actually forgetting the player in terms of sensing
+    protected virtual void forgetPlayer() {
         forgetRoutine = null;
         brain.onLostPlayer();
     }
@@ -88,7 +98,7 @@ public class EnemyVisionSensor : MonoBehaviour
 
     // Private helper function to see if you can actually see the unit
     //  Post: returns whether or not player is in sight range of enemy AND no objects are blocking
-    private bool canSeePlayer() {
+    private bool canSeePlayerInRange() {
         if (nearbyTarget == null) {
             return false;
         }

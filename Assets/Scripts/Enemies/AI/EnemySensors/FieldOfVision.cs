@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FieldOfVision : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class FieldOfVision : MonoBehaviour
     private float meshResolution;
     [SerializeField]
     private MeshFilter viewMeshFilter;
+    [SerializeField]
+    private Light flashlight;
     private Mesh viewMesh;
 
     private bool shown = true;
@@ -52,11 +55,12 @@ public class FieldOfVision : MonoBehaviour
     }
 
 
-    // Private helper function to see if you can actually see the unit
-    //  Post: returns whether or not player is in sight range of enemy AND no objects are blocking
-    public bool canSeePlayer() {
+    // helper function to see if you can actually see the unit
+    //  Post: returns the player if player is in sight range of enemy AND no objects are blocking
+    //        returns null otherwise
+    public PlayerStatus getSeenPlayer() {
         if (nearbyPlayer == null) {
-            return false;
+            return null;
         }
 
         // Angle check
@@ -64,7 +68,7 @@ public class FieldOfVision : MonoBehaviour
         Vector3 rayDir = targetPosition - transform.position;
         Vector3 flattenRayDir = Vector3.ProjectOnPlane(rayDir, Vector3.up);
         if (Vector3.Angle(flattenRayDir, transform.forward) > viewAngle / 2f) {
-            return false;
+            return null;
         }
 
         // Get information for the ray: you can see the player if there are no barriers between player and enemy
@@ -73,8 +77,9 @@ public class FieldOfVision : MonoBehaviour
         bool seePlayer = !Physics.Raycast(transform.position, rayDir, rayDist, obstacleMask);
 
         // Return whether or not ray cast dir met any barriers
-        return seePlayer;
+        return (seePlayer) ? nearbyPlayer : null;
     }
+
 
     // Event handler function for when player has entered the sense box
     private void OnTriggerEnter(Collider collider) {
@@ -90,7 +95,7 @@ public class FieldOfVision : MonoBehaviour
     private void OnTriggerExit(Collider collider) {
         PlayerStatus testPlayer = collider.GetComponent<PlayerStatus>();
 
-        if (testPlayer != null) {
+        if (testPlayer != null) {            
             nearbyPlayer = null;
         }
     }
@@ -99,6 +104,8 @@ public class FieldOfVision : MonoBehaviour
     // Main function to show vision
     public void showVision(bool willShow) {
         shown = willShow;
+        flashlight.enabled = willShow;
+        viewMeshFilter.gameObject.SetActive(willShow);
     }
 
     
