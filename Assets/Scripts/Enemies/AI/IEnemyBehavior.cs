@@ -23,7 +23,12 @@ public abstract class IEnemyBehavior : MonoBehaviour
     // Main function to handle death event of this unit
     public abstract void onDeath(IUnitStatus corpse);
 
-
     // Main function to access whether or not you're in the passive state or aggressive state
     public abstract bool inAggroState();
+
+
+    // Main function to look at a specific direction
+    //  Pre: lookDirection is the look direction that the enemy will be looking at
+    //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
+    public abstract void lookAt(Vector3 lookAtDirection);
 }

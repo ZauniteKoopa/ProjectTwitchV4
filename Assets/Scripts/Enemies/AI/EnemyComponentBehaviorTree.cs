@@ -15,6 +15,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     private IEnemyAggroBranch aggressiveBranch;
     [SerializeField]
     private IEnemyPassiveBranch passiveBranch;
+    [SerializeField]
+    [Min(0.1f)]
+    private float passiveLookAtDuration = 1.5f;
     private NavMeshAgent navMeshAgent;
     private IUnitStatus unitStatus;
 
@@ -106,6 +109,32 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         }
 
         navMeshAgent.isStopped = true;
+    }
+
+
+    // Main function to look at a specific direction
+    //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
+    //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
+    public override void lookAt(Vector3 lookAtDirection) {
+        if (!inAggroState()) {
+            StopCoroutine(currentBehaviorSequence);
+
+            if (unitStatus.isAlive()) {
+                lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
+                currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
+            }
+        }
+    }
+
+
+    // Main private helper sequence to just look at an enemy for a predetermined number of seconds before going about typical behavior
+    private IEnumerator lookAtSequence(Vector3 lookAtDirection) {
+        yield return 0;
+        
+        transform.forward = lookAtDirection;
+        
+        yield return new WaitForSeconds(passiveLookAtDuration);
+        yield return behaviorTreeSequence();
     }
 
 

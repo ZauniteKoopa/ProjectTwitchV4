@@ -29,6 +29,7 @@ public class EnemyStatus : IUnitStatus
 
     [Header("Events")]
     public UnityEvent deathEvent;
+    public UnityEvent enemyNoticesDamageEvent;
 
     // Poison stacks
     private int curPoisonStacks = 0;
@@ -126,7 +127,7 @@ public class EnemyStatus : IUnitStatus
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise
-    public override bool damage(float dmg, bool isTrue) {
+    public override bool damage(float dmg, bool isTrue, bool attractsAttention = true) {
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
         lock (healthLock) {
             if (isAlive()) {
@@ -149,6 +150,10 @@ public class EnemyStatus : IUnitStatus
                 curPoison.sideEffect.maxStackEffect,
                 willApplyPostContaminateHitbox()
             );
+        }
+
+        if (attractsAttention) {
+            enemyNoticesDamageEvent.Invoke();
         }
 
         return curHealth <= 0f;
@@ -187,7 +192,7 @@ public class EnemyStatus : IUnitStatus
         }
 
         // Actually damage the unit
-        return damage(dmg, isTrue);
+        return damage(dmg, isTrue, overridePoison);
     }
 
 
@@ -289,7 +294,7 @@ public class EnemyStatus : IUnitStatus
 
             lock (poisonLock) {
                 Debug.Assert(curPoison != null && curPoisonStacks > 0);
-                damage(curPoison.getPoisonDamage(curPoisonStacks), true);
+                damage(curPoison.getPoisonDamage(curPoisonStacks), true, false);
                 curPoisonTime += curDecayRate;
             }
         }

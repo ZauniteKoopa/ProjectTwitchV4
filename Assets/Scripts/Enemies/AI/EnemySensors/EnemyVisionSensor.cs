@@ -9,7 +9,7 @@ public class EnemyVisionSensor : MonoBehaviour
     // Main variables for vision
     [SerializeField]
     private LayerMask visionMask;
-    private PlayerStatus nearbyTarget;
+    protected PlayerStatus nearbyTarget;
 
     // Main variables for short term memory
     [SerializeField]

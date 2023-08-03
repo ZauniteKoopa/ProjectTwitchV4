@@ -15,6 +15,8 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         if (fieldOfVision == null) {
             Debug.LogError("Field of vision is not connected to this sensor", transform);
         }
+
+        enemyStatus.enemyNoticesDamageEvent.AddListener(onAttackedByPlayer);
     }
 
 
@@ -33,5 +35,13 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     protected override void forgetPlayer() {
         base.forgetPlayer();
         fieldOfVision.showVision(true);
+    }
+
+
+    // Main event handler function for when this enemy is attacked by the player: look at the player if this happens
+    private void onAttackedByPlayer() {
+        if (nearbyTarget != null) {
+            brain.lookAt(nearbyTarget.transform.position - transform.position);
+        }
     }
 }

@@ -74,7 +74,7 @@ public class PlayerStatus : IUnitStatus
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if death happens. else otherwise
-    public override bool damage(float dmg, bool isTrue) {
+    public override bool damage(float dmg, bool isTrue, bool attractsAttention = true) {
         if (activeInvincibilityPeriod == null) {
             float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
             lock (healthLock) {
