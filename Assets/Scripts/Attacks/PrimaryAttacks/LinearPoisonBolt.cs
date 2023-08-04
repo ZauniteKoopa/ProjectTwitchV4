@@ -38,7 +38,7 @@ public class LinearPoisonBolt : LinearProjectile
         EnemyStatus enemyTarget = tgt as EnemyStatus;
 
         if (enemyTarget != null) {
-            enemyTarget.poisonDamage(projectileDamage, false, poison, appliedStacks);
+            enemyTarget.poisonDamage(getBackstabDamage(tgt, projectileDamage), false, poison, appliedStacks);
         }
     }
 }

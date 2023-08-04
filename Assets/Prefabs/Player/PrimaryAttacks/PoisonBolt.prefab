@@ -133,6 +133,9 @@ MonoBehaviour:
   maxDistance: 7
   hitStopFrames: 3
   cameraShakeMagnitude: 0.3
+  canBackstab: 1
+  backStabMultipier: 3
+  backstabAngleThreshold: 50
   appliedStacks: 1
 --- !u!96 &5114424262781227561
 TrailRenderer:

@@ -23,6 +23,16 @@ public class LinearProjectile : IPrimaryAttack
     [Range(0f, 1.5f)]
     private float cameraShakeMagnitude = 0f;
 
+    [Header("Backstab Damage")]
+    [SerializeField]
+    private bool canBackstab = false;
+    [SerializeField]
+    [Min(1f)]
+    private float backStabMultipier = 2f;
+    [SerializeField]
+    [Range(0f, 90f)]
+    private float backstabAngleThreshold = 50f;
+
     private const float DAMAGE_RANGE_BONUS = 1.25f;
 
 
@@ -80,12 +90,22 @@ public class LinearProjectile : IPrimaryAttack
     protected virtual void damageTarget(IUnitStatus tgt) {
         Debug.Assert(tgt != null);
 
-        tgt.damage(projectileDamage, false);
+        tgt.damage(getBackstabDamage(tgt, projectileDamage), false);
     }
 
 
     // Main protected helper function on when the projectile hits an enemy
     protected virtual void onHitEnemy() {
         Object.Destroy(gameObject);
+    }
+
+    
+    // Main protected helper function to get modified backstab damage if backstab applies
+    protected float getBackstabDamage(IUnitStatus tgt, float damage) {
+        if (canBackstab && Vector3.Angle(transform.forward, tgt.transform.forward) <= backstabAngleThreshold) {
+            damage *= backStabMultipier;
+        }
+
+        return damage;
     }
 }

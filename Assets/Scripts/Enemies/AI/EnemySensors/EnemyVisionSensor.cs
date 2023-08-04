@@ -98,7 +98,7 @@ public class EnemyVisionSensor : MonoBehaviour
 
     // Private helper function to see if you can actually see the unit
     //  Post: returns whether or not player is in sight range of enemy AND no objects are blocking
-    private bool canSeePlayerInRange() {
+    protected virtual bool canSeePlayerInRange() {
         if (nearbyTarget == null) {
             return false;
         }
@@ -127,7 +127,11 @@ public class EnemyVisionSensor : MonoBehaviour
         if (testPlayer != null) {
             nearbyTarget = testPlayer;
         }
+
+        onTriggerEnterExt(collider);
     }
+
+    protected virtual void onTriggerEnterExt(Collider collider) {}
 
 
     // Event handler function for when player has exited the sense box
@@ -137,6 +141,10 @@ public class EnemyVisionSensor : MonoBehaviour
         if (testPlayer != null) {
             nearbyTarget = null;
         }
+
+        onTriggerExitExt(collider);
     }
+
+    protected virtual void onTriggerExitExt(Collider collider) {}
 
 }

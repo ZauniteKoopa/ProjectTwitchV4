@@ -133,6 +133,9 @@ MonoBehaviour:
   maxDistance: 12
   hitStopFrames: 5
   cameraShakeMagnitude: 0.5
+  canBackstab: 1
+  backStabMultipier: 3
+  backstabAngleThreshold: 50
   appliedStacks: 1
   minDamageRatio: 0.6
   damageReductionPerEnemy: 0.1

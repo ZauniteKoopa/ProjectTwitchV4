@@ -128,6 +128,10 @@ public class EnemyStatus : IUnitStatus
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise
     public override bool damage(float dmg, bool isTrue, bool attractsAttention = true) {
+        if (attractsAttention) {
+            enemyNoticesDamageEvent.Invoke();
+        }
+        
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
         lock (healthLock) {
             if (isAlive()) {
@@ -150,10 +154,6 @@ public class EnemyStatus : IUnitStatus
                 curPoison.sideEffect.maxStackEffect,
                 willApplyPostContaminateHitbox()
             );
-        }
-
-        if (attractsAttention) {
-            enemyNoticesDamageEvent.Invoke();
         }
 
         return curHealth <= 0f;

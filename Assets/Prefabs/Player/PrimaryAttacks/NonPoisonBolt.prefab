@@ -118,6 +118,9 @@ MonoBehaviour:
   maxDistance: 9
   hitStopFrames: 3
   cameraShakeMagnitude: 0.3
+  canBackstab: 1
+  backStabMultipier: 3
+  backstabAngleThreshold: 50
 --- !u!65 &8139350676137732301
 BoxCollider:
   m_ObjectHideFlags: 0
