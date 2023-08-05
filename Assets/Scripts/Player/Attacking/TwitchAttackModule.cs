@@ -301,6 +301,7 @@ public class TwitchAttackModule : IAttackModule
 
         // Attack speed buff (apply it if it hasn't been applied already)
         status.invisible = false;
+        holdingDownAmbush = false;
         status.revertSpeedModifier(ambushInvisibilityMovementBuff);
         runningAmbushSequence = null;
         inventory.activateAmbush(false);
@@ -446,15 +447,20 @@ public class TwitchAttackModule : IAttackModule
     // Main event handler function for stealth
     public void onAmbushButtonAction(InputAction.CallbackContext value) {
         if (value.started) {
-            holdingDownAmbush = true;
+            // Main function to trigger the sequence
+            if (runningAmbushSequence == null && !holdingDownAmbush) {
+                // Check reqs
+                if (inventory.canAmbush() && runningAmbushSequence == null && !inUninterruptableAnimationSequence) {
+                    holdingDownAmbush = true;
+                    runningAmbushSequence = StartCoroutine(ambushSequence());
+                } 
 
-            // Check reqs
-            if (inventory.canAmbush() && runningAmbushSequence == null && !inUninterruptableAnimationSequence) {
-                runningAmbushSequence = StartCoroutine(ambushSequence());
-            } 
+            // If sequence is still running
+            } else if (holdingDownAmbush && runningAmbushSequence != null) {
+                holdingDownAmbush = false;
+            }
+            
 
-        } else if (value.canceled) {
-            holdingDownAmbush = false;
         }
     }
 

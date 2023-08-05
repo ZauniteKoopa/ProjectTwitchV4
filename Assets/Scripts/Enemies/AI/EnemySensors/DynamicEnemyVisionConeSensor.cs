@@ -150,7 +150,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
 
         // Check conditions again
         seenPlayer = getPlayerSeenByAllies();
-        if (seenPlayer != null && seenPlayer.canSeePlayer(enemyStatus) && !brain.inAggroState()) {
+        if (seenPlayer != null && !brain.inAggroState()) {
             brain.onSensedPlayer(seenPlayer.transform);
             fieldOfVision.showVision(false);
         }
@@ -170,8 +170,15 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     //  Pre: return the player if enemy allies have found him and are attacking him. return null otherwise
     private PlayerStatus getPlayerSeenByAllies() {
         foreach(KeyValuePair<DynamicEnemyVisionConeSensor, UnityAction[]> otherEnemy in nearbyEnemySensorDelegates) {
-            if (otherEnemy.Key.brain.inAggroState()) {
-                return otherEnemy.Key.nearbyTarget;
+            if (otherEnemy.Key.brain.inAggroState() && otherEnemy.Key.nearbyTarget != null) {
+                Vector3 targetPosition = otherEnemy.Key.transform.position;
+                Vector3 rayDir = targetPosition - transform.position;
+                float rayDist = rayDir.magnitude;
+                bool seeEnemy = !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
+
+                if (seeEnemy && otherEnemy.Key.nearbyTarget.canSeePlayer(enemyStatus)) {
+                    return otherEnemy.Key.nearbyTarget;
+                }
             }
         }
 

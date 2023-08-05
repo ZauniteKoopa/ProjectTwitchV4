@@ -9,6 +9,15 @@ public class MeleeHitbox : IPrimaryAttack
     private bool running = false;
 
     [SerializeField]
+    private bool canBackstab = false;
+    [SerializeField]
+    [Min(1f)]
+    private float backStabMultipier = 3f;
+    [SerializeField]
+    [Range(0f, 90f)]
+    private float backstabAngleThreshold = 60f;
+
+    [SerializeField]
     [Range(0, 20)]
     private int hitStopFrames = 0;
     private bool firstHit = true;
@@ -40,7 +49,7 @@ public class MeleeHitbox : IPrimaryAttack
 
     // Main function to damage unit
     protected virtual void damageTarget(IUnitStatus tgt) {
-        tgt.damage(curDamage, false);
+        tgt.damage(getBackstabDamage(tgt, curDamage), false);
     }
 
 
@@ -60,5 +69,14 @@ public class MeleeHitbox : IPrimaryAttack
                 PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
             }
         }
+    }
+
+    // Main protected helper function to get modified backstab damage if backstab applies
+    protected float getBackstabDamage(IUnitStatus tgt, float damage) {
+        if (canBackstab && Vector3.Angle(transform.forward, tgt.transform.forward) <= backstabAngleThreshold) {
+            damage *= backStabMultipier;
+        }
+
+        return damage;
     }
 }

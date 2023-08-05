@@ -87,16 +87,19 @@ public class EnemyStatus : IUnitStatus
             lootSatchel.SetActive(lootTable != null);
 
             // Set up affect
+            Vector3 spawnInForward = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f)).normalized;
             BasicAppearEffect curSpawnEffect = Object.Instantiate(spawnVFX, transform.position, Quaternion.identity);
             curSpawnEffect.transform.localScale = transform.localScale;
-            curSpawnEffect.effectEndEvent.AddListener(onSpawnInSequenceEnd);
+            curSpawnEffect.transform.forward = spawnInForward;
+            curSpawnEffect.effectEndEvent.AddListener(delegate { onSpawnInSequenceEnd(spawnInForward); });
             curSpawnEffect.executeEffect();
         }
     }
 
 
     // Main event handler for when spawn in function finishes
-    private void onSpawnInSequenceEnd() {
+    private void onSpawnInSequenceEnd(Vector3 spawnForward) {
+        transform.forward = spawnForward;
         gameObject.SetActive(true);
     }
 

@@ -119,7 +119,7 @@ MonoBehaviour:
   hitStopFrames: 3
   cameraShakeMagnitude: 0.3
   canBackstab: 1
-  backStabMultipier: 3
+  backStabMultipier: 2
   backstabAngleThreshold: 50
 --- !u!65 &8139350676137732301
 BoxCollider:

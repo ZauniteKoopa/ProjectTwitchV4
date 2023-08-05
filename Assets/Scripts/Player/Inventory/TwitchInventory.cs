@@ -375,7 +375,9 @@ public class TwitchInventory : MonoBehaviour
 
     // Main event handler function to regenerate ambush on enemy death
     public void onNearbyEnemyDeath() {
-        curAmbushDuration = Mathf.Min(curAmbushDuration + onEnemyDeathAmbushRegen, fullAmbushDuration);
+        curAmbushDuration = Mathf.Max(curAmbushDuration + onEnemyDeathAmbushRegen, ambushRegenMax + onEnemyDeathAmbushRegen);
+        curAmbushDuration = Mathf.Min(curAmbushDuration, fullAmbushDuration);
+
         screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
     }
 
