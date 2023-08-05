@@ -172,6 +172,8 @@ public class PlayerScreenUI : MonoBehaviour
     public void setInvisBarFill(float curTimer, float maxDuration, float requiredDuration) {
         invisBarFill.fillAmount = curTimer / maxDuration;
         invisCooldownFill.fillAmount = Mathf.Min(curTimer / maxDuration, requiredDuration / maxDuration);
+        
+        worldUI.setInvisBarFill(curTimer, maxDuration, requiredDuration);
     }
 
 

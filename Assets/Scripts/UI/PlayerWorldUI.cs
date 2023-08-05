@@ -13,6 +13,12 @@ public class PlayerWorldUI : MonoBehaviour
     private Image healthBarFill;
     [SerializeField]
     private Transform bulletList;
+    [SerializeField]
+    private Image invisBarFill;
+    [SerializeField]
+    private Color ambushReadyColor = Color.blue;
+    [SerializeField]
+    private Color ambushNotReadyColor = Color.yellow;
 
 
 
@@ -46,5 +52,12 @@ public class PlayerWorldUI : MonoBehaviour
     // Main function to display health bar
     public void displayHealthBar(float curHealth, float maxHealth) {
         healthBarFill.fillAmount = curHealth / maxHealth;
+    }
+
+
+    // Main helper function to set invisibility bar fill
+    public void setInvisBarFill(float curTimer, float maxDuration, float requiredDuration) {
+        invisBarFill.fillAmount = curTimer / maxDuration;
+        invisBarFill.color = (curTimer >= requiredDuration) ? ambushReadyColor : ambushNotReadyColor;
     }
 }
