@@ -20,10 +20,24 @@ public class TwitchInventory : MonoBehaviour
     private float contaminateCooldown = 8f;
     [SerializeField]
     [Min(0.1f)]
-    private float ambushCooldown = 12f;
+    private float fullAmbushDuration = 6f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float minAmbushDurationRequirement = 2f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float ambushRegenMax = 3f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float ambushRegenCooldown = 8f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float onEnemyDeathAmbushRegen = 1f;
+    private float curAmbushDuration;
+    private bool isAmbushing;
+    
     private Coroutine runningCaskCooldownSequence = null;
     private Coroutine runningContaminateCooldownSequence = null;
-    private Coroutine runningAmbushCooldownSequence = null;
 
     // Crafting
     [SerializeField]
@@ -78,16 +92,35 @@ public class TwitchInventory : MonoBehaviour
         }
 
         PoisonVial.poisonVialConstants = poisonVialParameters;
+        curAmbushDuration = fullAmbushDuration;
+        isAmbushing = false;
 
         initializeIngredientDictionary();
         resetScreenUI();
         updateAttackRangeIndicator();
 
-        // primaryVial = new PoisonVial(PoisonVialStat.POTENCY);
-        // primaryVial.contaminateExecuteEvent.AddListener(onAmbushReset);
         updateVialDisplays();
         originalMeshColor = playerMesh.material.color;
         PauseConstraints.setInventoryModule(this);
+    }
+
+
+    // On update, set ambush bar state
+    private void Update() {
+        float deltaTime = Time.deltaTime;
+
+        // If you are ambushing and you still have cooldown, have the ambush bar go down
+        if (isAmbushing && curAmbushDuration > 0f) {
+            curAmbushDuration = Mathf.Max(0f, curAmbushDuration - deltaTime);
+            screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
+
+        // If not ambushing and not at minAmbushDuration requirement
+        } else if (!isAmbushing && curAmbushDuration < ambushRegenMax) {
+            float addedTime = deltaTime * (ambushRegenMax / ambushRegenCooldown);
+            curAmbushDuration += addedTime;
+            screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
+
+        }
     }
 
 
@@ -96,6 +129,7 @@ public class TwitchInventory : MonoBehaviour
         screenUI.displayAmbushCooldown(1f);
         screenUI.displayContaminateCooldown(1f);
         screenUI.displayCaskCooldown(1f);
+        screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
 
         updateVialDisplays();
     }
@@ -310,49 +344,39 @@ public class TwitchInventory : MonoBehaviour
     // ---------------------------------------
 
 
-    // Main sequence for the cooldown sequence for contamination
-    private IEnumerator ambushCooldownSequence() {
-        float timer = 0f;
-        screenUI.displayAmbushCooldown(0f);
-
-        while (timer <= ambushCooldown) {
-            yield return 0;
-            timer += Time.deltaTime;
-
-            screenUI.displayAmbushCooldown(timer / ambushCooldown);
-        }
-
-        runningAmbushCooldownSequence = null;
-    }
-
-
     // Main public function to check if you can conatminate (not on cooldown)
     public bool canAmbush() {
-        if (runningAmbushCooldownSequence != null) {
+        if (curAmbushDuration < minAmbushDurationRequirement) {
             screenUI.displayErrorMessage(abilityCooldownErrorMessage);
         }
         
-        return runningAmbushCooldownSequence == null;
+        return curAmbushDuration >= minAmbushDurationRequirement;
     }
 
 
-    // Main public function to activate contamination cooldown
-    //  If already activated, don't do anything
-    public void activateAmbushCooldown() {
-        if (runningAmbushCooldownSequence == null) {
-            runningAmbushCooldownSequence = StartCoroutine(ambushCooldownSequence());
-        }
+    // Main public function to turn ambush on
+    public void activateAmbush(bool activateBool) {
+        isAmbushing = activateBool;
+    }
+
+
+    // Main function to check if you can continue ambushing
+    public bool canContinueAmbushing() {
+        return curAmbushDuration > 0.0001f;
     }
 
 
     // Main event handler function to reset ambush cooldown
     private void onAmbushReset() {
-        if (runningAmbushCooldownSequence != null) {
-            StopCoroutine(runningAmbushCooldownSequence);
-            runningAmbushCooldownSequence = null;
+        curAmbushDuration = fullAmbushDuration;
+        screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
+    }
 
-            screenUI.displayAmbushCooldown(1f);
-        }
+
+    // Main event handler function to regenerate ambush on enemy death
+    public void onNearbyEnemyDeath() {
+        curAmbushDuration = Mathf.Min(curAmbushDuration + onEnemyDeathAmbushRegen, fullAmbushDuration);
+        screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
     }
 
 

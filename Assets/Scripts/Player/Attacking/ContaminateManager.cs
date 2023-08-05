@@ -21,6 +21,7 @@ public class ContaminateManager : MonoBehaviour
     private float cameraShakeMagnitude = 0f;
 
     private MeshRenderer render = null;
+    public UnityEvent nearbyEnemyDeathEvent;
 
 
     // On awake setup
@@ -96,8 +97,12 @@ public class ContaminateManager : MonoBehaviour
     // Main event handler
     private void onEnemyDeath(EnemyStatus enemy) {
         if (enemy != null && inRangeEnemyDelegates.ContainsKey(enemy)) {
+            // Remove listener
             enemy.deathEvent.RemoveListener(inRangeEnemyDelegates[enemy]);
             inRangeEnemyDelegates.Remove(enemy);
+
+            // Invoke nearby enemy death event for player
+            nearbyEnemyDeathEvent.Invoke();
         }
     }
 

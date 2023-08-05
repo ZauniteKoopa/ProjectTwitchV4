@@ -123,6 +123,12 @@ public class PlayerAudioManager : MonoBehaviour
     }
 
 
+    // Main function to stop sound effects
+    public void silenceSoundEffects() {
+        soundEffectsSpeaker.Stop();
+    }
+
+
     // Main function to play stealth startup sounds
     public void playAmbushStartup() {
         // Sound effects

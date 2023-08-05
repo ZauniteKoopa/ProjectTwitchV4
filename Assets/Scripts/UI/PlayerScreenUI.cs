@@ -68,6 +68,8 @@ public class PlayerScreenUI : MonoBehaviour
     private GameObject invisBarObject;
     [SerializeField]
     private Image invisBarFill;
+    [SerializeField]
+    private Image invisCooldownFill;
 
 
     [Header("Inventory")]
@@ -163,14 +165,13 @@ public class PlayerScreenUI : MonoBehaviour
         }
 
         runningColorScreenSequence = StartCoroutine(colorScreenSequence(ambushInvisibilityColor, ambushInvisibilityFadeIn));
-        invisBarObject.SetActive(true);
-        invisBarFill.fillAmount = 0f;
     }
 
 
     // Main helper function to set invisibility bar fill
-    public void setInvisBarFill(float curTimer, float maxDuration) {
+    public void setInvisBarFill(float curTimer, float maxDuration, float requiredDuration) {
         invisBarFill.fillAmount = curTimer / maxDuration;
+        invisCooldownFill.fillAmount = Mathf.Min(curTimer / maxDuration, requiredDuration / maxDuration);
     }
 
 
@@ -181,7 +182,6 @@ public class PlayerScreenUI : MonoBehaviour
         }
 
         runningColorScreenSequence = StartCoroutine(colorScreenSequence(Color.clear, ambushInvisibilityFadeOut));
-        invisBarObject.SetActive(false);
     }
 
 

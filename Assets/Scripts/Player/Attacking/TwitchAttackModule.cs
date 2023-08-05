@@ -61,10 +61,10 @@ public class TwitchAttackModule : IAttackModule
     [Min(0.1f)]
     private float ambushStartupTime = 1f;
     [SerializeField]
-    [Min(0.1f)]
-    private float ambushInvisibilityTime = 10f;
+    [Min(0.01f)]
+    private float minAmbushDurationAttackSpeedReq = 0.01f;
     [SerializeField]
-    [Min(0.1f)]
+    [Min(0.01f)]
     private float ambushAttackSpeedBuffTime = 5f;
     [SerializeField]
     [Min(1f)]
@@ -78,6 +78,7 @@ public class TwitchAttackModule : IAttackModule
     private GameObject ambushBuffVisualEffect = null;
     private bool ambushBuffed = false;
     private Coroutine runningAmbushSequence = null;
+    private bool holdingDownAmbush = false;
 
 
     [Header("Cask collision aiming")]
@@ -271,44 +272,53 @@ public class TwitchAttackModule : IAttackModule
     //  Post: does ambush sequence
     private IEnumerator ambushSequence() {
         // Startup
-        if (ambushBuffVisualEffect != null) {
-            ambushBuffVisualEffect.SetActive(false);
-        }
         audioManager.playAmbushStartup();
-        yield return new WaitForSeconds(ambushStartupTime);
 
+        float timer = 0f;
+        while (holdingDownAmbush && timer < ambushStartupTime) {
+            yield return 0;
+            timer += Time.deltaTime;
+        }
 
+        if (!holdingDownAmbush) {
+            audioManager.silenceSoundEffects();
+            audioManager.silenceVoiceover();
+        }
+
+        // Turn invisible
         status.applySpeedModifier(ambushInvisibilityMovementBuff);
         status.invisible = true;
         screenUI.displayAmbushInvisibility();
+        inventory.activateAmbush(true);
         ambushProximitySensor.displaySensor(true);
 
         // Timer to wait out invisibility
-        float timer = 0f;
-        while (timer < ambushInvisibilityTime && movementState == TwitchMovementState.MOVING) {
+        timer = 0f;
+        while (inventory.canContinueAmbushing() && movementState == TwitchMovementState.MOVING && holdingDownAmbush) {
             yield return 0;
             timer += Time.deltaTime;
-            screenUI.setInvisBarFill(timer, ambushInvisibilityTime);
         }
 
         // Attack speed buff (apply it if it hasn't been applied already)
         status.invisible = false;
         status.revertSpeedModifier(ambushInvisibilityMovementBuff);
         runningAmbushSequence = null;
-        inventory.activateAmbushCooldown();
+        inventory.activateAmbush(false);
         screenUI.removeAmbushInvisibility();
         ambushProximitySensor.displaySensor(false);
 
-        applyAmbushBuff();
+        if (timer >= minAmbushDurationAttackSpeedReq) {
+            applyAmbushBuff();
         
-        yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
+            yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
 
-        // Cleanup
-        if (ambushBuffVisualEffect != null) {
-            ambushBuffVisualEffect.SetActive(false);
+            // Cleanup
+            if (ambushBuffVisualEffect != null) {
+                ambushBuffVisualEffect.SetActive(false);
+            }
+            status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
+            ambushBuffed = false;
         }
-        status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
-        ambushBuffed = false;
     }
 
 
@@ -435,8 +445,16 @@ public class TwitchAttackModule : IAttackModule
 
     // Main event handler function for stealth
     public void onAmbushButtonAction(InputAction.CallbackContext value) {
-        if (value.started && inventory.canAmbush() && runningAmbushSequence == null && !inUninterruptableAnimationSequence) {
-            runningAmbushSequence = StartCoroutine(ambushSequence());
+        if (value.started) {
+            holdingDownAmbush = true;
+
+            // Check reqs
+            if (inventory.canAmbush() && runningAmbushSequence == null && !inUninterruptableAnimationSequence) {
+                runningAmbushSequence = StartCoroutine(ambushSequence());
+            } 
+
+        } else if (value.canceled) {
+            holdingDownAmbush = false;
         }
     }
 

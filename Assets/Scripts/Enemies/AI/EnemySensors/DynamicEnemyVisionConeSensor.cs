@@ -130,7 +130,9 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
             StopCoroutine(runningReaction);
         }
 
-        runningReaction = StartCoroutine(reactToStimulus(enemySensor.transform.position - transform.position, enemyAttackedReactionTime));
+        if (enemyStatus.isAlive()) {
+            runningReaction = StartCoroutine(reactToStimulus(enemySensor.transform.position - transform.position, enemyAttackedReactionTime));
+        }
     }
 
 
