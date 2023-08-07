@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBackstab: 1
-  backStabMultipier: 2
+  backStabMultipier: 2.5
   backstabAngleThreshold: 60
   hitStopFrames: 10
   cameraShakeMagnitude: 1

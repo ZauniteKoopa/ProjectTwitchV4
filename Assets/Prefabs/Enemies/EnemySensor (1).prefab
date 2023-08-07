@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9ce23507cc63047a34369f33e5a25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAngle: 80
+  viewAngle: 90
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
@@ -139,6 +139,7 @@ MonoBehaviour:
   brain: {fileID: 0}
   enemyStatus: {fileID: 0}
   fieldOfVision: {fileID: 5928128769542867745}
+  proximityRange: 3.5
   enemyAttackedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -191,8 +192,8 @@ Light:
   m_Color: {r: 1, g: 0.53459114, b: 0.53459114, a: 1}
   m_Intensity: 50
   m_Range: 10
-  m_SpotAngle: 80
-  m_InnerSpotAngle: 80
+  m_SpotAngle: 90
+  m_InnerSpotAngle: 90
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0

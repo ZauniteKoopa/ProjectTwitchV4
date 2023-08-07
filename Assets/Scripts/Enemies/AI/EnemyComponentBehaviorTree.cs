@@ -129,6 +129,8 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
 
     // Main private helper sequence to just look at an enemy for a predetermined number of seconds before going about typical behavior
     private IEnumerator lookAtSequence(Vector3 lookAtDirection) {
+        navMeshAgent.isStopped = true;
+        
         yield return 0;
         
         transform.forward = lookAtDirection;

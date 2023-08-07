@@ -469,7 +469,7 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 9
+  movementSpeed: 6.75
   maxHealth: 28
   damageReduction: 0.2
   enemyStatusUI: {fileID: 7276044789777591394}
@@ -576,7 +576,7 @@ MonoBehaviour:
   maxDashDistance: 6
   dashDamage: 3
   postDashRecoil: 0.75
-  dashMovementMultiplier: 1.5
+  dashMovementMultiplier: 3
   dashCollisionMask:
     serializedVersion: 2
     m_Bits: 256

@@ -134,7 +134,7 @@ MonoBehaviour:
   hitStopFrames: 3
   cameraShakeMagnitude: 0.3
   canBackstab: 1
-  backStabMultipier: 2
+  backStabMultipier: 2.5
   backstabAngleThreshold: 50
   appliedStacks: 1
 --- !u!96 &5114424262781227561

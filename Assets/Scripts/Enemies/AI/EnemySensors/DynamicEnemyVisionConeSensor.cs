@@ -9,6 +9,9 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     [Header("Passive Sensing")]
     [SerializeField]
     private FieldOfVision fieldOfVision = null;
+    [SerializeField]
+    [Min(0.1f)]
+    private float proximityRange = 4f;
 
     // Way to stay connected with nearby enemies
     [Header("Events")]
@@ -40,18 +43,24 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
 
     // Main function to manage passive sensing each frame
     protected override void managePassiveSensing() {
-        // If player is just in vision
-        PlayerStatus seenPlayer = fieldOfVision.getSeenPlayer();
+        // Get data to make decisions
+        PlayerStatus seenPlayerByVision = fieldOfVision.getSeenPlayer();
+        PlayerStatus seenPlayerByAllies = getPlayerSeenByAllies();
 
-        if (seenPlayer != null && seenPlayer.canSeePlayer(enemyStatus)) {
-            brain.onSensedPlayer(seenPlayer.transform);
+        // If player's in proximity range
+        if (playerTargetInProximityRange()) {
+            brain.onSensedPlayer(nearbyTarget.transform);
             fieldOfVision.showVision(false);
-        }
 
-        // If another enemy just has it and isn't currently reacting
-        seenPlayer = getPlayerSeenByAllies();
-        if (seenPlayer != null && seenPlayer.canSeePlayer(enemyStatus) && runningPlayerReaction == null) {
-            runningPlayerReaction = StartCoroutine(reactToOtherEnemyFindingPlayer(seenPlayer, enemyAllyNoticesPlayerReactionTime));
+        // If player is in vision cone
+        } else if (seenPlayerByVision != null && seenPlayerByVision.canSeePlayer(enemyStatus)) {
+            brain.onSensedPlayer(seenPlayerByVision.transform);
+            fieldOfVision.showVision(false);
+
+        // If allies nearby can see player
+        } else if (seenPlayerByAllies != null && runningPlayerReaction == null) {
+            runningPlayerReaction = StartCoroutine(reactToOtherEnemyFindingPlayer(seenPlayerByAllies, enemyAllyNoticesPlayerReactionTime));
+
         }
     }
 
@@ -171,7 +180,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     private PlayerStatus getPlayerSeenByAllies() {
         foreach(KeyValuePair<DynamicEnemyVisionConeSensor, UnityAction[]> otherEnemy in nearbyEnemySensorDelegates) {
             if (otherEnemy.Key.brain.inAggroState() && otherEnemy.Key.nearbyTarget != null) {
-                Vector3 targetPosition = otherEnemy.Key.transform.position;
+                Vector3 targetPosition = otherEnemy.Key.nearbyTarget.transform.position;
                 Vector3 rayDir = targetPosition - transform.position;
                 float rayDist = rayDir.magnitude;
                 bool seeEnemy = !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
@@ -183,5 +192,27 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         }
 
         return null;
+    }
+
+
+    // Main private helepr function to see if the nearby target is in proximity range
+    private bool playerTargetInProximityRange() {
+        // if no nearbyTarget, return false immediately
+        if (nearbyTarget == null) {
+            return false;
+        }
+
+        // Get data
+        Vector3 targetPosition = nearbyTarget.transform.position;
+        Vector3 rayDir = targetPosition - transform.position;
+        float rayDist = rayDir.magnitude;
+
+        // If player is not in proximity, return false immediately
+        if (Vector3.Distance(targetPosition, transform.position) > proximityRange) {
+            return false;
+        }
+
+        // Check if there's any barriers in between
+        return !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
     }
 }

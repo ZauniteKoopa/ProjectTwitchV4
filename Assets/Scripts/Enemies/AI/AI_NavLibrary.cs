@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class AI_NavLibrary
 {
-    private static readonly float UNIT_SPEED_TO_NAVMESH_CONVERSION = 1f;
     
     // Main function to get unit to go to a specific location
     //  Pre: dest is the position on the nav mesh that the unit is trying to go to, pathExpiration is the time it takes for path to be stale (> 0f)
@@ -22,7 +21,7 @@ public class AI_NavLibrary
 
         bool pathFound = navMeshAgent.SetDestination(dest);
         navMeshAgent.isStopped = false;
-        navMeshAgent.speed = movingUnit.getMovementSpeed() * UNIT_SPEED_TO_NAVMESH_CONVERSION * speedModifier;
+        navMeshAgent.speed = movingUnit.getMovementSpeed() * speedModifier;
 
         // If path found, go to path
         if (pathFound) {
@@ -36,12 +35,12 @@ public class AI_NavLibrary
 
             // Wait for unit to either hit the player or path expiration has hit
             float timer = 0f;
-            navMeshAgent.speed = movingUnit.getMovementSpeed() * speedModifier * UNIT_SPEED_TO_NAVMESH_CONVERSION;
+            navMeshAgent.speed = movingUnit.getMovementSpeed() * speedModifier;
 
             while (navMeshAgent.remainingDistance > 0.05f && timer < pathExpiration && (interrupted == null || !interrupted())) {
                 yield return waitFrame;
 
-                navMeshAgent.speed = movingUnit.getMovementSpeed() * speedModifier * UNIT_SPEED_TO_NAVMESH_CONVERSION;
+                navMeshAgent.speed = movingUnit.getMovementSpeed() * speedModifier;
                 timer += Time.fixedDeltaTime;
             }
         }

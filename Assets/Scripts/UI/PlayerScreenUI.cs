@@ -69,7 +69,9 @@ public class PlayerScreenUI : MonoBehaviour
     [SerializeField]
     private Image invisBarFill;
     [SerializeField]
-    private Image invisCooldownFill;
+    private Color ambushReadyColor = Color.blue;
+    [SerializeField]
+    private Color ambushNotReadyColor = Color.yellow;
 
 
     [Header("Inventory")]
@@ -171,8 +173,8 @@ public class PlayerScreenUI : MonoBehaviour
     // Main helper function to set invisibility bar fill
     public void setInvisBarFill(float curTimer, float maxDuration, float requiredDuration) {
         invisBarFill.fillAmount = curTimer / maxDuration;
-        invisCooldownFill.fillAmount = Mathf.Min(curTimer / maxDuration, requiredDuration / maxDuration);
-        
+        invisBarFill.color = (curTimer >= requiredDuration) ? ambushReadyColor : ambushNotReadyColor;
+
         worldUI.setInvisBarFill(curTimer, maxDuration, requiredDuration);
     }
 

@@ -409,7 +409,7 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 7
+  movementSpeed: 6.25
   maxHealth: 25
   damageReduction: 0.5
   enemyStatusUI: {fileID: 1545661025464096382}
