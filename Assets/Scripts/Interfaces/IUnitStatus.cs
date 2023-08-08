@@ -43,7 +43,7 @@ public abstract class IUnitStatus : MonoBehaviour
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage 
-    public abstract bool damage(float dmg, bool isTrue, bool attractsAttention = true);
+    public abstract bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false);
 
 
     // Main function to check if the unit is still alive

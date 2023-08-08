@@ -16,7 +16,7 @@ public class DamagePopup : MonoBehaviour
     // On launch, activate the popup with the current damage
     //  Pre: startDamage can be any number, affectedUnit should be non-null (where the popup will be placed)
     //  Post: text popup will be activated with the starting damage 
-    public void launch(float startDamage, Transform affectedUnit) {
+    public void launch(float startDamage, Transform affectedUnit, Color damageTextColor) {
         Debug.Assert(affectedUnit != null);
 
         if (!launched) {
@@ -27,7 +27,7 @@ public class DamagePopup : MonoBehaviour
 
                 popup = GetComponent<TextPopup>();
                 float displayedDamage = Mathf.Round(curDamage * 10f) / 10f;
-                popup.SetUpPopup("" + displayedDamage, affectedUnit);
+                popup.SetUpPopup("" + displayedDamage, damageTextColor, affectedUnit);
             }
         }
         
@@ -37,13 +37,13 @@ public class DamagePopup : MonoBehaviour
     // Main function to increment the current damage popup
     //  Pre: damageDelta is how much you want to change the current damage, positive you add, negative you subtract, must already be launched, popup != null
     //  Post: the text popup will change the value accordingly
-    public void updateDamage(float damageDelta) {
+    public void updateDamage(float damageDelta, Color newColor) {
         lock (popupLock) {
             Debug.Assert(launched && popup != null);
 
             curDamage += damageDelta;
             float displayedDamage = Mathf.Round(curDamage * 10f) / 10f;
-            popup.SetUpPopup("" + displayedDamage, curUnit);
+            popup.SetUpPopup("" + displayedDamage, newColor, curUnit);
         }
     }
 

@@ -9,6 +9,7 @@ public class EnemyStatus : IUnitStatus
     [SerializeField]
     [Min(0.01f)]
     private float movementSpeed = 5f;
+    private const float BACKSTAB_DAMAGE_MULTIPLIER = 2.5f;
     [SerializeField]
     [Min(0.01f)]
     private float maxHealth = 20f;
@@ -26,6 +27,16 @@ public class EnemyStatus : IUnitStatus
     [Header("UI")]
     [SerializeField]
     private EnemyStatusUI enemyStatusUI;
+    [SerializeField]
+    private DamagePopup damagePopupPrefab;
+    [SerializeField]
+    private Color normalDamagePopupColor = Color.yellow;
+    [SerializeField]
+    private Color criticalHitDamagePopupColor = Color.red;
+    private const float DAMAGE_POPUP_STAY_DURATION = 0.1f;
+    private DamagePopup curDamagePopup = null;
+    private bool lastPopupWasCrit = false;
+
 
     [Header("Events")]
     public UnityEvent deathEvent;
@@ -130,16 +141,19 @@ public class EnemyStatus : IUnitStatus
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise
-    public override bool damage(float dmg, bool isTrue, bool attractsAttention = true) {
+    public override bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false) {
         if (attractsAttention) {
             enemyNoticesDamageEvent.Invoke();
         }
         
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+        actualDamage *= (isCrit) ? BACKSTAB_DAMAGE_MULTIPLIER : 1f;
+
         lock (healthLock) {
             if (isAlive()) {
                 curHealth -= actualDamage;
                 enemyStatusUI.updateHealthBar(curHealth, maxHealth);
+                launchDamagePopup(actualDamage, isCrit);
 
                 if (curHealth <= 0f && !died) {
                     died = true;
@@ -166,7 +180,7 @@ public class EnemyStatus : IUnitStatus
     // Main function to inflict poison damage on a unit
     //  Pre: dmg >= 0, isTrue represents true damage (damage reduction doesn't applie), poison != null && appliedStacks >= 0
     //  Post: does damage and resets poison timer with new poison and increased stacks
-    public bool poisonDamage(float dmg, bool isTrue, PoisonVial poison, int appliedStacks, bool overridePoison = true) {
+    public bool poisonDamage(float dmg, bool isTrue, PoisonVial poison, int appliedStacks, bool overridePoison = true, bool isCrit = false) {
         Debug.Assert(dmg >= 0f && poison != null && appliedStacks >= 0);
 
         // Increase the number of poison and reset poison ticker
@@ -195,7 +209,41 @@ public class EnemyStatus : IUnitStatus
         }
 
         // Actually damage the unit
-        return damage(dmg, isTrue, overridePoison);
+        return damage(dmg, isTrue, overridePoison, isCrit);
+    }
+
+
+    // Main private helper function to launch damage popup
+    private void launchDamagePopup(float damage, bool willBackstab) {
+        // Create new popup is no new popup found in time period
+        if (curDamagePopup == null) {
+            // Set up popup
+            curDamagePopup = Object.Instantiate(damagePopupPrefab, transform.position, Quaternion.identity);
+            Color damageColor = willBackstab ? criticalHitDamagePopupColor : normalDamagePopupColor;
+
+            // Set up flags
+            lastPopupWasCrit = willBackstab;
+
+            // Launch
+            curDamagePopup.launch(damage, transform, damageColor);
+            StartCoroutine(launchPopupSequence());
+
+        // Update existing popup if one is still going
+        } else {
+            // Set up color
+            lastPopupWasCrit = willBackstab;
+            Color newColor = (lastPopupWasCrit) ? criticalHitDamagePopupColor : normalDamagePopupColor;
+
+            // Update
+            curDamagePopup.updateDamage(damage, newColor);
+        }
+    }
+
+
+    // Main launch popup sequence
+    private IEnumerator launchPopupSequence() {
+        yield return new WaitForSeconds(DAMAGE_POPUP_STAY_DURATION);
+        curDamagePopup = null;
     }
 
 

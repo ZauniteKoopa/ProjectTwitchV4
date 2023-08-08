@@ -306,6 +306,9 @@ MonoBehaviour:
   maxHealth: 40
   damageReduction: 0
   enemyStatusUI: {fileID: 4486819366922190406}
+  damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
+  normalDamagePopupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  criticalHitDamagePopupColor: {r: 1, g: 0.5472245, b: 0, a: 1}
   deathEvent:
     m_PersistentCalls:
       m_Calls: []

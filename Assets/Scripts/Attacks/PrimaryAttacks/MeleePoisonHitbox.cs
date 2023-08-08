@@ -28,7 +28,7 @@ public class MeleePoisonHitbox : MeleeHitbox
         EnemyStatus enemyTarget = tgt as EnemyStatus;
 
         if (enemyTarget != null) {
-            enemyTarget.poisonDamage(getBackstabDamage(tgt, curDamage), false, poison, appliedStacks);
+            enemyTarget.poisonDamage(curDamage, false, poison, appliedStacks, isCrit: isBackstab(tgt));
         }
     }
 }

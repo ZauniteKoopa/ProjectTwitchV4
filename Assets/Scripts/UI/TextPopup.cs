@@ -34,8 +34,10 @@ public class TextPopup : MonoBehaviour
     }
 
     //Method to set text up
-    public void SetUpPopup(string textInfo, Transform popupParent = null)
+    public void SetUpPopup(string textInfo, Color color, Transform popupParent = null)
     {
+        startColor = color;
+        popupInfo.color = color;
         popupInfo.text = textInfo;
         pseudoParent = popupParent;
     }

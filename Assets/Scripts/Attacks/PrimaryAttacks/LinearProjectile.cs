@@ -27,9 +27,6 @@ public class LinearProjectile : IPrimaryAttack
     [SerializeField]
     private bool canBackstab = false;
     [SerializeField]
-    [Min(1f)]
-    private float backStabMultipier = 2f;
-    [SerializeField]
     [Range(0f, 90f)]
     private float backstabAngleThreshold = 50f;
 
@@ -90,7 +87,7 @@ public class LinearProjectile : IPrimaryAttack
     protected virtual void damageTarget(IUnitStatus tgt) {
         Debug.Assert(tgt != null);
 
-        tgt.damage(getBackstabDamage(tgt, projectileDamage), false);
+        tgt.damage(projectileDamage, false, isCrit: isBackstab(tgt));
     }
 
 
@@ -101,11 +98,7 @@ public class LinearProjectile : IPrimaryAttack
 
     
     // Main protected helper function to get modified backstab damage if backstab applies
-    protected float getBackstabDamage(IUnitStatus tgt, float damage) {
-        if (canBackstab && Vector3.Angle(transform.forward, tgt.transform.forward) <= backstabAngleThreshold) {
-            damage *= backStabMultipier;
-        }
-
-        return damage;
+    protected bool isBackstab(IUnitStatus tgt) {
+        return (canBackstab && Vector3.Angle(transform.forward, tgt.transform.forward) <= backstabAngleThreshold);
     }
 }
