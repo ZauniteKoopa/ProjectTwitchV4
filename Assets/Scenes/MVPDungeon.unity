@@ -8616,6 +8616,10 @@ PrefabInstance:
       propertyPath: dungeonFloor
       value: 
       objectReference: {fileID: 1460667961216784510}
+    - target: {fileID: 6314537996403715049, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
+      propertyPath: numRecipeDrops
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6314537996548433218, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
       propertyPath: dungeonFloor
       value: 
