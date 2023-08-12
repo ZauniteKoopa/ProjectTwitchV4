@@ -199,7 +199,7 @@ public class PoisonVialConstants : ScriptableObject
 
 
     // Main function to obtain a random side effect based on a recipe book
-    public SideEffect obtainRandomSideEffect(RecipeBook recipeBook) {
+    public SideEffect obtainRandomSideEffect(RecipeBook recipeBook, List<Recipe> excluded) {
         // Initialize
         if (sideEffectDictionary == null) {
             initializeSideEffectDictionary();
@@ -207,10 +207,18 @@ public class PoisonVialConstants : ScriptableObject
 
         // Only do it if recipes found < total side effects possible
         if (recipeBook.getTotalCompletedRecipes() < sideEffectList.Count) {
+            // Set up
             int curIndex = Random.Range(0, sideEffectList.Count);
+            bool recipeBookHasSideEffect = recipeBook.containsSideEffect(sideEffectList[curIndex]);
+            bool excludedHasSideEffect = excluded.FindIndex(f => f.resultingSideEffect == sideEffectList[curIndex]) >= 0;
 
-            while (recipeBook.containsSideEffect(sideEffectList[curIndex])) {
+            while (recipeBookHasSideEffect || excludedHasSideEffect) {
+                // Iterate through index
                 curIndex = (curIndex + 1) % sideEffectList.Count;
+
+                // Update boolean checkers
+                recipeBookHasSideEffect = recipeBook.containsSideEffect(sideEffectList[curIndex]);
+                excludedHasSideEffect = excluded.FindIndex(f => f.resultingSideEffect == sideEffectList[curIndex]) >= 0;
             }
 
             return sideEffectList[curIndex];

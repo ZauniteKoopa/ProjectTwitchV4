@@ -535,8 +535,23 @@ public class TwitchInventory : MonoBehaviour
     // Main function to add a new recipe to the recipe book
     public void addRandomRecipe() {
         if (recipeBook.canAddNewRecipe()) {
-            recipeBook.addRandomRecipe();
+            Recipe newRecipe = recipeBook.getRandomRecipes(1)[0];
+            recipeBook.addNewRecipe(newRecipe);
         }
+    }
+
+
+    // Main function to add a specific recipe to the recipe book
+    public void startRecipeSelectionSequence(RecipeSelectionScreen recipeSelection) {
+        Debug.Assert(recipeSelection != null);
+
+        recipeSelection.startRecipeSelectionSequence(
+            recipeBook,
+            ingredientInventory,
+            curMaxInventory,
+            primaryVial,
+            secondaryVial
+        );
     }
     
 }

@@ -229,31 +229,30 @@ public class RecipeBook
 
 
     // Main function to add a random recipe to the recipe book
-    public void addRandomRecipe() {
-        // Obtain the targeted side effect
-        SideEffect targetSideEffect = PoisonVial.poisonVialConstants.obtainRandomSideEffect(this);
+    public List<Recipe> getRandomRecipes(int numRandomRecipes) {
+        int numRecipesObtained = Mathf.Min(numRandomRecipes, PoisonVial.poisonVialConstants.getTotalNumberOfSideEffects() - getTotalCompletedRecipes());
+        List<Recipe> obtainedRecipes = new List<Recipe>();
 
-        // Figure out which ingredients and make sure this isn't a duplicated version of another recipe
-        Dictionary<PoisonVialStat, int> ingredientCombo = getRandomCombinationForEffect(targetSideEffect);
+        for (int r = 0; r < numRecipesObtained; r++) {
+            // Obtain the targeted side effect
+            SideEffect targetSideEffect = PoisonVial.poisonVialConstants.obtainRandomSideEffect(this, obtainedRecipes);
 
-        // Add to the list of side effects
-        Recipe newRecipe = jumpToSideEffect(targetSideEffect);
-        if (newRecipe == null) {
-            newRecipe = new Recipe();
+            // Figure out which ingredients and make sure this isn't a duplicated version of another recipe
+            Dictionary<PoisonVialStat, int> ingredientCombo = getRandomCombinationForEffect(targetSideEffect, obtainedRecipes);
+
+            // Add new recipe
+            Recipe newRecipe = new Recipe();
             newRecipe.resultingSideEffect = targetSideEffect;
             newRecipe.ingredients = ingredientCombo;
-            addNewRecipe(newRecipe);
-
-        } else {
-            newRecipe.ingredients = ingredientCombo;
+            obtainedRecipes.Add(newRecipe);
         }
 
-        numCompletedRecipes++;
+        return obtainedRecipes;
     }
 
 
     // Main function to get a random combination
-    private Dictionary<PoisonVialStat, int> getRandomCombinationForEffect(SideEffect s) {
+    private Dictionary<PoisonVialStat, int> getRandomCombinationForEffect(SideEffect s, List<Recipe> excluded) {
         // Init
         PoisonVialStat specialization = s.getType();
         Dictionary<PoisonVialStat, int> curRecipe = new Dictionary<PoisonVialStat, int>();
@@ -276,7 +275,7 @@ public class RecipeBook
             // Update curStatComboIndex for next iteration
             curStatComboIndex = (curStatComboIndex + 1) % POSSIBLE_STAT_COMBOS.GetLength(0);
 
-        } while (isIngComboUsed(specialization, curRecipe));
+        } while (isIngComboUsed(specialization, curRecipe, excluded));
 
         return curRecipe;
     }
@@ -285,10 +284,14 @@ public class RecipeBook
     // Main checker function to see if a stat combination is used
     //  Pre: specialization is the specialization of the side effect, ingCombo is the ingredient combo being compared
     //  Post: return whether statCombo is used. This is O(M*N) where M = number of recipes for specialization and N = number of stats (4)
-    private bool isIngComboUsed(PoisonVialStat specialization, Dictionary<PoisonVialStat, int> ingCombo) {
-        List<Recipe> recipeSection = recipes[specialization];
+    private bool isIngComboUsed(PoisonVialStat specialization, Dictionary<PoisonVialStat, int> ingCombo, List<Recipe> excluded = null) {
+        List<Recipe> checkedRecipes = new List<Recipe>();
+        checkedRecipes.AddRange(recipes[specialization]);
+        if (excluded != null) {
+            checkedRecipes.AddRange(excluded);
+        }
 
-        foreach (Recipe recipe in recipeSection) {
+        foreach (Recipe recipe in checkedRecipes) {
             Dictionary<PoisonVialStat, int> ingredients = recipe.ingredients;
 
             if (ingredients != null) {
