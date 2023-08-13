@@ -250,9 +250,11 @@ public class PoisonVial
                     sideEffect = poisonVialConstants.obtainSideEffect(stat);
                     Recipe existingRecipe = recipeBook.jumpToSideEffect(sideEffect);
 
+                    // Create empty recipe
                     if (existingRecipe == null) {
                         Recipe newRecipe = new Recipe();
-                        newRecipe.ingredients = (filledRecipe) ? vialStats : null;
+                        // newRecipe.ingredients = (filledRecipe) ? vialStats : null;
+                        newRecipe.ingredients = null;
                         newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);

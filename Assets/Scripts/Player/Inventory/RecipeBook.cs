@@ -230,6 +230,11 @@ public class RecipeBook
 
     // Main function to add a random recipe to the recipe book
     public List<Recipe> getRandomRecipes(int numRandomRecipes) {
+        if (!canAddNewRecipe()) {
+            Debug.LogError("CANNOT ADD NEW RECIPES TO CURRENT RECIPE BOOK");
+            return null;
+        }
+
         int numRecipesObtained = Mathf.Min(numRandomRecipes, PoisonVial.poisonVialConstants.getTotalNumberOfSideEffects() - getTotalCompletedRecipes());
         List<Recipe> obtainedRecipes = new List<Recipe>();
 

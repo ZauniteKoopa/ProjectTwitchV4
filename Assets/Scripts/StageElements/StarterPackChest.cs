@@ -12,7 +12,7 @@ public class StarterPackChest : ItemChest
     [Range(1, 5)]
     private int numIngredientDrops = 2;
     [SerializeField]
-    [Min(1)]
+    [Min(0)]
     private int numRecipeDrops = 1;
 
 

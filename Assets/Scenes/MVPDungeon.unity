@@ -1502,63 +1502,6 @@ MonoBehaviour:
   waveFinishedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1001 &599346011
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3960549277984900291, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_Name
-      value: RecipePageLob
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -204.82356
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.1141415
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8071581957687685003, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
 --- !u!4 &611637408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7276044789255310395, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
@@ -4543,7 +4486,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1544579152
 GameObject:
@@ -7256,7 +7199,7 @@ Transform:
   - {fileID: 142116552}
   - {fileID: 454244382}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1347320807610889511
 PrefabInstance:
@@ -7268,6 +7211,10 @@ PrefabInstance:
     - target: {fileID: 262784610, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093315570, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_text
+      value: I remember having this recipe.. Where did I put it?
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
@@ -8677,10 +8624,6 @@ PrefabInstance:
       propertyPath: dungeonFloor
       value: 
       objectReference: {fileID: 1460667961216784510}
-    - target: {fileID: 6314537996403715049, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
-      propertyPath: numRecipeDrops
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6314537996548433218, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
       propertyPath: dungeonFloor
       value: 

@@ -45,6 +45,9 @@ public class TwitchInventory : MonoBehaviour
     [SerializeField]
     [Min(0.1f)]
     private float craftingDuration = 1.5f; 
+    [SerializeField]
+    [Min(0)]
+    private int numStartingRecipes = 3;
     private Dictionary<PoisonVialStat, int> ingredientInventory = new Dictionary<PoisonVialStat, int>();
     private RecipeBook recipeBook = new RecipeBook();
     private int numIngredients = 0;
@@ -85,7 +88,7 @@ public class TwitchInventory : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (poisonVialParameters == null) {
             Debug.LogError("POISON VIAL CONSTANTS AND PARAMETERS NOT SET FOR TWITCH TO CRAFT POISONS");
@@ -102,6 +105,8 @@ public class TwitchInventory : MonoBehaviour
         updateVialDisplays();
         originalMeshColor = playerMesh.material.color;
         PauseConstraints.setInventoryModule(this);
+
+        addRandomRecipes(numStartingRecipes);
     }
 
 
@@ -400,7 +405,7 @@ public class TwitchInventory : MonoBehaviour
 
     // Main event handler for opening the inventory menu
     public void onOpenInventoryAction(InputAction.CallbackContext value) {
-        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null) {
+        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null && !PauseConstraints.isPaused()) {
             playerInput.enabled = false;
             inventoryUI.open(ingredientInventory, curMaxInventory, primaryVial, secondaryVial, recipeBook);
         }
@@ -533,10 +538,13 @@ public class TwitchInventory : MonoBehaviour
 
 
     // Main function to add a new recipe to the recipe book
-    public void addRandomRecipe() {
+    public void addRandomRecipes(int numRecipes) {
         if (recipeBook.canAddNewRecipe()) {
-            Recipe newRecipe = recipeBook.getRandomRecipes(1)[0];
-            recipeBook.addNewRecipe(newRecipe);
+            List<Recipe> newRecipes = recipeBook.getRandomRecipes(numRecipes);
+
+            foreach (Recipe r in newRecipes) {
+                recipeBook.addNewRecipe(r);
+            }
         }
     }
 
@@ -552,6 +560,12 @@ public class TwitchInventory : MonoBehaviour
             primaryVial,
             secondaryVial
         );
+    }
+
+
+    // Main function to check if you can even add any recipes
+    public bool canAddNewRecipes() {
+        return recipeBook.canAddNewRecipe();
     }
     
 }

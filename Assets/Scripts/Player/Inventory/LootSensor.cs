@@ -50,7 +50,7 @@ public class LootSensor : MonoBehaviour
 
     // Event handler method for when mouse position changes
     public void onPickupPress(InputAction.CallbackContext context) {
-        if (context.started && targetLoot != null) {
+        if (context.started && targetLoot != null && !PauseConstraints.isPaused()) {
             targetLoot.collect(status, inventory);
         }
     }

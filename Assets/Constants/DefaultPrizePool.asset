@@ -17,21 +17,34 @@ MonoBehaviour:
     - {fileID: 5565023274511624932, guid: 60448b9129cfbda4193e629af233983b, type: 3}
     - {fileID: 5565023274511624932, guid: 60448b9129cfbda4193e629af233983b, type: 3}
     rewardName: POISON
+    rewardPrerequisite: 0
   - rewards:
     - {fileID: 7388442604144488201, guid: 3886abbb75c049c4b8d446b0921243c3, type: 3}
     - {fileID: 7388442604144488201, guid: 3886abbb75c049c4b8d446b0921243c3, type: 3}
     rewardName: POTENCY
+    rewardPrerequisite: 0
   - rewards:
     - {fileID: 9149333380419285481, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
     - {fileID: 9149333380419285481, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
     rewardName: REACTIVITY
+    rewardPrerequisite: 0
   - rewards:
     - {fileID: 7217155360507995382, guid: 596c5ec058d22cc4591aa6c5c8b0512a, type: 3}
     - {fileID: 7217155360507995382, guid: 596c5ec058d22cc4591aa6c5c8b0512a, type: 3}
     rewardName: STICKINESS
+    rewardPrerequisite: 0
   - rewards:
     - {fileID: 9196077107466837910, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
     rewardName: RECIPE
+    rewardPrerequisite: 1
   - rewards:
     - {fileID: 8607536515972628885, guid: 234cf5f307a48ff46bd8192cbd1fd034, type: 3}
     rewardName: HEALTH
+    rewardPrerequisite: 0
+  endRewardsProbability:
+  - 0.12
+  - 0.12
+  - 0.12
+  - 0.12
+  - 0.26
+  - 0.26

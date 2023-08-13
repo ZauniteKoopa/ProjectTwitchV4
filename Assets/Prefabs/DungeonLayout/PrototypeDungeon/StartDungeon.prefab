@@ -426,6 +426,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6314537998197098901}
     m_Modifications:
+    - target: {fileID: 2727420183915983984, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: numRecipeDrops
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
       propertyPath: m_RootOrder
       value: 0

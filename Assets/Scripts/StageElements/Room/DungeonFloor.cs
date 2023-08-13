@@ -98,8 +98,9 @@ public class DungeonFloor : MonoBehaviour
             }
 
             // Set up rewards in the entrances of the next floor and the rewards of this floor
+            TwitchInventory playerInv = playerStatus.transform.parent.GetComponent<TwitchInventory>();
             if (finalBattleRoom == null) {
-                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length);
+                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, playerInv);
 
                 for (int e = 0; e < nonHostileEntrances.Length; e++) {
                     nonHostileEntrances[e].setProjectedEndPrize(rewards[e]);
@@ -107,7 +108,7 @@ public class DungeonFloor : MonoBehaviour
 
             } else {
                 Debug.Assert(endReward != null);
-                finalBattleRoom.setUpNextFloorRewards(prizePool);
+                finalBattleRoom.setUpNextFloorRewards(prizePool, playerInv);
                 finalBattleRoom.setBattleRoomRewards(endReward);
             }
 
