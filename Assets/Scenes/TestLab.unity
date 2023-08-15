@@ -591,6 +591,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DummyEnemy_Stationary (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4486819366395846163, guid: 059eb0f3cde6c8545b5a0f698324769f, type: 3}
+      propertyPath: willDropLoot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486819366395846163, guid: 059eb0f3cde6c8545b5a0f698324769f, type: 3}
+      propertyPath: damageReduction
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4486819366395846175, guid: 059eb0f3cde6c8545b5a0f698324769f, type: 3}
       propertyPath: m_RootOrder
       value: 11

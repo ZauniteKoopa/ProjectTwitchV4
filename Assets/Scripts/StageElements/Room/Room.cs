@@ -134,7 +134,7 @@ public class Room : MonoBehaviour
 
 
     // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
-    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav) {
+    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav, bool willDropLoot) {
         // Get spawn position
         float emptySpaceLength = ROOM_SIZE - WALL_OFFSET;
         Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
@@ -148,6 +148,7 @@ public class Room : MonoBehaviour
         // Spawn in position and set properties
         EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, spawnPos, Quaternion.identity);
         curEnemy.lootTable = lootTable;
+        curEnemy.willDropLoot = willDropLoot;
 
         DungeonPatrolPointBranch dynamicDungeonAI = curEnemy.GetComponent<DungeonPatrolPointBranch>();
         if (dynamicDungeonAI != null) {

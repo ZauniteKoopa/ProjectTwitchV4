@@ -14,7 +14,15 @@ public class SideEffect : ScriptableObject
     public Sprite spriteIcon;
     [SerializeField]
     private PoisonVialStat sideEffectType;
+
+    [Header("Max stack effects")]
     public bool maxStackEffect = false;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float defenseReduction = 0f;
+    [SerializeField]
+    private int additionalLoot = 0;
+    private const int MAX_POISON_STACKS = 6;
 
 
     [Header("Post Contaminate Hitbox")]
@@ -111,5 +119,17 @@ public class SideEffect : ScriptableObject
     // Main function to get the primary attack animation
     public virtual PrimaryAttackAnimation getPrimaryAttackAnimation() {
         return PrimaryAttackAnimation.NORMAL;
+    }
+
+
+    // Main function to get the main defense reduction factor for max stack effect
+    public float getDefenseReductionFactor(int numPoisonStacks) {
+        return (numPoisonStacks >= MAX_POISON_STACKS) ? (1f - defenseReduction) : 1f;
+    }
+
+
+    // Main function to get the number of additional loot from this corpse
+    public int getAdditionalLoot(int numPoisonStacks) {
+        return (numPoisonStacks >= MAX_POISON_STACKS) ? additionalLoot : 0;
     }
 }

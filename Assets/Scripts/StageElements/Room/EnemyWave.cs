@@ -48,7 +48,8 @@ public class EnemyWave : MonoBehaviour
 
             foreach (EnemyStatus enemy in enemies) {
                 float diceRoll = Random.Range(0f, 1f);
-                enemy.lootTable = (diceRoll < lootChance) ? lootTable : null;
+                enemy.lootTable = lootTable;
+                enemy.willDropLoot = (diceRoll < lootChance);
 
                 //  TO-DO: change this to just spawn in an enemy gradually and not just make something pop up immediately
                 enemy.gameObject.SetActive(true);

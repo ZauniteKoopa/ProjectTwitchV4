@@ -198,10 +198,11 @@ public class DungeonFloor : MonoBehaviour
 
         Room spawnRoom = getRandomSpawnRoom();
         EnemyStatus curEnemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
-        LootTable givenLoot = (Random.Range(0f, 1f) < lootChance) ? dungeonFloorLootTable : null;
+        LootTable givenLoot = dungeonFloorLootTable;
+        bool willDropLoot = (Random.Range(0f, 1f) < lootChance);
 
         lock (enemyTrackingLock) {
-            EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot, dungeonFloorMap);
+            EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot, dungeonFloorMap, willDropLoot);
             activeEnemies.Add(enemyInstance);
             enemyInstance.deathEvent.AddListener(delegate { onEnemyDeath(enemyInstance); });
         }

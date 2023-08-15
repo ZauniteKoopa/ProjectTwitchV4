@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5595840f2b71f4382bb0cfcc98b41b, type: 3}
+  m_Name: FruitfulCorpse
+  m_EditorClassIdentifier: 
+  displayName: Fruitful Corpse
+  description: When infected with 6 stacks, enemies mutated so much that their remains
+    can be used if they die with this poison. Drop 1 additional loot.
+  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+  sideEffectType: 2
+  maxStackEffect: 1
+  defenseReduction: 0
+  additionalLoot: 1
+  postContaminateHitbox: {fileID: 0}

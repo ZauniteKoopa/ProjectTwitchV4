@@ -64,6 +64,7 @@ public class EnemyStatus : IUnitStatus
     [SerializeField]
     private GameObject lootSatchel = null;
     public LootTable lootTable;
+    public bool willDropLoot = false;
 
     [SerializeField]
     private bool spawnInOnAwake = false;
@@ -95,7 +96,7 @@ public class EnemyStatus : IUnitStatus
 
             enemyStatusUI.updateHealthBar(curHealth, maxHealth);
             enemyStatusUI.updatePoisonHalo(0, Color.white, false, false);
-            lootSatchel.SetActive(lootTable != null);
+            lootSatchel.SetActive(lootTable != null && willDropLoot);
 
             // Set up affect
             Vector3 spawnInForward = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f)).normalized;
@@ -146,7 +147,7 @@ public class EnemyStatus : IUnitStatus
             enemyNoticesDamageEvent.Invoke();
         }
         
-        float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+        float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(getDamageReduction(), 0f, 1f));
         actualDamage *= (isCrit) ? BACKSTAB_DAMAGE_MULTIPLIER : 1f;
 
         lock (healthLock) {
@@ -270,7 +271,7 @@ public class EnemyStatus : IUnitStatus
         }
 
         float contaminateDmg = curPoison.getProjectedContaminateDamage(curPoisonStacks);
-        float actualDamage = contaminateDmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+        float actualDamage = contaminateDmg * (1f - Mathf.Clamp(getDamageReduction(), 0f, 1f));
 
         return curPoison.sideEffect.postContaminateHitbox != null &&
             (curPoisonStacks >= PoisonVial.poisonVialConstants.minPostContaminateStacks ||
@@ -381,8 +382,13 @@ public class EnemyStatus : IUnitStatus
 
     // Private helper function to drop loot
     private void dropLoot() {
+        int curLootDrops = (willDropLoot) ? numLootDrops : 0;
+        if (curPoison != null) {
+            curLootDrops += curPoison.sideEffect.getAdditionalLoot(curPoisonStacks);
+        }
+
         if (lootTable != null) {
-            for (int d = 0; d < numLootDrops; d++) {
+            for (int d = 0; d < curLootDrops; d++) {
                 // Get associated current loot
                 LobAction chosenLoot = lootTable.getLootDrop();
                 LobAction curLoot = Object.Instantiate(chosenLoot, transform.position, Quaternion.identity);
@@ -390,5 +396,16 @@ public class EnemyStatus : IUnitStatus
                 curLoot.lobAroundRadius(transform.position, lootDropRange, lootDropSpeed, lootCollisionLayerMask);
             }
         }
+    }
+
+
+    // Main function to get the damage reduction
+    private float getDamageReduction() {
+        float curReduction = damageReduction;
+        if (curPoison != null) {
+            curReduction *= curPoison.sideEffect.getDefenseReductionFactor(curPoisonStacks);
+        }
+
+        return curReduction;
     }
 }
