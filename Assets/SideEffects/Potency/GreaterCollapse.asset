@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Greater Collapse
   description: Enemies infected with 6 stacks with this poison will have their defenses
     reduced by 75%
-  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+  spriteIcon: {fileID: 21300000, guid: c80f7aa052b746646962b355852e1419, type: 3}
   sideEffectType: 0
   maxStackEffect: 1
   defenseReduction: 0.75

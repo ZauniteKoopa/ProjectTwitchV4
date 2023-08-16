@@ -7033,11 +7033,11 @@ MonoBehaviour:
   startDungeonOnAwake: 0
   isHostileFloor: 1
   dungeonFloorLootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
-  lootChance: 0.6
+  lootChance: 0.65
   numStartingEnemies: 3
   maxEnemies: 10
-  timeBetweenEnemySpawns: 4
-  spawnTimeVariance: 1
+  timeBetweenEnemySpawns: 7
+  spawnTimeVariance: 1.5
   possibleEnemies:
   - {fileID: 3731168258028753952, guid: 5c76440c99ac8d24e854ddcdd1105ad9, type: 3}
   - {fileID: 6573688301128885070, guid: 1fd8ff9516aa14748bf74892a2169a65, type: 3}
@@ -7860,7 +7860,7 @@ MonoBehaviour:
   lockedDoors:
   - {fileID: 5344600682872097823}
   enemyLootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
-  lootChance: 0.3
+  lootChance: 0.45
   possibleDungeonFloorEntrances:
   - {fileID: 2631882538282041257}
   rewardChest: {fileID: 1815424858687591655}
@@ -8676,6 +8676,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6314537998197098902, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
+      propertyPath: lootChance
+      value: 0.65
+      objectReference: {fileID: 0}
     - target: {fileID: 6314537998197098903, guid: 87b2c0fe5dd04f4488f487eed5f18f16, type: 3}
       propertyPath: m_Name
       value: StartDungeon
@@ -8861,6 +8865,10 @@ PrefabInstance:
     - target: {fileID: 7765755241420769535, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254371244857604424, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: lootChance
+      value: 0.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}

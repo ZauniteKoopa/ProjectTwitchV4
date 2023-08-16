@@ -253,8 +253,8 @@ public class PoisonVial
                     // Create empty recipe
                     if (existingRecipe == null) {
                         Recipe newRecipe = new Recipe();
-                        // newRecipe.ingredients = (filledRecipe) ? vialStats : null;
-                        newRecipe.ingredients = null;
+                        newRecipe.ingredients = (filledRecipe) ? vialStats : null;
+                        // newRecipe.ingredients = null;
                         newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);

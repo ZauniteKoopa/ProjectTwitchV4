@@ -43,6 +43,10 @@ public class LinearProjectile : IPrimaryAttack
         // Check timeout
         distanceTimer += distDelta;
         if (distanceTimer >= maxDistance) {
+            if (firstHit) {
+                onProjectileCollision();
+            }
+            
             Object.Destroy(gameObject);
         }
     }
@@ -65,6 +69,10 @@ public class LinearProjectile : IPrimaryAttack
     // Main collision handler
     private void OnTriggerEnter(Collider collider) {
         IUnitStatus target = collider.GetComponent<IUnitStatus>();
+        if (firstHit) {
+            onProjectileCollision();
+        }
+
         if (target != null) {
             damageTarget(target);
 
@@ -101,4 +109,8 @@ public class LinearProjectile : IPrimaryAttack
     protected bool isBackstab(IUnitStatus tgt) {
         return (canBackstab && Vector3.Angle(transform.forward, tgt.transform.forward) <= backstabAngleThreshold);
     }
+
+
+    // Main protected helper function for when you actually hit something
+    protected virtual void onProjectileCollision() {}
 }

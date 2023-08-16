@@ -15,22 +15,22 @@ MonoBehaviour:
   purePotencyColor: {r: 1, g: 0, b: 0.6246929, a: 1}
   pureReactivityColor: {r: 0.76599145, g: 0.8018868, b: 0.012608201, a: 1}
   pureStickinessColor: {r: 0, g: 0.7216792, b: 1, a: 1}
-  purePoisonColor: {r: 0.3470919, g: 0.7264151, b: 0.004568558, a: 1}
+  purePoisonColor: {r: 0.47826087, g: 1, b: 0, a: 1}
   tempPotencyColor: {r: 0.6886792, g: 0, b: 0.57775146, a: 1}
-  tempReactivityColor: {r: 0.5660378, g: 0.45706794, b: 0, a: 1}
+  tempReactivityColor: {r: 0.6901961, g: 0.6039216, b: 0.2509804, a: 1}
   tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
-  tempPoisonColor: {r: 0.16359851, g: 0.3490566, b: 0.097691916, a: 1}
+  tempPoisonColor: {r: 0.35686275, g: 0.63529414, b: 0.26666668, a: 1}
   baseVialColor: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
   - {fileID: 11400000, guid: e7c10242923d2b341af0a1328be67355, type: 2}
   poisonSideEffects:
-  - {fileID: 11400000, guid: 828444acff316fa4ba13b3fcbf1c86e4, type: 2}
+  - {fileID: 11400000, guid: dcf874746bedb934f847206a58fe03f4, type: 2}
   reactivitySideEffects:
   - {fileID: 11400000, guid: 11f8e87d8b1c82848b3e64a63bf6c7a9, type: 2}
   stickinessSideEffects:
-  - {fileID: 11400000, guid: fec4c764a33fe354c82aa46b49ee112e, type: 2}
+  - {fileID: 11400000, guid: 18d48d83ebefa6e498ef0d27a52eb1f3, type: 2}
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 20

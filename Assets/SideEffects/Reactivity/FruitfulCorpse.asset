@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Fruitful Corpse
   description: When infected with 6 stacks, enemies mutated so much that their remains
     can be used if they die with this poison. Drop 1 additional loot.
-  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+  spriteIcon: {fileID: 21300000, guid: cd648cede66ad3140915e82ef6651e72, type: 3}
   sideEffectType: 2
   maxStackEffect: 1
   defenseReduction: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LinearPoisonBolt : LinearProjectile
 {
-    private PoisonVial poison;
+    protected PoisonVial poison;
     [SerializeField]
     [Min(0)]
     private int appliedStacks = 1;
