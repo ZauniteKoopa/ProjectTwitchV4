@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af39142789337441a81d65764529b79, type: 3}
-  m_Name: ManicGas
+  m_Name: ElasticBubble
   m_EditorClassIdentifier: 
-  displayName: Manic Gas
-  description: Throw a cask to release a manic gas. Gas wil debuff the defense (50%)
-    and buff the attack (50%) of ANYONE within it
-  spriteIcon: {fileID: 21300000, guid: ef3b17f815a0176429b48fdd7b95bccb, type: 3}
-  sideEffectType: 0
+  displayName: Elastic Bubble
+  description: When you throw a cask, a large protective bubble appears, shielding
+    from incoming damage and stunning enemies that go in it.
+  spriteIcon: {fileID: 21300000, guid: 9e170a82e5c25f843b05f6b07083f856, type: 3}
+  sideEffectType: 3
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
-  secondaryAttackPrefab: {fileID: 848789524296125498, guid: 7d74b312ce012884aa376c45389900bf, type: 3}
-  secondaryAttackSpeed: 35
+  secondaryAttackPrefab: {fileID: 4343760719744806539, guid: 65f07754e54484348b5894ed30fb74b4, type: 3}
+  secondaryAttackSpeed: 20
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 4
-  secondaryAttackCooldown: 5
+  secondaryAttackCooldown: 6

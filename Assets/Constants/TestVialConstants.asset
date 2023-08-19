@@ -30,7 +30,7 @@ MonoBehaviour:
   reactivitySideEffects:
   - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}
   stickinessSideEffects:
-  - {fileID: 11400000, guid: 18d48d83ebefa6e498ef0d27a52eb1f3, type: 2}
+  - {fileID: 11400000, guid: db25db440f515ec44a85807273c73086, type: 2}
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 20

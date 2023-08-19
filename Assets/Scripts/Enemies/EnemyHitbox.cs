@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyHitbox : MonoBehaviour
 {
     protected HashSet<PlayerStatus> inRange = new HashSet<PlayerStatus>();
+    [SerializeField]
+    private LayerMask hitboxCollisionMask;
 
 
     // Main on trigger enter
@@ -30,7 +32,16 @@ public class EnemyHitbox : MonoBehaviour
     // Main function to do damage to all inrange players
     public void doDamage(float damage) {
         foreach (PlayerStatus player in inRange) {
-            player.damage(damage, false);
+            // Set up raycast
+            Vector3 rayCenter = transform.position;
+            Vector3 rayDir = player.transform.position - transform.position;
+            float rayDist = rayDir.magnitude;
+            rayDir.Normalize();
+
+            // If no obstructions, do damage
+            if (!Physics.Raycast(rayCenter, rayDir, rayDist, hitboxCollisionMask)) {
+                player.damage(damage, false);
+            }
         }
     }
 
