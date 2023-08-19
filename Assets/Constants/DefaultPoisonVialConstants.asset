@@ -27,6 +27,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 302bf22b3842c4748abba6ad2369c9eb, type: 2}
   - {fileID: 11400000, guid: ee7350655a998b14a9c75152f49d7a6d, type: 2}
   - {fileID: 11400000, guid: e7c10242923d2b341af0a1328be67355, type: 2}
+  - {fileID: 11400000, guid: 73513a9b070333f4fb5c8ecc054ceef5, type: 2}
   poisonSideEffects:
   - {fileID: 11400000, guid: 9f4b0c5c705bea04db0205208ec092d0, type: 2}
   - {fileID: 11400000, guid: 828444acff316fa4ba13b3fcbf1c86e4, type: 2}

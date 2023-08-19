@@ -254,7 +254,7 @@ public class TwitchAttackModule : IAttackModule
         yield return waitForFrames(contaminateStartFrames);
 
         // Contaminate
-        contaminateZone.contaminateAll();
+        contaminateZone.contaminateAll(status.getBaseAttack());
 
         // Ending
         render.material.color = Color.magenta;

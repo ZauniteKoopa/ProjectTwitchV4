@@ -149,14 +149,14 @@ public class PoisonVial
     // Main fucntion to actually create and fire a projectile at attackDir direction from attacker's position
     //  Pre: attackDir is the direction of attack, attacker is the transform of the one attacking
     //  Post: returns true if projectile fires. Returns false if it didn't due to ammo constraints
-    public bool fireSecondaryAttack(Vector3 tgtPos, Transform attacker) {
+    public bool fireSecondaryAttack(Vector3 tgtPos, Transform attacker, float attackModifier) {
         // If not enough ammo, return
         if (ammo < sideEffect.getSecondaryAttackCost()) {
             return false;
         }
 
         ammo -= sideEffect.getSecondaryAttackCost();
-        sideEffect.fireSecondaryAttack(tgtPos, attacker, this);
+        sideEffect.fireSecondaryAttack(tgtPos, attacker, this, attackModifier);
         return true;
     }
 
@@ -186,12 +186,12 @@ public class PoisonVial
     // Function to do contamination on target
     //  Pre: tgt != null, poisonStacks > 0
     //  Post: applies contaminate damage to target. invoke contaminate execute event if it kills
-    public void contaminate(EnemyStatus tgt, int poisonStacks) {
+    public void contaminate(EnemyStatus tgt, int poisonStacks, float attackModifier) {
         Debug.Assert(tgt != null && poisonStacks > 0);
 
         Vector3 enemyPosition = tgt.transform.position;
 
-        float contaminateDmg = getProjectedContaminateDamage(poisonStacks);
+        float contaminateDmg = getProjectedContaminateDamage(poisonStacks) * attackModifier;
         bool tgtKilled = tgt.damage(contaminateDmg, false);
 
         if (tgtKilled) {

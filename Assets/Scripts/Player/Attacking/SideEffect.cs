@@ -60,9 +60,9 @@ public class SideEffect : ScriptableObject
     // Main function to fire secondary attack
     //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
     //  Post: fires secondary attack
-    public virtual void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+    public virtual void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison, float attackModifier) {
         Debug.Assert(attacker != null && parentPoison != null);
-        PoisonVial.poisonVialConstants.fireDefaultSecondaryAttack(tgtPos, attacker, parentPoison);
+        PoisonVial.poisonVialConstants.fireDefaultSecondaryAttack(tgtPos, attacker, parentPoison, attackModifier);
     }
 
 

@@ -82,7 +82,7 @@ public class DasherAggroBranch : IEnemyAggroBranch
         yield return AI_NavLibrary.waitForFrames(dashAnticipationFrames);
 
         // Actual dash
-        lingeringBodyHitbox.setDamage(dashDamage);
+        lingeringBodyHitbox.setDamage(dashDamage * enemyStats.getBaseAttack());
         float dashDistanceTimer = 0f;
         while (dashDistanceTimer < maxDashDistance) {
             yield return 0;

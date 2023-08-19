@@ -12,6 +12,7 @@ public class PlayerStatus : IUnitStatus
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackSpeedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackMultiplierStatus = new SpeedModifierStatus();
+    private SpeedModifierStatus defenseModifierStatus = new SpeedModifierStatus();
 
     [SerializeField]
     [Min(0.01f)]
@@ -21,7 +22,8 @@ public class PlayerStatus : IUnitStatus
     private float invincibilityFrameDuration = 0.3f;
     private Coroutine activeInvincibilityPeriod = null;
     private float curHealth;
-    private float damageReduction = 0f;
+    [SerializeField]
+    private float damageReduction = 0.15f;
     private readonly object healthLock = new object();
 
 
@@ -76,7 +78,8 @@ public class PlayerStatus : IUnitStatus
     //  Post: unit gets inflicted with damage. returns true if death happens. else otherwise
     public override bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false) {
         if (activeInvincibilityPeriod == null) {
-            float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction, 0f, 1f));
+            float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(damageReduction * defenseModifierStatus.getSpeedModifier(), 0f, 1f));
+            
             lock (healthLock) {
                 if (isAlive()) {
                     curHealth -= actualDamage;
@@ -162,6 +165,18 @@ public class PlayerStatus : IUnitStatus
     //  Post: attack is affected accordingly
     public override void revertAttackModifier(float attackFactor) {
         attackMultiplierStatus.revertSpeedModifier(attackFactor);
+    }
+
+
+    // Main function to increase or decrease defense by a specific factor
+    public override void applyDefenseModifier(float defenseFactor) {
+        defenseModifierStatus.applySpeedModifier(defenseFactor);
+    }
+
+
+    // Main function to revert a defense modifier
+    public override void revertDefenseModifier(float defenseFactor) {
+        defenseModifierStatus.revertSpeedModifier(defenseFactor);
     }
 
 

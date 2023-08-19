@@ -39,13 +39,13 @@ public class ContaminateManager : MonoBehaviour
     
     
     // Main function to call contaminate
-    public void contaminateAll() {
-        StartCoroutine(contaminateAllSequence());
+    public void contaminateAll(float attackModifier) {
+        StartCoroutine(contaminateAllSequence(attackModifier));
     }
 
 
     // Main sequence to contaminate
-    private IEnumerator contaminateAllSequence() {
+    private IEnumerator contaminateAllSequence(float attackModifier) {
         // Get copy of targets so that they aren't effected by remove
         var lockedTargets = inRangeEnemyDelegates.Keys.ToArray();
 
@@ -62,7 +62,7 @@ public class ContaminateManager : MonoBehaviour
         // For each locked target, just contaminate them
         foreach (EnemyStatus tgt in lockedTargets) {
             if (tgt.isPoisoned()) {
-                tgt.contaminate();
+                tgt.contaminate(attackModifier);
             }
         }
 

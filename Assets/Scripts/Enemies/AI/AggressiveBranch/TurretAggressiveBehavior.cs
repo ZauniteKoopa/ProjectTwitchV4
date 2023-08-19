@@ -63,7 +63,7 @@ public class TurretAggressiveBehavior : IEnemyAggroBranch
         // Attack
         meshRender.material.color = originalColor;
         LinearProjectile curProjectile = Object.Instantiate(turretProjectile, transform.position, Quaternion.identity);
-        curProjectile.setUp(projDir, turretProjectileDamage, null, turretRange);
+        curProjectile.setUp(projDir, turretProjectileDamage * enemyStats.getBaseAttack(), null, turretRange);
         yield return AI_NavLibrary.waitForFrames(attackFrames);
     }
 

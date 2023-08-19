@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class EnemyStatusDelegate : UnityEvent<EnemyStatus> {}
+
 public class EnemyStatusSensor : MonoBehaviour
 {
     private Dictionary<EnemyStatus, UnityAction> inRangeEnemyDelegates = new Dictionary<EnemyStatus, UnityAction>();
+    public EnemyStatusDelegate enemyEnterEvent;
+    public EnemyStatusDelegate enemyExitEvent;
 
 
     // Main on trigger enter
@@ -16,6 +21,8 @@ public class EnemyStatusSensor : MonoBehaviour
             UnityAction curDelegate;
             tgt.deathEvent.AddListener(curDelegate = delegate { onEnemyDeath(tgt); });
             inRangeEnemyDelegates.Add(tgt, curDelegate);
+
+            enemyEnterEvent.Invoke(tgt);
         }
     }
 
@@ -27,6 +34,8 @@ public class EnemyStatusSensor : MonoBehaviour
         if (tgt != null && inRangeEnemyDelegates.ContainsKey(tgt)) {
             tgt.deathEvent.RemoveListener(inRangeEnemyDelegates[tgt]);
             inRangeEnemyDelegates.Remove(tgt);
+
+            enemyExitEvent.Invoke(tgt);
         }
     }
 
@@ -36,6 +45,8 @@ public class EnemyStatusSensor : MonoBehaviour
         if (enemy != null && inRangeEnemyDelegates.ContainsKey(enemy)) {
             enemy.deathEvent.RemoveListener(inRangeEnemyDelegates[enemy]);
             inRangeEnemyDelegates.Remove(enemy);
+
+            enemyExitEvent.Invoke(enemy);
         }
     }
 

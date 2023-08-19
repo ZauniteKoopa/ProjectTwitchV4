@@ -83,6 +83,14 @@ public abstract class IUnitStatus : MonoBehaviour
     public abstract void revertAttackModifier(float attackFactor);
 
 
+    // Main function to increase or decrease defense by a specific factor
+    public abstract void applyDefenseModifier(float defenseFactor);
+
+
+    // Main function to revert a defense modifier
+    public abstract void revertDefenseModifier(float defenseFactor);
+
+
     // Function to set movement to true 
     //  Pre: bool representing whether the player is moving or not
     //  Post: enact effects that happen while you're moving or deactivate effects when you aren't

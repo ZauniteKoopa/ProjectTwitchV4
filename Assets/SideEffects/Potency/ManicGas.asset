@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af39142789337441a81d65764529b79, type: 3}
+  m_Name: ManicGas
+  m_EditorClassIdentifier: 
+  displayName: Manic Gas
+  description: Throw a cask to release a manic gas. Gas wil debuff the defense (50%)
+    and buff the attack (50%) of **ANYONE** within it
+  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+  sideEffectType: 0
+  maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
+  postContaminateHitbox: {fileID: 0}
+  secondaryAttackPrefab: {fileID: 848789524296125498, guid: 7d74b312ce012884aa376c45389900bf, type: 3}
+  secondaryAttackSpeed: 35
+  secondaryAttackStartFrames: 15
+  secondaryAttackEndFrames: 10
+  secondaryAttackCost: 4
+  secondaryAttackCooldown: 5

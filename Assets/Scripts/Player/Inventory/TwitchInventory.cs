@@ -11,6 +11,8 @@ public class TwitchInventory : MonoBehaviour
     private PoisonVialConstants poisonVialParameters;
     [SerializeField]
     private Transform attackRangeIndicator;
+    [SerializeField]
+    private PlayerStatus twitchStatus;
     private PoisonVial primaryVial;
     private PoisonVial secondaryVial;
 
@@ -252,7 +254,7 @@ public class TwitchInventory : MonoBehaviour
         }
 
         // Fire bullet and then check ammo afterwards
-        bool success = primaryVial.fireSecondaryAttack(tgtPos, attacker);
+        bool success = primaryVial.fireSecondaryAttack(tgtPos, attacker, twitchStatus.getBaseAttack());
         if (success) {
             runningCaskCooldownSequence = StartCoroutine(caskCooldownSequence(primaryVial.getSecondaryAttackCooldown()));
 

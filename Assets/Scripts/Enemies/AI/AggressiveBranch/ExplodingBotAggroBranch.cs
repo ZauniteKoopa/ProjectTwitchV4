@@ -70,7 +70,7 @@ public class ExplodingBotAggroBranch : IEnemyAggroBranch
         yield return new WaitForSeconds(explosionAnticipationTime);
 
         // actual explosion
-        explosionHitbox.doDamage(explosionDamage);
+        explosionHitbox.doDamage(explosionDamage * enemyStats.getBaseAttack());
         explosionMesh.material.color = hitboxExplosionColor;
         yield return new WaitForSeconds(explosionAttackTime);
         explosionMesh.enabled = false;

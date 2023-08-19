@@ -190,7 +190,7 @@ public class PoisonVialConstants : ScriptableObject
     // Main function to fire default secondary attack
     //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
     //  Post: fires secondary attack
-    public void fireDefaultSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+    public void fireDefaultSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison, float attackModifier) {
         Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
 
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);

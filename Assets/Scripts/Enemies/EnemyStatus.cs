@@ -22,6 +22,7 @@ public class EnemyStatus : IUnitStatus
 
     private SpeedModifierStatus speedStatus = new SpeedModifierStatus();
     private SpeedModifierStatus attackMultiplierStatus = new SpeedModifierStatus();
+    private SpeedModifierStatus defenseModifierStatus = new SpeedModifierStatus();
     private readonly object healthLock = new object();
 
     [Header("UI")]
@@ -135,7 +136,7 @@ public class EnemyStatus : IUnitStatus
     //  Pre: none
     //  Post: Returns a float that represents base attack (> 0)
     public override float getBaseAttack() {
-        return 0;
+        return attackMultiplierStatus.getSpeedModifier();
     }
 
 
@@ -310,10 +311,22 @@ public class EnemyStatus : IUnitStatus
     }
 
 
+    // Main function to increase or decrease defense by a specific factor
+    public override void applyDefenseModifier(float defenseFactor) {
+        defenseModifierStatus.applySpeedModifier(defenseFactor);
+    }
+
+
+    // Main function to revert a defense modifier
+    public override void revertDefenseModifier(float defenseFactor) {
+        defenseModifierStatus.revertSpeedModifier(defenseFactor);
+    }
+
+
     // Main function to contaminate the unit based on the number of poison stacks
-    public void contaminate() {
+    public void contaminate(float attackModifier) {
         if (curPoisonStacks > 0 && curPoison != null) {
-            curPoison.contaminate(this, curPoisonStacks);
+            curPoison.contaminate(this, curPoisonStacks, attackModifier);
         }
     }
 
@@ -401,7 +414,7 @@ public class EnemyStatus : IUnitStatus
 
     // Main function to get the damage reduction
     private float getDamageReduction() {
-        float curReduction = damageReduction;
+        float curReduction = damageReduction * defenseModifierStatus.getSpeedModifier();
         if (curPoison != null) {
             curReduction *= curPoison.sideEffect.getDefenseReductionFactor(curPoisonStacks);
         }

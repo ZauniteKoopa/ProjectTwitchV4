@@ -28,7 +28,7 @@ public class SecondaryAttackSideEffect : SideEffect
     // Main function to fire secondary attack
     //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
     //  Post: fires secondary attack
-    public override void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison) {
+    public override void fireSecondaryAttack(Vector3 tgtPos, Transform attacker, PoisonVial parentPoison, float attackModifier) {
         Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
         
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
