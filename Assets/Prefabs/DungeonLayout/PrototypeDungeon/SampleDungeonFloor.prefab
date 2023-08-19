@@ -61,7 +61,7 @@ MonoBehaviour:
   lootChance: 0.65
   numStartingEnemies: 0
   maxEnemies: 0
-  timeBetweenEnemySpawns: 7
+  timeBetweenEnemySpawns: 6
   spawnTimeVariance: 1.5
   possibleEnemies:
   - {fileID: 3731168258028753952, guid: 5c76440c99ac8d24e854ddcdd1105ad9, type: 3}

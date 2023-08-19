@@ -133,7 +133,7 @@ public class TwitchInventory : MonoBehaviour
     private void resetScreenUI() {
         screenUI.displayAmbushCooldown(1f);
         screenUI.displayContaminateCooldown(1f);
-        screenUI.displayCaskCooldown(1f);
+        screenUI.displayCaskCooldown(1f, null);
         screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
 
         updateVialDisplays();
@@ -149,7 +149,7 @@ public class TwitchInventory : MonoBehaviour
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
             numIngredients = 0;
-            curMaxInventory = 6;
+            curMaxInventory = 8;
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         }
@@ -288,14 +288,14 @@ public class TwitchInventory : MonoBehaviour
 
         // Setup
         float timer = 0f;
-        screenUI.displayCaskCooldown(0f);
+        screenUI.displayCaskCooldown(0f, primaryVial);
 
         // Loop
         while (timer < curCooldown) {
             yield return 0;
             timer += Time.deltaTime;
 
-            screenUI.displayCaskCooldown(timer / curCooldown);
+            screenUI.displayCaskCooldown(timer / curCooldown, primaryVial);
         }
 
         runningCaskCooldownSequence = null;

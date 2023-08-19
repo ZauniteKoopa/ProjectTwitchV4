@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum PrimaryAttackAnimation {
     NORMAL = 0,
-    BOILING_BLAST = 1
+    BOILING_BLAST = 1,
+    SULFURIC_BLAST = 2,
+    CROSSBOW_JAM = 3
 }
 
 

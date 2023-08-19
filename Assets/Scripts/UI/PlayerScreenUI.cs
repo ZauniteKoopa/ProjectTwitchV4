@@ -124,19 +124,20 @@ public class PlayerScreenUI : MonoBehaviour
 
     // Main function to display the cooldown status for ambush
     public void displayAmbushCooldown(float cooldownProgress) {
-        displayAbilityIcon(cooldownProgress, ambushIcon, ambushCooldown);
+        displayAbilityIcon(cooldownProgress, ambushIcon, ambushCooldown, Color.white);
     }
     
     
     // Main function to display the cooldown status for ambush
-    public void displayCaskCooldown(float cooldownProgress) {
-        displayAbilityIcon(cooldownProgress, caskIcon, caskCooldown);
+    public void displayCaskCooldown(float cooldownProgress, PoisonVial caskVial) {
+        Color caskColor = (caskVial == null) ? Color.white : caskVial.getColor();
+        displayAbilityIcon(cooldownProgress, caskIcon, caskCooldown, caskColor);
     }
 
 
     // Main function to display the cooldown status for ambush
     public void displayContaminateCooldown(float cooldownProgress) {
-        displayAbilityIcon(cooldownProgress, contaminateIcon, contaminateCooldown);
+        displayAbilityIcon(cooldownProgress, contaminateIcon, contaminateCooldown, Color.white);
     }
 
 
@@ -271,9 +272,9 @@ public class PlayerScreenUI : MonoBehaviour
 
 
     // Private helper function to display cooldown for an icon ability
-    private void displayAbilityIcon(float cooldownProgress, Image icon, Image cooldownFill) {
+    private void displayAbilityIcon(float cooldownProgress, Image icon, Image cooldownFill, Color defaultColor) {
         float cooldownFillAmount = 1f - cooldownProgress;
-        icon.color = (cooldownFillAmount < 0.01f) ? Color.white : Color.blue;
+        icon.color = (cooldownFillAmount < 0.01f) ? defaultColor : Color.blue;
         cooldownFill.fillAmount = cooldownFillAmount;
     }
 

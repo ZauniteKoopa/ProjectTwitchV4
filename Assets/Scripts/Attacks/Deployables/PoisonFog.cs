@@ -18,6 +18,9 @@ public class PoisonFog : DeployableHitbox
     [Min(0.1f)]
     private float initialDamage = 8f;
     [SerializeField]
+    [Min(0)]
+    private int initialNumStacks = 1;
+    [SerializeField]
     [Range(0.01f, 1f)]
     private float poisonFogSpeedReduction = 0.6f;
     private PoisonVial poison;
@@ -65,7 +68,7 @@ public class PoisonFog : DeployableHitbox
             // If initial stage, apply damage
             if (inInitialStage && !enemyHit.Contains(enemyTgt)) {
                 enemyHit.Add(enemyTgt);
-                enemyTgt.poisonDamage(initialDamage, false, poison, 1);
+                enemyTgt.poisonDamage(initialDamage, false, poison, initialNumStacks);
             }
 
             // add to enemies that are in range

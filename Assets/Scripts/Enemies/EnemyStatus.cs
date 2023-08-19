@@ -201,9 +201,9 @@ public class EnemyStatus : IUnitStatus
                 }
 
                 // Poisoning sequence handling
-                if (currentPoisoningSequence == null) {
+                if (currentPoisoningSequence == null && appliedStacks > 0) {
                     currentPoisoningSequence = StartCoroutine(poisoningSequence());
-                } else {
+                } else if (appliedStacks > 0) {
                     curPoisonTime = 0f;
                 }
             }
