@@ -194,7 +194,7 @@ public class PoisonVialConstants : ScriptableObject
         Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
 
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
-        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison);
+        curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison, attacker.parent);
     }
 
 

@@ -872,7 +872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2554392386465904138, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -213.92
+      value: -204.17
       objectReference: {fileID: 0}
     - target: {fileID: 2554392386465904138, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
       propertyPath: m_LocalPosition.y
@@ -880,7 +880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2554392386465904138, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.52
+      value: -13.73
       objectReference: {fileID: 0}
     - target: {fileID: 2554392386465904138, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
       propertyPath: m_LocalRotation.w
@@ -932,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2554392386465904631, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6005754481ed440b074604a9bb3884, type: 3}
@@ -2051,6 +2051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
 --- !u!54 &5364838196125305811
 Rigidbody:
   m_ObjectHideFlags: 0

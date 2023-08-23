@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class DeployableHitbox : MonoBehaviour
 {
+    public Transform source;
+
+
     // Main function to deploy the hitbox at its currrent location
     public void deploy(PoisonVial poison) {
         gameObject.SetActive(true);
