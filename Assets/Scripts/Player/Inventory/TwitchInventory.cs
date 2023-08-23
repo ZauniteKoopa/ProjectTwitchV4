@@ -244,6 +244,12 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to get if secondary attack interrupts ambush
+    public bool secondaryAttackInterruptsAmbush() {
+        return primaryVial.sideEffect.caskLobInterruptsAmbush();
+    }
+
+
     // Main function to fire the primary vial if it's possible
     //  Pre: the attackDirection is the direction of attack
     //  Post: returns true if successful. false otherwise

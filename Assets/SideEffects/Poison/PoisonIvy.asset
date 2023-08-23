@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af39142789337441a81d65764529b79, type: 3}
-  m_Name: ElasticBubble
+  m_Name: PoisonIvy
   m_EditorClassIdentifier: 
-  displayName: Elastic Bubble
-  description: When you throw a cask, a large protective bubble appears, shielding
-    from incoming damage and stunning enemies that go in it.
-  spriteIcon: {fileID: 21300000, guid: 9e170a82e5c25f843b05f6b07083f856, type: 3}
-  sideEffectType: 3
+  displayName: Poison Ivy
+  description: This makes PLANTS!?? Bah! How worthless. At least they smell nice
+    and make for decent cover I suppose.. Cooldown reduced to 2 seconds and doesn't
+    interrupt ambush
+  spriteIcon: {fileID: 21300000, guid: 6a3b78b77d306514e9d342e05d401563, type: 3}
+  sideEffectType: 1
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
-  secondaryAttackPrefab: {fileID: 4343760719744806539, guid: 65f07754e54484348b5894ed30fb74b4, type: 3}
+  secondaryAttackPrefab: {fileID: 172281603498750256, guid: 3e230cfe6aeef7c4fb0b4c612369483f, type: 3}
   secondaryAttackSpeed: 20
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
-  secondaryAttackCost: 4
-  secondaryAttackCooldown: 8
+  secondaryAttackCost: 3
+  secondaryAttackCooldown: 2
+  interruptsAmbush: 0

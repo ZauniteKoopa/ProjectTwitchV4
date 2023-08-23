@@ -23,6 +23,8 @@ public class SecondaryAttackSideEffect : SideEffect
     [SerializeField]
     [Min(0.1f)]
     public float secondaryAttackCooldown = 6f;
+    [SerializeField]
+    private bool interruptsAmbush = true;
 
 
     // Main function to fire secondary attack
@@ -56,5 +58,11 @@ public class SecondaryAttackSideEffect : SideEffect
     // Main function to get the secondary attack cooldown
     public override float getSecondaryAttackCooldown() {
         return secondaryAttackCooldown;
+    }
+
+
+    // Main function to check if secondary attack interrupts ambush
+    public override bool caskLobInterruptsAmbush() {
+        return interruptsAmbush;
     }
 }

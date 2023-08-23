@@ -155,4 +155,10 @@ public class FieldOfVision : MonoBehaviour
         viewMesh.triangles = triangles;
         viewMesh.RecalculateNormals();
     }
+
+
+    // Main public function to dynamically change obstacle mask
+    public void changeObstacleMask(LayerMask newObsMask) {
+        obstacleMask = newObsMask;
+    }
 }

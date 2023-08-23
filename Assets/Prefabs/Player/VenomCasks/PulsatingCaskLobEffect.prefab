@@ -326,7 +326,7 @@ MonoBehaviour:
   grabbingDuration: 1
   grabbingSlowModifier: 0.5
   pullingDuration: 0.2
-  stunDuration: 1.25
+  stunDuration: 1.75
   pullingDamage: 6
   addedPullingStacks: 1
   pullDistance: 1.5

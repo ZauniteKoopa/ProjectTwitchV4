@@ -8,7 +8,8 @@ using UnityEngine.Events;
 public enum TwitchMovementState {
     MOVING,
     FIRING,
-    IN_ATTACK_ANIM
+    IN_ATTACK_ANIM,
+    NON_INTERRUPT_ATTACK_ANIM
 }
 
 public class TwitchAttackModule : IAttackModule
@@ -211,7 +212,7 @@ public class TwitchAttackModule : IAttackModule
         // Set up
         Vector3 tgt = caskAimPosition();
         attackAnimForward = (tgt - transform.position).normalized;
-        movementState = TwitchMovementState.IN_ATTACK_ANIM;
+        movementState = (inventory.secondaryAttackInterruptsAmbush()) ? TwitchMovementState.IN_ATTACK_ANIM : TwitchMovementState.NON_INTERRUPT_ATTACK_ANIM;
 
         // Obtain frame data
         int startFrames = applyAttackSpeedModifier(inventory.getSecondaryAttackStartFrames());
@@ -294,7 +295,7 @@ public class TwitchAttackModule : IAttackModule
 
         // Timer to wait out invisibility
         timer = 0f;
-        while (inventory.canContinueAmbushing() && movementState == TwitchMovementState.MOVING && holdingDownAmbush) {
+        while (inventory.canContinueAmbushing() && !interruptedAmbush() && holdingDownAmbush) {
             yield return 0;
             timer += Time.deltaTime;
         }
@@ -323,6 +324,12 @@ public class TwitchAttackModule : IAttackModule
     }
 
 
+    // Main function to check if you interrupted ambush
+    private bool interruptedAmbush() {
+        return movementState == TwitchMovementState.FIRING || movementState == TwitchMovementState.IN_ATTACK_ANIM;
+    }
+
+
     // Private helper function to apply ambush buff
     private void applyAmbushBuff() {
         if (!ambushBuffed) {
@@ -341,7 +348,7 @@ public class TwitchAttackModule : IAttackModule
     //  Pre: none
     //  Post: returns a float that tells how much movement speed should be reduced by currently
     public override float getMovementSpeedFactor() {
-        if (movementState == TwitchMovementState.IN_ATTACK_ANIM) {
+        if (movementState == TwitchMovementState.IN_ATTACK_ANIM || movementState == TwitchMovementState.NON_INTERRUPT_ATTACK_ANIM) {
             return 0f;
 
         } else if (movementState == TwitchMovementState.FIRING) {

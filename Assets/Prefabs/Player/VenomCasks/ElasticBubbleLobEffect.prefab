@@ -181,8 +181,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleDuration: 6
   minBubbleSize: 3
-  shrinkStartTime: 0.5
-  stunTime: 1.75
+  shrinkStartTime: 0.6
+  stunTime: 1
   initialEnemyStacks: 2
   initialDamageDuration: 0.05
   initialDamage: 3

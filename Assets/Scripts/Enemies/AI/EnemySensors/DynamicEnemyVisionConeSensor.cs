@@ -12,6 +12,10 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     [SerializeField]
     [Min(0.1f)]
     private float proximityRange = 4f;
+    private bool onAlert = false;
+    [SerializeField]
+    private float onAlertDuration = 0.2f;
+
 
     // Way to stay connected with nearby enemies
     [Header("Events")]
@@ -38,6 +42,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         }
 
         enemyStatus.enemyNoticesDamageEvent.AddListener(onAttackedByPlayer);
+        fieldOfVision.changeObstacleMask(visionMask);
     }
 
 
@@ -51,11 +56,13 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         if (playerTargetInProximityRange()) {
             brain.onSensedPlayer(nearbyTarget.transform);
             fieldOfVision.showVision(false);
+            fieldOfVision.changeObstacleMask(onAlertVisionMask);
 
         // If player is in vision cone
         } else if (seenPlayerByVision != null && seenPlayerByVision.canSeePlayer(enemyStatus)) {
             brain.onSensedPlayer(seenPlayerByVision.transform);
             fieldOfVision.showVision(false);
+            fieldOfVision.changeObstacleMask(onAlertVisionMask);
 
         // If allies nearby can see player
         } else if (seenPlayerByAllies != null && runningPlayerReaction == null) {
@@ -69,6 +76,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     protected override void forgetPlayer() {
         base.forgetPlayer();
         fieldOfVision.showVision(true);
+        fieldOfVision.changeObstacleMask(visionMask);
     }
 
 
@@ -77,6 +85,10 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         if (nearbyTarget != null) {
             brain.lookAt(nearbyTarget.transform.position - transform.position);
             enemyAttackedEvent.Invoke();
+
+            if (!brain.inAggroState() && !onAlert) {
+                StartCoroutine(onAlertSequence());
+            } 
         }
     }
 
@@ -162,6 +174,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         if (seenPlayer != null && !brain.inAggroState()) {
             brain.onSensedPlayer(seenPlayer.transform);
             fieldOfVision.showVision(false);
+            fieldOfVision.changeObstacleMask(onAlertVisionMask);
         }
 
         runningPlayerReaction = null;
@@ -183,7 +196,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
                 Vector3 targetPosition = otherEnemy.Key.nearbyTarget.transform.position;
                 Vector3 rayDir = targetPosition - transform.position;
                 float rayDist = rayDir.magnitude;
-                bool seeEnemy = !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
+                bool seeEnemy = !Physics.Raycast(transform.position, rayDir, rayDist, getVisionMask());
 
                 if (seeEnemy && otherEnemy.Key.nearbyTarget.canSeePlayer(enemyStatus)) {
                     return otherEnemy.Key.nearbyTarget;
@@ -213,6 +226,25 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         }
 
         // Check if there's any barriers in between
-        return !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
+        return !Physics.Raycast(transform.position, rayDir, rayDist, getVisionMask());
     }
+
+
+    // Main function to handle onAlert period
+    private IEnumerator onAlertSequence() {
+        onAlert = true;
+        fieldOfVision.changeObstacleMask(onAlertVisionMask);
+
+        yield return new WaitForSeconds(onAlertDuration);
+
+        onAlert = false;
+        fieldOfVision.changeObstacleMask(visionMask);
+    }
+
+
+    // Main function to get vision mask
+    private LayerMask getVisionMask() {
+        return (onAlert || brain.inAggroState()) ? onAlertVisionMask : visionMask;
+    }
+
 }

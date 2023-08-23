@@ -9,6 +9,8 @@ public class EnemyVisionSensor : MonoBehaviour
     // Main variables for vision
     [SerializeField]
     protected LayerMask visionMask;
+    [SerializeField]
+    protected LayerMask onAlertVisionMask;
     protected PlayerStatus nearbyTarget;
 
     // Main variables for short term memory
@@ -108,7 +110,8 @@ public class EnemyVisionSensor : MonoBehaviour
         Vector3 rayDir = targetPosition - transform.position;
         float rayDist = rayDir.magnitude;
         rayDir.Normalize();
-        bool seePlayer = !Physics.Raycast(transform.position, rayDir, rayDist, visionMask);
+        LayerMask curVisionMask = (brain.inAggroState()) ? onAlertVisionMask : visionMask;
+        bool seePlayer = !Physics.Raycast(transform.position, rayDir, rayDist, curVisionMask);
 
         // If you can see the player, check if the player is visible to consider invisibility
         if (seePlayer) {

@@ -134,12 +134,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 65792
   forgetDuration: 1
   brain: {fileID: 0}
   enemyStatus: {fileID: 0}
   fieldOfVision: {fileID: 5928128769542867745}
   proximityRange: 3.5
+  onAlertVisionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  onAlertDuration: 0.2
   enemyAttackedEvent:
     m_PersistentCalls:
       m_Calls: []

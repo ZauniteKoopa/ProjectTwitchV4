@@ -23154,10 +23154,10 @@ MonoBehaviour:
   attackRangeIndicator: {fileID: 9218362879205047891}
   twitchStatus: {fileID: 1347320806317760197}
   contaminateCooldown: 8
-  fullAmbushDuration: 6
-  minAmbushDurationRequirement: 2
-  ambushRegenMax: 2.1
-  ambushRegenCooldown: 8
+  fullAmbushDuration: 5
+  minAmbushDurationRequirement: 1.5
+  ambushRegenMax: 1.51
+  ambushRegenCooldown: 10
   onEnemyDeathAmbushRegen: 1
   playerInput: {fileID: 1347320807677090426}
   craftingDuration: 1
@@ -23406,7 +23406,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 65495
+    m_Bits: 131031
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

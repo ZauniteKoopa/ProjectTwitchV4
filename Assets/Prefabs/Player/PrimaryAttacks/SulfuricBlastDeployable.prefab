@@ -115,7 +115,7 @@ MonoBehaviour:
   maxFogTicks: 1
   initialDamageDuration: 0.1
   initialDamage: 0.5
-  initialNumStacks: 0
+  initialNumStacks: 1
   poisonFogSpeedReduction: 0.6
 --- !u!82 &7871324097822488136
 AudioSource:

@@ -90,6 +90,12 @@ public class SideEffect : ScriptableObject
     }
 
 
+    // Main function to check if secondary attack interrupts ambush
+    public virtual bool caskLobInterruptsAmbush() {
+        return true;
+    }
+
+
     // Main function to display side effect info using a side effect display
     //  Pre: sideEffectDisplay != null
     public void displaySideEffectInfo(SideEffectDisplay display) {
