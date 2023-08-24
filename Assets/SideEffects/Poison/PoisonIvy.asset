@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: PoisonIvy
   m_EditorClassIdentifier: 
   displayName: Poison Ivy
-  description: This makes PLANTS!?? Bah! How worthless. At least they smell nice
-    and make for decent cover I suppose.. Cooldown reduced to 2 seconds and doesn't
-    interrupt ambush
+  description: This makes PLANTS!?? Ugh. Well it makes decent cover at least. No
+    cooldown. Can only have 3 at one time. Increased poison damage
   spriteIcon: {fileID: 21300000, guid: 6a3b78b77d306514e9d342e05d401563, type: 3}
   sideEffectType: 1
   maxStackEffect: 0
@@ -23,9 +22,12 @@ MonoBehaviour:
   additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 172281603498750256, guid: 3e230cfe6aeef7c4fb0b4c612369483f, type: 3}
-  secondaryAttackSpeed: 20
+  secondaryAttackSpeed: 30
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
-  secondaryAttackCooldown: 2
+  secondaryAttackCooldown: 0.25
   interruptsAmbush: 0
+  hasAdditionalAction: 0
+  allowLimitedDeployableNumber: 1
+  numDeployableLimit: 3

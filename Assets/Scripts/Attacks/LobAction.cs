@@ -5,8 +5,7 @@ using UnityEngine.Assertions;
 
 public class LobAction : MonoBehaviour
 {
-    [SerializeField]
-    private DeployableHitbox deployable;
+    public DeployableHitbox deployable;
     private const float MIN_START_TIME = 0.25f;
     private const float MAX_LOB_HEIGHT = 2f;
     private const float LOB_COLLISION_LAYER_OFFSET = 0.7f;

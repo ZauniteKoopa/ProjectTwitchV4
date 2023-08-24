@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "PoisonSideEffects/SecondaryAttackSideEffect")]
 public class SecondaryAttackSideEffect : SideEffect
@@ -28,6 +29,13 @@ public class SecondaryAttackSideEffect : SideEffect
     [SerializeField]
     private bool hasAdditionalAction;
 
+    [Header("Allowing only a limited number of deployables on field")]
+    [SerializeField]
+    private bool allowLimitedDeployableNumber = false;
+    [SerializeField]
+    private int numDeployableLimit = 1;
+    private Queue<DeployableHitbox> activeDeployables = new Queue<DeployableHitbox>();
+
 
     // Main function to fire secondary attack
     //  Pre: tgtPos is position within game, poisonVial is the poison associated with lob, and attack is the one sending out attack
@@ -36,6 +44,19 @@ public class SecondaryAttackSideEffect : SideEffect
         Debug.Assert(attacker != null && parentPoison != null && secondaryAttackPrefab != null);
         
         LobAction curLob = Object.Instantiate(secondaryAttackPrefab, attacker.position, Quaternion.identity);
+        if (allowLimitedDeployableNumber) {
+            // Delete an object if you're passed the point 
+            if (activeDeployables.Count >= numDeployableLimit) {
+                DeployableHitbox removedDeployable = activeDeployables.Dequeue();
+                removedDeployable.deployableDestroyedEvent.RemoveListener(onActiveDeployableDestroyed);
+                removedDeployable.destroyDeployable();
+            }
+
+            // Add new deployable to the queue
+            curLob.deployable.deployableDestroyedEvent.AddListener(onActiveDeployableDestroyed);
+            activeDeployables.Enqueue(curLob.deployable);
+        }
+
         curLob.lob(attacker.position, tgtPos, secondaryAttackSpeed, parentPoison, attacker.parent);
     }
 
@@ -72,5 +93,11 @@ public class SecondaryAttackSideEffect : SideEffect
     // Main function to check if this secondary attack has an additional secondary attack action
     public override bool hasAdditionalSecondaryAttackAction() {
         return hasAdditionalAction;
+    }
+
+
+    // Main event handler for when a deployable is destroyed
+    private void onActiveDeployableDestroyed() {
+        activeDeployables.Dequeue();
     }
 }

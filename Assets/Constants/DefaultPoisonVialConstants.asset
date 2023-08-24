@@ -38,6 +38,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}
   - {fileID: 11400000, guid: 873cef3fcf2e0aa4aaa07b837e2e4091, type: 2}
   - {fileID: 11400000, guid: 11f8e87d8b1c82848b3e64a63bf6c7a9, type: 2}
+  - {fileID: 11400000, guid: c5ad50a0922157c44a180cc8aa81dae7, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: c42b5b7e288bbca4d98d6f2e9ec39f75, type: 2}
   - {fileID: 11400000, guid: fec4c764a33fe354c82aa46b49ee112e, type: 2}

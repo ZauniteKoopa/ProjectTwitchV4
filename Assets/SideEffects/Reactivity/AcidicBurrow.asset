@@ -28,3 +28,6 @@ MonoBehaviour:
   secondaryAttackCost: 4
   secondaryAttackCooldown: 9
   interruptsAmbush: 0
+  hasAdditionalAction: 1
+  allowLimitedDeployableNumber: 0
+  numDeployableLimit: 1
