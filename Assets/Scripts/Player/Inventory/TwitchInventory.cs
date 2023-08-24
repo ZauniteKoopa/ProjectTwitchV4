@@ -37,6 +37,10 @@ public class TwitchInventory : MonoBehaviour
     private float onEnemyDeathAmbushRegen = 1f;
     private float curAmbushDuration;
     private bool isAmbushing;
+
+    private float curCaskCooldown;
+    private float curCaskCooldownTimer;
+    private bool displaySecondaryAttackErrorMessage = true;
     
     private Coroutine runningCaskCooldownSequence = null;
     private Coroutine runningContaminateCooldownSequence = null;
@@ -255,13 +259,13 @@ public class TwitchInventory : MonoBehaviour
     //  Post: returns true if successful. false otherwise
     public bool fireSecondaryLob(Vector3 tgtPos, Transform attacker) {
         if (primaryVial == null || runningCaskCooldownSequence != null) {
-            string curError = (primaryVial == null) ? noVialEquippedErrorMessage : abilityCooldownErrorMessage;
             return false;
         }
 
         // Fire bullet and then check ammo afterwards
         bool success = primaryVial.fireSecondaryAttack(tgtPos, attacker, twitchStatus.getBaseAttack());
         if (success) {
+            displaySecondaryAttackErrorMessage = !primaryVial.sideEffect.hasAdditionalSecondaryAttackAction();
             runningCaskCooldownSequence = StartCoroutine(caskCooldownSequence(primaryVial.getSecondaryAttackCooldown()));
 
             if (primaryVial.getAmmo() <= 0) {
@@ -276,13 +280,14 @@ public class TwitchInventory : MonoBehaviour
 
     // Main function to check if you can actually fire secondary attack
     public bool canFireSecondaryLob() {
-        if (runningCaskCooldownSequence != null) {
-            screenUI.displayErrorMessage(abilityCooldownErrorMessage);
-        } else if (primaryVial == null) {
-            screenUI.displayErrorMessage(noVialEquippedErrorMessage);
-        } else if (!primaryVial.canFireSecondaryLob()) {
-            screenUI.displayErrorMessage(runOutOfAmmoMessage);
-
+        if (displaySecondaryAttackErrorMessage) {
+            if (runningCaskCooldownSequence != null) {
+                screenUI.displayErrorMessage(abilityCooldownErrorMessage);
+            } else if (primaryVial == null) {
+                screenUI.displayErrorMessage(noVialEquippedErrorMessage);
+            } else if (!primaryVial.canFireSecondaryLob()) {
+                screenUI.displayErrorMessage(runOutOfAmmoMessage);
+            }
         }
 
         return primaryVial != null && primaryVial.canFireSecondaryLob() && runningCaskCooldownSequence == null;
@@ -294,19 +299,33 @@ public class TwitchInventory : MonoBehaviour
     private IEnumerator caskCooldownSequence(float curCooldown) {
         Debug.Assert(curCooldown > 0f);
 
+        curCaskCooldown = curCooldown;
+
         // Setup
-        float timer = 0f;
+        curCaskCooldownTimer = 0f;
         screenUI.displayCaskCooldown(0f, primaryVial);
 
         // Loop
-        while (timer < curCooldown) {
+        while (curCaskCooldownTimer < curCaskCooldown) {
             yield return 0;
-            timer += Time.deltaTime;
-
-            screenUI.displayCaskCooldown(timer / curCooldown, primaryVial);
+            curCaskCooldownTimer += Time.deltaTime;
+            screenUI.displayCaskCooldown(curCaskCooldownTimer / curCaskCooldown, primaryVial);
         }
 
+        displaySecondaryAttackErrorMessage = true;
         runningCaskCooldownSequence = null;
+    }
+
+
+    private void reduceCaskCooldown(float cooldownReducedTo) {
+        Debug.Assert(cooldownReducedTo > 0f);
+
+        float setTimer = (curCaskCooldown - cooldownReducedTo);
+        if (setTimer > curCaskCooldownTimer) {
+            curCaskCooldownTimer = setTimer;
+        }
+
+        displaySecondaryAttackErrorMessage = true;
     }
 
 

@@ -22,7 +22,7 @@ MonoBehaviour:
   additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 6663413756371205249, guid: 8c36f502bef4cf34d9435dc65b9f6a25, type: 3}
-  secondaryAttackSpeed: 80
+  secondaryAttackSpeed: 40
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3

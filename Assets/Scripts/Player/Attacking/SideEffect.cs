@@ -90,6 +90,12 @@ public class SideEffect : ScriptableObject
     }
 
 
+    // Main function to check if this secondary attack has an additional secondary attack action
+    public virtual bool hasAdditionalSecondaryAttackAction() {
+        return false;
+    }
+
+
     // Main function to check if secondary attack interrupts ambush
     public virtual bool caskLobInterruptsAmbush() {
         return true;

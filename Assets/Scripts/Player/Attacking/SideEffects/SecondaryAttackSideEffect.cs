@@ -25,6 +25,8 @@ public class SecondaryAttackSideEffect : SideEffect
     public float secondaryAttackCooldown = 6f;
     [SerializeField]
     private bool interruptsAmbush = true;
+    [SerializeField]
+    private bool hasAdditionalAction;
 
 
     // Main function to fire secondary attack
@@ -64,5 +66,11 @@ public class SecondaryAttackSideEffect : SideEffect
     // Main function to check if secondary attack interrupts ambush
     public override bool caskLobInterruptsAmbush() {
         return interruptsAmbush;
+    }
+
+
+    // Main function to check if this secondary attack has an additional secondary attack action
+    public override bool hasAdditionalSecondaryAttackAction() {
+        return hasAdditionalAction;
     }
 }

@@ -19,6 +19,9 @@ public class AcidicBurrow : DeployableHitbox
     [SerializeField]
     [Range(0.01f, 1f)]
     private float speedDebuff = 0.5f;
+    [SerializeField]
+    [Min(0f)]
+    private float caskCooldownReductionTo = 1f;
 
 
     private bool burrowed = false;
@@ -74,6 +77,7 @@ public class AcidicBurrow : DeployableHitbox
             burrowed = true;
 
             source.position = new Vector3(transform.position.x, source.position.y, transform.position.z);
+            source.BroadcastMessage("reduceCaskCooldown", caskCooldownReductionTo);
             explosionHitbox.setUp(Vector3.forward, explosionDamage, curPoison, curExplosionRadius);
             explosionHitbox.gameObject.SetActive(true);
         }
