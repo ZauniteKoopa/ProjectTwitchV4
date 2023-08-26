@@ -410,7 +410,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 094e18129b4c48549980ee26aedd03c5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 294a13f0c4fc65d4aaad3a0fa870ef62, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -509,11 +509,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  explosionDamage: 9
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  explosionDamage: 6
   explosionHitbox: {fileID: 5401722223876938758}
   maxBurrowDuration: 8
   maxHitboxDuration: 0.2
   speedDebuff: 0.5
+  caskCooldownReductionTo: 0.25
+  burrowSound: {fileID: 8300000, guid: 00bed96bfc9ca684f88c79ce74bbba86, type: 3}
 --- !u!114 &2591587342580138552
 MonoBehaviour:
   m_ObjectHideFlags: 0

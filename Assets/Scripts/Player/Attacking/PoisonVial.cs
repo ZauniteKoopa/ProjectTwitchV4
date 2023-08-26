@@ -22,7 +22,7 @@ public class PoisonVial
     private static readonly float BASE_CONTAMINATE_DMG = 5.5f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 1f;
 
-    private static readonly int AMMO_GAIN_PER_INGREDIENT = 10;
+    private static readonly int AMMO_GAIN_PER_INGREDIENT = 12;
     private static readonly int MAX_STAT = 3;
     private static readonly int MAX_CRAFT_ATTEMPTS = 8;
     public static readonly int MAX_AMMO = 60;

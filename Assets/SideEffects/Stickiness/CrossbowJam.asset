@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Crossbow Jam
   description: Huh!? My crossbow's jammed with this sludge! It's starting to get
-    spiky.. Primary attacks are now fast melee attacks with reduced damage
+    spiky.. Primary attacks are now fast melee attacks
   spriteIcon: {fileID: 21300000, guid: c00c7f5ff36428047b84ab17d3a642d0, type: 3}
   sideEffectType: 3
   maxStackEffect: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   primaryAttackPrefab: {fileID: 221922940752106000, guid: b9c245dda6306844eb54850a254ee1ce, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 10
-  primaryAttackMultiplier: 0.8
+  primaryAttackMultiplier: 1
   attackRange: 4
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 754f1e670cd980b48bff97bb55ee29dc, type: 3}

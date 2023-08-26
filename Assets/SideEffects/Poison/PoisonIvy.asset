@@ -25,7 +25,7 @@ MonoBehaviour:
   secondaryAttackSpeed: 30
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
-  secondaryAttackCost: 3
+  secondaryAttackCost: 2
   secondaryAttackCooldown: 0.25
   interruptsAmbush: 0
   hasAdditionalAction: 0

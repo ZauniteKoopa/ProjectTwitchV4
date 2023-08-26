@@ -22,6 +22,8 @@ public class AcidicBurrow : DeployableHitbox
     [SerializeField]
     [Min(0f)]
     private float caskCooldownReductionTo = 1f;
+    [SerializeField]
+    private AudioClip burrowSound = null;
 
 
     private bool burrowed = false;
@@ -30,6 +32,7 @@ public class AcidicBurrow : DeployableHitbox
     private float curExplosionRadius = 0f;
     private PoisonVial curPoison;
     private EnemyStatusSensor enemyStatusSensor = null;
+    private AudioSource speaker;
 
 
     // On awake, get component
@@ -37,6 +40,7 @@ public class AcidicBurrow : DeployableHitbox
         playerInput = GetComponent<PlayerInput>();
         meshRenderer = GetComponent<MeshRenderer>();
         enemyStatusSensor = GetComponent<EnemyStatusSensor>();
+        speaker = GetComponent<AudioSource>();
 
         curExplosionRadius = transform.localScale.x;
         enemyStatusSensor.enemyEnterEvent.AddListener(onEnemyEnter);
@@ -80,6 +84,9 @@ public class AcidicBurrow : DeployableHitbox
             source.BroadcastMessage("reduceCaskCooldown", caskCooldownReductionTo);
             explosionHitbox.setUp(Vector3.forward, explosionDamage, curPoison, curExplosionRadius);
             explosionHitbox.gameObject.SetActive(true);
+
+            speaker.clip = burrowSound;
+            speaker.Play();
         }
     }
 

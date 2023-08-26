@@ -97,11 +97,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 28c2c961724c6b543b34668f837375e9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 761c8a03c61c9e347a7e6bf64a42fa86, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.8
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -208,6 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbf2f583a5ac4c43b520003a81dac20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   enemyStatusSensor: {fileID: 2008578721772523311}
   attackBuff: 1.5
   defenseDebuff: 0.5
