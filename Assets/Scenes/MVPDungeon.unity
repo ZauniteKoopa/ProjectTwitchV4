@@ -7212,17 +7212,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: ambushRegenMax
-      value: 1.76
+    - target: {fileID: 199501527, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: fullAmbushDuration
-      value: 6
+    - target: {fileID: 199501527, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
-    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: minAmbushDurationRequirement
-      value: 1.75
+    - target: {fileID: 199501527, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 429715607, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: enemyAimAssistRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646489989, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646489989, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646489989, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder

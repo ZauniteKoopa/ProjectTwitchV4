@@ -23154,9 +23154,9 @@ MonoBehaviour:
   attackRangeIndicator: {fileID: 9218362879205047891}
   twitchStatus: {fileID: 1347320806317760197}
   contaminateCooldown: 8
-  fullAmbushDuration: 5
-  minAmbushDurationRequirement: 1.5
-  ambushRegenMax: 1.51
+  fullAmbushDuration: 6
+  minAmbushDurationRequirement: 1.75
+  ambushRegenMax: 1.76
   ambushRegenCooldown: 10
   onEnemyDeathAmbushRegen: 1
   playerInput: {fileID: 1347320807677090426}

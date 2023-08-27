@@ -23,6 +23,8 @@ public class PoisonFog : DeployableHitbox
     [SerializeField]
     [Range(0.01f, 1f)]
     private float poisonFogSpeedReduction = 0.6f;
+    [SerializeField]
+    private ResourceBar optionalPoisonFogDurationBar = null;
     private PoisonVial poison;
     private bool inInitialStage = true;
 
@@ -37,6 +39,10 @@ public class PoisonFog : DeployableHitbox
     protected override IEnumerator lifespan(PoisonVial p) {
         poison = p;
         GetComponent<MeshRenderer>().material.color = p.getColor();
+
+        if (optionalPoisonFogDurationBar != null) {
+            StartCoroutine(displayDuration());
+        }
 
         // Initial damage
         yield return new WaitForSeconds(initialDamageDuration);
@@ -56,7 +62,24 @@ public class PoisonFog : DeployableHitbox
             enemy.revertSpeedModifier(poisonFogSpeedReduction);
         }
 
-        Object.Destroy(gameObject);
+        destroyDeployable();
+    }
+
+
+    // Main function to handle the resource bar, if it exists
+    private IEnumerator displayDuration() {
+        Debug.Assert(optionalPoisonFogDurationBar != null);
+
+        float timer = 0f;
+        float maxDuration = initialDamageDuration + (fogTickDuration * maxFogTicks);
+        optionalPoisonFogDurationBar.setFill(1f, 1f);
+
+        while (timer < maxDuration) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            optionalPoisonFogDurationBar.setFill(maxDuration - timer, maxDuration);
+        }
     }
 
 

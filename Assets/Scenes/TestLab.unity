@@ -435,7 +435,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 4082118b64699db4e8d491a44480d91b, type: 2}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2052,6 +2052,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &5364838196125305811
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2120,7 +2123,7 @@ Transform:
   - {fileID: 7204605803700423463}
   - {fileID: 7932855477575376815}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5364838196125305837
 MeshFilter:

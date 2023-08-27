@@ -16,6 +16,8 @@ public class ManicGas : DeployableHitbox
     [SerializeField]
     [Min(0.1f)]
     private float gasDuration = 8f;
+    [SerializeField]
+    private ResourceBar manicGasDurationBar;
 
 
     private void Awake() {
@@ -28,7 +30,15 @@ public class ManicGas : DeployableHitbox
     //  Pre: none
     //  Post: hitbox will stay for a duration, doing whatever it wants. by the end of it, it should kill itself
     protected override IEnumerator lifespan(PoisonVial p) {
-        yield return new WaitForSeconds(gasDuration);
+        float timer = 0f;
+        manicGasDurationBar.setFill(gasDuration, gasDuration);
+
+        while (timer < gasDuration) {
+            yield return 0;
+
+            timer += Time.deltaTime;
+            manicGasDurationBar.setFill(gasDuration - timer, gasDuration);
+        }
 
         transform.Translate(Vector3.up * -800000f);
         yield return new WaitForSeconds(0.25f);

@@ -25,8 +25,8 @@ public class PlayerCameraController : MonoBehaviour
     private static int numFramesPerShake = 2;
 
     // Static variables for room mode
-    private static readonly float CAMERA_OFFSET_X = 8f;
-    private static readonly float CAMERA_OFFSET_Z = 5f;
+    private static readonly float CAMERA_OFFSET_X = 10f;
+    private static readonly float CAMERA_OFFSET_Z = 7.5f;
 
 
     // Main runtime variable for getting the runtime zoom (you can get actual position by multiplying this value by Vector3.back)
@@ -224,7 +224,7 @@ public class PlayerCameraController : MonoBehaviour
                     defaultPitch,
                     defaultYaw,
                     defaultZoom,
-                    125f,
+                    60f,
                     getLocalCameraPivotRoomPosition(tgtRoom)
                 );
                 Time.timeScale = 1f;

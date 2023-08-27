@@ -24,6 +24,8 @@ public class AcidicBurrow : DeployableHitbox
     private float caskCooldownReductionTo = 1f;
     [SerializeField]
     private AudioClip burrowSound = null;
+    [SerializeField]
+    private ResourceBar burrowDurationBar;
 
 
     private bool burrowed = false;
@@ -54,10 +56,13 @@ public class AcidicBurrow : DeployableHitbox
     protected override IEnumerator lifespan(PoisonVial poison) {
         float timer = 0f;
         curPoison = poison;
+        burrowDurationBar.setFill(maxBurrowDuration, maxBurrowDuration);
 
         while (timer < maxBurrowDuration && !burrowed) {
             yield return 0;
+
             timer += Time.deltaTime;
+            burrowDurationBar.setFill(maxBurrowDuration - timer, maxBurrowDuration);
         }
 
 
