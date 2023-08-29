@@ -570,7 +570,7 @@ public class TwitchInventory : MonoBehaviour
             List<Recipe> newRecipes = recipeBook.getRandomRecipes(numRecipes);
 
             foreach (Recipe r in newRecipes) {
-                recipeBook.addNewRecipe(r);
+                recipeBook.addNewRecipe(r, false);
             }
         }
     }

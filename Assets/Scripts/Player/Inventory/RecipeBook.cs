@@ -138,7 +138,7 @@ public class RecipeBook
     // Main function to add the side effect
     //  Pre: recipe != null and none of its contents are null
     //  Post: adds recipe to the appropriate section and sets the curPage to that section
-    public void addNewRecipe(Recipe recipe) {
+    public void addNewRecipe(Recipe recipe, bool setPageToNewRecipe = true) {
         Debug.Assert(recipe != null && recipe.resultingSideEffect != null);
 
         int sectionIndex = 0;
@@ -162,7 +162,7 @@ public class RecipeBook
         }
 
         // Set curPage to the new side effect IFF something updated
-        if (updated) {
+        if (updated && setPageToNewRecipe) {
             curPage = findSideEffect(recipe.resultingSideEffect);
 
             if (recipe.ingredients != null) {
@@ -225,6 +225,12 @@ public class RecipeBook
     // Main function to check if you can add a new side effect
     public bool canAddNewRecipe() {
         return getTotalCompletedRecipes() < PoisonVial.poisonVialConstants.getTotalNumberOfSideEffects();
+    }
+
+
+    // Main function to check if you can add a new recipe within the specialization
+    public bool canAddNewRecipe(PoisonVialStat specialization) {
+        return recipes[specialization].Count < Mathf.Min(PoisonVial.poisonVialConstants.getTotalNumberOfSideEffects(specialization), POSSIBLE_STAT_COMBOS.Length);
     }
 
 
@@ -314,5 +320,11 @@ public class RecipeBook
         }
 
         return false;
+    }
+
+
+    // Main function to get the current page number of the recipebook (starting at 1)
+    public int getCurrentPage() {
+        return curPage + 1;
     }
 }

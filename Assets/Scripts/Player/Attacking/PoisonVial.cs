@@ -247,10 +247,10 @@ public class PoisonVial
                 bool filledRecipe = (numCraftAttempts == RecipeBook.RECIPE_INGREDIENT_REQUIREMENTS);
                 sideEffect = filledRecipe ? recipeBook.createSideEffectFromRecipe(vialStats, stat) : null;
                 if (sideEffect == null) {
-                    sideEffect = poisonVialConstants.obtainSideEffect(stat);
+                    sideEffect = poisonVialConstants.obtainSideEffect(stat, recipeBook, filledRecipe);
                     Recipe existingRecipe = recipeBook.jumpToSideEffect(sideEffect);
 
-                    // Create empty recipe
+                    // Create empty recipe if recipe doesn't exist
                     if (existingRecipe == null) {
                         Recipe newRecipe = new Recipe();
                         newRecipe.ingredients = (filledRecipe) ? vialStats : null;
@@ -258,6 +258,10 @@ public class PoisonVial
                         newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);
+
+                    // Just have recipe point to ingredient if no ingredients / recipes listed
+                    } else if (existingRecipe.ingredients == null && filledRecipe) {
+                        existingRecipe.ingredients = vialStats;
                     }
                 }
             }

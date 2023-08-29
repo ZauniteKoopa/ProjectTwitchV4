@@ -405,6 +405,8 @@ MonoBehaviour:
   sideEffectDisplay: {fileID: 34095218}
   ingredientsDisplay: {fileID: 868600087}
   noRecipeLabel: {fileID: 0}
+  recipePageDisplay: {fileID: 34095219}
+  recipePageColorEffect: 0.15
 --- !u!1 &36166866
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,6 +3961,8 @@ MonoBehaviour:
   sideEffectDisplay: {fileID: 1034077207}
   ingredientsDisplay: {fileID: 985033716}
   noRecipeLabel: {fileID: 0}
+  recipePageDisplay: {fileID: 1034077208}
+  recipePageColorEffect: 0.15
 --- !u!1 &1048215076
 GameObject:
   m_ObjectHideFlags: 0
@@ -5817,6 +5821,8 @@ MonoBehaviour:
   sideEffectDisplay: {fileID: 1660640929}
   ingredientsDisplay: {fileID: 1093134827}
   noRecipeLabel: {fileID: 0}
+  recipePageDisplay: {fileID: 1660640930}
+  recipePageColorEffect: 0.15
 --- !u!1 &1679865361
 GameObject:
   m_ObjectHideFlags: 0
@@ -8975,6 +8981,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3371384900896330042
 MonoBehaviour:
   m_ObjectHideFlags: 0

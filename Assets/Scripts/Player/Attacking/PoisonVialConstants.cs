@@ -136,15 +136,34 @@ public class PoisonVialConstants : ScriptableObject
     }
 
 
-    // Main function to obtain a side effect of a certain type
-    public SideEffect obtainSideEffect(PoisonVialStat specialization) {
+    // Main function to obtain a side effect of a certain type:
+    public SideEffect obtainSideEffect(PoisonVialStat specialization, RecipeBook recipeBook, bool prioritizeNewRecipe) {
         if (sideEffectDictionary == null) {
             initializeSideEffectDictionary();
         }
 
+        // Pick the side effect specialization and just pick a random index
         SideEffect[] sideEffectList = sideEffectDictionary[specialization];
         Debug.Assert(sideEffectList.Length > 0);
-        return sideEffectList[Random.Range(0, sideEffectList.Length)];
+        int curIndex = Random.Range(0, sideEffectList.Length);
+
+        // If prioritizeNewRecipe and recipe book specialization section is not filled out, find a side effect the recipe book doesn't have
+        if (prioritizeNewRecipe && recipeBook.canAddNewRecipe(specialization)) {
+            bool moveForward = (Random.Range(0, 2) == 0);
+            bool recipeBookHasSideEffect = recipeBook.containsSideEffect(sideEffectList[curIndex]);
+
+            while (recipeBookHasSideEffect) {
+                // Increment curIndex
+                curIndex += (moveForward) ? 1 : (sideEffectList.Length - 1);
+                curIndex %= sideEffectList.Length;
+
+                // Update while loop condition
+                recipeBookHasSideEffect = recipeBook.containsSideEffect(sideEffectList[curIndex]);
+            }
+        }
+
+        // Return recipe at cur index
+        return sideEffectList[curIndex];
     }
 
 
@@ -238,5 +257,17 @@ public class PoisonVialConstants : ScriptableObject
         }
 
         return sideEffectList.Count;
+    }
+
+
+    // Main function to get the total number of side effects within a specialization
+    public int getTotalNumberOfSideEffects(PoisonVialStat specialization) {
+        // Initialize
+        if (sideEffectDictionary == null) {
+            initializeSideEffectDictionary();
+        }
+
+        // Return the length of that section
+        return sideEffectDictionary[specialization].Length;
     }
 }
