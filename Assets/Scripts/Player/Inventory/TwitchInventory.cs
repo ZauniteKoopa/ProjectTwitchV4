@@ -54,10 +54,16 @@ public class TwitchInventory : MonoBehaviour
     [SerializeField]
     [Min(0)]
     private int numStartingRecipes = 3;
+    [SerializeField]
+    [Range(1, 16)]
+    private int numStartingIngredientSlots = 4;
+
     private Dictionary<PoisonVialStat, int> ingredientInventory = new Dictionary<PoisonVialStat, int>();
     private RecipeBook recipeBook = new RecipeBook();
     private int numIngredients = 0;
-    private int curMaxInventory = 12;
+    private int curMaxInventory;
+
+    private const int MAX_INVENTORY_SLOTS = 16;
     private Coroutine runningCraftingSequence = null;
 
     // UI
@@ -155,7 +161,7 @@ public class TwitchInventory : MonoBehaviour
             ingredientInventory.Add(PoisonVialStat.STICKINESS, 0);
 
             numIngredients = 0;
-            curMaxInventory = 8;
+            curMaxInventory = numStartingIngredientSlots;
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         }
@@ -488,6 +494,19 @@ public class TwitchInventory : MonoBehaviour
         ingredientInventory[vialStat]--;
         screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
         inventoryUI.updateIngredients(ingredientInventory, curMaxInventory);
+    }
+
+
+    // Main function to add an additional ingredient slot
+    public void addIngredientSlot(int numSlotsAdded) {
+        curMaxInventory = Mathf.Min(curMaxInventory + numSlotsAdded, MAX_INVENTORY_SLOTS);
+        screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
+    }
+
+
+    // Main function to check whether or not you can even add ingredient slots to this inventory
+    public bool canAddIngredientSlots() {
+        return curMaxInventory < MAX_INVENTORY_SLOTS;
     }
 
 

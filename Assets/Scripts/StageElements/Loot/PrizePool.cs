@@ -15,7 +15,8 @@ public class EndReward {
 // Enum that's based on requirements
 public enum RewardPrerequisite {
     NONE,
-    CAN_ADD_RECIPE
+    CAN_ADD_RECIPE,
+    CAN_ADD_ING_SLOT
 }
 
 
@@ -99,6 +100,9 @@ public class PrizePool : ScriptableObject {
         switch (preReq) {
             case RewardPrerequisite.CAN_ADD_RECIPE:
                 return playerInventory.canAddNewRecipes();
+
+            case RewardPrerequisite.CAN_ADD_ING_SLOT:
+                return playerInventory.canAddIngredientSlots();
 
             case RewardPrerequisite.NONE:
                 return true;

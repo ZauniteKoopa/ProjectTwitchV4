@@ -129,6 +129,14 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main function to heal a percentage of max health
+    public void healPercentage(float percentHeal) {
+        Debug.Assert(percentHeal > 0f && percentHeal <= 1f);
+
+        heal(maxHealth * percentHeal);
+    }
+
+
     // Main function to reset unit, especially when player dies
     //  Pre: none
     //  Post: If enemy, reset to passive state, not sensing any enemies
