@@ -24,9 +24,6 @@ public class DungeonFloor : MonoBehaviour
     private LootTable dungeonFloorLootTable;
     private DungeonFloorLayout dungeonFloorMap;
     [SerializeField]
-    [Range(0f, 1f)]
-    private float lootChance = 0.6f;
-    [SerializeField]
     [Min(0)]
     private int numStartingEnemies = 0;
     [SerializeField]
@@ -44,6 +41,18 @@ public class DungeonFloor : MonoBehaviour
     private Coroutine runningEnemySpawner = null;
     private readonly object enemyTrackingLock = new object();
 
+    [Header("Enemy Loot Probability")]
+    [SerializeField]
+    [Min(1)]
+    private int probabilityNumerator = 3;
+    [SerializeField]
+    [Min(1)]
+    private int probabilityDenominator = 5;
+    [SerializeField]
+    [Min(1)]
+    private int probabilityVariance = 1;
+    private ConditionalProbCalculator enemyLootCondProb;
+
     [Header("Prize Management")]
     [SerializeField]
     private PrizePool prizePool;
@@ -60,6 +69,12 @@ public class DungeonFloor : MonoBehaviour
         if (finalBattleRoom == null && isHostileFloor) {
             Debug.LogError("BATTLE ROOM IN DUNGEON FOUND TO BE NULL IN A DUNGEON FLOOR THAT'S SUPPOSED TO SPAWN IN ENEMIES");
         }
+
+        if (probabilityNumerator > probabilityDenominator) {
+            Debug.LogError("PROB DENOMINATOR IS GREATER THAN PROB NUMERATOR");
+        }
+
+        enemyLootCondProb = new ConditionalProbCalculator(probabilityNumerator, probabilityDenominator, probabilityVariance);
 
         if (isHostileFloor) {
             dungeonFloorMap = new DungeonFloorLayout(dungeonRooms, finalBattleRoom);
@@ -199,7 +214,7 @@ public class DungeonFloor : MonoBehaviour
         Room spawnRoom = getRandomSpawnRoom();
         EnemyStatus curEnemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
         LootTable givenLoot = dungeonFloorLootTable;
-        bool willDropLoot = (Random.Range(0f, 1f) < lootChance);
+        bool willDropLoot = enemyLootCondProb.rolledHit();
 
         lock (enemyTrackingLock) {
             EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot, dungeonFloorMap, willDropLoot);

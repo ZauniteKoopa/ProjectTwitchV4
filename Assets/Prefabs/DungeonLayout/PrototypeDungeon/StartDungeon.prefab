@@ -56,12 +56,14 @@ MonoBehaviour:
   startDungeonOnAwake: 1
   isHostileFloor: 0
   dungeonFloorLootTable: {fileID: 0}
-  lootChance: 0.6
   numStartingEnemies: 0
   maxEnemies: 0
   timeBetweenEnemySpawns: 4
   spawnTimeVariance: 1
   possibleEnemies: []
+  probabilityNumerator: 3
+  probabilityDenominator: 5
+  probabilityVariance: 2
   prizePool: {fileID: 11400000, guid: efec938c076ecfc42aa1c05331ce4bf4, type: 2}
   nonHostileEntrances:
   - {fileID: 6314537996548433218}

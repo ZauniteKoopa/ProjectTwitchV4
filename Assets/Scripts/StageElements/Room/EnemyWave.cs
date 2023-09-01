@@ -40,16 +40,15 @@ public class EnemyWave : MonoBehaviour
 
 
     // Main function to activate the wave
-    public void activate(LootTable lootTable, float lootChance) {
-        Debug.Assert(lootChance >= 0f && lootChance <= 1f);
+    public void activate(LootTable lootTable, ConditionalProbCalculator lootChance) {
+        Debug.Assert(lootChance != null && lootTable != null);
 
         if (!activated) {
             activated = true;
 
             foreach (EnemyStatus enemy in enemies) {
-                float diceRoll = Random.Range(0f, 1f);
                 enemy.lootTable = lootTable;
-                enemy.willDropLoot = (diceRoll < lootChance);
+                enemy.willDropLoot = lootChance.rolledHit();
 
                 //  TO-DO: change this to just spawn in an enemy gradually and not just make something pop up immediately
                 enemy.gameObject.SetActive(true);

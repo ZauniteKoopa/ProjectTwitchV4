@@ -12,13 +12,21 @@ public class BattleRoom : Room
     [SerializeField]
     private LootTable enemyLootTable;
     [SerializeField]
-    [Range(0f, 1f)]
-    private float lootChance = 0.6f;
-    [SerializeField]
     private DungeonFloorEntrance[] possibleDungeonFloorEntrances;
     [SerializeField]
     private ItemChest rewardChest;
 
+    [Header("Enemy Loot Probability")]
+    [SerializeField]
+    [Min(1)]
+    private int probabilityNumerator = 1;
+    [SerializeField]
+    [Min(1)]
+    private int probabilityDenominator = 4;
+    [SerializeField]
+    [Min(1)]
+    private int probabilityVariance = 2;
+    private ConditionalProbCalculator enemyLootCondProb;
 
     public UnityEvent battleRoomStartEvent;
     public UnityEvent battleRoomEndEvent;
@@ -38,6 +46,12 @@ public class BattleRoom : Room
         if (enemyWaves.Length <= 0) {
             Debug.LogError("No enemy waves found in this battle room!");
         }
+
+        if (probabilityNumerator > probabilityDenominator) {
+            Debug.LogError("PROB DENOMINATOR IS GREATER THAN PROB NUMERATOR");
+        }
+
+        enemyLootCondProb = new ConditionalProbCalculator(probabilityNumerator, probabilityDenominator, probabilityVariance);
 
         // Set up each enemy wave
         foreach (EnemyWave wave in enemyWaves) {
@@ -72,7 +86,7 @@ public class BattleRoom : Room
 
             battleRoomStartEvent.Invoke();
             curEnemyWave = 0;
-            enemyWaves[0].activate(enemyLootTable, lootChance);
+            enemyWaves[0].activate(enemyLootTable, enemyLootCondProb);
         }
     }
 
@@ -98,7 +112,7 @@ public class BattleRoom : Room
 
         // Case where you still have enemy waves left to go
         } else {
-            enemyWaves[curEnemyWave].activate(enemyLootTable, lootChance);
+            enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb);
         }
     }
 

@@ -7604,7 +7604,7 @@ MonoBehaviour:
   noRecipeLabel: {fileID: 1093315568}
   pageNumber: {fileID: 1993068725}
   recipePageDisplay: {fileID: 775617240}
-  recipePageColorEffect: 0.15
+  recipePageColorEffect: 0.125
 --- !u!1 &776287856
 GameObject:
   m_ObjectHideFlags: 0
@@ -23301,6 +23301,7 @@ MonoBehaviour:
   playerInput: {fileID: 1347320807677090426}
   craftingDuration: 1
   numStartingRecipes: 3
+  numStartingIngredientSlots: 4
   screenUI: {fileID: 1347320806230522881}
   inventoryUI: {fileID: 262784614}
   playerMesh: {fileID: 1347320806317760199}
