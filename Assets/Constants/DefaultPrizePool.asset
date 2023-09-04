@@ -12,7 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebe27a75e8ba694a9561b9820326327, type: 3}
   m_Name: DefaultPrizePool
   m_EditorClassIdentifier: 
-  possibleEndRewards:
+  surplusEndRewards:
+  - rewards:
+    - {fileID: 9196077107466837910, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
+    rewardName: RECIPE
+    rewardPrerequisite: 1
+  - rewards:
+    - {fileID: 8607536515972628885, guid: 234cf5f307a48ff46bd8192cbd1fd034, type: 3}
+    rewardName: HEALTH
+    rewardPrerequisite: 0
+  - rewards:
+    - {fileID: 6857054861687976276, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
+    rewardName: HEALING
+    rewardPrerequisite: 0
+  - rewards:
+    - {fileID: 6052466941903996433, guid: 8eecc4f1d41b4724da2595f01f74cfa0, type: 3}
+    rewardName: SATCHEL
+    rewardPrerequisite: 2
+  surplusEndRewardProbability:
+  - 0.4
+  - 0.1
+  - 0.2
+  - 0.3
+  scarcityEndRewards:
   - rewards:
     - {fileID: 5565023274511624932, guid: 60448b9129cfbda4193e629af233983b, type: 3}
     - {fileID: 5565023274511624932, guid: 60448b9129cfbda4193e629af233983b, type: 3}
@@ -33,28 +55,10 @@ MonoBehaviour:
     - {fileID: 7217155360507995382, guid: 596c5ec058d22cc4591aa6c5c8b0512a, type: 3}
     rewardName: STICKINESS
     rewardPrerequisite: 0
-  - rewards:
-    - {fileID: 9196077107466837910, guid: 8985e233194a8384388a2c4e19c5830e, type: 3}
-    rewardName: RECIPE
-    rewardPrerequisite: 1
-  - rewards:
-    - {fileID: 8607536515972628885, guid: 234cf5f307a48ff46bd8192cbd1fd034, type: 3}
-    rewardName: HEALTH
-    rewardPrerequisite: 0
-  - rewards:
-    - {fileID: 6857054861687976276, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
-    rewardName: HEALING
-    rewardPrerequisite: 0
-  - rewards:
-    - {fileID: 6052466941903996433, guid: 8eecc4f1d41b4724da2595f01f74cfa0, type: 3}
-    rewardName: SATCHEL
-    rewardPrerequisite: 2
-  endRewardsProbability:
-  - 0.125
-  - 0.125
-  - 0.125
-  - 0.125
-  - 0.2
-  - 0.05
-  - 0.1
-  - 0.15
+  scarcityEndRewardProbability:
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.25
+  minIngredientProbability: 0.3
+  maxIngredientProbability: 0.7

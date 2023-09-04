@@ -110,6 +110,8 @@ public class BattleRoom : Room
                 rewardChest.gameObject.SetActive(true);
             }
 
+            battleRoomEndEvent.Invoke();
+
         // Case where you still have enemy waves left to go
         } else {
             enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb);

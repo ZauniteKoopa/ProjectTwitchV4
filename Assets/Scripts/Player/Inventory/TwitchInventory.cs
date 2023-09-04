@@ -57,6 +57,12 @@ public class TwitchInventory : MonoBehaviour
     [SerializeField]
     [Range(1, 16)]
     private int numStartingIngredientSlots = 4;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float surplusDefinition = 0.8f;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float scarcityDefinition = 0f;
 
     private Dictionary<PoisonVialStat, int> ingredientInventory = new Dictionary<PoisonVialStat, int>();
     private RecipeBook recipeBook = new RecipeBook();
@@ -104,6 +110,10 @@ public class TwitchInventory : MonoBehaviour
     {
         if (poisonVialParameters == null) {
             Debug.LogError("POISON VIAL CONSTANTS AND PARAMETERS NOT SET FOR TWITCH TO CRAFT POISONS");
+        }
+
+        if (scarcityDefinition >= surplusDefinition) {
+            Debug.LogError("SCARCITY DEFINITION SHOULD BE LESS THAN SURPLUS TO MODIFY PROBABILITY");
         }
 
         PoisonVial.poisonVialConstants = poisonVialParameters;
@@ -507,6 +517,33 @@ public class TwitchInventory : MonoBehaviour
     // Main function to check whether or not you can even add ingredient slots to this inventory
     public bool canAddIngredientSlots() {
         return curMaxInventory < MAX_INVENTORY_SLOTS;
+    }
+
+
+    // Main function to get scarcity-surplus state for ingredients when modifying probability
+    //  Post: returns a value between 0f and 1f indicating how full your ingredient inv is based on scarcity and surplus def
+    public float getIngredientScarcitySurplusState() {
+        float rawIngredientState = (float)getCurrentNumberOfIng() / (float)curMaxInventory;
+        float numerator = Mathf.Max(rawIngredientState - scarcityDefinition, 0f);
+        float denominator = surplusDefinition - scarcityDefinition;
+        float returnedState = Mathf.Min(numerator / denominator, 1f);
+
+        Debug.Assert(returnedState >= 0f && returnedState <= 1f);
+
+        return returnedState;
+    }
+
+
+    // Private helper function to get the cur number of ingredients in the inventory
+    private int getCurrentNumberOfIng() {
+        int count = 0;
+
+        // Process ingredients that are filled
+        foreach(KeyValuePair<PoisonVialStat, int> entry in ingredientInventory) {
+            count += entry.Value;
+        }
+
+        return count;
     }
 
 

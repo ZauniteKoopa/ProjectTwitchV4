@@ -58,6 +58,7 @@ public class DungeonFloor : MonoBehaviour
     private PrizePool prizePool;
     [SerializeField]
     private DungeonFloorEntrance[] nonHostileEntrances;
+    private TwitchInventory curPlayerInventory;
 
     // Only update the map if this dungeon is currently active
     private bool currentlyActive = false;
@@ -80,6 +81,7 @@ public class DungeonFloor : MonoBehaviour
             dungeonFloorMap = new DungeonFloorLayout(dungeonRooms, finalBattleRoom);
             finalBattleRoom.battleRoomStartEvent.AddListener(onFinalBattleRoomStart);
             finalBattleRoom.dungeonExitEvent.AddListener(exitDungeon);
+            finalBattleRoom.battleRoomEndEvent.AddListener(onFinalBattleRoomEnd);
         }
 
         if (startDungeonOnAwake) {
@@ -113,17 +115,15 @@ public class DungeonFloor : MonoBehaviour
             }
 
             // Set up rewards in the entrances of the next floor and the rewards of this floor
-            TwitchInventory playerInv = playerStatus.transform.parent.GetComponent<TwitchInventory>();
+            curPlayerInventory = playerStatus.transform.parent.GetComponent<TwitchInventory>();
             if (finalBattleRoom == null) {
-                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, playerInv);
+                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, curPlayerInventory);
 
                 for (int e = 0; e < nonHostileEntrances.Length; e++) {
                     nonHostileEntrances[e].setProjectedEndPrize(rewards[e]);
                 }
 
             } else {
-                Debug.Assert(endReward != null);
-                finalBattleRoom.setUpNextFloorRewards(prizePool, playerInv);
                 finalBattleRoom.setBattleRoomRewards(endReward);
             }
 
@@ -188,6 +188,12 @@ public class DungeonFloor : MonoBehaviour
             StopCoroutine(runningEnemySpawner);
         }
         runningEnemySpawner = null;
+    }
+
+
+    // Main event handler for when final battle room ends: set up next rewards
+    private void onFinalBattleRoomEnd() {
+        finalBattleRoom.setUpNextFloorRewards(prizePool, curPlayerInventory);
     }
 
 

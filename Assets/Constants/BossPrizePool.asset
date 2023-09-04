@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ebe27a75e8ba694a9561b9820326327, type: 3}
   m_Name: BossPrizePool
   m_EditorClassIdentifier: 
-  possibleEndRewards:
+  surplusEndRewards:
   - rewards: []
     rewardName: BOSS
-  endRewardsProbability:
+    rewardPrerequisite: 0
+  surplusEndRewardProbability:
   - 1
+  scarcityEndRewards:
+  - rewards: []
+    rewardName: BOSS
+    rewardPrerequisite: 0
+  scarcityEndRewardProbability:
+  - 1
+  minIngredientProbability: 0.3
+  maxIngredientProbability: 0.7

@@ -23,18 +23,35 @@ public enum RewardPrerequisite {
 // Prize Pool class
 [CreateAssetMenu(menuName = "PrizePool")]
 public class PrizePool : ScriptableObject {
+
+    [Header("Surplus State")]
     [SerializeField]
-    private EndReward[] possibleEndRewards;
+    private EndReward[] surplusEndRewards;
     [SerializeField]
-    private float[] endRewardsProbability;
+    private float[] surplusEndRewardProbability;
+
+    [Header("Scarcity State")]
+    [SerializeField]
+    private EndReward[] scarcityEndRewards;
+    [SerializeField]
+    private float[] scarcityEndRewardProbability;
+
+    [Header("Main probability parameters")]
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float minIngredientProbability = 0.3f;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float maxIngredientProbability = 0.7f;
+
 
 
     // Main function to get distinct end rewards
-    //  Pre: numRewards is greater or equal to number of possibleEndRewards
+    //  Pre: numRewards is greater or equal to number of all possible end rewards
     //  Post: returns a list of length numRewards with rewards that are differrent from each other
     public List<EndReward> getDistinctEndRewards(int numRewards, TwitchInventory playerInventory) {
-        Debug.Assert(numRewards <= getMinPossibleDistinctRewards());
-        Debug.Assert(possibleEndRewards.Length == endRewardsProbability.Length);
+        Debug.Assert(numRewards <= getMinPossibleDistinctRewards() && numRewards >= 0);
+        Debug.Assert(minIngredientProbability <= maxIngredientProbability);
 
         // Early return to avoid infinite loop in playtesting
         if (numRewards > getMinPossibleDistinctRewards()) {
@@ -42,35 +59,32 @@ public class PrizePool : ScriptableObject {
             return null;
         }
 
-        // Keep finding rewards until you find numRewards rewards
+        // Prepare counters
         HashSet<EndReward> endRewards = new HashSet<EndReward>();
-        float initialDiceRoll = getDiceRoll();
+        int numIngredientRewards = 0;
+        int numNonIngredientRewards = 0;
+        int maxIngredientRewards = getCurMaxPossibleDistinctRewards(scarcityEndRewards, playerInventory);
+        int maxNonIngredientRewards = getCurMaxPossibleDistinctRewards(scarcityEndRewards, playerInventory);
+        float playerIngredientInvState = playerInventory.getIngredientScarcitySurplusState();
 
+        // Main loop
         while (endRewards.Count < numRewards) {
-            // Get the reward index from the dice roll
-            int rewardIndex = 0;
-            float indicatorCheck = endRewardsProbability[0];
-            while (rewardIndex < possibleEndRewards.Length && initialDiceRoll > indicatorCheck) {
-                rewardIndex++;
+            // Roll the dice to see if you'll get an ingredient in the end rewards. Then check if you have reached the limit concerning that type of award
+            bool willGetIngredient = Random.Range(0f, 1f) <= Mathf.Lerp(maxIngredientProbability, minIngredientProbability, playerIngredientInvState);
+            willGetIngredient = (willGetIngredient) ? numIngredientRewards < maxIngredientRewards : numNonIngredientRewards >= maxNonIngredientRewards;
 
-                if (rewardIndex < possibleEndRewards.Length) {
-                    indicatorCheck += endRewardsProbability[rewardIndex];
-                }
+            // Actually get an endReward from the selected endReward pool
+            EndReward[] curEndRewards = (willGetIngredient) ? scarcityEndRewards : surplusEndRewards;
+            float[] curEndRewardProbs = (willGetIngredient) ? scarcityEndRewardProbability : surplusEndRewardProbability;
+            endRewards.Add(getDistinctEndReward(playerInventory, curEndRewards, curEndRewardProbs, endRewards));
+
+            // Update counters
+            if (willGetIngredient) {
+                numIngredientRewards++;
+            } else {
+                numNonIngredientRewards++;
             }
-
-            // If reward already found in the hashset, go through the list until you find one that isn't
-            bool positiveDirection = Random.Range(0, 2) == 0;
-            while (endRewards.Contains(possibleEndRewards[rewardIndex])
-                    || !metEndRewardPreRequisite(playerInventory, possibleEndRewards[rewardIndex].rewardPrerequisite))
-            {
-                rewardIndex += (positiveDirection) ? 1 : (possibleEndRewards.Length - 1);
-                rewardIndex %= possibleEndRewards.Length;
-            }
-
-            // Add to hashset
-            endRewards.Add(possibleEndRewards[rewardIndex]);
         }
-
 
         // Convert that to a list
         List<EndReward> rewardsList = new List<EndReward>();
@@ -83,11 +97,47 @@ public class PrizePool : ScriptableObject {
     }
 
 
+    // Main private helper function to get distinct end rewards given specified probabilities
+    public EndReward getDistinctEndReward(
+        TwitchInventory playerInventory,
+        EndReward[] givenEndRewards,
+        float[] givenEndRewardProbability,
+        HashSet<EndReward> hitEndRewards
+    ) {
+        Debug.Assert(givenEndRewards.Length == givenEndRewardProbability.Length);
+
+        // Keep finding rewards until you find numRewards rewards
+        float initialDiceRoll = getDiceRoll(givenEndRewardProbability);
+
+        // Get the reward index from the dice roll
+        int rewardIndex = 0;
+        float indicatorCheck = givenEndRewardProbability[0];
+        while (rewardIndex < givenEndRewards.Length && initialDiceRoll > indicatorCheck) {
+            rewardIndex++;
+
+            if (rewardIndex < givenEndRewards.Length) {
+                indicatorCheck += givenEndRewardProbability[rewardIndex];
+            }
+        }
+
+        // If reward already found in the hashset, go through the list until you find one that isn't
+        bool positiveDirection = Random.Range(0, 2) == 0;
+        while (hitEndRewards.Contains(givenEndRewards[rewardIndex])
+                || !metEndRewardPreRequisite(playerInventory, givenEndRewards[rewardIndex].rewardPrerequisite))
+        {
+            rewardIndex += (positiveDirection) ? 1 : (givenEndRewards.Length - 1);
+            rewardIndex %= givenEndRewards.Length;
+        }
+        
+        return givenEndRewards[rewardIndex];
+    }
+
+
     // Main function to get a dice roll among all of the probabilities
-    private float getDiceRoll() {
+    private float getDiceRoll(float[] givenEndRewardProbability) {
         float totalSum = 0f;
 
-        foreach (float prob in endRewardsProbability) {
+        foreach (float prob in givenEndRewardProbability) {
             totalSum += prob;
         }
 
@@ -116,9 +166,15 @@ public class PrizePool : ScriptableObject {
 
     // Main function to check the min possible rewards for the prize pool
     private int getMinPossibleDistinctRewards() {
+        return getMinPossibleDistinctRewards(scarcityEndRewards) + getMinPossibleDistinctRewards(surplusEndRewards);
+    }
+
+
+    // Main function to check the min possible rewards for the prize pool
+    private int getMinPossibleDistinctRewards(EndReward[] givenEndRewards) {
         int count = 0;
 
-        foreach (EndReward reward in possibleEndRewards) {
+        foreach (EndReward reward in givenEndRewards) {
             if (reward.rewardPrerequisite == RewardPrerequisite.NONE) {
                 count++;
             }
@@ -127,5 +183,18 @@ public class PrizePool : ScriptableObject {
         return count;
     }
 
+
+    // Main function to get the curMaxPossibleDistinctRewards
+    private int getCurMaxPossibleDistinctRewards(EndReward[] givenEndRewards, TwitchInventory playerInv) {
+        int count = 0;
+
+        foreach (EndReward reward in givenEndRewards) {
+            if (metEndRewardPreRequisite(playerInv, reward.rewardPrerequisite)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
 }

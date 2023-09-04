@@ -18,7 +18,8 @@ public class PoisonVial
     // Static const variables
     private static readonly int STARTING_AMMO = 40;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
-    private static readonly float POISON_DMG_PER_STACK = 0.2f;
+    private static readonly float BASE_POISON_DMG = 0.3f;
+    private static readonly float POISON_DMG_PER_STACK = 0.15f;
     private static readonly float BASE_CONTAMINATE_DMG = 5.5f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 1f;
 
@@ -63,9 +64,9 @@ public class PoisonVial
 
     // Main function to get poison damage
     public float getPoisonDamage(int numStacks) {
-        float basePoisonDamage = POISON_DMG_PER_STACK * numStacks;
+        float basePoisonDamage = (POISON_DMG_PER_STACK * numStacks) + BASE_POISON_DMG;
         basePoisonDamage *= (reachedPotential && sideEffect.getType() == PoisonVialStat.POISON) ? poisonVialConstants.poisonDoTMultiplier : 1f;
-        return POISON_DMG_PER_STACK * numStacks;
+        return basePoisonDamage;
     }
 
 

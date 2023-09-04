@@ -7216,6 +7216,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushRegenMax
+      value: 2.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushRegenCooldown
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: minAmbushDurationRequirement
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 6
