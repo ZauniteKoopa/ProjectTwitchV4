@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e220acac62af06b4cac40896d3d5086d, type: 3}
   m_Name: DefaultPoisonVialConstants
   m_EditorClassIdentifier: 
-  purePotencyColor: {r: 1, g: 0, b: 0.6246929, a: 1}
-  pureReactivityColor: {r: 0.76599145, g: 0.8018868, b: 0.012608201, a: 1}
+  purePotencyColor: {r: 1, g: 0, b: 1, a: 1}
+  purePotencyColor2: {r: 1, g: 0, b: 0.29803923, a: 1}
+  pureReactivityColor: {r: 0.9056604, g: 0.86304975, b: 0.022783838, a: 1}
+  pureReactivityColor2: {r: 1, g: 0.48540086, b: 0, a: 1}
   pureStickinessColor: {r: 0, g: 0.7216792, b: 1, a: 1}
-  purePoisonColor: {r: 0.47826087, g: 1, b: 0, a: 1}
+  pureStickinessColor2: {r: 0.34776497, g: 0, b: 1, a: 1}
+  purePoisonColor: {r: 0.25882354, g: 1, b: 0, a: 1}
+  purePoisonColor2: {r: 0, g: 1, b: 0.74509805, a: 1}
   tempPotencyColor: {r: 0.6886792, g: 0, b: 0.57775146, a: 1}
   tempReactivityColor: {r: 0.6886792, g: 0.60552514, b: 0.2512163, a: 1}
   tempStickinessColor: {r: 0.027450982, g: 0.6509804, b: 0.6384028, a: 1}
@@ -59,7 +63,7 @@ MonoBehaviour:
   secondaryAttackCost: 3
   secondaryAttackCooldown: 6
   potencyBoltMultiplier: 1.25
-  poisonDoTMultiplier: 1.5
+  poisonDoTMultiplier: 1.25
   reactivityContaminateMultiplier: 1.25
   stickinessMovementReductionModifier: 0.05
   minPostContaminateStacks: 4

@@ -63,7 +63,7 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
         selectedParent = selectedLayer;
         representedStat = stat;
-        filledColor = PoisonVial.poisonVialConstants.getPureColor(representedStat);
+        filledColor = PoisonVial.poisonVialConstants.getPureColor(representedStat, false);
 
         count = n;
         countText.text = "" + n;

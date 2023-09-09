@@ -562,8 +562,9 @@ public class TwitchInventory : MonoBehaviour
         // Actually update the vials in the case vial exist
         if (craftParameters.vial != null) {
             // Check if you got a side effect before / after crafting
+            PoisonVial nonEffectedVial =  (craftParameters.isPrimary) ? secondaryVial : primaryVial;
             bool gotSideEffectBefore = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
-            bool success = craftParameters.vial.craft(craftParameters.stat, recipeBook);
+            bool success = craftParameters.vial.craft(craftParameters.stat, recipeBook, nonEffectedVial);
             bool gotSideEffectAfter = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
 
             UnityEvent curEndEvent = (gotSideEffectBefore != gotSideEffectAfter) ? obtainedSideEffect : endCraftEvent;

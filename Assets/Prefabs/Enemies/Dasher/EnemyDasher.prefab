@@ -470,8 +470,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 6.75
-  maxHealth: 28
-  damageReduction: 0.2
+  maxHealth: 25
+  damageReduction: 0.15
   enemyStatusUI: {fileID: 7276044789777591394}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
   normalDamagePopupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

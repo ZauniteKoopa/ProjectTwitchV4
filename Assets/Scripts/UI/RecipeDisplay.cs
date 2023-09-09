@@ -42,7 +42,7 @@ public class RecipeDisplay : MonoBehaviour
 
         recipePageDisplay.color = Color.Lerp(
             defaultRecipePageColor,
-            PoisonVial.poisonVialConstants.getPureColor(recipe.resultingSideEffect.getType()),
+            PoisonVial.poisonVialConstants.getPureColor(recipe.resultingSideEffect.getType(), false),
             recipePageColorEffect
         );
     }

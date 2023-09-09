@@ -87,7 +87,7 @@ public class RecipeBookDisplay : MonoBehaviour
         noRecipeLabel.SetActive(recipe.ingredients == null);
         recipePageDisplay.color = Color.Lerp(
             defaultRecipePageColor,
-            PoisonVial.poisonVialConstants.getPureColor(recipe.resultingSideEffect.getType()),
+            PoisonVial.poisonVialConstants.getPureColor(recipe.resultingSideEffect.getType(), false),
             recipePageColorEffect
         );
 

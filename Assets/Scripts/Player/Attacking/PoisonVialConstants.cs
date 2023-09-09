@@ -8,9 +8,16 @@ public class PoisonVialConstants : ScriptableObject
 {
     [Header("Pure Vial Colors")]
     public Color purePotencyColor = Color.red;
+    public Color purePotencyColor2 = Color.magenta;
+
     public Color pureReactivityColor = Color.yellow;
+    public Color pureReactivityColor2 = Color.black;
+
     public Color pureStickinessColor = Color.blue;
+    public Color pureStickinessColor2 = Color.black;
+    
     public Color purePoisonColor = Color.green;
+    public Color purePoisonColor2 = Color.green;
 
 
     [Header("In-Progress Vial Colors")]
@@ -93,20 +100,20 @@ public class PoisonVialConstants : ScriptableObject
 
     
     // Main function to get the pure color
-    public Color getPureColor(PoisonVialStat stat) {
+    public Color getPureColor(PoisonVialStat stat, bool usingSecondColor) {
         switch(stat)
         {
             case PoisonVialStat.POTENCY:
-                return purePotencyColor;
+                return (usingSecondColor) ? purePotencyColor2 : purePotencyColor;
             
             case PoisonVialStat.POISON:
-                return purePoisonColor;
+                return (usingSecondColor) ? purePoisonColor2 : purePoisonColor;
 
             case PoisonVialStat.REACTIVITY:
-                return pureReactivityColor;
+                return (usingSecondColor) ? pureReactivityColor2 : pureReactivityColor;
 
             case PoisonVialStat.STICKINESS:
-                return pureStickinessColor;
+                return (usingSecondColor) ? pureStickinessColor2 : pureStickinessColor;
 
             default:
                 throw new System.Exception("INVALID STAT FOUND");

@@ -14,7 +14,7 @@ public class ScreenInventorySlot : MonoBehaviour
     //  Post: ingredient slot now displays that its filled with that stat type
     public void displayFilled(PoisonVialStat ingredientType) {
         gameObject.SetActive(true);
-        slotImage.color = PoisonVial.poisonVialConstants.getPureColor(ingredientType);
+        slotImage.color = PoisonVial.poisonVialConstants.getPureColor(ingredientType, false);
     }
 
 

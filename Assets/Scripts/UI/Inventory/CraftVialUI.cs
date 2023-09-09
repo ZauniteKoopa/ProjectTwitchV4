@@ -80,7 +80,7 @@ public class CraftVialUI : MonoBehaviour
 
         PoisonVialStat stat;
         ingSlot.hasIngredient(out stat);
-        filledColor = PoisonVial.poisonVialConstants.getPureColor(stat);
+        filledColor = PoisonVial.poisonVialConstants.getPureColor(stat, false);
         turnOnValve(activeValve, filledColor);
     }
 

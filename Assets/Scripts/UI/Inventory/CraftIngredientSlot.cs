@@ -43,7 +43,7 @@ public class CraftIngredientSlot : MonoBehaviour, IDropHandler, IPointerDownHand
 
                 ingredientIcon = ingIcon;
                 ingIcon.SetIngredientForCrafting();
-                icon.color = PoisonVial.poisonVialConstants.getPureColor(ingIcon.GetRepresentedStat());
+                icon.color = PoisonVial.poisonVialConstants.getPureColor(ingIcon.GetRepresentedStat(), false);
                 ingredientDropEvent.Invoke();
             }
         }

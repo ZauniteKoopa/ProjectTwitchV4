@@ -37,6 +37,7 @@ public class PoisonVial
 
     // Crafting 
     private bool reachedPotential = false;
+    private bool usingSecondVialColor = false;
     private int numCraftAttempts = 1;
     private PoisonVialStat maxStat;
 
@@ -222,9 +223,11 @@ public class PoisonVial
     // ------------------------------
 
     // Main function to craft the vial
-    //  Pre: stat is one of the 4 available stats
+    //  Pre: stat is one of the 4 available stats, recipe book is not null, otherVial is the other vial in inventory (can be null)
     //  Post: returns true if crafting is successful. returns 
-    public bool craft(PoisonVialStat stat, RecipeBook recipeBook) {
+    public bool craft(PoisonVialStat stat, RecipeBook recipeBook, PoisonVial otherVial = null) {
+        Debug.Assert(recipeBook != null);
+
         if (numCraftAttempts >= MAX_CRAFT_ATTEMPTS) {
             return false;
         }
@@ -243,8 +246,7 @@ public class PoisonVial
 
             // Update reachedPotential flag if vial stat has reached max stacks
             if (vialStats[stat] >= MAX_STAT) {
-                reachedPotential = true;
-
+                // Get the side effect and related recipe
                 bool filledRecipe = (numCraftAttempts == RecipeBook.RECIPE_INGREDIENT_REQUIREMENTS);
                 sideEffect = filledRecipe ? recipeBook.createSideEffectFromRecipe(vialStats, stat) : null;
                 if (sideEffect == null) {
@@ -255,7 +257,6 @@ public class PoisonVial
                     if (existingRecipe == null) {
                         Recipe newRecipe = new Recipe();
                         newRecipe.ingredients = (filledRecipe) ? vialStats : null;
-                        // newRecipe.ingredients = null;
                         newRecipe.resultingSideEffect = sideEffect;
 
                         recipeBook.addNewRecipe(newRecipe);
@@ -265,6 +266,10 @@ public class PoisonVial
                         existingRecipe.ingredients = vialStats;
                     }
                 }
+
+                // Update flags = reachedPotential and whether you're using the second vial color in the case its a duplicate
+                reachedPotential = true;
+                usingSecondVialColor = (otherVial != null && otherVial.sideEffect.getType() == sideEffect.getType() && !otherVial.usingSecondVialColor);
             }
         }
 
@@ -282,7 +287,7 @@ public class PoisonVial
     public Color getColor() {
         // If reached potential already, just return the pure color
         if (reachedPotential) {
-            return poisonVialConstants.getPureColor(maxStat);
+            return poisonVialConstants.getPureColor(maxStat, usingSecondVialColor);
 
         // Else, just return an intepolation between tempColor and baseVialColor
         } else {
