@@ -104,7 +104,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   fogTickDuration: 2
-  maxFogTicks: 4
+  maxFogTicks: 10
   initialDamageDuration: 0.1
   initialDamage: 4
   initialNumStacks: 1

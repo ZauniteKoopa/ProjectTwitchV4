@@ -18,5 +18,7 @@ MonoBehaviour:
   spriteIcon: {fileID: 21300000, guid: b2b3bcf2351edc947b08a5446cdd6e57, type: 3}
   sideEffectType: 1
   maxStackEffect: 1
+  defenseReduction: 0
+  additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
-  maxStackPoisonDecayRateModifier: 0.6667
+  maxStackPoisonDecayRateModifier: 0.75

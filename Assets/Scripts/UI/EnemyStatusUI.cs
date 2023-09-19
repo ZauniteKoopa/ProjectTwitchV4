@@ -37,7 +37,7 @@ public class EnemyStatusUI : MonoBehaviour
     // Main function to update health bar
     //  Pre: maxHealth >= curHealth
     //  Post: healthBar is updated
-    public void updateHealthBar(float curHealth, float maxHealth) {
+    public virtual void updateHealthBar(float curHealth, float maxHealth) {
         Debug.Assert(curHealth <= maxHealth);
 
         healthBar.fillAmount = curHealth / maxHealth;

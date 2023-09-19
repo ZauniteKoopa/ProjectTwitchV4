@@ -12,8 +12,8 @@ public class EnemyStatus : IUnitStatus
     private const float BACKSTAB_DAMAGE_MULTIPLIER = 2.5f;
     [SerializeField]
     [Min(0.01f)]
-    private float maxHealth = 20f;
-    private float curHealth;
+    protected float maxHealth = 20f;
+    protected float curHealth;
     private bool moving = true;
     [SerializeField]
     [Range(0f, 0.8f)]
@@ -27,7 +27,7 @@ public class EnemyStatus : IUnitStatus
 
     [Header("UI")]
     [SerializeField]
-    private EnemyStatusUI enemyStatusUI;
+    protected EnemyStatusUI enemyStatusUI;
     [SerializeField]
     private DamagePopup damagePopupPrefab;
     [SerializeField]
@@ -57,7 +57,11 @@ public class EnemyStatus : IUnitStatus
     [SerializeField]
     private int numLootDrops = 1;
     [SerializeField]
+    [Min(0.001f)]
     private float lootDropRange = 1f;
+    [SerializeField]
+    [Min(0f)]
+    private float minLootDropRange = 0f;
     [SerializeField]
     private LayerMask lootCollisionLayerMask;
     [SerializeField]
@@ -80,15 +84,21 @@ public class EnemyStatus : IUnitStatus
             Debug.LogError("NO ENEMY STATUS UI CONNECTED");
         }
 
-        gameObject.SetActive(false);
+        initialize();
 
+        gameObject.SetActive(false);
         if (spawnInOnAwake) {
             spawnIn();
         }
     }
 
+
+    // Main function to initialize
+    protected virtual void initialize() {}
+
+
     // Main function to spawn in unit
-    public void spawnIn() {
+    public virtual void spawnIn() {
         // Only spawn in a unit once
         if (!spawned) {
             gameObject.SetActive(false);
@@ -176,6 +186,16 @@ public class EnemyStatus : IUnitStatus
         }
 
         return curHealth <= 0f;
+    }
+
+
+    // Main function to heal
+    public void heal(float healAmount) {
+        lock (healthLock) {
+            if (isAlive()) {
+                curHealth = Mathf.Min(curHealth + healAmount, maxHealth);
+            }
+        }
     }
 
 
@@ -384,9 +404,9 @@ public class EnemyStatus : IUnitStatus
     }
 
     // Private helper function to die
-    private IEnumerator death() {
+    protected virtual IEnumerator death() {
         GetComponent<Collider>().enabled = false;
-        dropLoot();
+        dropLoot(numLootDrops);
 
         yield return 0;
         gameObject.SetActive(false);
@@ -394,8 +414,7 @@ public class EnemyStatus : IUnitStatus
 
 
     // Private helper function to drop loot
-    private void dropLoot() {
-        int curLootDrops = (willDropLoot) ? numLootDrops : 0;
+    protected void dropLoot(int curLootDrops) {
         if (curPoison != null) {
             curLootDrops += curPoison.sideEffect.getAdditionalLoot(curPoisonStacks);
         }
@@ -406,7 +425,7 @@ public class EnemyStatus : IUnitStatus
                 LobAction chosenLoot = lootTable.getLootDrop();
                 LobAction curLoot = Object.Instantiate(chosenLoot, transform.position, Quaternion.identity);
 
-                curLoot.lobAroundRadius(transform.position, lootDropRange, lootDropSpeed, lootCollisionLayerMask);
+                curLoot.lobAroundRadius(transform.position, lootDropRange, minLootDropRange, lootDropSpeed, lootCollisionLayerMask);
             }
         }
     }

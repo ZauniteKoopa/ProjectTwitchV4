@@ -63,7 +63,7 @@ MonoBehaviour:
   secondaryAttackCost: 3
   secondaryAttackCooldown: 6
   potencyBoltMultiplier: 1.25
-  poisonDoTMultiplier: 1.25
+  poisonDoTMultiplier: 1.2
   reactivityContaminateMultiplier: 1.25
   stickinessMovementReductionModifier: 0.05
   minPostContaminateStacks: 4

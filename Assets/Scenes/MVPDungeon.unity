@@ -730,6 +730,18 @@ PrefabInstance:
       propertyPath: mapRow
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8631511351325867068, guid: 6ce389e6b6db5ce4d821e446f88dad17, type: 3}
+      propertyPath: eastOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631511351325867068, guid: 6ce389e6b6db5ce4d821e446f88dad17, type: 3}
+      propertyPath: northOpen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631511351325867068, guid: 6ce389e6b6db5ce4d821e446f88dad17, type: 3}
+      propertyPath: southOpen
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce389e6b6db5ce4d821e446f88dad17, type: 3}
 --- !u!4 &227263220 stripped
@@ -8460,15 +8472,15 @@ Transform:
   - {fileID: 762004963212850953}
   - {fileID: 5869589290377567863}
   - {fileID: 2415395483557997162}
-  - {fileID: 1260818161}
+  - {fileID: 1405657798}
   - {fileID: 548149855}
-  - {fileID: 206968278}
+  - {fileID: 1260818161}
   - {fileID: 63251055}
   - {fileID: 877174318}
-  - {fileID: 1405657798}
-  - {fileID: 1521448036}
   - {fileID: 2084051266}
   - {fileID: 394173524}
+  - {fileID: 1521448036}
+  - {fileID: 206968278}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8486,6 +8498,10 @@ PrefabInstance:
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: ambushRegenCooldown
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: contaminateCooldown
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: minAmbushDurationRequirement

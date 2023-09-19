@@ -12004,7 +12004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchoredPosition: {x: 0, y: 40}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1268086266
@@ -23302,6 +23302,8 @@ MonoBehaviour:
   craftingDuration: 1
   numStartingRecipes: 3
   numStartingIngredientSlots: 4
+  surplusDefinition: 0.8
+  scarcityDefinition: 0
   screenUI: {fileID: 1347320806230522881}
   inventoryUI: {fileID: 262784614}
   playerMesh: {fileID: 1347320806317760199}

@@ -46,10 +46,17 @@ public class LobAction : MonoBehaviour
 
     // Main function to lob a projectile around a source position
     public void lobAroundRadius(Vector3 src, float lobRadius, float lobSpeed, LayerMask lobCollisionMask) {
-        Debug.Assert(lobRadius > 0f && lobSpeed > 0f);
+        lobAroundRadius(src, lobRadius, 0f, lobSpeed, lobCollisionMask);
+    }
+
+
+
+    // Main function to lob a projectile around a source position
+    public void lobAroundRadius(Vector3 src, float maxLobRadius, float minLobRadius, float lobSpeed, LayerMask lobCollisionMask) {
+        Debug.Assert(maxLobRadius > 0f && lobSpeed > 0f && minLobRadius > -0.0001);
 
         Vector3 lootDropDir = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
-        float curLootDistance = Random.Range(0f, lobRadius);
+        float curLootDistance = Random.Range(minLobRadius, maxLobRadius);
         Vector3 dest = src + (curLootDistance * lootDropDir);
 
         // Raycast in that direction to get the dest that considers collision
