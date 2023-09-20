@@ -592,6 +592,7 @@ GameObject:
   - component: {fileID: 4054972606257103967}
   - component: {fileID: 5214950687100198930}
   - component: {fileID: 5932186740728034630}
+  - component: {fileID: 233083844}
   m_Layer: 9
   m_Name: DummyBoss_Stationary
   m_TagString: Untagged
@@ -821,6 +822,21 @@ MonoBehaviour:
   - 0.4
   numLootDropsPerPhase: 1
   phaseTransitionTime: 4
+--- !u!114 &233083844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932186740728034637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95242c0235959634fa4e631cc001ba64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossStatus: {fileID: 5932186740728034630}
+  transitioningColor: {r: 0.08436967, g: 0.040287085, b: 0.9150943, a: 1}
+  attackColor: {r: 1, g: 0.78243685, b: 0, a: 1}
 --- !u!1 &5932186740849082440
 GameObject:
   m_ObjectHideFlags: 0

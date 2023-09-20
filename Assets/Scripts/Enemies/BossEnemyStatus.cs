@@ -81,13 +81,17 @@ public class BossEnemyStatus : EnemyStatus
     // Main private sequence for transitioning between phases
     private IEnumerator transitionPhases() {
         enemyPhaseTransitionBeginEvent.Invoke();
-        stun(true);
         inTransition = true;
 
         yield return new WaitForSeconds(phaseTransitionTime);
 
         inTransition = false;
-        stun(false);
         enemyPhaseTransitionEndEvent.Invoke();
+    }
+
+
+    // Main accessor function to get which phase the boss is in currently (starting from 0)
+    public int getCurrentPhase() {
+        return curPhase;
     }
 }
