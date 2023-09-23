@@ -406,7 +406,10 @@ public class EnemyStatus : IUnitStatus
     // Private helper function to die
     protected virtual IEnumerator death() {
         GetComponent<Collider>().enabled = false;
-        dropLoot(numLootDrops);
+
+        int numLoot = (willDropLoot) ? numLootDrops : 0;
+        numLoot += (curPoison != null) ? curPoison.sideEffect.getAdditionalLoot(curPoisonStacks) : 0;
+        dropLoot(numLoot);
 
         yield return 0;
         gameObject.SetActive(false);

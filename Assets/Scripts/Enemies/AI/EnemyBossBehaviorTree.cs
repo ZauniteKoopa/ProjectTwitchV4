@@ -7,6 +7,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 {
     // Variables to control the tree
     private readonly object treeLock = new object();
+    [SerializeField]
     private Transform playerTgt = null;
 
     [Header("Enemy Branch Components")]
@@ -20,6 +21,13 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     private Coroutine currentBehaviorSequence = null;
     private bool aggroState = false;
 
+    
+    // Main function to initialize
+    private void Awake() {
+        bossStatus = GetComponent<BossEnemyStatus>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
 
 
     // The main behavior tree sequence
@@ -29,7 +37,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
         while (true) {
             // Test to see if unit is aggressive (they are aggressive IFF a playerTgt is found)
             IBossBehaviorBranch curBranch = (aggroState) ? aggroBranch : scoutingBranch;
-            curBranch.execute(playerTgt, bossStatus.getCurrentPhase());
+            yield return curBranch.execute(playerTgt, bossStatus);
         }
     }
 

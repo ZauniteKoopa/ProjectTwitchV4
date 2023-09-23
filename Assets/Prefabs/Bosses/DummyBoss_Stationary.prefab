@@ -588,11 +588,9 @@ GameObject:
   - component: {fileID: 5932186740728034627}
   - component: {fileID: 5932186740728034631}
   - component: {fileID: 6943339451754092769}
-  - component: {fileID: 9027938718671928306}
-  - component: {fileID: 4054972606257103967}
-  - component: {fileID: 5214950687100198930}
   - component: {fileID: 5932186740728034630}
   - component: {fileID: 233083844}
+  - component: {fileID: 5167130642013952167}
   m_Layer: 9
   m_Name: DummyBoss_Stationary
   m_TagString: Untagged
@@ -722,48 +720,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &9027938718671928306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932186740728034637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744b429c7100b4d4cb67f03b64e119ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviorResetEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  aggressiveBranch: {fileID: 4054972606257103967}
-  passiveBranch: {fileID: 5214950687100198930}
-  passiveLookAtDuration: 1.5
---- !u!114 &4054972606257103967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932186740728034637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c7d9790e157f7409b29eda7a29b292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5214950687100198930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932186740728034637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae8adf13bf3b72f42af46608e0e81ae2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5932186740728034630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,6 +793,23 @@ MonoBehaviour:
   bossStatus: {fileID: 5932186740728034630}
   transitioningColor: {r: 0.08436967, g: 0.040287085, b: 0.9150943, a: 1}
   attackColor: {r: 1, g: 0.78243685, b: 0, a: 1}
+--- !u!114 &5167130642013952167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932186740728034637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0285405929a2171448e33fff9d1395a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviorResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  aggroBranch: {fileID: 0}
+  scoutingBranch: {fileID: 0}
 --- !u!1 &5932186740849082440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,7 +1589,7 @@ PrefabInstance:
     - target: {fileID: 5928128770268433968, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
       propertyPath: brain
       value: 
-      objectReference: {fileID: 9027938718671928306}
+      objectReference: {fileID: 0}
     - target: {fileID: 5928128770268433968, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
       propertyPath: enemyStatus
       value: 
