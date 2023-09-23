@@ -26,6 +26,9 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     private void Awake() {
         bossStatus = GetComponent<BossEnemyStatus>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        bossStatus.stunnedStartEvent.AddListener(onStunStart);
+        bossStatus.stunnedEndEvent.AddListener(onStunEnd);
     }
 
 

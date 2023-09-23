@@ -40,10 +40,14 @@ public class EnemyHitbox : MonoBehaviour
 
             // If no obstructions, do damage
             if (!Physics.Raycast(rayCenter, rayDir, rayDist, hitboxCollisionMask)) {
-                player.damage(damage, false);
+                applyHitboxEffect(damage, player);
             }
         }
     }
 
-    
+
+    // Main function to apply hitbox effect
+    protected virtual void applyHitboxEffect(float damage, PlayerStatus player) {
+        player.damage(damage, false);
+    }
 }

@@ -7,14 +7,14 @@ public abstract class IBossBehaviorBranch : MonoBehaviour
 {
     // Variables
     protected NavMeshAgent navMeshAgent;
-    protected IUnitStatus enemyStats;
+    protected BossEnemyStatus enemyStats;
 
 
     // Main variables for most aggroBranches
     private void Awake() {
         // Get reference variables and error check
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyStats = GetComponent<IUnitStatus>();
+        enemyStats = GetComponent<BossEnemyStatus>();
 
         if (navMeshAgent == null){
             Debug.LogWarning("No nav mesh agent connected to this unit: " + transform, transform);
@@ -25,14 +25,14 @@ public abstract class IBossBehaviorBranch : MonoBehaviour
         }
 
         // Do any branch specific initialization
-        initialize();
+        initialize(enemyStats);
     }
 
 
     // Main function to do additional initialization for branch
     //  Pre: none
     //  Post: sets branch up
-    protected abstract void initialize();
+    protected abstract void initialize(BossEnemyStatus enemyStats);
 
 
     // Main function to execute the branch

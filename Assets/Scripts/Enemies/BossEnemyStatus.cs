@@ -82,9 +82,11 @@ public class BossEnemyStatus : EnemyStatus
     private IEnumerator transitionPhases() {
         enemyPhaseTransitionBeginEvent.Invoke();
         inTransition = true;
+        stun(true);
 
         yield return new WaitForSeconds(phaseTransitionTime);
 
+        stun(false);
         inTransition = false;
         enemyPhaseTransitionEndEvent.Invoke();
     }

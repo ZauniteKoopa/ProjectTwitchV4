@@ -148,6 +148,35 @@ public abstract class IUnitStatus : MonoBehaviour
     }
 
 
+    // Main function to apply a timed speed modifier: returns the coroutine to cancel timed modifier at any point
+    public Coroutine setTimedSpeedModifier(float speedFactor, float timeDuration) {
+        Debug.Assert(speedFactor > 0f && timeDuration > 0f);
+        return StartCoroutine(timedSpeedEffectSequence(speedFactor, timeDuration));
+    }
+
+
+    // Main function to apply a timed armor modifier: returns the coroutine to cancel timed modifier at any point
+    public Coroutine setTimedArmorModifier(float armorFactor, float timeDuration) {
+        Debug.Assert(armorFactor > 0f && timeDuration > 0f);
+        return StartCoroutine(timedArmorEffectSequence(armorFactor, timeDuration));
+    }
+
+    // Main sequence for timed speed modifier
+    private IEnumerator timedSpeedEffectSequence(float speedFactor, float timeDuration) {
+        applySpeedModifier(speedFactor);
+        yield return new WaitForSeconds(timeDuration);
+        revertSpeedModifier(speedFactor);
+    }
+
+
+    // Main sequence for timed armor modifier
+    private IEnumerator timedArmorEffectSequence(float armorFactor, float timeDuration) {
+        applyDefenseModifier(armorFactor);
+        yield return new WaitForSeconds(timeDuration);
+        revertDefenseModifier(armorFactor);
+    }
+
+
     // Static function to help with damage calculations
     private static float STATIC_DEFENSE_FACTOR = 3f;
 

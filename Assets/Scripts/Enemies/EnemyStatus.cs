@@ -42,6 +42,7 @@ public class EnemyStatus : IUnitStatus
     [Header("Events")]
     public UnityEvent deathEvent;
     public UnityEvent enemyNoticesDamageEvent;
+    public UnityEvent<float> damageEvent;
 
     // Poison stacks
     private int curPoisonStacks = 0;
@@ -156,6 +157,7 @@ public class EnemyStatus : IUnitStatus
     public override bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false) {
         if (attractsAttention) {
             enemyNoticesDamageEvent.Invoke();
+            damageEvent.Invoke(dmg);
         }
         
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(getDamageReduction(), 0f, 1f));

@@ -66,13 +66,47 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [SerializeField]
     private Color hitboxSlashColor = Color.red;
 
+    [Header("Howl Variables")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float howlChargeDuration = 12f;
+    [SerializeField]
+    [Range(1f, 2f)]
+    private float howlShieldArmorIncrease = 1.5f;
+    [SerializeField]
+    [Range(0.01f, 1f)]
+    private float howlSlowFactor = 0.5f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float howlSlowDuration = 1.5f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float howlShieldHealth = 20f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float minTimeBeforeNextHowl = 10f;
+    [SerializeField]
+    private EnemyTimedSpeedEffectHitbox howlHitbox;
+    [SerializeField]
+    [Min(1)]
+    private int howlRecoilStunFrames = 60;
+    [SerializeField]
+    [Min(1)]
+    private int initialHowlChargeupFrames = 20;
+    private MeshRenderer howlMesh;
+    private Coroutine runningHowlCoroutine;
+    private float curHowlShieldHealth = 0f;
+
 
     // Main function to do additional initialization for branch
     //  Pre: none
     //  Post: sets branch up
-    protected override void initialize() {
+    protected override void initialize(BossEnemyStatus bossEnemyStatus) {
         slashMesh = slashHitbox.GetComponent<MeshRenderer>();
+        howlMesh = howlHitbox.GetComponent<MeshRenderer>();
         lingeringBodyHitbox.setDamage(nonDashDamage);
+        howlHitbox.setUp(howlSlowFactor, howlSlowDuration);
+        bossEnemyStatus.damageEvent.AddListener(onHowlShieldDamage);
     }
 
 
@@ -80,12 +114,16 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     //  Pre: tgt is the player, cannot equal null
     //  Post: executes aggressive branch
     public override IEnumerator execute(Transform tgt, BossEnemyStatus bossEnemyStatus) {
-        int diceRoll = Random.Range(0, 2);
+        int maxDiceRoll = (runningHowlCoroutine == null) ? 3 : 2;
+        int diceRoll = Random.Range(0, maxDiceRoll);
 
         if (diceRoll == 0) {
             yield return lunge(tgt, bossEnemyStatus);
-        } else {
+        } else if (diceRoll == 1) {
             yield return slash(tgt);
+        } else {
+            runningHowlCoroutine = StartCoroutine(howlingSequence(bossEnemyStatus));
+            yield return AI_NavLibrary.waitForFrames(initialHowlChargeupFrames);
         }
     }
 
@@ -171,5 +209,52 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
         // Post Slash stun
         yield return AI_NavLibrary.waitForFrames(slashRecoilFrames);
+    }
+
+
+    // Main howling sequence
+    private IEnumerator howlingSequence(BossEnemyStatus bossEnemyStatus) {
+        // Set up armor
+        curHowlShieldHealth = howlShieldHealth;
+        bossEnemyStatus.applyDefenseModifier(howlShieldArmorIncrease);
+        howlMesh.enabled = true;
+        howlMesh.material.color = anticipationSlashColor;
+
+        // Howling charge up loop
+        float howlTimer = 0f;
+        while (howlTimer < howlChargeDuration && curHowlShieldHealth > 0f) {
+            yield return 0;
+            howlTimer += Time.deltaTime;
+        }
+
+        // If howl shield is still up, apply speed effect to player
+        bossEnemyStatus.revertDefenseModifier(howlShieldArmorIncrease);
+        if (curHowlShieldHealth > 0f) {
+            howlHitbox.doDamage(1f);
+            howlMesh.material.color = hitboxSlashColor;
+            yield return new WaitForSeconds(0.2f);
+            howlMesh.enabled = false;
+
+        // Else, be stunned for a period of time
+        } else {
+            Debug.Log("BROKE SHIELD");
+            howlMesh.enabled = false;
+            bossEnemyStatus.stun(true);
+            yield return AI_NavLibrary.waitForFrames(howlRecoilStunFrames);
+            bossEnemyStatus.stun(false);
+        }
+
+        // Wait a certain amount of time before doing another howl
+        yield return new WaitForSeconds(minTimeBeforeNextHowl);
+        runningHowlCoroutine = null;
+    }
+
+
+
+    // Main function to handle howl shield damage
+    private void onHowlShieldDamage(float damage) {
+        if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
+            curHowlShieldHealth -= damage;
+        }
     }
 }

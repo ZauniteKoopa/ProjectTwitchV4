@@ -7,7 +7,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     // Main function to do additional initialization for branch
     //  Pre: none
     //  Post: sets branch up
-    protected override void initialize() {
+    protected override void initialize(BossEnemyStatus bossEnemyStatus) {
 
     }
 
