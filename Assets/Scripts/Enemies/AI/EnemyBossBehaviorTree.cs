@@ -15,23 +15,14 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     private IBossBehaviorBranch aggroBranch;
     [SerializeField]
     private IBossBehaviorBranch scoutingBranch;
+    [SerializeField]
+    [Min(0.01f)]
+    private float passiveLookAtDuration = 1.5f;
     private NavMeshAgent navMeshAgent;
     private BossEnemyStatus bossStatus;
 
     private Coroutine currentBehaviorSequence = null;
     private bool aggroState = false;
-    private bool trackedPlayerWithoutVision = false;
-
-    
-    // Main function to initialize
-    private void Awake() {
-        bossStatus = GetComponent<BossEnemyStatus>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-
-        bossStatus.stunnedStartEvent.AddListener(onStunStart);
-        bossStatus.stunnedEndEvent.AddListener(onStunEnd);
-        scoutingBranch.turnAggressiveEvent.AddListener(onPassiveBranchAutoEnd);
-    }
 
 
 
@@ -49,8 +40,20 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
     // Main function to initialize boss sequence
     public void spawnInBoss(Transform targetedPlayer) {
+        bossStatus = GetComponent<BossEnemyStatus>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        bossStatus.stunnedStartEvent.AddListener(onStunStart);
+        bossStatus.stunnedEndEvent.AddListener(onStunEnd);
+        bossStatus.spawnInFinishEvent.AddListener(onSpawnInFinish);
+
         playerTgt = targetedPlayer;
         bossStatus.spawnIn();
+    }
+
+
+    // Main fucntion to set up when spawn in has been finished
+    private void onSpawnInFinish() {
         aggroState = true;
 
         if (currentBehaviorSequence != null) {
@@ -63,10 +66,9 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy sensed a player
     //  Pre: player != null, enemy saw player
     public override void onSensedPlayer(Transform player) {
-        if (!aggroState) {
+        if (!aggroState && scoutingBranch.canBeDistracted()) {
             aggroState = true;
             navMeshAgent.isStopped = true;
-            trackedPlayerWithoutVision = false;
 
             if (bossStatus.canMove()) {
                 lock (treeLock) {
@@ -87,7 +89,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy lost sight of a player
     //  Pre: enemy lost sight of player and gave up chasing
     public override void onLostPlayer() {
-        if (aggroState && !trackedPlayerWithoutVision) {
+        if (aggroState) {
             aggroState = false;
             navMeshAgent.isStopped = true;
 
@@ -140,9 +142,33 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
 
     // Main function to look at a specific direction
-    //  Pre: lookDirection is the look direction that the enemy will be looking at
+    //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
-    public override void lookAt(Vector3 lookAtDirection) {}
+    public override void lookAt(Vector3 lookAtDirection) {
+        if (!inAggroState() && scoutingBranch.canBeDistracted()) {
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+            }
+
+            if (bossStatus.isAlive()) {
+                lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
+                currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
+            }
+        }
+    }
+
+
+    // Main private helper sequence to just look at an enemy for a predetermined number of seconds before going about typical behavior
+    private IEnumerator lookAtSequence(Vector3 lookAtDirection) {
+        navMeshAgent.isStopped = true;
+        
+        yield return 0;
+        
+        transform.forward = lookAtDirection;
+        
+        yield return new WaitForSeconds(passiveLookAtDuration);
+        yield return behaviorTreeSequence();
+    }
 
 
     // Main function for event handlers for stun start
@@ -168,12 +194,5 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
-    }
-
-
-    // Main event handler for when passive branch pivots to aggressive branch based on papssive branch logic
-    private void onPassiveBranchAutoEnd() {
-        onSensedPlayer(playerTgt);
-        trackedPlayerWithoutVision = true;
     }
 }

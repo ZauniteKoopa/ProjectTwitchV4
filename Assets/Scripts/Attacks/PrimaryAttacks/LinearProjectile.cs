@@ -84,7 +84,7 @@ public class LinearProjectile : IPrimaryAttack
             }
             onHitEnemy();
 
-        } else {
+        } else if (collider.gameObject.layer == LayerMask.NameToLayer("WallCollision")){
             Object.Destroy(gameObject);
             
         }

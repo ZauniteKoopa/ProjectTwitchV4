@@ -42,8 +42,9 @@ public class DungeonFloorLayout
         Debug.Assert(curRoom != null);
 
         // Get spawn position
-        float emptySpaceLength = Room.ROOM_SIZE - Room.WALL_OFFSET;
-        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
+        float emptySpaceLength = curRoom.roomLength - Room.WALL_OFFSET;
+        float emptySpaceWidth = curRoom.roomWidth - Room.WALL_OFFSET;
+        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceWidth / 2f, emptySpaceWidth / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
         spawnPos += curRoom.transform.position;
 
         // Get nav mesh adjusted point 

@@ -71,7 +71,7 @@ public class BossEnemyStatus : EnemyStatus
                 StartCoroutine(transitionPhases());
             }
 
-            return aliveState;
+            return !aliveState;
         }
 
         return false;

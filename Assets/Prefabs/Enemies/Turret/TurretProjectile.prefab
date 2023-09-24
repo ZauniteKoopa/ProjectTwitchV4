@@ -117,6 +117,8 @@ MonoBehaviour:
   maxDistance: 6
   hitStopFrames: 0
   cameraShakeMagnitude: 0
+  canBackstab: 0
+  backstabAngleThreshold: 50
 --- !u!65 &3345193428930419644
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,8 +130,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1.4120283}
+  m_Center: {x: 0, y: 0, z: -0.20601416}
 --- !u!54 &3225942164825539855
 Rigidbody:
   m_ObjectHideFlags: 0

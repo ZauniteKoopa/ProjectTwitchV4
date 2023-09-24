@@ -31,8 +31,10 @@ public class Room : MonoBehaviour
     [Range(0, 5)]
     public int mapCol = 0;
 
-
-    public static readonly float ROOM_SIZE = 18f;
+    [SerializeField]
+    public float roomWidth = 18f;
+    [SerializeField]
+    public float roomLength = 18f;
     public static readonly float WALL_OFFSET = 1.5f;
 
 
@@ -134,10 +136,11 @@ public class Room : MonoBehaviour
 
 
     // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
-    public EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav, bool willDropLoot) {
+    public virtual EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav, bool willDropLoot) {
         // Get spawn position
-        float emptySpaceLength = ROOM_SIZE - WALL_OFFSET;
-        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
+        float emptySpaceLength = roomLength - WALL_OFFSET;
+        float emptySpaceWidth = roomWidth - WALL_OFFSET;
+        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceWidth / 2f, emptySpaceWidth / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
         spawnPos += transform.position;
 
         // Get nav mesh adjusted point 

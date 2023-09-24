@@ -20,6 +20,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     // Way to stay connected with nearby enemies
     [Header("Events")]
     public UnityEvent enemyAttackedEvent;
+    public UnityEvent<IUnitStatus> otherEnemyAttackedEvent;
     private Dictionary<DynamicEnemyVisionConeSensor, UnityAction[]> nearbyEnemySensorDelegates = new Dictionary<DynamicEnemyVisionConeSensor, UnityAction[]>();
 
     [Header("Reaction Time")]
@@ -152,6 +153,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         }
 
         if (enemyStatus.isAlive()) {
+            otherEnemyAttackedEvent.Invoke(enemySensor.transform.parent.GetComponent<IUnitStatus>());
             runningReaction = StartCoroutine(reactToStimulus(enemySensor.transform.position - transform.position, enemyAttackedReactionTime));
         }
     }

@@ -32,6 +32,12 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     [SerializeField]
     [Range(0.01f, 0.2f)]
     private float bloodFrenzyTargetHealPercent = 0.05f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float trackMovementDuration = 1.5f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float trackStayDuration = 1f;
     private bool tracking = false;
     private IUnitStatus bloodiedTarget = null;
     
@@ -46,7 +52,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
     public override bool canBeDistracted() {
-        return false;
+        return bloodiedTarget == null;
     }
 
 
@@ -56,25 +62,16 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     public override IEnumerator execute(Transform tgt, BossEnemyStatus enemyStatus) {
         // Initially wait, puzzled
         Debug.Log("WHERE DID YOU GO?");
+        tracking = true;
         yield return AI_NavLibrary.waitForFrames(initialPassiveFrames);
 
         // Run the navigation sequence and the track timer sequence in parallel
-        Debug.Log("TRACKING");
-        runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt));
-        tracking = true;
-        float trackingTimer = 0f;
-        while (trackingTimer < trackingDuration && bloodiedTarget == null) {
-            yield return 0;
-            trackingTimer += Time.deltaTime;
-        }
-
-        // Once tracking is done, either chase after bloodied enemy or chase after tracked player
-        StopCoroutine(runningTrackingNavSequence);
-        runningTrackingNavSequence =  null;
+        yield return track(tgt);
         tracking = false;
 
         // Blood frenzy case
         if (bloodiedTarget != null) {
+            bloodiedTarget.stun(true);
             Debug.Log("BLOOD SPILLED! CAN'T CONTROL");
             yield return AI_NavLibrary.waitForFrames(bloodFrenzyFrames);
 
@@ -90,7 +87,6 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             }
 
             if (bloodiedTarget.isAlive()) {
-                bloodiedTarget.stun(true);
                 bloodiedTarget.damage(99999f, true);
                 enemyStats.healPercent(bloodFrenzyTargetHealPercent);
             }
@@ -98,23 +94,61 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
         // Find twitch case
         } else {
             Debug.Log("FOUND YOU");
+            bloodiedTarget = null;
             yield return AI_NavLibrary.waitForFrames(numDiscoveryFrames);
-            turnAggressiveEvent.Invoke();
+            yield return trackTowardsPlayer(tgt, 1.0f);
         }
 
         bloodiedTarget = null;
     }
 
 
+    // Main sequence to track
+    private IEnumerator track(Transform tgt) {
+        Debug.Log("TRACKING");
+        runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt, trackingSpeedReduction));
+        float trackingTimer = 0f;
+        // float trackingActionTimer = 0f;
+        // bool inMoveState = true;
+
+        while (trackingTimer < trackingDuration && bloodiedTarget == null) {
+            yield return 0;
+
+            trackingTimer += Time.deltaTime;
+            // trackingActionTimer += Time.deltaTime;
+            // float curActionTimerReq = (inMoveState) ? trackMovementDuration : trackStayDuration;
+
+            // if (trackingActionTimer >= curActionTimerReq) {
+            //     inMoveState = !inMoveState;
+
+            //     if (inMoveState) {
+            //         runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt, trackingSpeedReduction));
+            //     } else {
+            //         StopCoroutine(runningTrackingNavSequence);
+            //         navMeshAgent.isStopped = true;
+            //         runningTrackingNavSequence = null;
+            //     }
+            // }
+        }
+
+        // Once tracking is done, either chase after bloodied enemy or chase after tracked player
+        if (runningTrackingNavSequence != null) {
+            StopCoroutine(runningTrackingNavSequence);
+        }
+        runningTrackingNavSequence = null;
+        navMeshAgent.isStopped = true;
+    }
+
+
     // Main sequence to continuously move towards player
-    private IEnumerator trackTowardsPlayer(Transform tgt) {
+    private IEnumerator trackTowardsPlayer(Transform tgt, float speedReduction) {
         while (true) {
             yield return AI_NavLibrary.goToPosition(
                 tgt.position,
                 navMeshAgent,
                 enemyStats,
                 pathExpiration: pathRefreshTime,
-                speedModifier: trackingSpeedReduction
+                speedModifier: speedReduction
             );
         }
     }
@@ -126,13 +160,19 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             StopCoroutine(runningTrackingNavSequence);
             runningTrackingNavSequence = null;
         }
+
+        tracking = false;
+        bloodiedTarget = null;
     }
 
 
     // Main event handler for when a unit nearby gets damaged
-    private void onUnitDamagedNearby(IUnitStatus damagedUnit) {
+    public void onUnitDamagedNearby(IUnitStatus damagedUnit) {
         if (tracking) {
             bloodiedTarget = damagedUnit;
+
+            Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;
+            transform.forward = Vector3.ProjectOnPlane(rawDirVector, Vector3.up);
         }
     }
 }

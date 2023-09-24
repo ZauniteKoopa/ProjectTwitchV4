@@ -250,8 +250,8 @@ public class PlayerCameraController : MonoBehaviour
     // Main private helper function to get the local coordinates of the current room
     private Vector3 getLocalCameraPivotRoomPosition(Room curRoom) {
         // Calculate room limits 
-        float xRoomLimits = Mathf.Max((Room.ROOM_SIZE / 2f) - CAMERA_OFFSET_X, 0f);
-        float zRoomLimits = Mathf.Max((Room.ROOM_SIZE / 2f) - CAMERA_OFFSET_Z, 0f);
+        float xRoomLimits = Mathf.Max((curRoom.roomWidth / 2f) - CAMERA_OFFSET_X, 0f);
+        float zRoomLimits = Mathf.Max((curRoom.roomLength / 2f) - CAMERA_OFFSET_Z, 0f);
 
         // Get the players position given that he's in this room
         Vector3 playerRawLocalPos = playerPackage.position - curRoom.transform.position;

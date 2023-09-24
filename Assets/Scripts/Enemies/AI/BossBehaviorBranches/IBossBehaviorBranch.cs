@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 public abstract class IBossBehaviorBranch : MonoBehaviour
 {
     // Variables
     protected NavMeshAgent navMeshAgent;
     protected BossEnemyStatus enemyStats;
-    public UnityEvent turnAggressiveEvent;
 
 
     // Main variables for most aggroBranches

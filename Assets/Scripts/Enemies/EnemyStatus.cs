@@ -43,6 +43,7 @@ public class EnemyStatus : IUnitStatus
     public UnityEvent deathEvent;
     public UnityEvent enemyNoticesDamageEvent;
     public UnityEvent<float> damageEvent;
+    public UnityEvent spawnInFinishEvent;
 
     // Poison stacks
     private int curPoisonStacks = 0;
@@ -125,6 +126,7 @@ public class EnemyStatus : IUnitStatus
     private void onSpawnInSequenceEnd(Vector3 spawnForward) {
         transform.forward = spawnForward;
         gameObject.SetActive(true);
+        spawnInFinishEvent.Invoke();
     }
 
 
@@ -154,7 +156,6 @@ public class EnemyStatus : IUnitStatus
     // Main function to heal by percentage
     public void healPercent(float healPercentage) {
         Debug.Assert(healPercentage > 0f && healPercentage < 1.01f);
-
         heal(maxHealth * healPercentage);
     }
 
@@ -204,6 +205,7 @@ public class EnemyStatus : IUnitStatus
         lock (healthLock) {
             if (isAlive()) {
                 curHealth = Mathf.Min(curHealth + healAmount, maxHealth);
+                enemyStatusUI.updateHealthBar(curHealth, maxHealth);
             }
         }
     }
