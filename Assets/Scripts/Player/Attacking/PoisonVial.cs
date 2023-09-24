@@ -192,11 +192,14 @@ public class PoisonVial
         Debug.Assert(tgt != null && poisonStacks > 0);
 
         Vector3 enemyPosition = tgt.transform.position;
+        BossEnemyStatus bossStatus = tgt as BossEnemyStatus;
+        bool bossNoTransitionBefore = (bossStatus != null) ? !bossStatus.inTransitionState() : false;
 
         float contaminateDmg = getProjectedContaminateDamage(poisonStacks) * attackModifier;
         bool tgtKilled = tgt.damage(contaminateDmg, false);
+        bool bossTransitioned = (bossStatus != null) ? bossStatus.inTransitionState() : false;
 
-        if (tgtKilled) {
+        if (tgtKilled || (bossNoTransitionBefore && bossTransitioned)) {
             contaminateExecuteEvent.Invoke();
         }
 

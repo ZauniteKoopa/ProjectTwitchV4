@@ -151,6 +151,14 @@ public class EnemyStatus : IUnitStatus
     }
 
 
+    // Main function to heal by percentage
+    public void healPercent(float healPercentage) {
+        Debug.Assert(healPercentage > 0f && healPercentage < 1.01f);
+
+        heal(maxHealth * healPercentage);
+    }
+
+
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public abstract class IBossBehaviorBranch : MonoBehaviour
 {
     // Variables
     protected NavMeshAgent navMeshAgent;
     protected BossEnemyStatus enemyStats;
+    public UnityEvent turnAggressiveEvent;
 
 
     // Main variables for most aggroBranches
@@ -43,6 +45,10 @@ public abstract class IBossBehaviorBranch : MonoBehaviour
 
     // Main function to reset the branch when the overall tree gets overriden / switch branches
     public abstract void reset();
+
+
+    // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
+    public abstract bool canBeDistracted();
 
 
     // Main function to do a hard reset: a reset in which the enemy respawns from scratch

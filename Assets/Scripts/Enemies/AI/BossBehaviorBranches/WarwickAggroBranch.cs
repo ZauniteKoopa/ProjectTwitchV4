@@ -110,6 +110,12 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     }
 
 
+    // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
+    public override bool canBeDistracted() {
+        return false;
+    }
+
+
     // Main function to execute the branch
     //  Pre: tgt is the player, cannot equal null
     //  Post: executes aggressive branch

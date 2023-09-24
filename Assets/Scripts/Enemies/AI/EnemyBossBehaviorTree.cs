@@ -20,6 +20,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
     private Coroutine currentBehaviorSequence = null;
     private bool aggroState = false;
+    private bool trackedPlayerWithoutVision = false;
 
     
     // Main function to initialize
@@ -29,6 +30,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
         bossStatus.stunnedStartEvent.AddListener(onStunStart);
         bossStatus.stunnedEndEvent.AddListener(onStunEnd);
+        scoutingBranch.turnAggressiveEvent.AddListener(onPassiveBranchAutoEnd);
     }
 
 
@@ -64,6 +66,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
         if (!aggroState) {
             aggroState = true;
             navMeshAgent.isStopped = true;
+            trackedPlayerWithoutVision = false;
 
             if (bossStatus.canMove()) {
                 lock (treeLock) {
@@ -84,7 +87,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy lost sight of a player
     //  Pre: enemy lost sight of player and gave up chasing
     public override void onLostPlayer() {
-        if (aggroState) {
+        if (aggroState && !trackedPlayerWithoutVision) {
             aggroState = false;
             navMeshAgent.isStopped = true;
 
@@ -165,5 +168,12 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
+    }
+
+
+    // Main event handler for when passive branch pivots to aggressive branch based on papssive branch logic
+    private void onPassiveBranchAutoEnd() {
+        onSensedPlayer(playerTgt);
+        trackedPlayerWithoutVision = true;
     }
 }

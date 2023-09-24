@@ -58,7 +58,7 @@ public class BossEnemyStatus : EnemyStatus
     public override bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false) {        
         // Only deal damage if you're in transition
         if (!inTransition) {
-            bool aliveState = !base.damage(dmg, isTrue, attractsAttention = true, isCrit = false);
+            bool aliveState = !base.damage(dmg, isTrue, attractsAttention, isCrit);
 
             // If isAlive and you met transition checks, actually transition
             if (aliveState && curHealth <= (maxHealth * requiredPhaseThreshold)) {
@@ -95,5 +95,11 @@ public class BossEnemyStatus : EnemyStatus
     // Main accessor function to get which phase the boss is in currently (starting from 0)
     public int getCurrentPhase() {
         return curPhase;
+    }
+
+
+    // Main accessor method to check if you're in transition
+    public bool inTransitionState() {
+        return inTransition;
     }
 }
