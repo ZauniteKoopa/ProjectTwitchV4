@@ -13,4 +13,10 @@ public class ResourceBar : MonoBehaviour
     public void setFill(float curValue, float fullValue) {
         resourceBarFill.fillAmount = curValue / fullValue;
     }
+
+
+    // Main function to setActive
+    public void setActive(bool willActive) {
+        gameObject.SetActive(willActive);
+    }
 }

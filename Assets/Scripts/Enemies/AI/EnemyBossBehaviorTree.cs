@@ -191,6 +191,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     public void onStunEnd() {
         lock (treeLock) {
             if (bossStatus.isAlive()) {
+
+                if (currentBehaviorSequence != null) {
+                    StopCoroutine(currentBehaviorSequence);
+                }
+
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }

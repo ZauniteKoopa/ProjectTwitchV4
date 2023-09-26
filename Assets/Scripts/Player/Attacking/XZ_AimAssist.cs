@@ -17,6 +17,9 @@ public class XZ_AimAssist : IAimAssist
     private float enemyAimAssistRadius = 0.5f;
     [SerializeField]
     private LayerMask aimMask;
+    [SerializeField]
+    [Min(0.1f)]
+    private float minTargetScale = 1.25f;
 
 
     // Main function to adjust the aim direction so that it can accurately hit an enemy: O(E) Time and O(E) space (E = enemies considered)
@@ -111,7 +114,7 @@ public class XZ_AimAssist : IAimAssist
             radiusVector = radiusVector.normalized;
 
             // Get distance vector from playerPosition to radius point = (enemyPosition + (radius * radiusVector))
-            float radius = target.lossyScale.x + enemyAimAssistRadius;
+            float radius = Mathf.Min(target.lossyScale.x, minTargetScale) + enemyAimAssistRadius;
             Vector3 radiusPoint = tgtPosition + (radius * radiusVector);
             Vector3 radiusDistanceVector = radiusPoint - playerPosition;
 

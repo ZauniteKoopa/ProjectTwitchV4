@@ -93,6 +93,8 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [SerializeField]
     [Min(1)]
     private int initialHowlChargeupFrames = 20;
+    [SerializeField]
+    private ResourceBar howlBar;
     private MeshRenderer howlMesh;
     private Coroutine runningHowlCoroutine;
     private float curHowlShieldHealth = 0f;
@@ -107,6 +109,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         lingeringBodyHitbox.setDamage(nonDashDamage);
         howlHitbox.setUp(howlSlowFactor, howlSlowDuration);
         bossEnemyStatus.damageEvent.AddListener(onHowlShieldDamage);
+        howlBar.setActive(false);
     }
 
 
@@ -225,16 +228,19 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         bossEnemyStatus.applyDefenseModifier(howlShieldArmorIncrease);
         howlMesh.enabled = true;
         howlMesh.material.color = anticipationSlashColor;
+        howlBar.setActive(true);
 
         // Howling charge up loop
         float howlTimer = 0f;
         while (howlTimer < howlChargeDuration && curHowlShieldHealth > 0f) {
             yield return 0;
             howlTimer += Time.deltaTime;
+            howlBar.setFill(howlTimer, howlChargeDuration);
         }
 
         // If howl shield is still up, apply speed effect to player
         bossEnemyStatus.revertDefenseModifier(howlShieldArmorIncrease);
+        howlBar.setActive(false);
         if (curHowlShieldHealth > 0f) {
             howlHitbox.doDamage(1f);
             howlMesh.material.color = hitboxSlashColor;

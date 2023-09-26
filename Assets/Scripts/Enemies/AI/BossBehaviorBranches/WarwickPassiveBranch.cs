@@ -38,6 +38,8 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     [SerializeField]
     [Min(0.01f)]
     private float trackStayDuration = 1f;
+    [SerializeField]
+    private WarwickBloodMark huntingMark;
     private bool tracking = false;
     private IUnitStatus bloodiedTarget = null;
     
@@ -68,11 +70,13 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
         // Run the navigation sequence and the track timer sequence in parallel
         yield return track(tgt);
         tracking = false;
+        huntingMark.setTrackingProgress(1f, 1f);
 
         // Blood frenzy case
         if (bloodiedTarget != null) {
+            huntingMark.setTarget(bloodiedTarget.transform);
             bloodiedTarget.stun(true);
-            Debug.Log("BLOOD SPILLED! CAN'T CONTROL");
+
             yield return AI_NavLibrary.waitForFrames(bloodFrenzyFrames);
 
             // Keep moving until you're close enough to the target
@@ -91,6 +95,8 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
                 enemyStats.healPercent(bloodFrenzyTargetHealPercent);
             }
 
+            huntingMark.setActive(false);
+
         // Find twitch case
         } else {
             Debug.Log("FOUND YOU");
@@ -105,7 +111,10 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main sequence to track
     private IEnumerator track(Transform tgt) {
-        Debug.Log("TRACKING");
+        huntingMark.setTarget(tgt);
+        huntingMark.setTrackingProgress(0f, 1f);
+        huntingMark.setActive(true);
+
         runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt, trackingSpeedReduction));
         float trackingTimer = 0f;
         // float trackingActionTimer = 0f;
@@ -115,6 +124,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             yield return 0;
 
             trackingTimer += Time.deltaTime;
+            huntingMark.setTrackingProgress(trackingTimer, trackingDuration);
             // trackingActionTimer += Time.deltaTime;
             // float curActionTimerReq = (inMoveState) ? trackMovementDuration : trackStayDuration;
 
@@ -163,12 +173,13 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
         tracking = false;
         bloodiedTarget = null;
+        huntingMark.setActive(false);
     }
 
 
     // Main event handler for when a unit nearby gets damaged
     public void onUnitDamagedNearby(IUnitStatus damagedUnit) {
-        if (tracking) {
+        if (tracking && damagedUnit.isAlive()) {
             bloodiedTarget = damagedUnit;
 
             Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;

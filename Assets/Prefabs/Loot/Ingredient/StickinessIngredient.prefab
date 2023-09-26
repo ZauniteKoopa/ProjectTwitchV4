@@ -113,10 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f426e15d81d20354ab4e2161ed660755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 3
   controlsIndicator: {fileID: 6877921696108967853}
-  solidPeriod: 6
-  fadingPeriod: 3
+  statType: 3
+  solidPeriod: 10
+  fadingPeriod: 5
 --- !u!114 &6877921697493334451
 MonoBehaviour:
   m_ObjectHideFlags: 0

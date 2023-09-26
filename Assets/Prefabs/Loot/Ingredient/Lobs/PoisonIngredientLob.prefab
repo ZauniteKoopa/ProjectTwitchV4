@@ -181,11 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3396451894047381558, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
       propertyPath: solidPeriod
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3396451894047381558, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
       propertyPath: fadingPeriod
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3396451895448557098, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
       propertyPath: m_Camera
@@ -210,6 +210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &8733084168916233796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3396451894047381554, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
