@@ -2,6 +2,86 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WarwickMoveEnum {
+    DASH,
+    SLASH,
+    HOWL
+}
+
+
+[System.Serializable]
+public class WarwickAggroPhaseModifiers {
+    [Header("Dash Attacks")]
+    [Min(1)]
+    public int dashAnticipationFrames = 40;
+    [Min(1f)]
+    public float dashMovementMultiplier = 2.25f;
+    [Min(1)]
+    public int dashRecoilFrames = 20;
+
+    [Header("Slash Variables")]
+    [Min(1)]
+    public int slashAnticipationFrames = 45;
+    [Min(1)]
+    public int slashRecoilFrames = 30;
+
+    [Header("Howl Variables")]
+    [Min(0.01f)]
+    public float howlSlowDuration = 1.5f;
+    [SerializeField]
+    [Min(0.01f)]
+    public float howlShieldHealth = 20f;
+
+    [Header("Move Probabilities")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float dashProbability;
+    [SerializeField]
+    [Min(0.01f)]
+    private float slashProbability;
+    [SerializeField]
+    [Min(0.01f)]
+    private float howlProbability;
+
+
+    // Main function to decide which move you can get
+    public WarwickMoveEnum chooseMove(bool isChargingHowl) {
+        float[] moveProbs = {dashProbability, slashProbability, howlProbability};
+        int numConsideredProbs = (isChargingHowl) ? moveProbs.Length - 1 : moveProbs.Length;
+        float totalProb = 0f;
+
+        for (int i = 0; i < numConsideredProbs; i++) {
+            totalProb += moveProbs[i];
+        }
+
+        // Roll the dice
+        float diceRoll = Random.Range(0f, totalProb);
+        float moveThreshold = moveProbs[0];
+        int curMove = 0;
+        
+        while (diceRoll > moveThreshold) {
+            curMove++;
+            moveThreshold += moveProbs[curMove];
+        }
+
+        // Choose move
+        switch (curMove) {
+            case 0:
+                return WarwickMoveEnum.DASH;
+
+            case 1:
+                return WarwickMoveEnum.SLASH;
+
+            default:
+                return WarwickMoveEnum.HOWL;
+        }
+
+    }
+}
+
+
+
+
 public class WarwickAggroBranch : IBossBehaviorBranch
 {
     [Header("Navigation")]
@@ -19,9 +99,6 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
     [Header("Dash Variables")]
     [SerializeField]
-    [Min(1)]
-    private int dashAnticipationFrames = 40;
-    [SerializeField]
     [Min(0.01f)]
     private float dashTime = 0.35f;
     [SerializeField]
@@ -30,12 +107,6 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [SerializeField]
     [Min(0.01f)]
     private float dashDamage = 4f;
-    [SerializeField]
-    [Min(1)]
-    private int dashRecoilFrames = 15;
-    [SerializeField]
-    [Min(1f)]
-    private float dashMovementMultiplier = 2.25f;
     [SerializeField]
     private LayerMask dashCollisionMask;
     [SerializeField]
@@ -47,17 +118,11 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [Min(0.1f)]
     private float minSlashDistance = 3.5f;
     [SerializeField]
-    [Min(1)]
-    private int slashAnticipationFrames = 45;
-    [SerializeField]
     [Min(0.1f)]
     private int slashAttackFrames = 20;
     [SerializeField]
     [Min(0.01f)]
     private float slashDamage = 10f;
-    [SerializeField]
-    [Min(1)]
-    private int slashRecoilFrames = 30;
     [SerializeField]
     private EnemyHitbox slashHitbox;
     private MeshRenderer slashMesh;
@@ -78,12 +143,6 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private float howlSlowFactor = 0.5f;
     [SerializeField]
     [Min(0.01f)]
-    private float howlSlowDuration = 1.5f;
-    [SerializeField]
-    [Min(0.01f)]
-    private float howlShieldHealth = 20f;
-    [SerializeField]
-    [Min(0.01f)]
     private float minTimeBeforeNextHowl = 10f;
     [SerializeField]
     private EnemyTimedSpeedEffectHitbox howlHitbox;
@@ -99,6 +158,10 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private Coroutine runningHowlCoroutine;
     private float curHowlShieldHealth = 0f;
 
+    [Header("Warwick Phase Escalation")]
+    [SerializeField]
+    private WarwickAggroPhaseModifiers[] warwickPhases;
+
 
     // Main function to do additional initialization for branch
     //  Pre: none
@@ -107,9 +170,14 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         slashMesh = slashHitbox.GetComponent<MeshRenderer>();
         howlMesh = howlHitbox.GetComponent<MeshRenderer>();
         lingeringBodyHitbox.setDamage(nonDashDamage);
-        howlHitbox.setUp(howlSlowFactor, howlSlowDuration);
+
         bossEnemyStatus.damageEvent.AddListener(onHowlShieldDamage);
+        bossEnemyStatus.enemyPhaseTransitionBeginEvent.AddListener(onBossTransitionBegin);
         howlBar.setActive(false);
+
+        if (warwickPhases.Length != bossEnemyStatus.getNumPhases()) {
+            Debug.LogError("ERROR: NUM PHASES DOES NOT EQUAL BOSS ESCALATION ARRAY LENGTH");
+        }
     }
 
 
@@ -123,15 +191,15 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     //  Pre: tgt is the player, cannot equal null
     //  Post: executes aggressive branch
     public override IEnumerator execute(Transform tgt, BossEnemyStatus bossEnemyStatus) {
-        int maxDiceRoll = (runningHowlCoroutine == null) ? 3 : 2;
-        int diceRoll = Random.Range(0, maxDiceRoll);
+        WarwickAggroPhaseModifiers currentPhaseValues = warwickPhases[bossEnemyStatus.getCurrentPhase()];
+        WarwickMoveEnum currentMove = currentPhaseValues.chooseMove(runningHowlCoroutine != null);
 
-        if (diceRoll == 0) {
-            yield return lunge(tgt, bossEnemyStatus);
-        } else if (diceRoll == 1) {
-            yield return slash(tgt);
+        if (currentMove == WarwickMoveEnum.DASH) {
+            yield return lunge(tgt, bossEnemyStatus, currentPhaseValues);
+        } else if (currentMove == WarwickMoveEnum.SLASH) {
+            yield return slash(tgt, currentPhaseValues);
         } else {
-            runningHowlCoroutine = StartCoroutine(howlingSequence(bossEnemyStatus));
+            runningHowlCoroutine = StartCoroutine(howlingSequence(bossEnemyStatus, currentPhaseValues));
             yield return AI_NavLibrary.waitForFrames(initialHowlChargeupFrames);
         }
     }
@@ -146,7 +214,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
 
     // Main attacking function to do a lunge
-    private IEnumerator lunge(Transform tgt, BossEnemyStatus bossEnemyStatus) {
+    private IEnumerator lunge(Transform tgt, BossEnemyStatus bossEnemyStatus, WarwickAggroPhaseModifiers curPhase) {
         // Keep moving until you're close enough to the target
         lingeringBodyHitbox.setDamage(nonDashDamage);
         while (Vector3.ProjectOnPlane(tgt.position - transform.position, Vector3.up).magnitude >= minPreDashDistance) {
@@ -166,16 +234,18 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         Vector3 dashDir = Vector3.ProjectOnPlane(tgt.position - transform.position, Vector3.up).normalized;
         transform.forward = dashDir;
 
-        yield return AI_NavLibrary.waitForFrames(dashAnticipationFrames);
+        yield return AI_NavLibrary.waitForFrames(curPhase.dashAnticipationFrames);
 
         // Actual dash
         lingeringBodyHitbox.setDamage(dashDamage * bossEnemyStatus.getBaseAttack());
         float dashTimer = 0f;
+        float startingDashSpeed = bossEnemyStatus.getMovementSpeed();
+        
         while (dashTimer < dashTime) {
             yield return 0;
             dashTimer += Time.deltaTime;
 
-            float distDelta = Time.deltaTime * Mathf.Max(minDashSpeed, bossEnemyStatus.getMovementSpeed() * dashMovementMultiplier);
+            float distDelta = Time.deltaTime * Mathf.Max(minDashSpeed, startingDashSpeed * curPhase.dashMovementMultiplier);
             RaycastHit hitInfo;
             if (Physics.BoxCast(transform.position, transform.localScale, dashDir, out hitInfo, transform.rotation, distDelta, dashCollisionMask)) {
                 distDelta = hitInfo.distance;
@@ -186,12 +256,12 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
         // Recoil wait time
         lingeringBodyHitbox.setDamage(nonDashDamage);
-        yield return AI_NavLibrary.waitForFrames(dashRecoilFrames);
+        yield return AI_NavLibrary.waitForFrames(curPhase.dashRecoilFrames);
     }
 
 
     // Main function to do a slash attack
-    private IEnumerator slash(Transform tgt) {
+    private IEnumerator slash(Transform tgt, WarwickAggroPhaseModifiers curPhase) {
         // Keep moving until you're close enough to the target
         while (Vector3.ProjectOnPlane(tgt.position - transform.position, Vector3.up).magnitude >= minSlashDistance) {
             yield return AI_NavLibrary.goToPosition(
@@ -208,7 +278,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         navMeshAgent.isStopped = true;
         slashMesh.enabled = true;
         slashMesh.material.color = anticipationSlashColor;
-        yield return AI_NavLibrary.waitForFrames(slashAnticipationFrames);
+        yield return AI_NavLibrary.waitForFrames(curPhase.slashAnticipationFrames);
 
         // actual Slash
         slashHitbox.doDamage(slashDamage * enemyStats.getBaseAttack());
@@ -217,18 +287,19 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         slashMesh.enabled = false;
 
         // Post Slash stun
-        yield return AI_NavLibrary.waitForFrames(slashRecoilFrames);
+        yield return AI_NavLibrary.waitForFrames(curPhase.slashRecoilFrames);
     }
 
 
     // Main howling sequence
-    private IEnumerator howlingSequence(BossEnemyStatus bossEnemyStatus) {
+    private IEnumerator howlingSequence(BossEnemyStatus bossEnemyStatus, WarwickAggroPhaseModifiers curPhase) {
         // Set up armor
-        curHowlShieldHealth = howlShieldHealth;
+        curHowlShieldHealth = curPhase.howlShieldHealth;
         bossEnemyStatus.applyDefenseModifier(howlShieldArmorIncrease);
         howlMesh.enabled = true;
         howlMesh.material.color = anticipationSlashColor;
         howlBar.setActive(true);
+        howlHitbox.setUp(howlSlowFactor, curPhase.howlSlowDuration);
 
         // Howling charge up loop
         float howlTimer = 0f;
@@ -242,14 +313,13 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         bossEnemyStatus.revertDefenseModifier(howlShieldArmorIncrease);
         howlBar.setActive(false);
         if (curHowlShieldHealth > 0f) {
-            howlHitbox.doDamage(1f);
+            howlHitbox.doDamage(0.1f);
             howlMesh.material.color = hitboxSlashColor;
             yield return new WaitForSeconds(0.2f);
             howlMesh.enabled = false;
 
         // Else, be stunned for a period of time
         } else {
-            Debug.Log("BROKE SHIELD");
             howlMesh.enabled = false;
             bossEnemyStatus.stun(true);
             yield return AI_NavLibrary.waitForFrames(howlRecoilStunFrames);
@@ -267,6 +337,14 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private void onHowlShieldDamage(float damage) {
         if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
             curHowlShieldHealth -= damage;
+        }
+    }
+
+
+    // Main function for when unit transitions
+    private void onBossTransitionBegin() {
+        if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
+            curHowlShieldHealth = 0f;
         }
     }
 }

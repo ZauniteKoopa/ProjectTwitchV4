@@ -102,4 +102,10 @@ public class BossEnemyStatus : EnemyStatus
     public bool inTransitionState() {
         return inTransition;
     }
+
+
+    // Main accessor method to get the number of phases
+    public int getNumPhases() {
+        return healthPhaseThresholds.Length;
+    }
 }

@@ -42,6 +42,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     private WarwickBloodMark huntingMark;
     private bool tracking = false;
     private IUnitStatus bloodiedTarget = null;
+    private bool connectedToPlayer = false;
     
     
     // Main function to do additional initialization for branch
@@ -62,8 +63,14 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     //  Pre: tgt is the player, cannot equal null
     //  Post: executes aggressive branch
     public override IEnumerator execute(Transform tgt, BossEnemyStatus enemyStatus) {
+        // Set up
+        if (!connectedToPlayer) {
+            PlayerStatus playerTgt = tgt.GetComponent<PlayerStatus>();
+            playerTgt.playerHurtEvent.AddListener(delegate { onPlayerDamagedNearby(playerTgt); });
+            connectedToPlayer = true;
+        }
+
         // Initially wait, puzzled
-        Debug.Log("WHERE DID YOU GO?");
         tracking = true;
         yield return AI_NavLibrary.waitForFrames(initialPassiveFrames);
 
@@ -73,7 +80,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
         huntingMark.setTrackingProgress(1f, 1f);
 
         // Blood frenzy case
-        if (bloodiedTarget != null) {
+        if (bloodiedTarget != null && bloodiedTarget is EnemyStatus) {
             huntingMark.setTarget(bloodiedTarget.transform);
             bloodiedTarget.stun(true);
 
@@ -99,8 +106,6 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
         // Find twitch case
         } else {
-            Debug.Log("FOUND YOU");
-            bloodiedTarget = null;
             yield return AI_NavLibrary.waitForFrames(numDiscoveryFrames);
             yield return trackTowardsPlayer(tgt, 1.0f);
         }
@@ -179,6 +184,17 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main event handler for when a unit nearby gets damaged
     public void onUnitDamagedNearby(IUnitStatus damagedUnit) {
+        if (tracking && damagedUnit.isAlive()) {
+            bloodiedTarget = damagedUnit;
+
+            Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;
+            transform.forward = Vector3.ProjectOnPlane(rawDirVector, Vector3.up);
+        }
+    }
+
+
+    // Main event handler for when player is damagewd
+    public void onPlayerDamagedNearby(IUnitStatus damagedUnit) {
         if (tracking && damagedUnit.isAlive()) {
             bloodiedTarget = damagedUnit;
 

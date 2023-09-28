@@ -164,8 +164,13 @@ public class EnemyBossRoom : Room
         EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, spawnPos, Quaternion.identity);
         curEnemy.lootTable = lootTable;
         curEnemy.willDropLoot = willDropLoot;
-        curEnemy.spawnIn();
 
+        RoomPatrolPointBranch patrolBehav = curEnemy.GetComponent<RoomPatrolPointBranch>();
+        if (patrolBehav != null) {
+            patrolBehav.setSpawnParameters(transform.position, roomWidth, roomLength);
+        }
+
+        curEnemy.spawnIn();
         return curEnemy;
     }
 

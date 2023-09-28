@@ -420,7 +420,6 @@ public class EnemyStatus : IUnitStatus
         GetComponent<Collider>().enabled = false;
 
         int numLoot = (willDropLoot) ? numLootDrops : 0;
-        numLoot += (curPoison != null) ? curPoison.sideEffect.getAdditionalLoot(curPoisonStacks) : 0;
         dropLoot(numLoot);
 
         yield return 0;

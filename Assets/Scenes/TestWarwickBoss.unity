@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16692047, g: 0.19686992, b: 0.226837, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733874, g: 0.2167395, b: 0.29880914, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.y
@@ -326,11 +326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -4.25
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -338,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -3.7
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -981,7 +981,7 @@ MonoBehaviour:
   minionLootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
   willSpawnMinions: 1
   possibleMinions:
-  - {fileID: 7276044789255310391, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
+  - {fileID: 5914273312632093458, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
   enemySpawnStartPhase: 1
   maxNumMinions: 3
   initialNumMinions: 2
@@ -1172,7 +1172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.y
@@ -1180,11 +1180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -4.25
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1192,7 +1192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 3.4400005
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1308,6 +1308,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 262784610, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522893, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1371,7 +1383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.y
@@ -1379,11 +1391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1391,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -3.7
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1591,7 +1603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.y
@@ -1599,11 +1611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1611,7 +1623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 3.44
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1834,8 +1846,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.3360394, g: 0.4811321, b: 0.1891242, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.18396226, g: 0.3679245, b: 0, a: 1}
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1892,14 +1904,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704441143}
-  m_LocalRotation: {x: 0.067666985, y: 0, z: 0, w: 0.99770796}
+  m_LocalRotation: {x: 0.6427876, y: 0, z: 0, w: 0.7660445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.76, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 80, y: 0, z: 0}
 --- !u!1001 &1779465166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2572,7 +2584,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 10
-  maxHealth: 140
+  maxHealth: 150
   damageReduction: 0.3
   enemyStatusUI: {fileID: 3548003916071350369}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
@@ -3454,34 +3466,58 @@ MonoBehaviour:
   pathRefreshTime: 0.25
   minPreDashDistance: 7
   nonDashDamage: 1
-  dashAnticipationFrames: 40
   dashTime: 0.35
   minDashSpeed: 12
   dashDamage: 4
-  dashRecoilFrames: 15
-  dashMovementMultiplier: 2.5
   dashCollisionMask:
     serializedVersion: 2
     m_Bits: 256
   lingeringBodyHitbox: {fileID: 5084298647550112252}
   minSlashDistance: 3.5
-  slashAnticipationFrames: 45
   slashAttackFrames: 20
   slashDamage: 8
-  slashRecoilFrames: 30
   slashHitbox: {fileID: 5084298648340059924}
   anticipationSlashColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   hitboxSlashColor: {r: 1, g: 0, b: 0, a: 1}
   howlChargeDuration: 8
   howlShieldArmorIncrease: 2
   howlSlowFactor: 0.65
-  howlSlowDuration: 5
-  howlShieldHealth: 15
   minTimeBeforeNextHowl: 10
   howlHitbox: {fileID: 5084298647235425723}
   howlRecoilStunFrames: 120
   initialHowlChargeupFrames: 40
   howlBar: {fileID: 1098592461}
+  warwickPhases:
+  - dashAnticipationFrames: 40
+    dashMovementMultiplier: 2.25
+    dashRecoilFrames: 20
+    slashAnticipationFrames: 45
+    slashRecoilFrames: 30
+    howlSlowDuration: 5
+    howlShieldHealth: 12
+    dashProbability: 0.5
+    slashProbability: 0.5
+    howlProbability: 0
+  - dashAnticipationFrames: 40
+    dashMovementMultiplier: 2.25
+    dashRecoilFrames: 20
+    slashAnticipationFrames: 45
+    slashRecoilFrames: 30
+    howlSlowDuration: 5
+    howlShieldHealth: 12
+    dashProbability: 0.375
+    slashProbability: 0.375
+    howlProbability: 0.25
+  - dashAnticipationFrames: 30
+    dashMovementMultiplier: 2.5
+    dashRecoilFrames: 15
+    slashAnticipationFrames: 35
+    slashRecoilFrames: 25
+    howlSlowDuration: 7
+    howlShieldHealth: 16
+    dashProbability: 0.375
+    slashProbability: 0.375
+    howlProbability: 0.25
 --- !u!114 &5084298648184476073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3498,8 +3534,8 @@ MonoBehaviour:
   trackingDuration: 7
   trackingSpeedReduction: 0.4
   numDiscoveryFrames: 60
-  bloodFrenzyFrames: 120
-  initialPassiveFrames: 60
+  bloodFrenzyFrames: 105
+  initialPassiveFrames: 45
   minBloodTargetKillRange: 2.5
   bloodFrenzyTargetHealPercent: 0.075
   trackMovementDuration: 1.5
@@ -4086,6 +4122,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3548003915528393178}
     m_Modifications:
+    - target: {fileID: 7176230055792950120, guid: 67590b93005a7b844a0390119bda7022, type: 3}
+      propertyPath: radius
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 7176230055792950121, guid: 67590b93005a7b844a0390119bda7022, type: 3}
       propertyPath: m_Name
       value: PCH_Indicator
