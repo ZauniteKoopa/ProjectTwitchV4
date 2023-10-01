@@ -9,6 +9,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     [Range(0.01f, 0.5f)]
     private float pathRefreshTime = 0.15f;
     private Coroutine runningTrackingNavSequence;
+    private bool passiveBranchActive = false;
 
     [Header("Tracking Variables")]
     [SerializeField]
@@ -32,12 +33,6 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     [SerializeField]
     [Range(0.01f, 0.2f)]
     private float bloodFrenzyTargetHealPercent = 0.05f;
-    [SerializeField]
-    [Min(0.01f)]
-    private float trackMovementDuration = 1.5f;
-    [SerializeField]
-    [Min(0.01f)]
-    private float trackStayDuration = 1f;
     [SerializeField]
     private WarwickBloodMark huntingMark;
     private bool tracking = false;
@@ -69,6 +64,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             playerTgt.playerHurtEvent.AddListener(delegate { onPlayerDamagedNearby(playerTgt); });
             connectedToPlayer = true;
         }
+        passiveBranchActive = true;
 
         // Initially wait, puzzled
         tracking = true;
@@ -122,28 +118,12 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
         runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt, trackingSpeedReduction));
         float trackingTimer = 0f;
-        // float trackingActionTimer = 0f;
-        // bool inMoveState = true;
 
         while (trackingTimer < trackingDuration && bloodiedTarget == null) {
             yield return 0;
 
             trackingTimer += Time.deltaTime;
             huntingMark.setTrackingProgress(trackingTimer, trackingDuration);
-            // trackingActionTimer += Time.deltaTime;
-            // float curActionTimerReq = (inMoveState) ? trackMovementDuration : trackStayDuration;
-
-            // if (trackingActionTimer >= curActionTimerReq) {
-            //     inMoveState = !inMoveState;
-
-            //     if (inMoveState) {
-            //         runningTrackingNavSequence = StartCoroutine(trackTowardsPlayer(tgt, trackingSpeedReduction));
-            //     } else {
-            //         StopCoroutine(runningTrackingNavSequence);
-            //         navMeshAgent.isStopped = true;
-            //         runningTrackingNavSequence = null;
-            //     }
-            // }
         }
 
         // Once tracking is done, either chase after bloodied enemy or chase after tracked player
@@ -157,7 +137,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main sequence to continuously move towards player
     private IEnumerator trackTowardsPlayer(Transform tgt, float speedReduction) {
-        while (true) {
+        while (passiveBranchActive) {
             yield return AI_NavLibrary.goToPosition(
                 tgt.position,
                 navMeshAgent,
@@ -176,6 +156,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             runningTrackingNavSequence = null;
         }
 
+        passiveBranchActive = false;
         tracking = false;
         bloodiedTarget = null;
         huntingMark.setActive(false);

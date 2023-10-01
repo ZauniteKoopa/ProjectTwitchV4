@@ -30,6 +30,12 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     private IEnumerator behaviorTreeSequence() {
         Debug.Assert(playerTgt != null);
 
+        if (!aggroState) {
+            passiveBranchActiveEvent.Invoke();
+        } else {
+            aggressiveBranchActiveEvent.Invoke();
+        }
+
         while (true) {
             // Test to see if unit is aggressive (they are aggressive IFF a playerTgt is found)
             IBossBehaviorBranch curBranch = (aggroState) ? aggroBranch : scoutingBranch;

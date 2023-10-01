@@ -8,6 +8,8 @@ public abstract class IEnemyBehavior : MonoBehaviour
 {
     // Event for when brain has been reset
     public UnityEvent behaviorResetEvent;
+    public UnityEvent passiveBranchActiveEvent;
+    public UnityEvent aggressiveBranchActiveEvent;
 
     // Main event handler function for when an enemy sensed a player
     //  Pre: player != null, enemy saw player

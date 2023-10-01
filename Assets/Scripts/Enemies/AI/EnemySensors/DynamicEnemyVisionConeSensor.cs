@@ -44,6 +44,8 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
 
         enemyStatus.enemyNoticesDamageEvent.AddListener(onAttackedByPlayer);
         fieldOfVision.changeObstacleMask(visionMask);
+        brain.aggressiveBranchActiveEvent.AddListener(onBehaviorAggroBranchActivate);
+        brain.passiveBranchActiveEvent.AddListener(onBehaviorPassiveBranchActivate);
     }
 
 
@@ -56,14 +58,10 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         // If player's in proximity range
         if (playerTargetInProximityRange()) {
             brain.onSensedPlayer(nearbyTarget.transform);
-            fieldOfVision.showVision(false);
-            fieldOfVision.changeObstacleMask(onAlertVisionMask);
 
         // If player is in vision cone
         } else if (seenPlayerByVision != null && seenPlayerByVision.canSeePlayer(enemyStatus)) {
             brain.onSensedPlayer(seenPlayerByVision.transform);
-            fieldOfVision.showVision(false);
-            fieldOfVision.changeObstacleMask(onAlertVisionMask);
 
         // If allies nearby can see player
         } else if (seenPlayerByAllies != null && runningPlayerReaction == null) {
@@ -76,8 +74,6 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     // Main action of actually forgetting the player in terms of sensing
     protected override void forgetPlayer() {
         base.forgetPlayer();
-        fieldOfVision.showVision(true);
-        fieldOfVision.changeObstacleMask(visionMask);
     }
 
 
@@ -175,8 +171,6 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         seenPlayer = getPlayerSeenByAllies();
         if (seenPlayer != null && !brain.inAggroState()) {
             brain.onSensedPlayer(seenPlayer.transform);
-            fieldOfVision.showVision(false);
-            fieldOfVision.changeObstacleMask(onAlertVisionMask);
         }
 
         runningPlayerReaction = null;
@@ -249,4 +243,17 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         return (onAlert || brain.inAggroState()) ? onAlertVisionMask : visionMask;
     }
 
+
+    // Event handler to handle when the aggressive branch activates
+    private void onBehaviorAggroBranchActivate() {
+        fieldOfVision.showVision(false);
+        fieldOfVision.changeObstacleMask(onAlertVisionMask);
+    }
+
+
+    // Event handler to handle when the passive branch activates
+    private void onBehaviorPassiveBranchActivate() {
+        fieldOfVision.showVision(true);
+        fieldOfVision.changeObstacleMask(visionMask);
+    }
 }

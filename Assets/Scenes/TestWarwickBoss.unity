@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -338,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.7
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1180,7 +1180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1192,7 +1192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.4400005
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1391,11 +1391,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.25
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1403,7 +1403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.7
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1611,11 +1611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.25
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1623,7 +1623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.44
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2254,6 +2254,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviorResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  passiveBranchActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  aggressiveBranchActiveEvent:
     m_PersistentCalls:
       m_Calls: []
   playerTgt: {fileID: 0}
@@ -3537,9 +3543,7 @@ MonoBehaviour:
   bloodFrenzyFrames: 105
   initialPassiveFrames: 45
   minBloodTargetKillRange: 2.5
-  bloodFrenzyTargetHealPercent: 0.075
-  trackMovementDuration: 1.5
-  trackStayDuration: 1
+  bloodFrenzyTargetHealPercent: 0.1
   huntingMark: {fileID: 359477442}
 --- !u!1 &5084298648340059922
 GameObject:

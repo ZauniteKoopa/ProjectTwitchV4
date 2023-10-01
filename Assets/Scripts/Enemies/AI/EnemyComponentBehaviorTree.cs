@@ -57,6 +57,12 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     
     // The main behavior tree sequence
     private IEnumerator behaviorTreeSequence() {
+        if (!inAggroState()) {
+            passiveBranchActiveEvent.Invoke();
+        } else {
+            aggressiveBranchActiveEvent.Invoke();
+        }
+
         while (true) {
             // Test to see if unit is aggressive (they are aggressive IFF a playerTgt is found)
             if (playerTgt == null) {
