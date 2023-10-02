@@ -99,6 +99,14 @@ public class EnemyStatus : IUnitStatus
     protected virtual void initialize() {}
 
 
+
+    // Main abstract method to get the current health percentage of this unit
+    //  Post: returns a float between 0f and 1f representing how much health % the unit has
+    public override float getHealthPercentage() {
+        return curHealth / maxHealth;
+    }
+
+
     // Main function to spawn in unit
     public virtual void spawnIn() {
         // Only spawn in a unit once
@@ -164,11 +172,6 @@ public class EnemyStatus : IUnitStatus
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if unit dies. false otherwise
     public override bool damage(float dmg, bool isTrue, bool attractsAttention = true, bool isCrit = false) {
-        if (attractsAttention) {
-            enemyNoticesDamageEvent.Invoke();
-            damageEvent.Invoke(dmg);
-        }
-        
         float actualDamage = (isTrue) ? dmg : dmg * (1f - Mathf.Clamp(getDamageReduction(), 0f, 1f));
         actualDamage *= (isCrit) ? BACKSTAB_DAMAGE_MULTIPLIER : 1f;
 
@@ -194,6 +197,11 @@ public class EnemyStatus : IUnitStatus
                 curPoison.sideEffect.maxStackEffect,
                 willApplyPostContaminateHitbox()
             );
+        }
+
+        if (attractsAttention) {
+            enemyNoticesDamageEvent.Invoke();
+            damageEvent.Invoke(dmg);
         }
 
         return curHealth <= 0f;

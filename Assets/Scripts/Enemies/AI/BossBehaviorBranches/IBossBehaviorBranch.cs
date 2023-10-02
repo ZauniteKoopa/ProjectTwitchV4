@@ -46,7 +46,11 @@ public abstract class IBossBehaviorBranch : MonoBehaviour
 
 
     // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
-    public abstract bool canBeDistracted();
+    public abstract bool canBeDistractedByEnemies();
+
+
+    // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
+    public abstract bool canBeDistractedByPlayer();
 
 
     // Main function to do a hard reset: a reset in which the enemy respawns from scratch

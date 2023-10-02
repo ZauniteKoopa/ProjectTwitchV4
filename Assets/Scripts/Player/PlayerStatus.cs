@@ -73,6 +73,13 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main abstract method to get the current health percentage of this unit
+    //  Post: returns a float between 0f and 1f representing how much health % the unit has
+    public override float getHealthPercentage() {
+        return curHealth / maxHealth;
+    }
+
+
     // Main method to inflict basic damage on unit
     //  Pre: damage is a number greater than 0, isTrue indicates if its true damage. true damage is not affected by armor and canCrit: can the damage given crit
     //  Post: unit gets inflicted with damage. returns true if death happens. else otherwise

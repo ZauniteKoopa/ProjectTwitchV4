@@ -72,7 +72,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy sensed a player
     //  Pre: player != null, enemy saw player
     public override void onSensedPlayer(Transform player) {
-        if (!aggroState && scoutingBranch.canBeDistracted()) {
+        if (!aggroState && scoutingBranch.canBeDistractedByPlayer()) {
             aggroState = true;
             navMeshAgent.isStopped = true;
 
@@ -151,7 +151,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
     public override void lookAt(Vector3 lookAtDirection) {
-        if (!inAggroState() && scoutingBranch.canBeDistracted()) {
+        if (!inAggroState() && scoutingBranch.canBeDistractedByEnemies()) {
             if (currentBehaviorSequence != null) {
                 StopCoroutine(currentBehaviorSequence);
             }

@@ -182,7 +182,13 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
 
     // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
-    public override bool canBeDistracted() {
+    public override bool canBeDistractedByPlayer() {
+        return false;
+    }
+
+
+    // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
+    public override bool canBeDistractedByEnemies() {
         return false;
     }
 

@@ -985,7 +985,7 @@ MonoBehaviour:
   enemySpawnStartPhase: 1
   maxNumMinions: 3
   initialNumMinions: 2
-  timeBetweenMinionSpawns: 12
+  timeBetweenMinionSpawns: 15
   probabilityNumerator: 3
   probabilityDenominator: 5
   probabilityVariance: 1
@@ -2589,7 +2589,7 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 10
+  movementSpeed: 12
   maxHealth: 150
   damageReduction: 0.3
   enemyStatusUI: {fileID: 3548003916071350369}
@@ -3537,13 +3537,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathRefreshTime: 0.15
-  trackingDuration: 7
+  trackingDuration: 8
   trackingSpeedReduction: 0.4
   numDiscoveryFrames: 60
   bloodFrenzyFrames: 105
   initialPassiveFrames: 45
   minBloodTargetKillRange: 2.5
   bloodFrenzyTargetHealPercent: 0.1
+  bloodFrenzyHealthRequirement: 0.6
   huntingMark: {fileID: 359477442}
 --- !u!1 &5084298648340059922
 GameObject:

@@ -34,6 +34,9 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     [Range(0.01f, 0.2f)]
     private float bloodFrenzyTargetHealPercent = 0.05f;
     [SerializeField]
+    [Range(0.1f, 1f)]
+    private float bloodFrenzyHealthRequirement = 0.5f;
+    [SerializeField]
     private WarwickBloodMark huntingMark;
     private bool tracking = false;
     private IUnitStatus bloodiedTarget = null;
@@ -49,8 +52,14 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
 
     // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
-    public override bool canBeDistracted() {
-        return bloodiedTarget == null;
+    public override bool canBeDistractedByPlayer() {
+        return bloodiedTarget == null || (bloodiedTarget is PlayerStatus);
+    }
+
+
+    // Main function to check whether or not the enemy is currently too focused on something to be distracted from specific task
+    public override bool canBeDistractedByEnemies() {
+        return bloodiedTarget == null && !tracking;
     }
 
 
@@ -103,7 +112,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
         // Find twitch case
         } else {
             yield return AI_NavLibrary.waitForFrames(numDiscoveryFrames);
-            yield return trackTowardsPlayer(tgt, 1.0f);
+            yield return trackTowardsPlayer(tgt, 1.0f, true);
         }
 
         bloodiedTarget = null;
@@ -136,8 +145,8 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
 
     // Main sequence to continuously move towards player
-    private IEnumerator trackTowardsPlayer(Transform tgt, float speedReduction) {
-        while (passiveBranchActive) {
+    private IEnumerator trackTowardsPlayer(Transform tgt, float speedReduction, bool alwaysMove = false) {
+        while (passiveBranchActive || alwaysMove) {
             yield return AI_NavLibrary.goToPosition(
                 tgt.position,
                 navMeshAgent,
@@ -165,7 +174,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main event handler for when a unit nearby gets damaged
     public void onUnitDamagedNearby(IUnitStatus damagedUnit) {
-        if (tracking && damagedUnit.isAlive()) {
+        if (tracking && damagedUnit.isAlive() && damagedUnit.getHealthPercentage() <= bloodFrenzyHealthRequirement) {
             bloodiedTarget = damagedUnit;
 
             Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;
