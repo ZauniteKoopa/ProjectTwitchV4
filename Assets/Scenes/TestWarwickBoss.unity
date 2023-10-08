@@ -1237,7 +1237,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_LocalScale.x
@@ -2544,7 +2544,7 @@ Transform:
   m_GameObject: {fileID: 3548003915528393175}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.20745242, y: 1.12, z: 0.020816803}
-  m_LocalScale: {x: 1.75, y: 1.25, z: 1.360905}
+  m_LocalScale: {x: 1.75, y: 1.25, z: 1.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3548003916071350684}
@@ -3566,6 +3566,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   bloodHuntEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  bloodHuntTargetKilled:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5084298648340059922
@@ -5691,7 +5694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920018238051423845, guid: 52ddb5af9e3a00c4281db64e25cc2d6b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.34285712
+      value: 0.3428571
       objectReference: {fileID: 0}
     - target: {fileID: 8920018238051423845, guid: 52ddb5af9e3a00c4281db64e25cc2d6b, type: 3}
       propertyPath: m_LocalScale.y
@@ -5699,7 +5702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920018238051423845, guid: 52ddb5af9e3a00c4281db64e25cc2d6b, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5143636
+      value: 0.39999998
       objectReference: {fileID: 0}
     - target: {fileID: 8920018238051423845, guid: 52ddb5af9e3a00c4281db64e25cc2d6b, type: 3}
       propertyPath: m_LocalPosition.x
