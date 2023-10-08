@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WarwickPassiveBranch : IBossBehaviorBranch
 {
@@ -41,8 +42,13 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
     private bool tracking = false;
     private IUnitStatus bloodiedTarget = null;
     private bool connectedToPlayer = false;
-    
-    
+
+    // Events
+    [Header("Animator Events")]
+    public UnityEvent bloodHuntStartEvent;
+    public UnityEvent bloodHuntEndEvent;
+    public UnityEvent bloodHuntTargetKilled;
+       
     // Main function to do additional initialization for branch
     //  Pre: none
     //  Post: sets branch up
@@ -89,7 +95,9 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             huntingMark.setTarget(bloodiedTarget.transform);
             bloodiedTarget.stun(true);
 
+            bloodHuntStartEvent.Invoke();
             yield return AI_NavLibrary.waitForFrames(bloodFrenzyFrames);
+            bloodHuntEndEvent.Invoke();
 
             // Keep moving until you're close enough to the target
             while (Vector3.ProjectOnPlane(bloodiedTarget.transform.position - transform.position, Vector3.up).magnitude >= minBloodTargetKillRange) {
@@ -105,13 +113,21 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             if (bloodiedTarget.isAlive()) {
                 bloodiedTarget.damage(99999f, true);
                 enemyStats.healPercent(bloodFrenzyTargetHealPercent);
+                bloodHuntTargetKilled.Invoke();
             }
 
             huntingMark.setActive(false);
 
         // Find twitch case
         } else {
+            if (bloodiedTarget == null) {
+                bloodiedTarget = tgt.GetComponent<PlayerStatus>();
+            }
+
+            bloodHuntStartEvent.Invoke();
             yield return AI_NavLibrary.waitForFrames(numDiscoveryFrames);
+            bloodHuntEndEvent.Invoke();
+
             yield return trackTowardsPlayer(tgt, 1.0f, true);
         }
 
@@ -191,5 +207,11 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;
             transform.forward = Vector3.ProjectOnPlane(rawDirVector, Vector3.up);
         }
+    }
+
+
+    // Main function to check if current bloodied target is a player
+    public bool isBloodiedTargetPlayer() {
+        return bloodiedTarget != null && bloodiedTarget is PlayerStatus;
     }
 }

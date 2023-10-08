@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyAttackAnimationState {
+    ANTICIPATION = 0,
+    ATTACK = 1,
+    RECOIL = 2
+}
+
 public class AI_NavLibrary
 {
     

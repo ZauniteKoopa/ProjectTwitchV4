@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum WarwickMoveEnum {
     DASH,
@@ -162,6 +163,14 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [SerializeField]
     private WarwickAggroPhaseModifiers[] warwickPhases;
 
+    [Header("Animation Events")]
+    private EnemyAttackAnimationState attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
+    public UnityEvent lungeStart;
+    public UnityEvent howlStart;
+    public UnityEvent slashStart;
+    public UnityEvent howlStunBeginEvent;
+    public UnityEvent howlStunEndEvent;
+
 
     // Main function to do additional initialization for branch
     //  Pre: none
@@ -205,8 +214,9 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         } else if (currentMove == WarwickMoveEnum.SLASH) {
             yield return slash(tgt, currentPhaseValues);
         } else {
-            runningHowlCoroutine = StartCoroutine(howlingSequence(bossEnemyStatus, currentPhaseValues));
+            howlStart.Invoke();
             yield return AI_NavLibrary.waitForFrames(initialHowlChargeupFrames);
+            runningHowlCoroutine = StartCoroutine(howlingSequence(bossEnemyStatus, currentPhaseValues));
         }
     }
 
@@ -236,6 +246,8 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         // Dash anticipation
         navMeshAgent.velocity = Vector3.zero;
         navMeshAgent.isStopped = true;
+        lungeStart.Invoke();
+        attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
 
         Vector3 dashDir = Vector3.ProjectOnPlane(tgt.position - transform.position, Vector3.up).normalized;
         transform.forward = dashDir;
@@ -246,6 +258,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         lingeringBodyHitbox.setDamage(dashDamage * bossEnemyStatus.getBaseAttack());
         float dashTimer = 0f;
         float startingDashSpeed = bossEnemyStatus.getMovementSpeed();
+        attackAnimState = EnemyAttackAnimationState.ATTACK;
         
         while (dashTimer < dashTime) {
             yield return 0;
@@ -262,7 +275,10 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
         // Recoil wait time
         lingeringBodyHitbox.setDamage(nonDashDamage);
+        attackAnimState = EnemyAttackAnimationState.RECOIL;
         yield return AI_NavLibrary.waitForFrames(curPhase.dashRecoilFrames);
+
+        attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
     }
 
 
@@ -284,16 +300,24 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         navMeshAgent.isStopped = true;
         slashMesh.enabled = true;
         slashMesh.material.color = anticipationSlashColor;
+
+        slashStart.Invoke();
+        attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
         yield return AI_NavLibrary.waitForFrames(curPhase.slashAnticipationFrames);
 
         // actual Slash
         slashHitbox.doDamage(slashDamage * enemyStats.getBaseAttack());
         slashMesh.material.color = hitboxSlashColor;
+        attackAnimState = EnemyAttackAnimationState.ATTACK;
         yield return AI_NavLibrary.waitForFrames(slashAttackFrames);
         slashMesh.enabled = false;
 
         // Post Slash stun
+        attackAnimState = EnemyAttackAnimationState.RECOIL;
         yield return AI_NavLibrary.waitForFrames(curPhase.slashRecoilFrames);
+        attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
+        transform.forward = Vector3.ProjectOnPlane(tgt.position - transform.position, Vector3.up).normalized;
+
     }
 
 
@@ -328,7 +352,9 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         } else {
             howlMesh.enabled = false;
             bossEnemyStatus.stun(true);
+            howlStunBeginEvent.Invoke();
             yield return AI_NavLibrary.waitForFrames(howlRecoilStunFrames);
+            howlStunEndEvent.Invoke();
             bossEnemyStatus.stun(false);
         }
 
@@ -352,5 +378,11 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
             curHowlShieldHealth = 0f;
         }
+    }
+
+
+    // Main function to access current attack animation state
+    public EnemyAttackAnimationState getAttackAnimState() {
+        return attackAnimState;
     }
 }
