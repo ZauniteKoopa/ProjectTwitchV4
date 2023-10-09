@@ -84,7 +84,7 @@ public class LinearProjectile : IPrimaryAttack
             }
             onHitEnemy();
 
-        } else if (collider.gameObject.layer == LayerMask.NameToLayer("WallCollision")){
+        } else if (collider.gameObject.layer == LayerMask.NameToLayer("WallCollision") || collider.gameObject.layer == LayerMask.NameToLayer("PlayerProtection")){
             Object.Destroy(gameObject);
             
         }

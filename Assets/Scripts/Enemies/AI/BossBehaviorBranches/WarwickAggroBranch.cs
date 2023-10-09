@@ -154,10 +154,14 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [Min(1)]
     private int initialHowlChargeupFrames = 20;
     [SerializeField]
-    private ResourceBar howlBar;
+    private ResourceBar howlTimerBar;
+    [SerializeField]
+    private ResourceBar[] howlHealthBars;
+
     private MeshRenderer howlMesh;
     private Coroutine runningHowlCoroutine;
     private float curHowlShieldHealth = 0f;
+    private float curMaxHowlShieldHealth = 0f;
 
     [Header("Warwick Phase Escalation")]
     [SerializeField]
@@ -182,7 +186,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
 
         bossEnemyStatus.damageEvent.AddListener(onHowlShieldDamage);
         bossEnemyStatus.enemyPhaseTransitionBeginEvent.AddListener(onBossTransitionBegin);
-        howlBar.setActive(false);
+        howlTimerBar.setActive(false);
 
         if (warwickPhases.Length != bossEnemyStatus.getNumPhases()) {
             Debug.LogError("ERROR: NUM PHASES DOES NOT EQUAL BOSS ESCALATION ARRAY LENGTH");
@@ -325,24 +329,32 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private IEnumerator howlingSequence(BossEnemyStatus bossEnemyStatus, WarwickAggroPhaseModifiers curPhase) {
         // Set up armor
         curHowlShieldHealth = curPhase.howlShieldHealth;
+        curMaxHowlShieldHealth = curPhase.howlShieldHealth;
+
         bossEnemyStatus.applyDefenseModifier(howlShieldArmorIncrease);
         howlMesh.enabled = true;
         howlMesh.material.color = anticipationSlashColor;
-        howlBar.setActive(true);
         howlHitbox.setUp(howlSlowFactor, curPhase.howlSlowDuration);
+
+        howlTimerBar.setActive(true);
+        displayHowlShieldHealth();
 
         // Howling charge up loop
         float howlTimer = 0f;
         while (howlTimer < howlChargeDuration && curHowlShieldHealth > 0f) {
             yield return 0;
             howlTimer += Time.deltaTime;
-            howlBar.setFill(howlTimer, howlChargeDuration);
+            howlTimerBar.setFill(howlTimer, howlChargeDuration);
         }
 
         // If howl shield is still up, apply speed effect to player
         bossEnemyStatus.revertDefenseModifier(howlShieldArmorIncrease);
-        howlBar.setActive(false);
-        if (curHowlShieldHealth > 0f) {
+        howlTimerBar.setActive(false);
+        bool destroyedShields = curHowlShieldHealth > 0f;
+        curHowlShieldHealth = 0f;
+        clearHowlShieldHealthBars();
+
+        if (destroyedShields) {
             howlHitbox.doDamage(0.1f);
             howlMesh.material.color = hitboxSlashColor;
             yield return new WaitForSeconds(0.2f);
@@ -369,6 +381,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private void onHowlShieldDamage(float damage) {
         if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
             curHowlShieldHealth -= damage;
+            displayHowlShieldHealth();
         }
     }
 
@@ -377,6 +390,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     private void onBossTransitionBegin() {
         if (runningHowlCoroutine != null && curHowlShieldHealth > 0f) {
             curHowlShieldHealth = 0f;
+            clearHowlShieldHealthBars();
         }
     }
 
@@ -384,5 +398,21 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     // Main function to access current attack animation state
     public EnemyAttackAnimationState getAttackAnimState() {
         return attackAnimState;
+    }
+
+
+    // private helper function to display shield health
+    private void displayHowlShieldHealth() {
+        foreach (ResourceBar shieldBar in howlHealthBars) {
+            shieldBar.setFill(curHowlShieldHealth, curMaxHowlShieldHealth);
+        }
+    }
+
+
+    // private helper function to display shield health
+    private void clearHowlShieldHealthBars() {
+        foreach (ResourceBar shieldBar in howlHealthBars) {
+            shieldBar.setFill(0f, 1f);
+        }
     }
 }

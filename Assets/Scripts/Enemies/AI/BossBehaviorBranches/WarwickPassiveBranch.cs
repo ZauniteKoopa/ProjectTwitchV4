@@ -113,9 +113,9 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
             if (bloodiedTarget.isAlive()) {
                 bloodiedTarget.damage(99999f, true);
                 enemyStats.healPercent(bloodFrenzyTargetHealPercent);
-                bloodHuntTargetKilled.Invoke();
             }
 
+            bloodHuntTargetKilled.Invoke();
             huntingMark.setActive(false);
 
         // Find twitch case
