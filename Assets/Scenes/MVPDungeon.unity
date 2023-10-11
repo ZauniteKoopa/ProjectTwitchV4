@@ -581,6 +581,8 @@ MonoBehaviour:
   southOpen: 1
   mapRow: 1
   mapCol: 2
+  roomWidth: 18
+  roomLength: 18
   spawnPoint: {fileID: 30824310}
 --- !u!4 &148754055 stripped
 Transform:
@@ -8491,6 +8493,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 936483605, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554017393, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: ambushRegenMax
       value: 2.01
@@ -9153,6 +9163,8 @@ MonoBehaviour:
   southOpen: 1
   mapRow: 1
   mapCol: 3
+  roomWidth: 18
+  roomLength: 18
   enemyWaves:
   - {fileID: 430155453543693585}
   - {fileID: 2042674834}
@@ -10227,6 +10239,8 @@ MonoBehaviour:
   southOpen: 0
   mapRow: 0
   mapCol: 0
+  roomWidth: 18
+  roomLength: 18
   spawnPoint: {fileID: 884654012}
 --- !u!82 &8055597118464108792
 AudioSource:

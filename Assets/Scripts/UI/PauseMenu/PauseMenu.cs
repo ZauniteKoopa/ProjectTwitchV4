@@ -8,16 +8,8 @@ using UnityEngine.Events;
 public class PauseMenu : IPauseMenu
 {
     // Private helper functions
-    public static PauseMenu currentPauseMenu;
     private bool paused = false;
     private float prevTimeScale = 1.0f;
-
-
-
-    // Main function on awake
-    private void Start() {
-        currentPauseMenu = this;
-    }
 
 
     // Main event handler function for when the pause button is pressed
