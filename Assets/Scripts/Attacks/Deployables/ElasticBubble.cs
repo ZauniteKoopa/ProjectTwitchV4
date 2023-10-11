@@ -32,7 +32,7 @@ public class ElasticBubble : DeployableHitbox
     // Main runtime variables
     private Collider enemySensorCollider;
     private PoisonVial curPoison;
-    private HashSet<EnemyStatus> hit = new HashSet<EnemyStatus>();
+    private HashSet<EnemyStatus> inside = new HashSet<EnemyStatus>();
     private bool dealsInitialDamage = true;
 
 
@@ -41,6 +41,7 @@ public class ElasticBubble : DeployableHitbox
         Debug.Assert(initialDamageDuration < bubbleDuration);
 
         enemyStatusSensor.enemyEnterEvent.AddListener(onEnemyEnter);
+        enemyStatusSensor.enemyExitEvent.AddListener(onEnemyExit);
         enemySensorCollider = enemyStatusSensor.GetComponent<Collider>();
     }
 
@@ -83,11 +84,20 @@ public class ElasticBubble : DeployableHitbox
 
     // Main function for when enemy enters zone
     private void onEnemyEnter(EnemyStatus enemy) {
-        if (!hit.Contains(enemy)) {
-            hit.Add(enemy);
+        if (!inside.Contains(enemy)) {
+            inside.Add(enemy);
 
             float curDamage = (dealsInitialDamage) ? initialDamage : 0f;
             enemy.poisonDamage(curDamage, false, curPoison, initialEnemyStacks);
+
+            StartCoroutine(enemyStunSequence(enemy));
+        }
+    }
+
+    // Main function for when enemy exits zone
+    private void onEnemyExit(EnemyStatus enemy) {
+        if (inside.Contains(enemy)) {
+            inside.Remove(enemy);
 
             StartCoroutine(enemyStunSequence(enemy));
         }

@@ -1565,18 +1565,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 262784610, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1347320806230522893, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2798,7 +2786,7 @@ MonoBehaviour:
   lootDropSpeed: 20
   lootSatchel: {fileID: 1115037498251207021}
   lootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
-  willDropLoot: 0
+  willDropLoot: 1
   spawnInOnAwake: 0
   spawnVFX: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
   enemyPhaseTransitionBeginEvent:
@@ -3655,7 +3643,7 @@ MonoBehaviour:
   pathRefreshTime: 0.25
   minPreDashDistance: 7
   nonDashDamage: 1
-  dashTime: 0.35
+  dashTime: 0.4
   minDashSpeed: 12
   dashDamage: 4
   dashCollisionMask:
@@ -3680,32 +3668,32 @@ MonoBehaviour:
   - {fileID: 143559763}
   - {fileID: 233386124}
   warwickPhases:
-  - dashAnticipationFrames: 40
-    dashMovementMultiplier: 2.25
-    dashRecoilFrames: 20
-    slashAnticipationFrames: 45
+  - dashAnticipationFrames: 45
+    dashMovementMultiplier: 2
+    dashRecoilFrames: 25
+    slashAnticipationFrames: 40
     slashRecoilFrames: 30
-    howlSlowDuration: 5
+    howlSlowDuration: 6
     howlShieldHealth: 12
     dashProbability: 0.5
     slashProbability: 0.5
     howlProbability: 0
-  - dashAnticipationFrames: 40
-    dashMovementMultiplier: 2.25
-    dashRecoilFrames: 20
-    slashAnticipationFrames: 45
+  - dashAnticipationFrames: 45
+    dashMovementMultiplier: 2
+    dashRecoilFrames: 25
+    slashAnticipationFrames: 40
     slashRecoilFrames: 30
-    howlSlowDuration: 5
+    howlSlowDuration: 6
     howlShieldHealth: 12
     dashProbability: 0.375
     slashProbability: 0.375
     howlProbability: 0.25
-  - dashAnticipationFrames: 30
-    dashMovementMultiplier: 2.5
-    dashRecoilFrames: 15
-    slashAnticipationFrames: 35
-    slashRecoilFrames: 25
-    howlSlowDuration: 7
+  - dashAnticipationFrames: 35
+    dashMovementMultiplier: 2.25
+    dashRecoilFrames: 20
+    slashAnticipationFrames: 30
+    slashRecoilFrames: 30
+    howlSlowDuration: 6
     howlShieldHealth: 16
     dashProbability: 0.375
     slashProbability: 0.375
@@ -3744,7 +3732,7 @@ MonoBehaviour:
   bloodFrenzyFrames: 110
   initialPassiveFrames: 45
   minBloodTargetKillRange: 2.5
-  bloodFrenzyTargetHealPercent: 0.075
+  bloodFrenzyTargetHealPercent: 0.05
   bloodFrenzyHealthRequirement: 0.6
   huntingMark: {fileID: 359477442}
   bloodHuntStartEvent:
