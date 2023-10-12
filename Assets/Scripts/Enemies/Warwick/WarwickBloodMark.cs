@@ -16,6 +16,8 @@ public class WarwickBloodMark : MonoBehaviour
     [SerializeField]
     [Min(0.01f)]
     private float markHeight = 6f;
+    [SerializeField]
+    private AudioSource soundEffectSpeaker;
     private Transform target = null;
 
     // Update is called once per frame. Always be on top of target
@@ -43,6 +45,10 @@ public class WarwickBloodMark : MonoBehaviour
         Color curColor = (progressFill < 0.9999f) ? trackingColor : huntedColor;
         bloodSpotLight.color = curColor;
         bloodMark.color = curColor;
+
+        if (progressFill > 0.99999f) {
+            soundEffectSpeaker.Play();
+        }
     }
 
 

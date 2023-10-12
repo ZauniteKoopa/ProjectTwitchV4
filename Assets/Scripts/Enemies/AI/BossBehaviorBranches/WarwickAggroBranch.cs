@@ -167,11 +167,16 @@ public class WarwickAggroBranch : IBossBehaviorBranch
     [SerializeField]
     private WarwickAggroPhaseModifiers[] warwickPhases;
 
-    [Header("Animation Events")]
+    [Header("Animation and Audio Events")]
     private EnemyAttackAnimationState attackAnimState = EnemyAttackAnimationState.ANTICIPATION;
     public UnityEvent lungeStart;
-    public UnityEvent howlStart;
+    public UnityEvent lungeAttack;
+
     public UnityEvent slashStart;
+    public UnityEvent slashAttack;
+
+    public UnityEvent howlStart;
+    public UnityEvent howlSuccess;
     public UnityEvent howlStunBeginEvent;
     public UnityEvent howlStunEndEvent;
 
@@ -259,6 +264,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         yield return AI_NavLibrary.waitForFrames(curPhase.dashAnticipationFrames);
 
         // Actual dash
+        lungeAttack.Invoke();
         lingeringBodyHitbox.setDamage(dashDamage * bossEnemyStatus.getBaseAttack());
         float dashTimer = 0f;
         float startingDashSpeed = bossEnemyStatus.getMovementSpeed();
@@ -310,6 +316,7 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         yield return AI_NavLibrary.waitForFrames(curPhase.slashAnticipationFrames);
 
         // actual Slash
+        slashAttack.Invoke();
         slashHitbox.doDamage(slashDamage * enemyStats.getBaseAttack());
         slashMesh.material.color = hitboxSlashColor;
         attackAnimState = EnemyAttackAnimationState.ATTACK;
@@ -350,12 +357,13 @@ public class WarwickAggroBranch : IBossBehaviorBranch
         // If howl shield is still up, apply speed effect to player
         bossEnemyStatus.revertDefenseModifier(howlShieldArmorIncrease);
         howlTimerBar.setActive(false);
-        bool destroyedShields = curHowlShieldHealth > 0f;
+        bool howlSuccessful = curHowlShieldHealth > 0f;
         curHowlShieldHealth = 0f;
         clearHowlShieldHealthBars();
 
-        if (destroyedShields) {
+        if (howlSuccessful) {
             howlHitbox.doDamage(0.1f);
+            howlSuccess.Invoke();
             howlMesh.material.color = hitboxSlashColor;
             yield return new WaitForSeconds(0.2f);
             howlMesh.enabled = false;
