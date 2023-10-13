@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Spray and Pray
   description: Ooooh! My bolts pierce through flesh now! Reduces bolt damage for
-    each enemy hit by 10% (Min 60%). Bolt damage +20%
+    each enemy hit by 10% (Min 60%).
   spriteIcon: {fileID: 21300000, guid: 15c25565fa60dba4ab1565827d8929a7, type: 3}
   sideEffectType: 0
   maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
   postContaminateHitbox: {fileID: 0}
   primaryAttackPrefab: {fileID: 683622361879638544, guid: 3b95a526ced53214ba04c62a6f563fa8, type: 3}
   primaryAttackStartFrames: 10

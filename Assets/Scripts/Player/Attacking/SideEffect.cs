@@ -106,7 +106,11 @@ public class SideEffect : ScriptableObject
     //  Pre: sideEffectDisplay != null
     public void displaySideEffectInfo(SideEffectDisplay display) {
         Debug.Assert(display != null);
-        display.displayItem(spriteIcon, displayName, description);
+        display.displayItem(
+            spriteIcon,
+            displayName,
+            description + " <b>" + PoisonVial.poisonVialConstants.getBaseSideEffectDescription(sideEffectType) + "</b>"
+        );
     }
 
 

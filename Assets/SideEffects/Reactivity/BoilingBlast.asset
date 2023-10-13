@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BoilingBlast
   m_EditorClassIdentifier: 
   displayName: Boiling Blast
-  description: It's too unstable! My bolt explodes right in front of me! Can't make
-    useful rats with this, but the bolts hurt more though. +20% Cont Damage
+  description: It's too unstable! My bolt explodes right in front of me! +75% bolt
+    damage. +20% Cont Damage
   spriteIcon: {fileID: 21300000, guid: 91bb65c7e444344449e7a44533b0c589, type: 3}
   sideEffectType: 2
   maxStackEffect: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   primaryAttackPrefab: {fileID: 5911567955735722237, guid: 913bcf7a2dfa36a4ba2b924ceae7119f, type: 3}
   primaryAttackStartFrames: 20
   primaryAttackEndFrames: 20
-  primaryAttackMultiplier: 1.5
+  primaryAttackMultiplier: 1.75
   attackRange: 5
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 12d2a11c14a42584989615d48ccc7c83, type: 3}

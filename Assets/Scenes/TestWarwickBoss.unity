@@ -1999,6 +1999,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushRegenCooldown
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3323,7 +3327,7 @@ MonoBehaviour:
       m_Calls: []
   movementSpeed: 12
   maxHealth: 150
-  damageReduction: 0.3
+  damageReduction: 0.35
   enemyStatusUI: {fileID: 3548003916071350369}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
   normalDamagePopupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

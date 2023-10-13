@@ -277,4 +277,26 @@ public class PoisonVialConstants : ScriptableObject
         // Return the length of that section
         return sideEffectDictionary[specialization].Length;
     }
+
+
+    // Main function to get the temp color
+    public string getBaseSideEffectDescription(PoisonVialStat stat) {
+        switch(stat)
+        {
+            case PoisonVialStat.POTENCY:
+                return "+" + ((potencyBoltMultiplier * 100f) - 100f) + "% Bolt Dmg";
+            
+            case PoisonVialStat.POISON:
+                return "+" + ((poisonDoTMultiplier * 100f) - 100f) + "% Poison Dmg";
+
+            case PoisonVialStat.REACTIVITY:
+                return "+" + ((reactivityContaminateMultiplier * 100f) - 100f) + "% Cont Dmg";
+
+            case PoisonVialStat.STICKINESS:
+                return "Applies " + (stickinessMovementReductionModifier * 100f) + "% Slow per stack";
+
+            default:
+                throw new System.Exception("INVALID STAT FOUND");
+        }
+    }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ElasticBubble
   m_EditorClassIdentifier: 
   displayName: Elastic Bubble
-  description: When you throw a cask, a large protective bubble appears, shielding
-    from incoming damage and stunning enemies that go in it.
+  description: Throw a cask to create a large bubble that shields incoming damage
+    and stuns enemies going in and out.
   spriteIcon: {fileID: 21300000, guid: 9e170a82e5c25f843b05f6b07083f856, type: 3}
   sideEffectType: 3
   maxStackEffect: 0
@@ -27,3 +27,7 @@ MonoBehaviour:
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 4
   secondaryAttackCooldown: 8
+  interruptsAmbush: 1
+  hasAdditionalAction: 0
+  allowLimitedDeployableNumber: 0
+  numDeployableLimit: 1

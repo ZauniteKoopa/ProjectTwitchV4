@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AcidicBurrow
   m_EditorClassIdentifier: 
   displayName: Acidic Burrow
-  description: Venom cask turned into an acidic tunnel for Twitch to use. Press right
-    click again to dig towards the tunnel's center. This doesn't interrupt ambush
+  description: Throwing casks now create burrows that you can teleport to upon recast.
+    Burrows slow nearby enemies
   spriteIcon: {fileID: 21300000, guid: b91a5e14e6ae8264eb51a6eb08e03c17, type: 3}
   sideEffectType: 2
   maxStackEffect: 0

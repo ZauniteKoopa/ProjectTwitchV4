@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SulfuricBlast
   m_EditorClassIdentifier: 
   displayName: Sulfuric Blast
-  description: Bolts will now explode to a brief poison fog on contact with an enemy
-    or a wall. Attack rate is slower though.
+  description: Bolts now explode into a brief poison fog, infecting enemies with
+    more stack for 25% more damage.
   spriteIcon: {fileID: 21300000, guid: 19903733bd96cb04285a9daecd86c117, type: 3}
   sideEffectType: 1
   maxStackEffect: 0

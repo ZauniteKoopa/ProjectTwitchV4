@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Acidic Grenade
   description: Venom casks now burst, doing immediate damage and always applying
-    2 stacks. It uses more ammo, but cooldown significantly decreases
+    2 stacks. Cooldown significantly decreases
   spriteIcon: {fileID: 21300000, guid: 6c310f96871373549af69d759a33408a, type: 3}
   sideEffectType: 2
   maxStackEffect: 0
@@ -28,3 +28,6 @@ MonoBehaviour:
   secondaryAttackCost: 3
   secondaryAttackCooldown: 0.2
   interruptsAmbush: 1
+  hasAdditionalAction: 0
+  allowLimitedDeployableNumber: 0
+  numDeployableLimit: 1

@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: GastricLeak
   m_EditorClassIdentifier: 
   displayName: Gastric Leak
-  description: When contaminating a target with 4 or more stacks, they leak slimy
-    ooze, slowing those around them. Duration and size increases if they die.
+  description: When contaminating a target with 4+ stacks, they leak slimy ooze,
+    slowing those around them. Last longer if they die
   spriteIcon: {fileID: 21300000, guid: d2add46a074654743aafacb5b17157ab, type: 3}
   sideEffectType: 3
+  maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
   postContaminateHitbox: {fileID: 7225646040303599349, guid: 0ff21ac2df636a846a2cafa316d41936, type: 3}

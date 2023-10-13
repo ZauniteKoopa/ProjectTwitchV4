@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: StimulatingStench
   m_EditorClassIdentifier: 
   displayName: Stimulating Stench
-  description: When contaminating an enemy with 4 or more stacks, they emit a stench
-    that increases my damage and movement speed. +20% bolt damage.
+  description: When contaminating an enemy with 4+ stacks, they emit a stench that
+    increases my movement speed. If they die, its bigger!
   spriteIcon: {fileID: 21300000, guid: 897b6c4f656d3784f9b6dd1572be232d, type: 3}
   sideEffectType: 0
+  maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
   postContaminateHitbox: {fileID: 8725747224239986304, guid: b4b87114a8f1bf8478065624c36da494, type: 3}

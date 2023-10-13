@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Contagion
   m_EditorClassIdentifier: 
   displayName: Contagion
-  description: Enemies emits fog when contaminated if they have 4 or more stacks!
-    If they die, it's bigger and lingers longer.. Increased poison damage
+  description: When contaminated with 4+ stacks, they emit a poisonous fog, infecting
+    others around them. If they die, its bigger!
   spriteIcon: {fileID: 21300000, guid: 7b41fc0bbc15a554e82f4d9f60cbfec4, type: 3}
   sideEffectType: 1
+  maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
   postContaminateHitbox: {fileID: 3652164811380355971, guid: d4db0f7b0f625de4bbb13ed8bc0661b1, type: 3}
