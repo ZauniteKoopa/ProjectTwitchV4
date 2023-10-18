@@ -25,13 +25,8 @@ MonoBehaviour:
     - {fileID: 6857054861687976276, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
     rewardName: HEALING
     rewardPrerequisite: 0
-  - rewards:
-    - {fileID: 6052466941903996433, guid: 8eecc4f1d41b4724da2595f01f74cfa0, type: 3}
-    rewardName: SATCHEL
-    rewardPrerequisite: 2
   surplusEndRewardProbability:
-  - 0.4
-  - 0.1
+  - 0.5
   - 0.2
   - 0.3
   scarcityEndRewards:

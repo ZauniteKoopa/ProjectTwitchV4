@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Boiling Blast
   description: It's too unstable! My bolt explodes right in front of me! +75% bolt
-    damage. +20% Cont Damage
+    damage.
   spriteIcon: {fileID: 21300000, guid: 91bb65c7e444344449e7a44533b0c589, type: 3}
   sideEffectType: 2
   maxStackEffect: 0

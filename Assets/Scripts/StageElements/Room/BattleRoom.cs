@@ -86,7 +86,7 @@ public class BattleRoom : Room
 
             battleRoomStartEvent.Invoke();
             curEnemyWave = 0;
-            enemyWaves[0].activate(enemyLootTable, enemyLootCondProb);
+            enemyWaves[0].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
         }
     }
 
@@ -114,7 +114,7 @@ public class BattleRoom : Room
 
         // Case where you still have enemy waves left to go
         } else {
-            enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb);
+            enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
         }
     }
 

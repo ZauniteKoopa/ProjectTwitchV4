@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 661130369533174230}
     - target: {fileID: 7276044789255310390, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
       propertyPath: m_Name
-      value: EnemyDasherRoomPatrol
+      value: BattleRoomEnemyDasher
       objectReference: {fileID: 0}
     - target: {fileID: 7276044789255310395, guid: 71861f51a574bca41bc50ea01034cbd7, type: 3}
       propertyPath: m_RootOrder

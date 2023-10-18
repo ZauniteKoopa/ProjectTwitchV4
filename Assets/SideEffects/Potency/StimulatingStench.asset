@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Stimulating Stench
   description: When contaminating an enemy with 4+ stacks, they emit a stench that
-    increases my movement speed. If they die, its bigger!
+    makes me faster. If they die, its bigger!
   spriteIcon: {fileID: 21300000, guid: 897b6c4f656d3784f9b6dd1572be232d, type: 3}
   sideEffectType: 0
   maxStackEffect: 0

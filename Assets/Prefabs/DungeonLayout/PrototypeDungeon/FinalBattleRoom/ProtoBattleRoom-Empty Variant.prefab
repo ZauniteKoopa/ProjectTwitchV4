@@ -440,16 +440,20 @@ MonoBehaviour:
   southOpen: 1
   mapRow: 2
   mapCol: 1
+  roomWidth: 18
+  roomLength: 18
   enemyWaves:
   - {fileID: 0}
   lockedDoors:
   - {fileID: 7668773551023212067}
   enemyLootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
-  lootChance: 0.3
   possibleDungeonFloorEntrances:
   - {fileID: 6850247947146434185}
   - {fileID: 6985715764714108933}
   rewardChest: {fileID: 4140652637043056347}
+  probabilityNumerator: 2
+  probabilityDenominator: 5
+  probabilityVariance: 2
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []

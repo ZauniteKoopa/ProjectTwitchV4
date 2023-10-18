@@ -482,8 +482,15 @@ MonoBehaviour:
   enemyNoticesDamageEvent:
     m_PersistentCalls:
       m_Calls: []
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  spawnInFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
   numLootDrops: 1
   lootDropRange: 2
+  minLootDropRange: 0
   lootCollisionLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -530,7 +537,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &5468291510898918025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +551,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviorResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  passiveBranchActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  aggressiveBranchActiveEvent:
     m_PersistentCalls:
       m_Calls: []
   aggressiveBranch: {fileID: 9148449405673412968}

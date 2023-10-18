@@ -485,7 +485,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 5
-  maxHealth: 22
+  maxHealth: 20
   damageReduction: 0.35
   enemyStatusUI: {fileID: 7304168298935888429}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
@@ -497,14 +497,22 @@ MonoBehaviour:
   enemyNoticesDamageEvent:
     m_PersistentCalls:
       m_Calls: []
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  spawnInFinishEvent:
+    m_PersistentCalls:
+      m_Calls: []
   numLootDrops: 1
   lootDropRange: 2
+  minLootDropRange: 0
   lootCollisionLayerMask:
     serializedVersion: 2
     m_Bits: 256
   lootDropSpeed: 15
   lootSatchel: {fileID: 6564555212678134467}
   lootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
+  willDropLoot: 0
   spawnInOnAwake: 0
   spawnVFX: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
 --- !u!54 &7304168298375891571
@@ -544,7 +552,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &5352365815525164230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,6 +566,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviorResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  passiveBranchActiveEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  aggressiveBranchActiveEvent:
     m_PersistentCalls:
       m_Calls: []
   aggressiveBranch: {fileID: 6293059504346965972}

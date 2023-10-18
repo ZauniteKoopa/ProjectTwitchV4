@@ -40,7 +40,7 @@ public class EnemyWave : MonoBehaviour
 
 
     // Main function to activate the wave
-    public void activate(LootTable lootTable, ConditionalProbCalculator lootChance) {
+    public void activate(LootTable lootTable, ConditionalProbCalculator lootChance, float roomWidth, float roomHeight, Vector3 roomPosition) {
         Debug.Assert(lootChance != null && lootTable != null);
 
         if (!activated) {
@@ -49,8 +49,8 @@ public class EnemyWave : MonoBehaviour
             foreach (EnemyStatus enemy in enemies) {
                 enemy.lootTable = lootTable;
                 enemy.willDropLoot = lootChance.rolledHit();
-
-                //  TO-DO: change this to just spawn in an enemy gradually and not just make something pop up immediately
+                connectRoomPatrolPoint(enemy, roomWidth, roomHeight, roomPosition);
+                
                 enemy.gameObject.SetActive(true);
                 enemy.spawnIn();
             }
@@ -66,6 +66,15 @@ public class EnemyWave : MonoBehaviour
         if (numEnemiesLeft <= 0 && !finished) {
             finished = true;
             waveFinishedEvent.Invoke();
+        }
+    }
+
+
+    // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
+    private void connectRoomPatrolPoint(EnemyStatus curEnemy, float width, float length, Vector3 roomCenter) {
+        RoomPatrolPointBranch patrolBehav = curEnemy.GetComponent<RoomPatrolPointBranch>();
+        if (patrolBehav != null) {
+            patrolBehav.setSpawnParameters(roomCenter, width, length);
         }
     }
 

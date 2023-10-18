@@ -61,7 +61,7 @@ MonoBehaviour:
   secondaryAttackStartFrames: 15
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
-  secondaryAttackCooldown: 6
+  secondaryAttackCooldown: 3
   potencyBoltMultiplier: 1.25
   poisonDoTMultiplier: 1.5
   reactivityContaminateMultiplier: 1.25
