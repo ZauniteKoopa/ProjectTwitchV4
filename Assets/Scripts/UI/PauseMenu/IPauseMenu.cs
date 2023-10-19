@@ -30,7 +30,7 @@ public abstract class IPauseMenu : MonoBehaviour
 
     // Main event handler function for pause button input
     public void onPauseButtonPress(InputAction.CallbackContext value) {
-        if (value.started) {
+        if (value.started && (!PauseConstraints.isPaused() || inPauseState())) {
             pause();
         }
     }

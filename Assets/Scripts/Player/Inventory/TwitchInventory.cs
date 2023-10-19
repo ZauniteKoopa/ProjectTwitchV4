@@ -104,6 +104,14 @@ public class TwitchInventory : MonoBehaviour
     public UnityEvent endCraftEvent;
     public UnityEvent obtainedSideEffect;
 
+    // Onboarding events
+    public UnityEvent firstIngredientGainEvent;
+    public UnityEvent firstPoisonVialEvent;
+    public UnityEvent firstSideEffectEvent;
+    private bool haveGottenIngredients = false;
+    private bool haveMadePoisonVials = false;
+    private bool haveMadeSideEffects = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -490,6 +498,11 @@ public class TwitchInventory : MonoBehaviour
 
             screenUI.displayIngredientInventory(ingredientInventory, curMaxInventory);
 
+            if (!haveGottenIngredients) {
+                haveGottenIngredients = true;
+                firstIngredientGainEvent.Invoke();
+            }
+
             return true;
         }
 
@@ -570,6 +583,11 @@ public class TwitchInventory : MonoBehaviour
             UnityEvent curEndEvent = (gotSideEffectBefore != gotSideEffectAfter) ? obtainedSideEffect : endCraftEvent;
             curEndEvent.Invoke();
 
+            if (gotSideEffectBefore != gotSideEffectAfter && !haveMadeSideEffects) {
+                haveMadeSideEffects = true;
+                firstSideEffectEvent.Invoke();
+            }
+
         // Case where the parameters isn't pointing to a vial but isPrimary is true
         } else if (craftParameters.isPrimary) {
             primaryVial = new PoisonVial(craftParameters.stat);
@@ -592,6 +610,10 @@ public class TwitchInventory : MonoBehaviour
         // Update flags
         playerInput.enabled = true;
         runningCraftingSequence = null;
+        if (!haveMadePoisonVials) {
+            haveMadePoisonVials = true;
+            firstPoisonVialEvent.Invoke();
+        }
 
         updateVialDisplays();
     }

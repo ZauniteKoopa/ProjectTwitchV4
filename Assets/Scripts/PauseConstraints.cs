@@ -6,7 +6,7 @@ public static class PauseConstraints
 {
     private static TwitchInventory inventoryModule;
     private static readonly float FRAME_TIME_DELTA = 0.01f;
-    private static bool pausedByExternalSource = false;
+    private static int numPausers = 0;
 
     // Main function to connect twitch inventory
     public static void setInventoryModule(TwitchInventory inv) {
@@ -17,13 +17,13 @@ public static class PauseConstraints
 
     // Main function to check if you're currently paused
     public static bool isPaused() {
-        return inventoryModule.isInventoryMenuOpen() || pausedByExternalSource;
+        return inventoryModule.isInventoryMenuOpen() || numPausers > 0;
     }
 
 
     // Main function to externally pause the game
     public static void externalPause(bool pauseState) {
-        pausedByExternalSource = pauseState;
+        numPausers += (pauseState) ? 1 : -1;
     }
 
 
