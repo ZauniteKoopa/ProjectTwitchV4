@@ -15,6 +15,8 @@ public class ItemChest : MonoBehaviour
     private float itemDropSpeed = 3f;
     [SerializeField]
     private LayerMask itemCollisionLayerMask;
+    [SerializeField]
+    private AudioSource speaker;
 
 
     private bool opened = false;
@@ -35,8 +37,24 @@ public class ItemChest : MonoBehaviour
             }
 
             // Do open animation or something
-            Object.Destroy(gameObject);
+            StartCoroutine(openAction());
         }
+    }
+
+
+    // Main function to do open animation
+    private IEnumerator openAction() {
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+
+        if (speaker != null && speaker.clip != null) {
+            speaker.Play();
+            yield return new WaitForSeconds(speaker.clip.length);
+        } else {
+            yield return 0;
+        }
+
+        Object.Destroy(gameObject);
     }
 
 

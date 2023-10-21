@@ -264,9 +264,11 @@ public class TwitchAnimatorController : MonoBehaviour
         PlayerCameraController.instantMoveCamera(transform.parent, deathAngle, 0f, deathZoom, Vector3.zero);
         PlayerCameraController.shakeCamera(deathCameraShakeFrames, deathCameraShakeMagnitude);
 
-        float waitedTime = (1f / 60f) * deathCameraShakeFrames;
-
-        yield return new WaitForSecondsRealtime(waitedTime + deathDelayBetweenAnimAndShake);
+        for (int f = 0; f < deathCameraShakeFrames; f++) {
+            yield return 0;
+        }
+        
+        yield return new WaitForSecondsRealtime(deathDelayBetweenAnimAndShake);
 
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         audioModule.playDeathVoice();

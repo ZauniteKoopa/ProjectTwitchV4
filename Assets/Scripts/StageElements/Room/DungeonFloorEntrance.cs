@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using TMPro;
 
-public class DungeonFloorEntrance : MonoBehaviour
+public class DungeonFloorEntrance : PrizeLoot
 {
     [SerializeField]
     private DungeonFloor dungeonFloor;
@@ -13,39 +13,20 @@ public class DungeonFloorEntrance : MonoBehaviour
     private TMP_Text prizeDisplay;
     [SerializeField]
     private float entranceHeal = 5f;
-    private PlayerStatus playerTgt;
     private EndReward projectedEndPrize;
 
     public UnityEvent playerEnterFloorEvent;
 
 
-    // On trigger enter, if player enters, activate the dungeon floor with that player
-    private void OnTriggerEnter(Collider collider) {
-        PlayerStatus player = collider.GetComponent<PlayerStatus>();
+    // Abstract function on what to do with the player if player collected
+    //  Pre: player != null
+    //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
+    protected override bool activate(PlayerStatus player, TwitchInventory inv) {
+        playerEnterFloorEvent.Invoke();
+        player.heal(entranceHeal);
+        dungeonFloor.startDungeon(player, projectedEndPrize);
 
-        if (player != null) {
-            playerTgt = player;
-        }
-    }
-
-
-    // On trigger enter, if player enters, activate the dungeon floor with that player
-    private void OnTriggerExit(Collider collider) {
-        PlayerStatus player = collider.GetComponent<PlayerStatus>();
-
-        if (player != null) {
-            playerTgt = null;
-        }
-    }
-
-
-    // Main input handler for activating dungeon
-    public void onInteractPress(InputAction.CallbackContext context) {
-        if (context.started && playerTgt != null) {
-            playerEnterFloorEvent.Invoke();
-            playerTgt.heal(entranceHeal);
-            dungeonFloor.startDungeon(playerTgt, projectedEndPrize);
-        }
+        return false;
     }
 
 

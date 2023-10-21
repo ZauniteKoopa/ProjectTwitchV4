@@ -429,6 +429,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6314537998197098901}
     m_Modifications:
     - target: {fileID: 2727420183915983984, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+      propertyPath: speaker
+      value: 
+      objectReference: {fileID: 3064333430488261190}
+    - target: {fileID: 2727420183915983984, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
       propertyPath: numRecipeDrops
       value: 0
       objectReference: {fileID: 0}
@@ -482,6 +486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+--- !u!82 &3064333430488261190 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6412760737131281887, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+  m_PrefabInstance: {fileID: 8248343743956213657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6314537996403715050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2727420183915983987, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}

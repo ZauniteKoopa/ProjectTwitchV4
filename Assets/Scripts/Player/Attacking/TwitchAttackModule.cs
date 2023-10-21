@@ -512,6 +512,10 @@ public class TwitchAttackModule : IAttackModule
             if (Time.timeScale != 0f) {
                 f++;
             }
+
+            while (PauseConstraints.isPaused()) {
+                yield return 0;
+            }
         }
     }
 

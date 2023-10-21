@@ -6,6 +6,8 @@ public abstract class PrizeLoot : MonoBehaviour
 {
     [SerializeField]
     private GameObject controlsIndicator;
+    [SerializeField]
+    private AudioSource speaker;
     private bool destroyed = false;
     
     
@@ -32,15 +34,25 @@ public abstract class PrizeLoot : MonoBehaviour
 
 
     private IEnumerator destroySequence() {
-        transform.Translate(10000000f * Vector3.up);
-        yield return 0;
+        transform.Translate(500f * Vector3.up);
+
+        if (speaker != null && speaker.clip != null) {
+            speaker.Play();
+            yield return new WaitForSeconds(speaker.clip.length);
+        } else {
+            yield return 0;
+        }
+
         Object.Destroy(gameObject);
     }
 
 
     // Public function to collect
     public void collect(PlayerStatus player, TwitchInventory inv) {
-        if (activate(player, inv)) {
+        bool destroyObject = activate(player, inv);
+
+        // Destroy object
+        if (destroyObject) {
             destroyObj();
         }
     }

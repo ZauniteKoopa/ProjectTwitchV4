@@ -179,9 +179,9 @@ public class PlayerCameraController : MonoBehaviour
         float timer = 0f;
 
         while (timer < usedTime) {
-            yield return PauseConstraints.waitForSecondsRealtimeWithPause(0.01677f);
+            yield return 0;
 
-            timer += 0.01677f;
+            timer += Time.unscaledDeltaTime;
 
             // Update camera pivot and rotation
             cameraPivot.position = Vector3.Lerp(globalPivotStart, globalPivotFinish, timer / usedTime);
@@ -224,7 +224,7 @@ public class PlayerCameraController : MonoBehaviour
                     defaultPitch,
                     defaultYaw,
                     defaultZoom,
-                    60f,
+                    35f,
                     getLocalCameraPivotRoomPosition(tgtRoom)
                 );
                 Time.timeScale = 1f;
@@ -280,11 +280,10 @@ public class PlayerCameraController : MonoBehaviour
 
     // Main IEnumerator
     private IEnumerator hitStopSequence(int numFrames) {
-        float timePerFrame = 1f / (float)(numFramesPerSecond);
         Time.timeScale = 0f;
 
         for (int f = 0; f < numFrames; f++) {
-            yield return PauseConstraints.waitForSecondsRealtimeWithPause(timePerFrame);
+            yield return 0;
         }
 
         Time.timeScale = 1f;
@@ -310,10 +309,8 @@ public class PlayerCameraController : MonoBehaviour
 
     // Main IEnumerator to do camera shake
     private IEnumerator cameraShakeSequence(int shakeFrameDuration, float maxShakeMagnitude) {
-        float timePerFrame = 1f / (float)(numFramesPerSecond);
-
         for (int f = 0; f < shakeFrameDuration; f++) {
-            yield return PauseConstraints.waitForSecondsRealtimeWithPause(timePerFrame);
+            yield return PauseConstraints.waitForFramesRealtimeWithPause(1);
 
             if (f % numFramesPerShake == 0) {
                 Vector3 shakeDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
