@@ -162,8 +162,10 @@ public class RecipeBook
         }
 
         // Set curPage to the new side effect IFF something updated
-        if (updated && setPageToNewRecipe) {
-            curPage = findSideEffect(recipe.resultingSideEffect);
+        if (updated) {
+            if (setPageToNewRecipe) {
+                curPage = findSideEffect(recipe.resultingSideEffect);
+            }
 
             if (recipe.ingredients != null) {
                 numCompletedRecipes++;

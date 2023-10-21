@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TwitchAnimatorController : MonoBehaviour
 {
@@ -55,6 +56,8 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     [Min(0.1f)]
     private float sideEffectCameraTransitionSpeed = 500f;
+    public UnityEvent firstSideEffectGained;
+    private bool gainedSideEffect = false;
 
 
     [Header("Hurt animation")]
@@ -213,6 +216,11 @@ public class TwitchAnimatorController : MonoBehaviour
 
         attackModule.inUninterruptableAnimationSequence = false;
         Time.timeScale = 1f;
+
+        if (!gainedSideEffect) {
+            gainedSideEffect = true;
+            firstSideEffectGained.Invoke();
+        }
     }
 
 

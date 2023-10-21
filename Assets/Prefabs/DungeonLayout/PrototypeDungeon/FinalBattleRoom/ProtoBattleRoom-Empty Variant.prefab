@@ -451,9 +451,9 @@ MonoBehaviour:
   - {fileID: 6850247947146434185}
   - {fileID: 6985715764714108933}
   rewardChest: {fileID: 4140652637043056347}
-  probabilityNumerator: 2
-  probabilityDenominator: 5
-  probabilityVariance: 2
+  probabilityNumerator: 3
+  probabilityDenominator: 10
+  probabilityVariance: 1
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -107,11 +107,8 @@ public class TwitchInventory : MonoBehaviour
     // Onboarding events
     public UnityEvent firstIngredientGainEvent;
     public UnityEvent firstPoisonVialEvent;
-    public UnityEvent firstSideEffectEvent;
     private bool haveGottenIngredients = false;
     private bool haveMadePoisonVials = false;
-    private bool haveMadeSideEffects = false;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -582,11 +579,6 @@ public class TwitchInventory : MonoBehaviour
 
             UnityEvent curEndEvent = (gotSideEffectBefore != gotSideEffectAfter) ? obtainedSideEffect : endCraftEvent;
             curEndEvent.Invoke();
-
-            if (gotSideEffectBefore != gotSideEffectAfter && !haveMadeSideEffects) {
-                haveMadeSideEffects = true;
-                firstSideEffectEvent.Invoke();
-            }
 
         // Case where the parameters isn't pointing to a vial but isPrimary is true
         } else if (craftParameters.isPrimary) {

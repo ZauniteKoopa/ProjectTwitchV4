@@ -2606,7 +2606,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8557328786469411297}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.20745242, y: 1.12, z: 0.020816803}
   m_LocalScale: {x: 1.75, y: 1.25, z: 1.75}
   m_ConstrainProportionsScale: 0
@@ -2749,7 +2749,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 12
-  maxHealth: 150
+  maxHealth: 185
   damageReduction: 0.35
   enemyStatusUI: {fileID: 8557328786983008343}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
@@ -2767,7 +2767,7 @@ MonoBehaviour:
   spawnInFinishEvent:
     m_PersistentCalls:
       m_Calls: []
-  numLootDrops: 2
+  numLootDrops: 1
   lootDropRange: 4
   minLootDropRange: 2.5
   lootCollisionLayerMask:
@@ -2786,10 +2786,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   healthPhaseThresholds:
-  - 0.25
-  - 0.375
-  - 0.375
-  numLootDropsPerPhase: 2
+  - 0.244
+  - 0.378
+  - 0.378
+  numLootDropsPerPhase: 1
   phaseTransitionTime: 4
 --- !u!114 &2635416501586181992
 MonoBehaviour:

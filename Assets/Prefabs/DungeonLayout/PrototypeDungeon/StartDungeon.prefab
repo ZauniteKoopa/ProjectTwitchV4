@@ -61,9 +61,9 @@ MonoBehaviour:
   timeBetweenEnemySpawns: 4
   spawnTimeVariance: 1
   possibleEnemies: []
-  probabilityNumerator: 3
-  probabilityDenominator: 5
-  probabilityVariance: 2
+  probabilityNumerator: 1
+  probabilityDenominator: 2
+  probabilityVariance: 4
   prizePool: {fileID: 11400000, guid: efec938c076ecfc42aa1c05331ce4bf4, type: 2}
   nonHostileEntrances:
   - {fileID: 6314537996548433218}
