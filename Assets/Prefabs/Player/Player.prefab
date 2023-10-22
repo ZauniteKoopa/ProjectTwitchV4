@@ -25264,8 +25264,8 @@ MonoBehaviour:
   craftingDuration: 1
   numStartingRecipes: 3
   numStartingIngredientSlots: 6
-  surplusDefinition: 0.8
-  scarcityDefinition: 0
+  surplusDefinition: 0.5
+  scarcityDefinition: 0.1
   screenUI: {fileID: 1347320806230522881}
   inventoryUI: {fileID: 262784614}
   playerMesh: {fileID: 1347320806317760199}
@@ -25291,6 +25291,36 @@ MonoBehaviour:
       - m_Target: {fileID: 1347320807677090427}
         m_TargetAssemblyTypeName: TopDownMovementController3D, Assembly-CSharp
         m_MethodName: faceCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  firstIngredientGainEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
+        m_MethodName: startEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  firstPoisonVialEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
+        m_MethodName: startEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28522,6 +28552,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8df30c64a2ab2014c80d1bc20ffabba3, type: 2}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3536455314332235616, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 48.35462
@@ -29174,9 +29216,24 @@ MonoBehaviour:
   sideEffectCameraZoom: 15
   sideEffectCameraPitchAngle: 48
   sideEffectCameraTransitionSpeed: 300
+  firstSideEffectGained:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
+        m_MethodName: startEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   numHurtAnimations: 2
   cameraShakeFrames: 8
-  hitStopFrames: 30
+  hitStopFrames: 60
   cameraShakeMagnitude: 0.5
   hurtTriggerName: hurtTrigger
   unHurtTriggerName: unhurtTrigger

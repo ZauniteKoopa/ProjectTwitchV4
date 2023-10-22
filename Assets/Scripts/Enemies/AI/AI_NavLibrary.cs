@@ -61,13 +61,12 @@ public class AI_NavLibrary
     public static IEnumerator waitForFrames(int numFrames, System.Func<bool> interrupted = null) {
         Debug.Assert(numFrames > 0);
 
-        int f = 0;
+        float timeToWait = (1f / 60f) * numFrames;
+        float timer = 0f;
 
-        while (f < numFrames && (interrupted == null || !interrupted())) {
+        while (timer < timeToWait && (interrupted == null || !interrupted())) {
             yield return 0;
-            if (Time.timeScale != 0f) {
-                f++;
-            }
+            timer += Time.deltaTime;
 
             while (PauseConstraints.isPaused()) {
                 yield return 0;

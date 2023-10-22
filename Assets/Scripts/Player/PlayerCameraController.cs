@@ -17,9 +17,6 @@ public class PlayerCameraController : MonoBehaviour
     private static Coroutine runningCameraRoomSequence = null;
     private static bool overrideRoomCamera = false;
 
-    // Static variables for time stop
-    private static int numFramesPerSecond = 60;
-
     // Static variables for camera shake
     private static Coroutine cameraShakeCoroutine = null;
     private static int numFramesPerShake = 2;
@@ -66,7 +63,6 @@ public class PlayerCameraController : MonoBehaviour
 
         // Set runtime variables
         curRuntimeZoom = -transform.localPosition.z;
-        Application.targetFrameRate = numFramesPerSecond;
     }
 
 
@@ -281,10 +277,9 @@ public class PlayerCameraController : MonoBehaviour
     // Main IEnumerator
     private IEnumerator hitStopSequence(int numFrames) {
         Time.timeScale = 0f;
-
-        for (int f = 0; f < numFrames; f++) {
-            yield return 0;
-        }
+        float frameTime = (1f / 60f) * numFrames;
+        
+        yield return new WaitForSecondsRealtime(frameTime);
 
         Time.timeScale = 1f;
     }
