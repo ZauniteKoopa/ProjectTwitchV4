@@ -68,27 +68,31 @@ public class LinearProjectile : IPrimaryAttack
 
     // Main collision handler
     private void OnTriggerEnter(Collider collider) {
-        IUnitStatus target = collider.GetComponent<IUnitStatus>();
-        if (firstHit) {
-            onProjectileCollision();
-        }
 
-        if (target != null) {
-            damageTarget(target);
-
-            // If this was the first hit enemy, trigger hit stop
+        if (collider.gameObject.layer == LayerMask.NameToLayer("WallCollision") || collider.gameObject.layer == LayerMask.NameToLayer("PlayerProtection")){
             if (firstHit) {
-                firstHit = false;
-                PlayerCameraController.hitStop(hitStopFrames);
-                PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
+                onProjectileCollision();
             }
-            onHitEnemy();
-
-        } else if (collider.gameObject.layer == LayerMask.NameToLayer("WallCollision") || collider.gameObject.layer == LayerMask.NameToLayer("PlayerProtection")){
-            Object.Destroy(gameObject);
             
+            Object.Destroy(gameObject);
         }
     }
+
+
+    // Main function to on Target hit
+    public void onTargetHit(IUnitStatus target) {
+        damageTarget(target);
+
+        // If this was the first hit enemy, trigger hit stop
+        if (firstHit) {
+            firstHit = false;
+            PlayerCameraController.hitStop(hitStopFrames);
+            PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
+        }
+
+        onHitEnemy();
+    }
+
 
 
     // Main protected helper function to damage a target
