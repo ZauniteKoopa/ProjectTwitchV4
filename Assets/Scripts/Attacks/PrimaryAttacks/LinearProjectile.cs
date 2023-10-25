@@ -85,6 +85,7 @@ public class LinearProjectile : IPrimaryAttack
 
         // If this was the first hit enemy, trigger hit stop
         if (firstHit) {
+            onProjectileCollision();
             firstHit = false;
             PlayerCameraController.hitStop(hitStopFrames);
             PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);

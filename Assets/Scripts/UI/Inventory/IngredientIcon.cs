@@ -68,6 +68,12 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         count = n;
         countText.text = "" + n;
         icon.color = (n > 0) ? filledColor : emptyColor;
+
+        // Set up so that's icon is reset in proper pick-up state and position
+        transform.SetParent(defaultParent);
+        GetComponent<RectTransform>().anchoredPosition = startPosition;
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.alpha = 1f;
     }
 
     //Method to clear icon

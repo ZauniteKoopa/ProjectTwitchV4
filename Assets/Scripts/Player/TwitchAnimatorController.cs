@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class TwitchAnimatorController : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private PlayerAudioManager audioModule;
     [SerializeField]
     private PlayerScreenUI screenUiModule;
+    [SerializeField]
+    private PlayerInput playerInputModule;
 
     [Header("Animator Parameter Names")]
     [SerializeField]
@@ -35,9 +38,9 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     private string contaminateTriggerParameter;
     [SerializeField]
-    private string craftStartTriggerParameter;
+    private string isCraftingBoolParameter;
     [SerializeField]
-    private string craftEndTriggerParameter;
+    private string craftStartTriggerParameter;
     [SerializeField]
     private string sideEffectTriggerParameter;
     [SerializeField]
@@ -173,12 +176,13 @@ public class TwitchAnimatorController : MonoBehaviour
     // Trigger event handler for contamination
     private void onCraftStart() {
         animator.SetTrigger(craftStartTriggerParameter);
+        animator.SetBool(isCraftingBoolParameter, true);
     }
 
     // Trigger event handler for contamination
     private void onCraftEnd() {
         audioModule.playFinishedCraftingSound();
-        animator.SetTrigger(craftEndTriggerParameter);
+        animator.SetBool(isCraftingBoolParameter, false);
     }
 
     // Trigger event handler for contamination
@@ -212,7 +216,8 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(sideEffectFreezeTime);
 
         // Move camera back to default position
-        PlayerCameraController.reset(sideEffectCameraTransitionSpeed);
+        float resetDuration = PlayerCameraController.reset(sideEffectCameraTransitionSpeed);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(resetDuration);
 
         attackModule.inUninterruptableAnimationSequence = false;
         Time.timeScale = 1f;
@@ -221,6 +226,8 @@ public class TwitchAnimatorController : MonoBehaviour
             gainedSideEffect = true;
             firstSideEffectGained.Invoke();
         }
+
+        animator.SetBool(isCraftingBoolParameter, false);
     }
 
 

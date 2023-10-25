@@ -149,9 +149,10 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
         }
 
         if (enemyStatus.isAlive()) {
-            otherEnemyAttackedEvent.Invoke(enemySensor.transform.parent.GetComponent<IUnitStatus>());
             runningReaction = StartCoroutine(reactToStimulus(enemySensor.transform.position - transform.position, enemyAttackedReactionTime));
         }
+        
+        otherEnemyAttackedEvent.Invoke(enemySensor.transform.parent.GetComponent<IUnitStatus>());
     }
 
 

@@ -1289,9 +1289,9 @@ MonoBehaviour:
   maxNumMinions: 3
   initialNumMinions: 2
   timeBetweenMinionSpawns: 15
-  probabilityNumerator: 3
+  probabilityNumerator: 2
   probabilityDenominator: 5
-  probabilityVariance: 1
+  probabilityVariance: 2
   lockedDoors:
   - {fileID: 6699760274952610493}
   - {fileID: 6699760274739976476}

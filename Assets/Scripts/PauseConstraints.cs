@@ -28,10 +28,16 @@ public static class PauseConstraints
 
     // Main sequence function to fun in realtime 
     public static IEnumerator waitForSecondsRealtimeWithPause(float numSecs) {
-        yield return new WaitForSecondsRealtime(numSecs);
-        while (isPaused()) {
+        float timer = 0f;
+
+        while (timer < numSecs) {
             yield return 0;
-        }
+            timer += Time.unscaledDeltaTime;
+
+            while (isPaused()) {
+                yield return 0;
+            }
+        }       
     }
 
 

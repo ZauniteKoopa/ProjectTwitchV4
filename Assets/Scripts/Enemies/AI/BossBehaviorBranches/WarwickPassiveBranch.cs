@@ -190,7 +190,7 @@ public class WarwickPassiveBranch : IBossBehaviorBranch
 
     // Main event handler for when a unit nearby gets damaged
     public void onUnitDamagedNearby(IUnitStatus damagedUnit) {
-        if (tracking && damagedUnit.isAlive() && damagedUnit.getHealthPercentage() <= bloodFrenzyHealthRequirement) {
+        if (tracking && damagedUnit.getHealthPercentage() <= bloodFrenzyHealthRequirement) {
             bloodiedTarget = damagedUnit;
 
             Vector3 rawDirVector = (damagedUnit.transform.position - transform.position).normalized;

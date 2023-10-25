@@ -181,6 +181,12 @@ public class EnemyStatus : IUnitStatus
                 enemyStatusUI.updateHealthBar(curHealth, maxHealth);
                 launchDamagePopup(actualDamage, isCrit);
 
+                // MUST TRIGGER EVENTS BETWEEN actual damage occuring AND death() for listeners to do health analysis 
+                if (attractsAttention) {
+                    enemyNoticesDamageEvent.Invoke();
+                    damageEvent.Invoke(dmg);
+                }
+
                 if (curHealth <= 0f && !died) {
                     died = true;
                     deathEvent.Invoke();
@@ -197,11 +203,6 @@ public class EnemyStatus : IUnitStatus
                 curPoison.sideEffect.maxStackEffect,
                 willApplyPostContaminateHitbox()
             );
-        }
-
-        if (attractsAttention) {
-            enemyNoticesDamageEvent.Invoke();
-            damageEvent.Invoke(dmg);
         }
 
         return curHealth <= 0f;

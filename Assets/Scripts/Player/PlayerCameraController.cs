@@ -34,6 +34,7 @@ public class PlayerCameraController : MonoBehaviour
     private static float defaultYaw;
     private static float defaultZoom;
     private static Vector3 defaultTgtLocalPos;
+    private static Room targetedRoom;
 
 
     // On awake, set this to the PlayerCameraController
@@ -63,6 +64,7 @@ public class PlayerCameraController : MonoBehaviour
 
         // Set runtime variables
         curRuntimeZoom = -transform.localPosition.z;
+        reset(100f);
     }
 
 
@@ -110,10 +112,23 @@ public class PlayerCameraController : MonoBehaviour
 
     // Static function to reset the camera
     //  Pre: mainPlayerCamera != null
-    //  Post: moves the camera back to the default position on top of the player
-    public static void reset(float transSpeed) {
+    //  Post: moves the camera back to the default position on top of the player. returns how long the move will take
+    public static float reset(float transSpeed) {
         Debug.Assert(mainPlayerCamera != null && transSpeed > 0f);
         overrideRoomCamera = false;
+
+        if (targetedRoom == null) {
+            return 0f;
+        }
+
+        return mainPlayerCamera.getCameraMoveDuration(
+            targetedRoom.transform,
+            defaultPitch,
+            defaultYaw,
+            defaultZoom,
+            35f,
+            mainPlayerCamera.getLocalCameraPivotRoomPosition(targetedRoom)
+        );
     }
 
 
@@ -149,10 +164,8 @@ public class PlayerCameraController : MonoBehaviour
     }
 
 
-    // Main IE numerator to moving the camera
-    //  Pre: parent is the transform you want the camera to parent to, localPosition is the local position of the camera relative to the parent, mainPlayerCamera != null
-    //  Post: moves the camera
-    private IEnumerator moveCameraSequence(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPos) {
+    // Main helper function to calculate the time it takes to move a camera from its current position to a targeted position
+    private float getCameraMoveDuration(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPos) {
         // Calculate the time to be in final position and calculate positions points for PIVOT (actual camera does no position change)
         Vector3 globalPivotStart = transform.parent.position;
         Vector3 globalPivotFinish = target.TransformPoint(tgtLocalPos);
@@ -164,7 +177,20 @@ public class PlayerCameraController : MonoBehaviour
         Vector3 cameraZoomFinish = transform.parent.TransformPoint(zoom * Vector3.back);
         float zoomDist = Vector3.Distance(transform.position, cameraZoomFinish);
         float zoomTime = zoomDist / transSpeed;
-        float usedTime = Mathf.Max(zoomTime, pivotTime);
+
+        return Mathf.Max(zoomTime, pivotTime);
+    }
+
+
+    // Main IE numerator to moving the camera
+    //  Pre: parent is the transform you want the camera to parent to, localPosition is the local position of the camera relative to the parent, mainPlayerCamera != null
+    //  Post: moves the camera
+    private IEnumerator moveCameraSequence(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPos) {
+        Vector3 globalPivotStart = transform.parent.position;
+        Vector3 globalPivotFinish = target.TransformPoint(tgtLocalPos);
+        Vector3 cameraLocalZoomStart = transform.localPosition;
+        
+        float usedTime = getCameraMoveDuration(target, pitch, yaw, zoom, transSpeed, tgtLocalPos);
 
         // Get rotation starts
         Quaternion rotStart = cameraPivot.rotation;
@@ -202,6 +228,7 @@ public class PlayerCameraController : MonoBehaviour
             mainPlayerCamera.StopCoroutine(runningCameraRoomSequence);
         }
 
+        targetedRoom = tgtRoom;
         runningCameraRoomSequence = mainPlayerCamera.StartCoroutine(mainPlayerCamera.cameraRoomSequence(tgtRoom, transition));
     }
 
@@ -279,7 +306,7 @@ public class PlayerCameraController : MonoBehaviour
         Time.timeScale = 0f;
         float frameTime = (1f / 60f) * numFrames;
         
-        yield return new WaitForSecondsRealtime(frameTime);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(frameTime);
 
         Time.timeScale = 1f;
     }

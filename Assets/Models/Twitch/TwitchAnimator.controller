@@ -227,7 +227,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCrafting
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 8271709788486794467}
   m_DstState: {fileID: 0}
   m_Solo: 0
@@ -329,6 +332,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 456821340476459317}
+  - {fileID: -5315359354812874369}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -374,6 +378,34 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-5315359354812874369
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isCrafting
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: unhurtTrigger
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 3342010596895048298}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-5127899998681060958
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -565,7 +597,7 @@ AnimatorStateMachine:
     m_Position: {x: 70, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3812427054696097468}
-    m_Position: {x: 280, y: -340, z: 0}
+    m_Position: {x: 350, y: -380, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 8271709788486794467}
@@ -581,7 +613,7 @@ AnimatorStateMachine:
     m_Position: {x: 330, y: -30, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: -2250584051381157052}
-    m_Position: {x: 570, y: -30, z: 0}
+    m_Position: {x: 620, y: -20, z: 0}
   m_AnyStateTransitions:
   - {fileID: -291697066925003289}
   - {fileID: 2521171994200668926}
@@ -594,8 +626,10 @@ AnimatorStateMachine:
     second: []
   - first: {fileID: 1542541069820818793}
     second: []
+  - first: {fileID: -2250584051381157052}
+    second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 310, y: -210, z: 0}
+  m_AnyStatePosition: {x: 370, y: -280, z: 0}
   m_EntryPosition: {x: -120, y: 190, z: 0}
   m_ExitPosition: {x: 770, y: 170, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -626,6 +660,34 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 840, y: -130, z: 0}
   m_ParentStateMachinePosition: {x: 620, y: 140, z: 0}
   m_DefaultState: {fileID: 4989468456071994767}
+--- !u!1101 &-2220991159066403570
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: unhurtTrigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: isCrafting
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 3342010596895048298}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-1817695110918461357
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -659,8 +721,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: craftEndTrigger
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCrafting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 8271709788486794467}
   m_DstState: {fileID: 0}
@@ -740,79 +802,85 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: isShooting
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: secondaryTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: contaminateTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: inAmbush
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: craftStartTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: craftEndTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: obtainSideEffectTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: primaryAttackAnim
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: randomization
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: deathTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: hurtTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: unhurtTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: isCrafting
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -836,6 +904,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: unhurtTrigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCrafting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 8271709788486794467}
   m_DstState: {fileID: 0}
@@ -1302,6 +1373,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5876253793355859459}
+  - {fileID: -2220991159066403570}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1381,6 +1453,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: unhurtTrigger
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isCrafting
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 8271709788486794467}
   m_DstState: {fileID: 0}
@@ -1511,6 +1586,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isCrafting
+    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: craftStartTrigger
     m_EventTreshold: 0
