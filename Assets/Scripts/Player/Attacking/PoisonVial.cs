@@ -18,8 +18,8 @@ public class PoisonVial
     // Static const variables
     private static readonly int STARTING_AMMO = 40;
     private static readonly int PRIMARY_BOLT_AMMO_COST = 1;
-    private static readonly float BASE_POISON_DMG = 0.25f;
-    private static readonly float POISON_DMG_PER_STACK = 0.125f;
+    private static readonly float BASE_POISON_DMG = 0.2f;
+    private static readonly float POISON_DMG_PER_STACK = 0.05f;
     private static readonly float BASE_CONTAMINATE_DMG = 4.0f;
     private static readonly float CONTAMINATE_DMG_PER_STACK = 0.8f;
 

@@ -11,8 +11,6 @@ public class DungeonFloorEntrance : PrizeLoot
     private DungeonFloor dungeonFloor;
     [SerializeField]
     private TMP_Text prizeDisplay;
-    [SerializeField]
-    private float entranceHeal = 5f;
     private EndReward projectedEndPrize;
 
     public UnityEvent playerEnterFloorEvent;
@@ -23,7 +21,6 @@ public class DungeonFloorEntrance : PrizeLoot
     //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
     protected override bool activate(PlayerStatus player, TwitchInventory inv) {
         playerEnterFloorEvent.Invoke();
-        player.heal(entranceHeal);
         dungeonFloor.startDungeon(player, projectedEndPrize);
 
         return false;

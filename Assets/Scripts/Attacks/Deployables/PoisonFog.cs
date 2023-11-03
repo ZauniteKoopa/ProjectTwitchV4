@@ -24,9 +24,13 @@ public class PoisonFog : DeployableHitbox
     [Range(0.01f, 1f)]
     private float poisonFogSpeedReduction = 0.6f;
     [SerializeField]
+    [Range(0.01f, 1f)]
+    private float poisonFogStickySpeedReduction = 0.4f;
+    [SerializeField]
     private ResourceBar optionalPoisonFogDurationBar = null;
     private PoisonVial poison;
     private bool inInitialStage = true;
+    private float curFogSpeedModifier = 1f;
 
     // Hashsets for enemy management
     private HashSet<EnemyStatus> enemyHit = new HashSet<EnemyStatus>();
@@ -38,6 +42,7 @@ public class PoisonFog : DeployableHitbox
     //  Post: hitbox will stay for a duration, doing whatever it wants. by the end of it, it should kill itself
     protected override IEnumerator lifespan(PoisonVial p) {
         poison = p;
+        curFogSpeedModifier = getFogSpeedModifier();
         GetComponent<MeshRenderer>().material.color = p.getColor();
 
         if (optionalPoisonFogDurationBar != null) {
@@ -59,7 +64,7 @@ public class PoisonFog : DeployableHitbox
 
         // Cleanup
         foreach (EnemyStatus enemy in inPoisonRange) {
-            enemy.revertSpeedModifier(poisonFogSpeedReduction);
+            enemy.revertSpeedModifier(curFogSpeedModifier);
         }
 
         destroyDeployable();
@@ -96,7 +101,7 @@ public class PoisonFog : DeployableHitbox
 
             // add to enemies that are in range
             inPoisonRange.Add(enemyTgt);
-            enemyTgt.applySpeedModifier(poisonFogSpeedReduction);
+            enemyTgt.applySpeedModifier(curFogSpeedModifier);
         }
     }
 
@@ -109,7 +114,13 @@ public class PoisonFog : DeployableHitbox
 
             // add to enemies that are in range
             inPoisonRange.Remove(enemyTgt);
-            enemyTgt.revertSpeedModifier(poisonFogSpeedReduction);
+            enemyTgt.revertSpeedModifier(curFogSpeedModifier);
         }
+    }
+
+
+    // Main function to get the speed modifier
+    private float getFogSpeedModifier() {
+        return (poison != null && poison.sideEffect.getType() == PoisonVialStat.STICKINESS) ? poisonFogStickySpeedReduction : poisonFogSpeedReduction;
     }
 }
