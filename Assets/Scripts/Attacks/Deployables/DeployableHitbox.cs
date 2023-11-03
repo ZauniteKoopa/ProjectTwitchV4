@@ -40,7 +40,7 @@ public abstract class DeployableHitbox : MonoBehaviour
     private IEnumerator destroyDeployableSequence() {
         destroyed = true;
         transform.Translate(Vector3.down * 5000f);
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
         Object.Destroy(gameObject);
     }
 }

@@ -37,7 +37,6 @@ public abstract class PrizeLoot : MonoBehaviour
         transform.Translate(500f * Vector3.up);
 
         if (speaker != null && speaker.clip != null) {
-            speaker.Play();
             yield return new WaitForSeconds(speaker.clip.length);
         } else {
             yield return 0;
@@ -53,6 +52,10 @@ public abstract class PrizeLoot : MonoBehaviour
 
         // Destroy object
         if (destroyObject) {
+            if (speaker != null && speaker.clip != null) {
+                speaker.Play();
+            }
+            
             destroyObj();
         }
     }

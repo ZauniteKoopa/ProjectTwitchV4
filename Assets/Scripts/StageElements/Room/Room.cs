@@ -35,7 +35,7 @@ public class Room : MonoBehaviour
     public float roomWidth = 18f;
     [SerializeField]
     public float roomLength = 18f;
-    public static readonly float WALL_OFFSET = 1.5f;
+    public static readonly float WALL_OFFSET = 2.5f;
 
 
     // Main event handler for on trigger enter

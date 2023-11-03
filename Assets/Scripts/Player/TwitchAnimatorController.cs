@@ -222,6 +222,8 @@ public class TwitchAnimatorController : MonoBehaviour
         attackModule.inUninterruptableAnimationSequence = false;
         Time.timeScale = 1f;
 
+        yield return 0;
+
         if (!gainedSideEffect) {
             gainedSideEffect = true;
             firstSideEffectGained.Invoke();

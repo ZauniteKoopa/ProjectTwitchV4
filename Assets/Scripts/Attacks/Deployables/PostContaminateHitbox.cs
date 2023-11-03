@@ -52,8 +52,7 @@ public class PostContaminateHitbox : DeployableHitbox
         yield return new WaitForSeconds(getLingeringDuration());
 
         transform.Translate(Vector3.up * 10000000f);
-        yield return 0;
-        yield return 0;
+        yield return new WaitForSeconds(0.1f);
         Object.Destroy(gameObject);
     }
 
