@@ -31,10 +31,19 @@ public class Room : MonoBehaviour
     [Range(0, 5)]
     public int mapCol = 0;
 
+    [Header("Camera and Spawn Parameters")]
     [SerializeField]
     public float roomWidth = 18f;
     [SerializeField]
     public float roomLength = 18f;
+    [Min(0f)]
+    public float cameraExpandUp = 0f;
+    [Min(0f)]
+    public float cameraExpandDown = 0f;
+    [Min(0f)]
+    public float cameraExpandLeft = 0f;
+    [Min(0f)]
+    public float cameraExpandRight = 0f;
     public static readonly float WALL_OFFSET = 2.5f;
 
 

@@ -785,6 +785,10 @@ MonoBehaviour:
   mapCol: 2
   roomWidth: 18
   roomLength: 18
+  cameraExpandUp: 0
+  cameraExpandDown: 0
+  cameraExpandLeft: 0
+  cameraExpandRight: 0
   spawnPoint: {fileID: 30824310}
 --- !u!4 &148754055 stripped
 Transform:
@@ -873,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.16
+      value: 3.39
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2740,7 +2744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.87
+      value: -3.45
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5782,7 +5786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.16
+      value: 3.12
       objectReference: {fileID: 0}
     - target: {fileID: 5914273312632093470, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6440,6 +6444,10 @@ MonoBehaviour:
   mapCol: 0
   roomWidth: 18
   roomLength: 18
+  cameraExpandUp: 0
+  cameraExpandDown: 0
+  cameraExpandLeft: 0
+  cameraExpandRight: 0
   spawnPoint: {fileID: 884654012}
 --- !u!4 &1447665663
 Transform:
@@ -11413,6 +11421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 775617243, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: recipePageColorEffect
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstSideEffectGained.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12189,6 +12201,10 @@ MonoBehaviour:
   mapCol: 3
   roomWidth: 18
   roomLength: 18
+  cameraExpandUp: 0
+  cameraExpandDown: 0
+  cameraExpandLeft: 0
+  cameraExpandRight: 0
   enemyWaves:
   - {fileID: 430155453543693585}
   - {fileID: 2042674834}
@@ -13590,6 +13606,10 @@ MonoBehaviour:
   mapCol: 0
   roomWidth: 18
   roomLength: 18
+  cameraExpandUp: 0
+  cameraExpandDown: 0
+  cameraExpandLeft: 0
+  cameraExpandRight: 0
   spawnPoint: {fileID: 884654012}
 --- !u!114 &8036007335596145542
 MonoBehaviour:

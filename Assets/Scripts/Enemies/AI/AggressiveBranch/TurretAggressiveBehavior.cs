@@ -69,5 +69,7 @@ public class TurretAggressiveBehavior : IEnemyAggroBranch
 
 
     // Main function to reset the branch when the overall tree gets overriden / switch branches
-    public override void reset() {}
+    public override void reset() {
+        meshRender.material.color = originalColor;
+    }
 }

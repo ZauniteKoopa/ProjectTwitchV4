@@ -279,9 +279,9 @@ public class PlayerCameraController : MonoBehaviour
         // Get the players position given that he's in this room
         Vector3 playerRawLocalPos = playerPackage.position - curRoom.transform.position;
         Vector3 cameraFocusPosition = curRoom.transform.position + new Vector3(
-            Mathf.Clamp(playerRawLocalPos.x, -xRoomLimits, xRoomLimits),
+            Mathf.Clamp(playerRawLocalPos.x, -xRoomLimits - curRoom.cameraExpandLeft, xRoomLimits + curRoom.cameraExpandRight),
             playerPackage.position.y,
-            Mathf.Clamp(playerRawLocalPos.z, -zRoomLimits, zRoomLimits)
+            Mathf.Clamp(playerRawLocalPos.z, -zRoomLimits - curRoom.cameraExpandDown, zRoomLimits + curRoom.cameraExpandUp)
         );
 
         // Return a clamped version of this raw local position

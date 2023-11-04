@@ -598,7 +598,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   lingeringBodyHitbox: {fileID: 5139814542729251783}
-  dashingColor: {r: 1, g: 0, b: 0, a: 1}
+  dashingColor: {r: 0.6009035, g: 0, b: 1, a: 1}
 --- !u!1 &7276044789777591420
 GameObject:
   m_ObjectHideFlags: 0

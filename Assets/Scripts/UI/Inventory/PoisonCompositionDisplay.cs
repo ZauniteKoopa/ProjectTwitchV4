@@ -59,7 +59,7 @@ public class PoisonCompositionDisplay : MonoBehaviour
 
             Image[] statSlots = poisonSlotsMap[entry.Key];
             for (int s = 0; s < statSlots.Length; s++) {
-                statSlots[s].color = (s < entry.Value) ? PoisonVial.poisonVialConstants.getTempColor(entry.Key) : Color.black;
+                statSlots[s].color = (s < entry.Value) ? PoisonVial.poisonVialConstants.getPureColor(entry.Key, false) : Color.black;
             }
         }
     }
