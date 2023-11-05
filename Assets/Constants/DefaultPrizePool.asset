@@ -24,7 +24,7 @@ MonoBehaviour:
   - rewards:
     - {fileID: 6857054861687976276, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
     rewardName: HEALING
-    rewardPrerequisite: 0
+    rewardPrerequisite: 3
   surplusEndRewardProbability:
   - 0.5
   - 0.2

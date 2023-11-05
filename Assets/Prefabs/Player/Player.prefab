@@ -27904,6 +27904,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -23.663733
       objectReference: {fileID: 0}
+    - target: {fileID: -3196511607817033700, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -3014800470374882993, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.0000010672168
@@ -28264,6 +28268,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.000012658348
       objectReference: {fileID: 0}
+    - target: {fileID: 65702495048144492, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 452845707996361441, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -33.809917
@@ -28399,6 +28407,10 @@ PrefabInstance:
     - target: {fileID: 1777405686393085329, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.96406555
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842959999560956283, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1863007892671672952, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29202,6 +29214,7 @@ MonoBehaviour:
   inventoryModule: {fileID: 1347320807677090373}
   audioModule: {fileID: 1347320806317760195}
   screenUiModule: {fileID: 1347320806230522881}
+  playerInputModule: {fileID: 0}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
   primaryAttackAnimationTypeParameter: primaryAttackAnim

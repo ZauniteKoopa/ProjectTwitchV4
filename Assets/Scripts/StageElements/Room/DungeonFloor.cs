@@ -59,6 +59,7 @@ public class DungeonFloor : MonoBehaviour
     [SerializeField]
     private DungeonFloorEntrance[] nonHostileEntrances;
     private TwitchInventory curPlayerInventory;
+    private PlayerStatus curPlayerStatus;
 
     // Only update the map if this dungeon is currently active
     private bool currentlyActive = false;
@@ -116,8 +117,9 @@ public class DungeonFloor : MonoBehaviour
 
             // Set up rewards in the entrances of the next floor and the rewards of this floor
             curPlayerInventory = playerStatus.transform.parent.GetComponent<TwitchInventory>();
+            curPlayerStatus = playerStatus;
             if (finalBattleRoom == null) {
-                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, curPlayerInventory);
+                List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, curPlayerInventory, playerStatus);
 
                 for (int e = 0; e < nonHostileEntrances.Length; e++) {
                     nonHostileEntrances[e].setProjectedEndPrize(rewards[e]);
@@ -193,7 +195,7 @@ public class DungeonFloor : MonoBehaviour
 
     // Main event handler for when final battle room ends: set up next rewards
     private void onFinalBattleRoomEnd() {
-        finalBattleRoom.setUpNextFloorRewards(prizePool, curPlayerInventory);
+        finalBattleRoom.setUpNextFloorRewards(prizePool, curPlayerInventory, curPlayerStatus);
     }
 
 

@@ -134,8 +134,8 @@ public class BattleRoom : Room
 
 
     // Main function to set up prizes for the battle room
-    public void setUpNextFloorRewards(PrizePool prizePool, TwitchInventory curPlayerInventory) {
-        List<EndReward> rewards = prizePool.getDistinctEndRewards(possibleDungeonFloorEntrances.Length, curPlayerInventory);
+    public void setUpNextFloorRewards(PrizePool prizePool, TwitchInventory curPlayerInventory, PlayerStatus playerStatus) {
+        List<EndReward> rewards = prizePool.getDistinctEndRewards(possibleDungeonFloorEntrances.Length, curPlayerInventory, playerStatus);
 
         for (int e = 0; e < possibleDungeonFloorEntrances.Length; e++) {
             possibleDungeonFloorEntrances[e].setProjectedEndPrize(rewards[e]);

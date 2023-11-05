@@ -16,7 +16,8 @@ public class EndReward {
 public enum RewardPrerequisite {
     NONE,
     CAN_ADD_RECIPE,
-    CAN_ADD_ING_SLOT
+    CAN_ADD_ING_SLOT,
+    CAN_HEAL
 }
 
 
@@ -49,7 +50,7 @@ public class PrizePool : ScriptableObject {
     // Main function to get distinct end rewards
     //  Pre: numRewards is greater or equal to number of all possible end rewards
     //  Post: returns a list of length numRewards with rewards that are differrent from each other
-    public List<EndReward> getDistinctEndRewards(int numRewards, TwitchInventory playerInventory) {
+    public List<EndReward> getDistinctEndRewards(int numRewards, TwitchInventory playerInventory, PlayerStatus playerStatus) {
         Debug.Assert(numRewards <= getMinPossibleDistinctRewards() && numRewards >= 0);
         Debug.Assert(minIngredientProbability <= maxIngredientProbability);
 
@@ -63,8 +64,8 @@ public class PrizePool : ScriptableObject {
         HashSet<EndReward> endRewards = new HashSet<EndReward>();
         int numIngredientRewards = 0;
         int numNonIngredientRewards = 0;
-        int maxIngredientRewards = getCurMaxPossibleDistinctRewards(scarcityEndRewards, playerInventory);
-        int maxNonIngredientRewards = getCurMaxPossibleDistinctRewards(scarcityEndRewards, playerInventory);
+        int maxIngredientRewards = getCurMaxPossibleDistinctRewards(scarcityEndRewards, playerInventory, playerStatus);
+        int maxNonIngredientRewards = getCurMaxPossibleDistinctRewards(surplusEndRewards, playerInventory, playerStatus);
         float playerIngredientInvState = playerInventory.getIngredientScarcitySurplusState();
 
         // Main loop
@@ -76,7 +77,7 @@ public class PrizePool : ScriptableObject {
             // Actually get an endReward from the selected endReward pool
             EndReward[] curEndRewards = (willGetIngredient) ? scarcityEndRewards : surplusEndRewards;
             float[] curEndRewardProbs = (willGetIngredient) ? scarcityEndRewardProbability : surplusEndRewardProbability;
-            endRewards.Add(getDistinctEndReward(playerInventory, curEndRewards, curEndRewardProbs, endRewards));
+            endRewards.Add(getDistinctEndReward(playerInventory, playerStatus, curEndRewards, curEndRewardProbs, endRewards));
 
             // Update counters
             if (willGetIngredient) {
@@ -100,6 +101,7 @@ public class PrizePool : ScriptableObject {
     // Main private helper function to get distinct end rewards given specified probabilities
     public EndReward getDistinctEndReward(
         TwitchInventory playerInventory,
+        PlayerStatus playerStatus,
         EndReward[] givenEndRewards,
         float[] givenEndRewardProbability,
         HashSet<EndReward> hitEndRewards
@@ -123,7 +125,7 @@ public class PrizePool : ScriptableObject {
         // If reward already found in the hashset, go through the list until you find one that isn't
         bool positiveDirection = Random.Range(0, 2) == 0;
         while (hitEndRewards.Contains(givenEndRewards[rewardIndex])
-                || !metEndRewardPreRequisite(playerInventory, givenEndRewards[rewardIndex].rewardPrerequisite))
+                || !metEndRewardPreRequisite(playerInventory, playerStatus, givenEndRewards[rewardIndex].rewardPrerequisite))
         {
             rewardIndex += (positiveDirection) ? 1 : (givenEndRewards.Length - 1);
             rewardIndex %= givenEndRewards.Length;
@@ -146,13 +148,16 @@ public class PrizePool : ScriptableObject {
 
 
     // Main function to check if the inventory has met the prerequisite
-    private bool metEndRewardPreRequisite(TwitchInventory playerInventory, RewardPrerequisite preReq) {
+    private bool metEndRewardPreRequisite(TwitchInventory playerInventory, PlayerStatus playerStatus, RewardPrerequisite preReq) {
         switch (preReq) {
             case RewardPrerequisite.CAN_ADD_RECIPE:
                 return playerInventory.canAddNewRecipes();
 
             case RewardPrerequisite.CAN_ADD_ING_SLOT:
                 return playerInventory.canAddIngredientSlots();
+
+            case RewardPrerequisite.CAN_HEAL:
+                return playerStatus.getHealthPercentage() < 0.9f;
 
             case RewardPrerequisite.NONE:
                 return true;
@@ -185,11 +190,11 @@ public class PrizePool : ScriptableObject {
 
 
     // Main function to get the curMaxPossibleDistinctRewards
-    private int getCurMaxPossibleDistinctRewards(EndReward[] givenEndRewards, TwitchInventory playerInv) {
+    private int getCurMaxPossibleDistinctRewards(EndReward[] givenEndRewards, TwitchInventory playerInv, PlayerStatus playerStatus) {
         int count = 0;
 
         foreach (EndReward reward in givenEndRewards) {
-            if (metEndRewardPreRequisite(playerInv, reward.rewardPrerequisite)) {
+            if (metEndRewardPreRequisite(playerInv, playerStatus, reward.rewardPrerequisite)) {
                 count++;
             }
         }
