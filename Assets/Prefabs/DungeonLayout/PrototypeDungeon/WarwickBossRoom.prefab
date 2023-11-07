@@ -1274,8 +1274,8 @@ MonoBehaviour:
   playerInside: 0
   westOpen: 0
   eastOpen: 0
-  northOpen: 0
-  southOpen: 0
+  northOpen: 1
+  southOpen: 1
   mapRow: 1
   mapCol: 0
   roomWidth: 24
@@ -1290,9 +1290,9 @@ MonoBehaviour:
   possibleMinions:
   - {fileID: 5914273312632093458, guid: 6a7644b4221978b43bc6ac93d8a256ff, type: 3}
   enemySpawnStartPhase: 1
-  maxNumMinions: 3
+  maxNumMinions: 2
   initialNumMinions: 2
-  timeBetweenMinionSpawns: 15
+  timeBetweenMinionSpawns: 12
   probabilityNumerator: 2
   probabilityDenominator: 5
   probabilityVariance: 2
@@ -2062,23 +2062,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2435922449083006140, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
   m_PrefabInstance: {fileID: 6699760275935306537}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6699760274739976476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9021966756399832981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f490fa9968e994d9987a7f84083a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorLocks:
-  - {fileID: 6699760275288287818}
-  localOpenPosition: {x: 0.0602, y: -2, z: 9}
-  openingSpeed: 4
-  resetOnComplete: 0
 --- !u!82 &641653274
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2175,6 +2158,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6699760274739976476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021966756399832981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f490fa9968e994d9987a7f84083a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorLocks:
+  - {fileID: 6699760275288287818}
+  localOpenPosition: {x: 0.0602, y: -2, z: 9}
+  openingSpeed: 4
+  resetOnComplete: 0
 --- !u!1001 &6699760275971686184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2258,23 +2258,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2435922449083006140, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
   m_PrefabInstance: {fileID: 6699760275971686184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6699760274952610493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9021966756027909012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34f490fa9968e994d9987a7f84083a21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorLocks:
-  - {fileID: 6699760275288287818}
-  localOpenPosition: {x: 0.0752, y: -2, z: -9.07}
-  openingSpeed: 4
-  resetOnComplete: 0
 --- !u!82 &588938393
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2371,6 +2354,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6699760274952610493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021966756027909012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f490fa9968e994d9987a7f84083a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorLocks:
+  - {fileID: 6699760275288287818}
+  localOpenPosition: {x: 0.0752, y: -2, z: -9.07}
+  openingSpeed: 4
+  resetOnComplete: 0
 --- !u!1001 &6699760276130138492
 PrefabInstance:
   m_ObjectHideFlags: 0

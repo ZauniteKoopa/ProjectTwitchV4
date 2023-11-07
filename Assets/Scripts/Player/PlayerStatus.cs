@@ -65,6 +65,12 @@ public class PlayerStatus : IUnitStatus
     }
 
 
+    // Main function to get the base movement speed
+    public float getBaseMovementSpeed() {
+        return movementSpeed;
+    }
+
+
     // Main method to get current base attack for sword swings or ranged attacks 
     //  Pre: none
     //  Post: Returns a float that represents base attack (> 0)

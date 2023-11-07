@@ -237,6 +237,16 @@ public class PlayerScreenUI : MonoBehaviour
     }
 
 
+    // Main function to do fade to black
+    public void fadeToColor(float fadeDuration, Color endColor, bool scaledTime = true) {
+        if (runningColorScreenSequence != null) {
+            StopCoroutine(runningColorScreenSequence);
+        }
+
+        runningColorScreenSequence = StartCoroutine(colorScreenSequence(endColor, fadeDuration, scaledTime));
+    }
+
+
     // Main coroutine to handle color screen
     private IEnumerator colorScreenSequence(Color screenEndColor, float fadeTime, bool scaledTime = true) {
         float fadeTimer = 0f;

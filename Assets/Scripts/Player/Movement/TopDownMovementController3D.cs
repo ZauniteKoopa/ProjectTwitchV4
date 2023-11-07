@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 public class TopDownMovementController3D : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class TopDownMovementController3D : MonoBehaviour
     private bool isMoving = false;
     private Vector2 inputVector = Vector2.zero;
     private Vector3 movementForward = Vector3.forward;
+    private Coroutine runningAutoMoveSequence = null;
 
     // Reference variables
     [Header("Player Package Components")]
@@ -65,7 +67,7 @@ public class TopDownMovementController3D : MonoBehaviour
     // FixedUpdate function: runs every frame
     private void FixedUpdate() {
         // Only do movement controls if unit is alive
-        if (unitStatus.canMove()) {
+        if (unitStatus.canMove() && runningAutoMoveSequence == null) {
             if (isMoving) {
                 handleMovement(Time.fixedDeltaTime);
             }
@@ -132,6 +134,10 @@ public class TopDownMovementController3D : MonoBehaviour
 
     // Main function to see if the unit is currently moving. Is used primarily for animators
     public bool isCurrentlyMoving() {
+        if (runningAutoMoveSequence != null) {
+            return true;
+        }
+
         if (!isMoving) {
             return false;
         }
@@ -184,5 +190,40 @@ public class TopDownMovementController3D : MonoBehaviour
     public void faceCamera() {
         inputVector = Vector2.down;
         movementForward = Vector3.back;
+    }
+
+
+    // Main function to do the automove sequence
+    //  Pre: assumes that the straightline path between player and tgt Location is not blocked. Should not run 2 autoMoves at the same time
+    //  Post: returns the time it takes to move to that destination in seconds
+    public float autoMove(Vector3 targetDestination) {
+        if (runningAutoMoveSequence != null) {
+            Debug.LogError("AN AUTO MOVE SEQUENCE IS STILL RUNNING?? DON'T RUN 2 AUTO MOVES AT ONCE. PLEASE DISABLE CONTROLS WHEN AUTO MOVE IS RUNNING");
+            return -1f;
+        }
+
+        runningAutoMoveSequence = StartCoroutine(autoMoveSequence(targetDestination));
+        return Vector3.Distance(targetDestination, transform.position) / 6f;
+    }
+
+
+    // Main sequence to automove (regardless of time)
+    private IEnumerator autoMoveSequence(Vector3 targetDestination) {
+        // setup
+        float timeToMove = Vector3.Distance(targetDestination, transform.position) / 6f;
+        Vector3 sourceLocation = transform.position;
+        float timer = 0f;
+        unitStatus.transform.forward = Vector3.ProjectOnPlane((targetDestination - sourceLocation), Vector3.up);
+
+        // Move
+        while (timer < timeToMove) {
+            yield return 0;
+            timer += Time.unscaledDeltaTime;
+            transform.position = Vector3.Lerp(sourceLocation, targetDestination, timer / timeToMove);
+        }
+
+        // Cleanup
+        transform.position = targetDestination;
+        runningAutoMoveSequence = null;
     }
 }

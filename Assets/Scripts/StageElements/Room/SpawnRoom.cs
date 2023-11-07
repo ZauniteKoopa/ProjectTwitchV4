@@ -18,7 +18,12 @@ public class SpawnRoom : Room
     //  Pre: spawnedInPlayer
     //  Post: player spawns in the map
     public void spawnInPlayer(PlayerStatus player) {
+        // THIS IS WHERE DUNGEON ENTER SHOULD BE TRIGGERED
+        // broadcast (no paramter needed)
+
+
         player.transform.parent.position = spawnPoint.position;
+        player.BroadcastMessage("startDungeonEnter");
     }
 
 

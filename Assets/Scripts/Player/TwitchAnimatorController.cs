@@ -109,6 +109,16 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     [Min(0.01f)]
     private float deathFadeDuration = 0.75f;
+
+    [Header("Dungeon Transition Animations")]
+    [SerializeField]
+    private string dungeonEnterTrigger;
+    [SerializeField]
+    private string dungeonExitTrigger;
+    [SerializeField]
+    private AnimationClip dungeonEnterAnimation;
+    [SerializeField]
+    private AnimationClip dungeonExitAnimation;
     
 
     // On awake, set everything
@@ -285,5 +295,68 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return new WaitForSecondsRealtime(timeUntilDeathFadeOut);
 
         screenUiModule.fadeToBlack(deathFadeDuration, false);
+    }
+
+    // Main function to kick off dungeon exit
+    public void startDungeonExit(DungeonFloor nextDungeonToEnter, Vector3 manholePosition, EndReward projectedEndPrize) {
+        StartCoroutine(dungeonExitSequence(nextDungeonToEnter, manholePosition, projectedEndPrize));
+    }
+
+
+    // Main function to kick off dungeon enter
+    public void startDungeonEnter() {
+        StartCoroutine(dungeonEnterSequence());
+    }
+
+    // Main function to do dungeon exit (regardless of position of player)
+    private IEnumerator dungeonExitSequence(DungeonFloor nextDungeonToEnter, Vector3 manholePosition, EndReward projectedEndPrize) {
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        Time.timeScale = 0f;
+        playerInputModule.enabled = false;
+
+        // Move in to the manhole (TO-DO)
+        float timeToMove = movementModule.autoMove(new Vector3(manholePosition.x, twitchStatus.transform.position.y, manholePosition.z));
+        yield return new WaitForSecondsRealtime(timeToMove);
+
+        // Do animation and wait for it
+        animator.SetTrigger(dungeonExitTrigger);
+        yield return new WaitForSecondsRealtime(dungeonExitAnimation.length + 0.25f);
+
+        // Fade to black and enter dungeon / spawn in after (TO-D0)
+        screenUiModule.fadeToBlack(0.75f, false);
+        yield return new WaitForSecondsRealtime(0.75f + 1f);
+
+        if (nextDungeonToEnter != null) {
+            nextDungeonToEnter.startDungeon(twitchStatus, projectedEndPrize);   
+        }     
+    }
+
+
+    // Main function to do dungeon enter (regardless of position of spawn point, player should be teleported to spawn point anyways)
+    private IEnumerator dungeonEnterSequence() {
+        // Allow a frame for the camera to update
+        Time.timeScale = 1f;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0f;
+
+        // Trigger animation but with scaled animation to set it up
+        animator.updateMode = AnimatorUpdateMode.Normal;
+        animator.SetTrigger(dungeonEnterTrigger);
+
+        // Fade to clear 
+        twitchStatus.transform.forward = Vector3.back;
+        movementModule.faceCamera();
+
+        screenUiModule.fadeToColor(0.75f, Color.clear, false);
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        // Play animation (release it)
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        yield return new WaitForSecondsRealtime(dungeonEnterAnimation.length);
+
+        // Reset Time.timeScale
+        animator.updateMode = AnimatorUpdateMode.Normal;
+        Time.timeScale = 1f;
+        playerInputModule.enabled = true;
     }
 }

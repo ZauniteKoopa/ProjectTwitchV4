@@ -21,7 +21,7 @@ public class DungeonFloorEntrance : PrizeLoot
     //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
     protected override bool activate(PlayerStatus player, TwitchInventory inv) {
         playerEnterFloorEvent.Invoke();
-        dungeonFloor.startDungeon(player, projectedEndPrize);
+        player.GetComponentInChildren<TwitchAnimatorController>().startDungeonExit(dungeonFloor, transform.position, projectedEndPrize);
 
         return false;
     }
