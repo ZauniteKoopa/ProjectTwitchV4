@@ -2845,7 +2845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathRefreshTime: 0.15
   trackingDuration: 8
-  trackingSpeedReduction: 0.4
+  trackingSpeedReduction: 0.35
   numDiscoveryFrames: 60
   bloodFrenzyFrames: 110
   initialPassiveFrames: 75

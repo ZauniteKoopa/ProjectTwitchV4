@@ -160,6 +160,7 @@ public class TwitchAttackModule : IAttackModule
         while (holdingFireButton) {
             // If you're invisible and haven't been buffed yet, buff immediately before doing an attack
             if (status.invisible) {
+                audioManager.playAmbushBuff();
                 applyAmbushBuff();
             }
 
@@ -336,7 +337,6 @@ public class TwitchAttackModule : IAttackModule
             ambushBuffed = true;
 
             status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
-            audioManager.playAmbushBuff();
             if (ambushBuffVisualEffect != null) {
                 ambushBuffVisualEffect.SetActive(true);
             }

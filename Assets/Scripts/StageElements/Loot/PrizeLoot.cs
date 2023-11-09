@@ -50,12 +50,13 @@ public abstract class PrizeLoot : MonoBehaviour
     public void collect(PlayerStatus player, TwitchInventory inv) {
         bool destroyObject = activate(player, inv);
 
+        // Play audio
+        if (speaker != null && speaker.clip != null) {
+            speaker.Play();
+        }
+
         // Destroy object
         if (destroyObject) {
-            if (speaker != null && speaker.clip != null) {
-                speaker.Play();
-            }
-            
             destroyObj();
         }
     }

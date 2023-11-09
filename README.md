@@ -19,3 +19,5 @@ Healing Pickup: https://freesound.org/people/ReincarnatedEchoes/sounds/644306/
 Recipe Pickup: https://freesound.org/people/MATRIXXX_/sounds/397548/ 
 
 Chest Open Sound Effect: https://freesound.org/people/LittleRobotSoundFactory/sounds/270316/ 
+
+Pipe Entrance Open Sound Effect: https://freesound.org/people/newagesoup/sounds/337847/ 

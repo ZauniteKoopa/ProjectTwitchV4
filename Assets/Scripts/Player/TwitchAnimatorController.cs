@@ -119,6 +119,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private AnimationClip dungeonEnterAnimation;
     [SerializeField]
     private AnimationClip dungeonExitAnimation;
+    public UnityEvent onDungeonExitStart;
+    public UnityEvent onDungeonEnterFinish;
     
 
     // On awake, set everything
@@ -314,7 +316,9 @@ public class TwitchAnimatorController : MonoBehaviour
         Time.timeScale = 0f;
         playerInputModule.enabled = false;
 
-        // Move in to the manhole (TO-DO)
+        onDungeonExitStart.Invoke();
+
+        // Move in to the manhole
         float timeToMove = movementModule.autoMove(new Vector3(manholePosition.x, twitchStatus.transform.position.y, manholePosition.z));
         yield return new WaitForSecondsRealtime(timeToMove);
 
@@ -355,6 +359,7 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return new WaitForSecondsRealtime(dungeonEnterAnimation.length);
 
         // Reset Time.timeScale
+        onDungeonEnterFinish.Invoke();
         animator.updateMode = AnimatorUpdateMode.Normal;
         Time.timeScale = 1f;
         playerInputModule.enabled = true;

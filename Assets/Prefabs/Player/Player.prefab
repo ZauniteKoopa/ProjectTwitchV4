@@ -8287,7 +8287,7 @@ MonoBehaviour:
   noRecipeLabel: {fileID: 1093315568}
   pageNumber: {fileID: 1993068725}
   recipePageDisplay: {fileID: 775617240}
-  recipePageColorEffect: 0.125
+  recipePageColorEffect: 0.075
 --- !u!1 &776287856
 GameObject:
   m_ObjectHideFlags: 0
@@ -29214,7 +29214,7 @@ MonoBehaviour:
   inventoryModule: {fileID: 1347320807677090373}
   audioModule: {fileID: 1347320806317760195}
   screenUiModule: {fileID: 1347320806230522881}
-  playerInputModule: {fileID: 0}
+  playerInputModule: {fileID: 1347320807677090426}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
   primaryAttackAnimationTypeParameter: primaryAttackAnim
@@ -29259,6 +29259,64 @@ MonoBehaviour:
   deathZoom: 12
   deathAngle: 40
   deathFadeDuration: 0.75
+  dungeonEnterTrigger: EnterFloorTrigger
+  dungeonExitTrigger: ExitFloorTrigger
+  dungeonEnterAnimation: {fileID: 4295536878813555907, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  dungeonExitAnimation: {fileID: 3247737772120043954, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  onDungeonExitStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1281440391}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1599373155}
+        m_TargetAssemblyTypeName: LootSensor, Assembly-CSharp
+        m_MethodName: showUIGlow
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDungeonEnterFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1281440391}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1599373155}
+        m_TargetAssemblyTypeName: LootSensor, Assembly-CSharp
+        m_MethodName: showUIGlow
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!23 &4527573279414321107 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3199683058971971800, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}

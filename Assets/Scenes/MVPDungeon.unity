@@ -521,7 +521,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1200,17 +1200,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce389e6b6db5ce4d821e446f88dad17, type: 3}
---- !u!114 &229832630 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1347320807677090426, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-  m_PrefabInstance: {fileID: 1347320807610889511}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &230666400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2625,7 +2614,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5032,7 +5021,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_LocalScale.x
@@ -8762,7 +8751,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2435922449083006136, guid: aadd7fe10ac90984b8b289f2f9388766, type: 3}
       propertyPath: m_LocalScale.x
@@ -11432,30 +11421,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 775617243, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: recipePageColorEffect
-      value: 0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: playerInputModule
-      value: 
-      objectReference: {fileID: 229832630}
-    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: dungeonExitTrigger
-      value: ExitFloorTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: dungeonEnterTrigger
-      value: EnterFloorTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: dungeonExitAnimation
-      value: 
-      objectReference: {fileID: 3247737772120043954, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
-    - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: dungeonEnterAnimation
-      value: 
-      objectReference: {fileID: 4295536878813555907, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
     - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstSideEffectGained.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -11515,10 +11480,6 @@ PrefabInstance:
     - target: {fileID: 1347320807677090429, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1347320808229424959, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}

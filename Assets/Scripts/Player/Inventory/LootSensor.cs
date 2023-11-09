@@ -11,19 +11,27 @@ public class LootSensor : MonoBehaviour
     [SerializeField]
     private PlayerStatus status;
     private PrizeLoot targetLoot = null;
+    private bool showingGlow = true;
 
 
     // On update
     private void Update() {
-        PrizeLoot prevLoot = targetLoot;
-        targetLoot = getClosestLoot();
+        if (showingGlow) {
+            PrizeLoot prevLoot = targetLoot;
+            targetLoot = getClosestLoot();
 
-        if (prevLoot != targetLoot && prevLoot != null) {
-            prevLoot.removeGlow();
-        }
+            if (prevLoot != targetLoot && prevLoot != null) {
+                prevLoot.removeGlow();
+            }
 
-        if (targetLoot != null) {
-            targetLoot.glow();
+            if (targetLoot != null) {
+                targetLoot.glow();
+            }
+
+        } else {
+            if (targetLoot != null) {
+                targetLoot.removeGlow();
+            }
         }
     }
     
@@ -75,5 +83,11 @@ public class LootSensor : MonoBehaviour
         }
 
         return bestLoot;
+    }
+
+
+    // Main function to set the UI state
+    public void showUIGlow(bool willShow) {
+        showingGlow = willShow;
     }
 }

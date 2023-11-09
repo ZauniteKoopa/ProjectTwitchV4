@@ -84,12 +84,12 @@ public class DasherAggroBranch : IEnemyAggroBranch
         // Actual dash
         lingeringBodyHitbox.setDamage(dashDamage * enemyStats.getBaseAttack());
         float dashDistanceTimer = 0f;
-        float dashSpeed = enemyStats.getMovementSpeed() * dashMovementMultiplier * Time.deltaTime;
+        float dashSpeed = enemyStats.getMovementSpeed() * dashMovementMultiplier;
         while (dashDistanceTimer < maxDashDistance) {
             yield return 0;
 
-            float distDelta = dashSpeed;
-            dashDistanceTimer += dashSpeed;
+            float distDelta = dashSpeed * Time.deltaTime;
+            dashDistanceTimer += distDelta;
 
             RaycastHit hitInfo;
             if (Physics.BoxCast(transform.position, transform.localScale, dashDir, out hitInfo, transform.rotation, distDelta, dashCollisionMask)) {
