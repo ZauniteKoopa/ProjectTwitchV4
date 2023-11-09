@@ -73,7 +73,8 @@ public class PlayerCameraController : MonoBehaviour
     //  Pre: target is the target the camera will focus on, pitch is the x rot, yaw is the y rot, zoom is how zoomed in the camera is on target
     //       transSpeed is the transition speed of the camera
     //  Post: Moves the camera to focus on a specific target, with specified zoom, pitch (x rot), yaw (y rot). tranSpeed is the speed at which you move to a location
-    public static void moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPosition) {
+    //         returns how long the sequence will take
+    public static float moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPosition) {
         Debug.Assert(mainPlayerCamera != null);
 
         if (cameraTransitionCoroutine != null) {
@@ -90,6 +91,15 @@ public class PlayerCameraController : MonoBehaviour
         ));
 
         overrideRoomCamera = true;
+
+        return mainPlayerCamera.getCameraMoveDuration(
+            target,
+            pitch,
+            yaw,
+            zoom,
+            transSpeed,
+            tgtLocalPosition
+        );
     }
 
 
@@ -250,7 +260,10 @@ public class PlayerCameraController : MonoBehaviour
                     35f,
                     getLocalCameraPivotRoomPosition(tgtRoom)
                 );
-                Time.timeScale = 1f;
+
+                if (!PauseConstraints.isPaused()) {
+                    Time.timeScale = 1f;
+                }
             }
 
             // Afterwards, keep local position of camera pivot until someone overrides camera sequence

@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class IGamePauseEvent : MonoBehaviour
 {
     // Run time variables
     private float prevTimeScale = 1f;
     private bool ending = false;
+
+    public UnityEvent pauseEventStarted;
+    public UnityEvent pauseEventFinished;
     
 
     // Main function to start event
@@ -16,6 +20,7 @@ public abstract class IGamePauseEvent : MonoBehaviour
         PauseConstraints.externalPause(true);
 
         startEventHelper();
+        pauseEventStarted.Invoke();
     }
 
 
@@ -36,6 +41,7 @@ public abstract class IGamePauseEvent : MonoBehaviour
         PauseConstraints.externalPause(false);
         Time.timeScale = prevTimeScale;
         endEventHelper();
+        pauseEventFinished.Invoke();
         
         ending = false;
     }
