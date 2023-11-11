@@ -29215,6 +29215,7 @@ MonoBehaviour:
   audioModule: {fileID: 1347320806317760195}
   screenUiModule: {fileID: 1347320806230522881}
   playerInputModule: {fileID: 1347320807677090426}
+  pauseMenuInputModule: {fileID: 2040983195}
   movementBoolParameter: isMoving
   shootingBoolParameter: isShooting
   primaryAttackAnimationTypeParameter: primaryAttackAnim

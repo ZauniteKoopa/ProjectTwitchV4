@@ -18,6 +18,8 @@ public class WarwickAnimationController : MonoBehaviour
     private BossEnemyStatus warwickStatus;
     [SerializeField]
     private Animator warwickAnimator;
+    [SerializeField]
+    private EnemyBossStatusUI bossUiModule;
 
     [Header("Spawn in animation")]
     [SerializeField]
@@ -25,18 +27,27 @@ public class WarwickAnimationController : MonoBehaviour
     [SerializeField]
     private WarwickBloodMark bloodMark;
     [SerializeField]
+    [Min(0.1f)]
     private float spawnCameraTransitionToTargetSpeed;
     [SerializeField]
     private float spawnCameraTargetPitch = 50f;
     [SerializeField]
+    [Min(0.1f)]
     private float spawnCameraZoom = 15f;
     [SerializeField]
+    [Min(0.1f)]
     private float cameraStayOnTargetDuration;
     [SerializeField]
+    [Min(0.1f)]
     private float cameraStayOnWarwickDuration;
     [SerializeField]
+    [Min(0.1f)]
     private float spawnCameraTransitionToPlayerSpeed;
     [SerializeField]
+    [Min(0.1f)]
+    private float spawnEnemyKillHitStopTime = 1f;
+    [SerializeField]
+    [Min(0.1f)]
     private float cameraStayOnPlayerEnd;
     [SerializeField]
     private Vector3 cameraTargetOffset;
@@ -46,6 +57,7 @@ public class WarwickAnimationController : MonoBehaviour
     private AnimationClip warwickSpawnEndClip;
     [SerializeField]
     private float bloodFrenzyHealthRequirement = 0.6f;
+    public UnityEvent spawnAnimationStarted;
     public UnityEvent spawnAnimationFinished;
     private bool spawned = false;
 
@@ -169,6 +181,7 @@ public class WarwickAnimationController : MonoBehaviour
     private IEnumerator startSpawnAnimation() {
         // Setup (wait for timestop to stop);
         warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
+        spawnAnimationStarted.Invoke();
         yield return new WaitForSeconds(0.1f);
         Time.timeScale = 0f;
 
@@ -192,13 +205,22 @@ public class WarwickAnimationController : MonoBehaviour
         // Stay on target
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnTargetDuration);
 
-        // Do warwick animations and kill the enemy in between
+        // Do warwick animations spawnIn
         warwickAnimator.SetTrigger("StartSpawnIn");
         transform.localPosition = new Vector3(0f, transform.localPosition.y, 0f);
         warwickAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        PlayerCameraController.shakeCamera((int)Mathf.Floor(warwickSpawnEndClip.length * 60f), 0.2f);
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(warwickSpawnStartClip.length);
+
+        // Kill (TimeStop and CameraShake)
         bloodMark.setActive(false);
         initialSpawnInDummy.damage(9999999f, true);
+        warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
+        PlayerCameraController.shakeCamera(40, 1f);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(spawnEnemyKillHitStopTime);
+        warwickAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+
+        // Spawn end clip
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(warwickSpawnEndClip.length);
 
         // Stay on warwick
@@ -212,6 +234,7 @@ public class WarwickAnimationController : MonoBehaviour
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnPlayerEnd);
 
         // Cleanup
+        bossUiModule.gameObject.SetActive(true);
         warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
         Time.timeScale = 1f;
         spawnAnimationFinished.Invoke();

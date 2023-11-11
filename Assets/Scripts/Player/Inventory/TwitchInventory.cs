@@ -453,7 +453,7 @@ public class TwitchInventory : MonoBehaviour
 
     // Main event handler for opening the inventory menu
     public void onOpenInventoryAction(InputAction.CallbackContext value) {
-        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null && !PauseConstraints.isPaused()) {
+        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null && Time.timeScale > 0f) {
             playerInput.enabled = false;
             inventoryUI.open(ingredientInventory, curMaxInventory, primaryVial, secondaryVial, recipeBook);
         }

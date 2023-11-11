@@ -24,6 +24,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private PlayerScreenUI screenUiModule;
     [SerializeField]
     private PlayerInput playerInputModule;
+    [SerializeField]
+    private PlayerInput pauseMenuInputModule;
 
     [Header("Animator Parameter Names")]
     [SerializeField]
@@ -211,6 +213,7 @@ public class TwitchAnimatorController : MonoBehaviour
         Time.timeScale = 0f;
 
         attackModule.inUninterruptableAnimationSequence = true;
+        pauseMenuInputModule.enabled = false;
 
         // Play audio
         audioModule.playObtainedSideEffectSound();
@@ -243,6 +246,7 @@ public class TwitchAnimatorController : MonoBehaviour
         }
 
         animator.SetBool(isCraftingBoolParameter, false);
+        pauseMenuInputModule.enabled = true;
     }
 
 

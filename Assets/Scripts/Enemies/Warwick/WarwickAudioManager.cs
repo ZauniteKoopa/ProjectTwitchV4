@@ -60,7 +60,7 @@ public class WarwickAudioManager : MonoBehaviour
         aggroBranch.howlStart.AddListener(onHowlAttackStart);
 
         aggroBranch.lungeAttack.AddListener(onLungeAttackStart);
-        aggroBranch.slashAttack.AddListener(onSlashAttackStart);
+        aggroBranch.slashAttack.AddListener(onSlashAttackSoundStart);
     }
 
 
@@ -87,7 +87,7 @@ public class WarwickAudioManager : MonoBehaviour
 
 
     // Main event handler for when slash attacks start
-    public void onSlashAttackStart() {
+    public void onSlashAttackSoundStart() {
         playRandomClip(sfxSpeaker, slashSounds);
     }
 

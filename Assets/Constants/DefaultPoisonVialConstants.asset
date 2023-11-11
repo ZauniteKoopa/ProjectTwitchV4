@@ -65,5 +65,5 @@ MonoBehaviour:
   potencyBoltMultiplier: 1.25
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25
-  stickinessMovementReductionModifier: 0.05
+  stickinessMovementReductionModifier: 0.08
   minPostContaminateStacks: 4
