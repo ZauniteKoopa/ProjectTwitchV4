@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class TwitchAnimatorController : MonoBehaviour
 {
@@ -297,6 +298,11 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return new WaitForSecondsRealtime(timeUntilDeathFadeOut);
 
         screenUiModule.fadeToBlack(deathFadeDuration, false);
+        yield return new WaitForSeconds(0.5f);
+
+        Time.timeScale = 1f;
+        yield return 0;
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Main function to kick off dungeon exit

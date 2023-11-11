@@ -76,7 +76,7 @@ public class EnemyStatus : IUnitStatus
     [SerializeField]
     private bool spawnInOnAwake = false;
     [SerializeField]
-    private BasicAppearEffect spawnVFX = null;
+    private IStaticEffect spawnVFX = null;
     private bool spawned;
 
     // On awake, set curHealth to maxHealth
@@ -111,7 +111,6 @@ public class EnemyStatus : IUnitStatus
     public virtual void spawnIn() {
         // Only spawn in a unit once
         if (!spawned) {
-            gameObject.SetActive(false);
             spawned = true;
             curHealth = maxHealth;
 
@@ -119,11 +118,16 @@ public class EnemyStatus : IUnitStatus
             enemyStatusUI.updatePoisonHalo(0, Color.white, false, false);
             lootSatchel.SetActive(lootTable != null && willDropLoot);
 
-            // Set up affect
+            // Set up effect
+            IStaticEffect curSpawnEffect = spawnVFX;
             Vector3 spawnInForward = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f)).normalized;
-            BasicAppearEffect curSpawnEffect = Object.Instantiate(spawnVFX, transform.position, Quaternion.identity);
-            curSpawnEffect.transform.localScale = transform.localScale;
-            curSpawnEffect.transform.forward = spawnInForward;
+
+            if (spawnVFX.instantiateNewObjectOnAppear) {
+                curSpawnEffect = Object.Instantiate(spawnVFX, transform.position, Quaternion.identity);
+                curSpawnEffect.transform.localScale = transform.localScale;
+                curSpawnEffect.transform.forward = spawnInForward;
+            }
+            
             curSpawnEffect.effectEndEvent.AddListener(delegate { onSpawnInSequenceEnd(spawnInForward); });
             curSpawnEffect.executeEffect();
         }
@@ -136,7 +140,6 @@ public class EnemyStatus : IUnitStatus
         gameObject.SetActive(true);
         spawnInFinishEvent.Invoke();
     }
-
 
     // Main method to get current movement speed considering all speed status effects on unit
     //  Pre: none

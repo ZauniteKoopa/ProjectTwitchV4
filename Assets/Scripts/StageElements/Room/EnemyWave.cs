@@ -51,7 +51,6 @@ public class EnemyWave : MonoBehaviour
                 enemy.willDropLoot = lootChance.rolledHit();
                 connectRoomPatrolPoint(enemy, roomWidth, roomHeight, roomPosition);
                 
-                enemy.gameObject.SetActive(true);
                 enemy.spawnIn();
             }
         }

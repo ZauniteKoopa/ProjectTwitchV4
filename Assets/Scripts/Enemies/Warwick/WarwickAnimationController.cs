@@ -19,6 +19,37 @@ public class WarwickAnimationController : MonoBehaviour
     [SerializeField]
     private Animator warwickAnimator;
 
+    [Header("Spawn in animation")]
+    [SerializeField]
+    private EnemyStatus initialSpawnInDummy;
+    [SerializeField]
+    private WarwickBloodMark bloodMark;
+    [SerializeField]
+    private float spawnCameraTransitionToTargetSpeed;
+    [SerializeField]
+    private float spawnCameraTargetPitch = 50f;
+    [SerializeField]
+    private float spawnCameraZoom = 15f;
+    [SerializeField]
+    private float cameraStayOnTargetDuration;
+    [SerializeField]
+    private float cameraStayOnWarwickDuration;
+    [SerializeField]
+    private float spawnCameraTransitionToPlayerSpeed;
+    [SerializeField]
+    private float cameraStayOnPlayerEnd;
+    [SerializeField]
+    private Vector3 cameraTargetOffset;
+    [SerializeField]
+    private AnimationClip warwickSpawnStartClip;
+    [SerializeField]
+    private AnimationClip warwickSpawnEndClip;
+    [SerializeField]
+    private float bloodFrenzyHealthRequirement = 0.6f;
+    public UnityEvent spawnAnimationFinished;
+    private bool spawned = false;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,6 +72,8 @@ public class WarwickAnimationController : MonoBehaviour
         aggroBranch.howlStart.AddListener(onHowlAttackStart);
         aggroBranch.howlStunBeginEvent.AddListener(onHowlStunBegin);
         aggroBranch.howlStunEndEvent.AddListener(onHowlStunEnd);
+
+        initialSpawnInDummy.enemyNoticesDamageEvent.AddListener(delegate { onSpawnDummyDamaged(initialSpawnInDummy); });
     }
 
     // Update is called once per frame
@@ -129,5 +162,69 @@ public class WarwickAnimationController : MonoBehaviour
 
     private void onLungeAttackStart() {
         warwickAnimator.SetTrigger("LungeTrigger");
+    }
+
+
+    // Main public IEnumerator to do spawn animation
+    private IEnumerator startSpawnAnimation() {
+        // Setup (wait for timestop to stop);
+        warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0f;
+
+        // Set blood hunt on target
+        bloodMark.setActive(true);
+        bloodMark.setTarget(initialSpawnInDummy.transform);
+        bloodMark.setTrackingProgress(1f, 1f);
+
+        // Pan to target
+        float timeToPanToTarget = PlayerCameraController.moveCamera(
+            initialSpawnInDummy.transform.parent,
+            spawnCameraTargetPitch,
+            0f,
+            spawnCameraZoom,
+            spawnCameraTransitionToTargetSpeed,
+            cameraTargetOffset
+        );
+
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(timeToPanToTarget);
+
+        // Stay on target
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnTargetDuration);
+
+        // Do warwick animations and kill the enemy in between
+        warwickAnimator.SetTrigger("StartSpawnIn");
+        transform.localPosition = new Vector3(0f, transform.localPosition.y, 0f);
+        warwickAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(warwickSpawnStartClip.length);
+        bloodMark.setActive(false);
+        initialSpawnInDummy.damage(9999999f, true);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(warwickSpawnEndClip.length);
+
+        // Stay on warwick
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnWarwickDuration);
+
+        // Pan to player
+        float timeToReset = PlayerCameraController.reset(spawnCameraTransitionToPlayerSpeed);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(timeToReset);
+
+        // Stay on player
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnPlayerEnd);
+
+        // Cleanup
+        warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
+        Time.timeScale = 1f;
+        spawnAnimationFinished.Invoke();
+    }
+
+
+    // Main event handler for when a unit nearby gets damaged
+    public void onSpawnDummyDamaged(IUnitStatus damagedUnit) {
+        if (damagedUnit.getHealthPercentage() <= bloodFrenzyHealthRequirement && !spawned) {
+            spawned = true;
+            warwickStatus.gameObject.SetActive(true);
+
+            StartCoroutine(startSpawnAnimation());
+        }
     }
 }

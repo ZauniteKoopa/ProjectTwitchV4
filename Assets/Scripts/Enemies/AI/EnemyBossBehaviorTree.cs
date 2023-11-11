@@ -24,7 +24,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     private Coroutine currentBehaviorSequence = null;
     private bool aggroState = false;
 
-
+    // On awake
+    private void Awake() {
+        bossStatus = GetComponent<BossEnemyStatus>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     // The main behavior tree sequence
     private IEnumerator behaviorTreeSequence() {
@@ -46,8 +50,6 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
     // Main function to initialize boss sequence
     public void spawnInBoss(Transform targetedPlayer) {
-        bossStatus = GetComponent<BossEnemyStatus>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
 
         bossStatus.stunnedStartEvent.AddListener(onStunStart);
         bossStatus.stunnedEndEvent.AddListener(onStunEnd);

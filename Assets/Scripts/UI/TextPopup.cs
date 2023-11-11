@@ -21,6 +21,8 @@ public class TextPopup : MonoBehaviour
     private float fadeDuration = 0.75f;
     [SerializeField]
     private float stayDuration = 0.25f;
+    [SerializeField]
+    private bool timeScaled = true;
 
     // The parent to do damage on
     private Transform pseudoParent = null;
@@ -59,7 +61,7 @@ public class TextPopup : MonoBehaviour
         
         while (distanceTimer < stayDuration) {
             yield return waitFrame;
-            distanceTimer += Time.deltaTime;
+            distanceTimer += (timeScaled) ? Time.deltaTime : Time.unscaledDeltaTime;
             transform.position = Vector3.Lerp(realStartPos, realEndPos, distanceTimer / maxDistanceTime);
         }
 
@@ -69,8 +71,8 @@ public class TextPopup : MonoBehaviour
         while (distanceTimer < maxDistanceTime) {
             // update timers
             yield return waitFrame;
-            distanceTimer += Time.deltaTime;
-            fadeTimer += Time.deltaTime;
+            distanceTimer += (timeScaled) ? Time.deltaTime : Time.unscaledDeltaTime;;
+            fadeTimer += (timeScaled) ? Time.deltaTime : Time.unscaledDeltaTime;;
 
             // Update properties
             transform.position = Vector3.Lerp(realStartPos, realEndPos, distanceTimer / maxDistanceTime);
