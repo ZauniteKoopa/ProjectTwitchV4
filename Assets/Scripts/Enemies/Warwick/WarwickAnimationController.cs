@@ -62,8 +62,8 @@ public class WarwickAnimationController : MonoBehaviour
     private bool spawned = false;
 
 
-    // Start is called before the first frame update
-    void Awake()
+    // Start is called before the first frame update (listens to the initialize event in UnitStatus to avoid race conditions)
+    public void onInitialize()
     {
         // Connect to all events related to Behavior tree
         bossBehaviorTree.aggressiveBranchActiveEvent.AddListener(onAggressiveBranchActive);

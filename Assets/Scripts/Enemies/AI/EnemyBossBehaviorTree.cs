@@ -26,7 +26,6 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
     // On awake
     private void Awake() {
-        bossStatus = GetComponent<BossEnemyStatus>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -49,8 +48,8 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
 
     // Main function to initialize boss sequence
-    public void spawnInBoss(Transform targetedPlayer) {
-
+    public void spawnInBoss(Transform targetedPlayer) {        
+        bossStatus = GetComponent<BossEnemyStatus>();
         bossStatus.stunnedStartEvent.AddListener(onStunStart);
         bossStatus.stunnedEndEvent.AddListener(onStunEnd);
         bossStatus.spawnInFinishEvent.AddListener(onSpawnInFinish);

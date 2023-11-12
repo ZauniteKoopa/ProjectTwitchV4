@@ -2738,6 +2738,21 @@ MonoBehaviour:
   enemyPhaseTransitionEndEvent:
     m_PersistentCalls:
       m_Calls: []
+  initializedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3036610757965310417}
+        m_TargetAssemblyTypeName: WarwickAnimationController, Assembly-CSharp
+        m_MethodName: onInitialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   healthPhaseThresholds:
   - 0.244
   - 0.378
@@ -5190,6 +5205,51 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &491403780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6531803418159817997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fc1b9e06f2eb84d9bc93a9cc493602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voiceSpeaker: {fileID: 5187223121272697694}
+  sfxSpeaker: {fileID: 5187223122811815503}
+  howlSpeaker: {fileID: 5187223121593026084}
+  passiveBranch: {fileID: 104631024644839839}
+  aggroBranch: {fileID: 104631024644839838}
+  warwickStatus: {fileID: 8557328786469411306}
+  bloodHuntPlayerVoice:
+  - {fileID: 8300000, guid: 7a5554e6e3bc22c46ab35880d16307d4, type: 3}
+  - {fileID: 8300000, guid: c77b199147cd00e44a531a4b6ef29439, type: 3}
+  - {fileID: 8300000, guid: 277b30dbb8ff990418df7d4a4cafa5f8, type: 3}
+  bloodHuntEnemyVoice:
+  - {fileID: 8300000, guid: 58624c3bf971bc8449d013cd42a25ea0, type: 3}
+  - {fileID: 8300000, guid: 3c8183cd71461964a8bcc9a5686b3355, type: 3}
+  - {fileID: 8300000, guid: 08d6cb1fc14c2a84cbda7cad2f59a4c8, type: 3}
+  phaseTransitionVoice:
+  - {fileID: 8300000, guid: bde2b4a8e1820244ba28a41c8abb823c, type: 3}
+  - {fileID: 8300000, guid: 21f188a24fbc6804fadf0296dcef8a1c, type: 3}
+  - {fileID: 8300000, guid: 8b5c608e7c8a53b4e9541240339d9d4d, type: 3}
+  lungeVoice:
+  - {fileID: 8300000, guid: f1a1015de1680f543b4376ba92a4d8fa, type: 3}
+  - {fileID: 8300000, guid: 8896890cc57191f4da21ee0758ff5a21, type: 3}
+  howlCastSounds:
+  - {fileID: 8300000, guid: f2fe6d89294dc3c49bc8e7b13fac931f, type: 3}
+  howlReleaseSounds:
+  - {fileID: 8300000, guid: e031f549330b4694686d4443dea67e48, type: 3}
+  howlBrokenSounds:
+  - {fileID: 8300000, guid: afa7de5db1f77514485776ebe97b70b2, type: 3}
+  lungeSounds:
+  - {fileID: 8300000, guid: cc1f631725b2c494dbd249d0c44a5372, type: 3}
+  slashSounds:
+  - {fileID: 8300000, guid: 870d06bccb7e88942b92865f4b293753, type: 3}
+  transitionSounds:
+  - {fileID: 8300000, guid: d524b5f7abf757a4b9e86b62533b9007, type: 3}
 --- !u!114 &3036610757965310417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5265,51 +5325,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &491403780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6531803418159817997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41fc1b9e06f2eb84d9bc93a9cc493602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voiceSpeaker: {fileID: 5187223121272697694}
-  sfxSpeaker: {fileID: 5187223122811815503}
-  howlSpeaker: {fileID: 5187223121593026084}
-  passiveBranch: {fileID: 104631024644839839}
-  aggroBranch: {fileID: 104631024644839838}
-  warwickStatus: {fileID: 8557328786469411306}
-  bloodHuntPlayerVoice:
-  - {fileID: 8300000, guid: 7a5554e6e3bc22c46ab35880d16307d4, type: 3}
-  - {fileID: 8300000, guid: c77b199147cd00e44a531a4b6ef29439, type: 3}
-  - {fileID: 8300000, guid: 277b30dbb8ff990418df7d4a4cafa5f8, type: 3}
-  bloodHuntEnemyVoice:
-  - {fileID: 8300000, guid: 58624c3bf971bc8449d013cd42a25ea0, type: 3}
-  - {fileID: 8300000, guid: 3c8183cd71461964a8bcc9a5686b3355, type: 3}
-  - {fileID: 8300000, guid: 08d6cb1fc14c2a84cbda7cad2f59a4c8, type: 3}
-  phaseTransitionVoice:
-  - {fileID: 8300000, guid: bde2b4a8e1820244ba28a41c8abb823c, type: 3}
-  - {fileID: 8300000, guid: 21f188a24fbc6804fadf0296dcef8a1c, type: 3}
-  - {fileID: 8300000, guid: 8b5c608e7c8a53b4e9541240339d9d4d, type: 3}
-  lungeVoice:
-  - {fileID: 8300000, guid: f1a1015de1680f543b4376ba92a4d8fa, type: 3}
-  - {fileID: 8300000, guid: 8896890cc57191f4da21ee0758ff5a21, type: 3}
-  howlCastSounds:
-  - {fileID: 8300000, guid: f2fe6d89294dc3c49bc8e7b13fac931f, type: 3}
-  howlReleaseSounds:
-  - {fileID: 8300000, guid: e031f549330b4694686d4443dea67e48, type: 3}
-  howlBrokenSounds:
-  - {fileID: 8300000, guid: afa7de5db1f77514485776ebe97b70b2, type: 3}
-  lungeSounds:
-  - {fileID: 8300000, guid: cc1f631725b2c494dbd249d0c44a5372, type: 3}
-  slashSounds:
-  - {fileID: 8300000, guid: 870d06bccb7e88942b92865f4b293753, type: 3}
-  transitionSounds:
-  - {fileID: 8300000, guid: d524b5f7abf757a4b9e86b62533b9007, type: 3}
 --- !u!1001 &5443595926609939734
 PrefabInstance:
   m_ObjectHideFlags: 0

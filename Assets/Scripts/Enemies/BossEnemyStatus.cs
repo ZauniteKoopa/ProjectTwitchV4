@@ -8,6 +8,7 @@ public class BossEnemyStatus : EnemyStatus
     // Unity Events
     public UnityEvent enemyPhaseTransitionBeginEvent;
     public UnityEvent enemyPhaseTransitionEndEvent;
+    public UnityEvent initializedEvent;
 
     // Serialize Variables
     [SerializeField]
@@ -51,6 +52,8 @@ public class BossEnemyStatus : EnemyStatus
         curPhase = 0;
         requiredPhaseThreshold = 1f - healthPhaseThresholds[curPhase];
         bossStatusUI.updatePhaseBar(requiredPhaseThreshold);
+
+        initializedEvent.Invoke();
     }
 
 
