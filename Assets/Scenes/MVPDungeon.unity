@@ -6821,8 +6821,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 683082249}
-  - {fileID: 73190435}
   - {fileID: 1975513745}
+  - {fileID: 73190435}
   m_Father: {fileID: 88622575}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10866,10 +10866,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 418188173, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 418188175, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418188175, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487609911, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487609913, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 487609913, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616465281, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 616465283, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 616465283, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1405610210, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstSideEffectGained.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1736196175}
+    - target: {fileID: 1948380958, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948380960, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948380960, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstPoisonVialEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12953,6 +13001,10 @@ PrefabInstance:
       propertyPath: enemyWaves.Array.data[2]
       value: 
       objectReference: {fileID: 2145704750}
+    - target: {fileID: 6653069356436399587, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7599287088825896714, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

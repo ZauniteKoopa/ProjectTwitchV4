@@ -18,6 +18,8 @@ public class MapRoomUI : MonoBehaviour
     private Image southWall;
     [SerializeField]
     private Image enemyIndicator;
+    [SerializeField]
+    private GameObject[] roomCorners;
 
     // Enemy thresholds will MAP directly with output indicator scale. Please make sure the indexing matches
     [Header("Enemy Indicator Management")]
@@ -38,6 +40,10 @@ public class MapRoomUI : MonoBehaviour
     private Color playerInsideColor = Color.green;
     [SerializeField]
     private Color battleRoomColor = Color.red;
+    [SerializeField]
+    private Color keyRoomColor = Color.cyan;
+    [SerializeField]
+    private Color spawnRoomColor = Color.yellow;
     private Color defaultColor;
 
 
@@ -55,6 +61,10 @@ public class MapRoomUI : MonoBehaviour
 
         // Update room image body and player indicator
         baseRoomImage.enabled = room.revealedOnMap();
+        foreach (GameObject corner in roomCorners) {
+            corner.SetActive(room.revealedOnMap());
+        }
+
         baseRoomImage.color = getRoomColor(room);
 
         // Update walls
@@ -86,6 +96,12 @@ public class MapRoomUI : MonoBehaviour
 
         } else if (room is BattleRoom) {
             return battleRoomColor;
+
+        } else if (room is SpawnRoom) {
+            return spawnRoomColor;
+
+        } else if (room is KeyRoom) {
+            return keyRoomColor;
 
         } else {
             return defaultColor;
