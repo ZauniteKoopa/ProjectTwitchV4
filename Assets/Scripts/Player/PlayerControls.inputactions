@@ -272,6 +272,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DialogueControls",
+            "id": "c3de4b2d-e1f1-4f1e-95aa-ee8aba50ad56",
+            "actions": [
+                {
+                    "name": "MoveForward",
+                    "type": "Button",
+                    "id": "d79931e0-4b74-4ec6-b2de-d401428d25e1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6d04d3f4-1b37-4b76-8d64-c51584b33ef0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveForward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

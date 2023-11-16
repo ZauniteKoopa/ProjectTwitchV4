@@ -74,7 +74,6 @@ public class CameraPanPauseEvent : IGamePauseEvent
         if (onboardingPopup == null) {
             endEvent();
         } else {
-            Debug.Log("set active");
             onboardingPopup.gameObject.SetActive(true);
         }
     }
