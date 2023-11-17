@@ -44,6 +44,7 @@ public class TwitchAttackModule : IAttackModule
     private float weakBoltMovementReduction = 0.75f;
     [SerializeField]
     private IAimAssist aimAssist;
+    public bool hasWeapon = true;
 
     [Header("Contaminate Frame Data")]
     [SerializeField]
@@ -176,7 +177,7 @@ public class TwitchAttackModule : IAttackModule
             yield return waitForFrames(startFrames, () => !holdingFireButton);
 
             // Only fire if you commited to it
-            if (holdingFireButton) {
+            if (holdingFireButton && hasWeapon) {
                 // Get aiming direction
                 Vector3 boltDir = getWorldAimLocation() - playerCharacter.position;
                 if (aimAssist != null) {
@@ -392,12 +393,14 @@ public class TwitchAttackModule : IAttackModule
     // Event handler method for when primary fire button click / removed
     public void onPrimaryButtonAction(InputAction.CallbackContext value) {
         // Only run the sequence
-        if (value.started) {
-            holdingFireButton = true;
-        
-        // Once left click is canceled, turn mouse hold flag off
-        } else if (value.canceled) {
-            holdingFireButton = false;
+        if (hasWeapon) {
+            if (value.started) {
+                holdingFireButton = true;
+            
+            // Once left click is canceled, turn mouse hold flag off
+            } else if (value.canceled) {
+                holdingFireButton = false;
+            }
         }
     }
 

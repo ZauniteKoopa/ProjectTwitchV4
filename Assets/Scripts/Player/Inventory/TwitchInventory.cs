@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class TwitchInventory : MonoBehaviour
 {
     // Poison Vial Info
+    [Header("Poison Vial info")]
     [SerializeField]
     private PoisonVialConstants poisonVialParameters;
     [SerializeField]
@@ -17,6 +18,7 @@ public class TwitchInventory : MonoBehaviour
     private PoisonVial secondaryVial;
 
     // Cooldown info
+    [Header("Cooldown Info")]
     [SerializeField]
     [Min(0.1f)]
     private float contaminateCooldown = 8f;
@@ -46,6 +48,7 @@ public class TwitchInventory : MonoBehaviour
     private Coroutine runningContaminateCooldownSequence = null;
 
     // Crafting
+    [Header("Crafting")]
     [SerializeField]
     private PlayerInput playerInput;
     [SerializeField]
@@ -73,6 +76,7 @@ public class TwitchInventory : MonoBehaviour
     private Coroutine runningCraftingSequence = null;
 
     // UI
+    [Header("UI")]
     [SerializeField]
     private PlayerScreenUI screenUI;
     [SerializeField]
@@ -84,8 +88,10 @@ public class TwitchInventory : MonoBehaviour
     [SerializeField]
     private Renderer[] secondaryVialMeshes;
     private Color originalMeshColor;
+    public bool canOpenInventory = true;
 
     // Error messages from inventory
+    [Header("Error messages")]
     [SerializeField]
     private string abilityCooldownErrorMessage = "Ability is currently on cooldown";
     [SerializeField]
@@ -96,15 +102,18 @@ public class TwitchInventory : MonoBehaviour
     private string inventoryFilledErrorMessage = "No space in inventory";
 
     // Audio
+    [Header("Audio")]
     [SerializeField]
     private PlayerAudioManager twitchAudioManager;
 
     // Animator events
+    [Header("Animator Events")]
     public UnityEvent startCraftEvent;
     public UnityEvent endCraftEvent;
     public UnityEvent obtainedSideEffect;
 
     // Onboarding events
+    [Header("Onboarding Events")]
     public UnityEvent firstIngredientGainEvent;
     public UnityEvent firstPoisonVialEvent;
     private bool haveGottenIngredients = false;
@@ -453,7 +462,7 @@ public class TwitchInventory : MonoBehaviour
 
     // Main event handler for opening the inventory menu
     public void onOpenInventoryAction(InputAction.CallbackContext value) {
-        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null && Time.timeScale > 0f) {
+        if (value.started && !inventoryUI.isMenuOpen() && runningCraftingSequence == null && Time.timeScale > 0f && canOpenInventory) {
             playerInput.enabled = false;
             inventoryUI.open(ingredientInventory, curMaxInventory, primaryVial, secondaryVial, recipeBook);
         }
