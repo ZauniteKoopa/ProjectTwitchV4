@@ -57,6 +57,19 @@ public class EnemyWave : MonoBehaviour
     }
 
 
+    // Main function to activate with hardcoded loot chance from designer
+    public void activateStatic(float roomWidth, float roomHeight, Vector3 roomPosition) {
+        if (!activated) {
+            activated = true;
+
+            foreach (EnemyStatus enemy in enemies) {
+                connectRoomPatrolPoint(enemy, roomWidth, roomHeight, roomPosition);
+                enemy.spawnIn();
+            }
+        }
+    }
+
+
 
     // Event handler function for when an enemy dies
     private void onEnemyDeath() {

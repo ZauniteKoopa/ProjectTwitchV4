@@ -72,6 +72,7 @@ public class EnemyStatus : IUnitStatus
     private GameObject lootSatchel = null;
     public LootTable lootTable;
     public bool willDropLoot = false;
+    public bool randomRotation = true;
 
     [SerializeField]
     private bool spawnInOnAwake = false;
@@ -120,7 +121,7 @@ public class EnemyStatus : IUnitStatus
 
             // Set up effect
             IStaticEffect curSpawnEffect = spawnVFX;
-            Vector3 spawnInForward = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f)).normalized;
+            Vector3 spawnInForward = (randomRotation) ? new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(0f, 1f)).normalized : transform.forward;
 
             if (spawnVFX.instantiateNewObjectOnAppear) {
                 curSpawnEffect = Object.Instantiate(spawnVFX, transform.position, Quaternion.identity);

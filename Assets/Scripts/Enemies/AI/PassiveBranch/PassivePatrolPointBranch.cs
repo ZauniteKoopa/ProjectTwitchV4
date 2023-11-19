@@ -15,7 +15,7 @@ public class PassivePatrolPointBranch : IEnemyPassiveBranch
     [SerializeField]
     private Transform[] patrolPoints;
     [SerializeField]
-    [Min(0.1f)]
+    [Min(0.01f)]
     private float stopDuration = 1.0f;
     [SerializeField]
     [Min(0.1f)]

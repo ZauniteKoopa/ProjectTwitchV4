@@ -53,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5291689031082541849, guid: a52294e7e6139694ba27fcfa4f9823aa, type: 3}
       propertyPath: projectileSpeed
-      value: 30
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 6748903286121735880, guid: a52294e7e6139694ba27fcfa4f9823aa, type: 3}
       propertyPath: m_Name
-      value: FastTurretProjectile
+      value: FastTurretProjectile Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52294e7e6139694ba27fcfa4f9823aa, type: 3}

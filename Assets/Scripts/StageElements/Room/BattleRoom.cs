@@ -18,6 +18,8 @@ public class BattleRoom : Room
 
     [Header("Enemy Loot Probability")]
     [SerializeField]
+    private bool staticLootSpawn = false;
+    [SerializeField]
     [Min(1)]
     private int probabilityNumerator = 1;
     [SerializeField]
@@ -86,7 +88,12 @@ public class BattleRoom : Room
 
             battleRoomStartEvent.Invoke();
             curEnemyWave = 0;
-            enemyWaves[0].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
+
+            if (staticLootSpawn) {
+                enemyWaves[0].activateStatic(roomWidth, roomLength, transform.position);
+            } else {
+                enemyWaves[0].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
+            }
         }
     }
 
@@ -114,7 +121,11 @@ public class BattleRoom : Room
 
         // Case where you still have enemy waves left to go
         } else {
-            enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
+            if (staticLootSpawn) {
+                enemyWaves[curEnemyWave].activateStatic(roomWidth, roomLength, transform.position);
+            } else {
+                enemyWaves[curEnemyWave].activate(enemyLootTable, enemyLootCondProb, roomWidth, roomLength, transform.position);
+            }
         }
     }
 
