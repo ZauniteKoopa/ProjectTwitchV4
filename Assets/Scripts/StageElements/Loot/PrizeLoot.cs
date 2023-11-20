@@ -9,6 +9,20 @@ public abstract class PrizeLoot : MonoBehaviour
     [SerializeField]
     private AudioSource speaker;
     private bool destroyed = false;
+
+    [SerializeField]
+    [Range(-120f, 120f)]
+    private float rotationSpeed = 60f;
+    [SerializeField]
+    private bool willRotate = true;
+
+
+    private void Update() {
+        if (willRotate) {
+            float rotDist = rotationSpeed * Time.deltaTime;
+            transform.Rotate(rotDist * Vector3.up);
+        }
+    }
     
     
     public void glow() {

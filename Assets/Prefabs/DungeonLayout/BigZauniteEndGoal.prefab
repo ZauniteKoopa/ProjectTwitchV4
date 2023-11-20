@@ -467,6 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 8258714133032459884}
   speaker: {fileID: 5763811145240742230}
+  rotationSpeed: 60
+  willRotate: 0
   destinationScene: MainMenu
 --- !u!82 &5763811145240742230
 AudioSource:

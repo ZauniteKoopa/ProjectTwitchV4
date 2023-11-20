@@ -10,11 +10,15 @@ public class Ingredient : PrizeLoot
     private float solidPeriod = 3f;
     [SerializeField]
     private float fadingPeriod = 1.5f;
+    [SerializeField]
+    private bool lastsForever = false;
     private const float BLINKING_TIME = 0.1f;
 
     
     private void Awake() {
-        StartCoroutine(lifeCycle());
+        if (!lastsForever) {
+            StartCoroutine(lifeCycle());
+        }
     }
 
 

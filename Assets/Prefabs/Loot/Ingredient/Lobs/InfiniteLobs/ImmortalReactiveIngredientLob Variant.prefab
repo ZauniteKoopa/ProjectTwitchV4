@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6105250006591295603
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -201.36136
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 16.225683
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333421317159332444, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4206711393387866001, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: lastsForever
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7480059591138036761, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}
+      propertyPath: m_Name
+      value: ImmortalReactiveIngredientLob
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1aafca853ae60f8488862b5cd6171b84, type: 3}

@@ -449,6 +449,11 @@ public class TwitchInventory : MonoBehaviour
     //  Vial and Ingredient Management
     // ---------------------------------------
 
+    // Enable inventory controls
+    public void enableInventoryControls() {
+        canOpenInventory = true;
+    }
+
 
     // Main function to swap vials
     public void swapVials() {

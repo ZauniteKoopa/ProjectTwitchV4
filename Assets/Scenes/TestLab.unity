@@ -790,6 +790,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
+    - target: {fileID: 4140939667240048894, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140939668919012929, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4823881676455087285, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2763,6 +2771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 4108549482660647070}
   speaker: {fileID: 0}
+  rotationSpeed: 60
+  willRotate: 1
   selectionScreenUI: {fileID: 2384044356477523601}
 --- !u!224 &2384044356428188740
 RectTransform:

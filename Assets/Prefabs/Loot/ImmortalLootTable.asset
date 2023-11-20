@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed19e46d2bc05c45be9fe0e80232c64, type: 3}
+  m_Name: ImmortalLootTable
+  m_EditorClassIdentifier: 
+  lootDrops:
+  - {fileID: 2712209865014527504, guid: 953101a385c738246a26d923fc897474, type: 3}
+  - {fileID: 4602129731222845496, guid: 4ba06ba3e33ac0a4d8e5b376848457a1, type: 3}
+  - {fileID: 3045210373256946074, guid: 7486b0f3909c6a14e8ddcfa30f41f784, type: 3}
+  - {fileID: 7833050277277047929, guid: 39b4aff94820d2e4aaf7dd0c6e5c7f5c, type: 3}
+  lootDropChances:
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.25
+  lootVariance: 4
