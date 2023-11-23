@@ -455,6 +455,12 @@ public class EnemyStatus : IUnitStatus
                 curLoot.lobAroundRadius(transform.position, lootDropRange, minLootDropRange, lootDropSpeed, lootCollisionLayerMask);
             }
         }
+
+        // If poison allows the enemy to drop something special, drop the special loot
+        if (curPoison != null && curPoison.sideEffect.specialLoot != null && curPoisonStacks == MAX_POISON_STACKS) {
+            LobAction curSpecialLoot = Object.Instantiate(curPoison.sideEffect.specialLoot, transform.position, Quaternion.identity);
+            curSpecialLoot.lobAroundRadius(transform.position, lootDropRange, minLootDropRange, lootDropSpeed, lootCollisionLayerMask);
+        }
     }
 
 

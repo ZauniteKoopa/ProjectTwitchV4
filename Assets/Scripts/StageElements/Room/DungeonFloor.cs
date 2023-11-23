@@ -58,6 +58,8 @@ public class DungeonFloor : MonoBehaviour
     private PrizePool prizePool;
     [SerializeField]
     private DungeonFloorEntrance[] nonHostileEntrances;
+    [SerializeField]
+    private ItemChest startingReward = null;
     private TwitchInventory curPlayerInventory;
     private PlayerStatus curPlayerStatus;
 
@@ -118,7 +120,7 @@ public class DungeonFloor : MonoBehaviour
             // Set up rewards in the entrances of the next floor and the rewards of this floor
             curPlayerInventory = playerStatus.transform.parent.GetComponent<TwitchInventory>();
             curPlayerStatus = playerStatus;
-            if (finalBattleRoom == null) {
+            if (startingReward == null) {
                 List<EndReward> rewards = prizePool.getDistinctEndRewards(nonHostileEntrances.Length, curPlayerInventory, playerStatus);
 
                 for (int e = 0; e < nonHostileEntrances.Length; e++) {
@@ -126,7 +128,9 @@ public class DungeonFloor : MonoBehaviour
                 }
 
             } else {
-                finalBattleRoom.setBattleRoomRewards(endReward);
+                foreach (LobAction reward in endReward.rewards) {
+                    startingReward.addItem(reward);
+                }
             }
 
             // Spawn in player

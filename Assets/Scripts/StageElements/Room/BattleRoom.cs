@@ -112,7 +112,7 @@ public class BattleRoom : Room
                 entrance.gameObject.SetActive(true);
             }
 
-            // Activate rewards chest
+            // Activate rewards chest if there are prizes inside
             if (rewardChest != null && rewardChest.getNumPrizes() > 0) {
                 rewardChest.gameObject.SetActive(true);
             }

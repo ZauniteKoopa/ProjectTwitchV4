@@ -70,6 +70,7 @@ MonoBehaviour:
   probabilityVariance: 1
   prizePool: {fileID: 11400000, guid: efec938c076ecfc42aa1c05331ce4bf4, type: 2}
   nonHostileEntrances: []
+  startingReward: {fileID: 6136138465793296357}
 --- !u!1001 &3168596303718168576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -330,6 +331,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7897752502381091926, guid: e8e791910b08c4446ad82fbde89828e3, type: 3}
   m_PrefabInstance: {fileID: 8079117615806157170}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6136138465793296357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2682240775445698199, guid: e8e791910b08c4446ad82fbde89828e3, type: 3}
+  m_PrefabInstance: {fileID: 8079117615806157170}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6107df9eee8a41646a2c6c9d4b3ea7dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7305765198604402784 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1548534684089061650, guid: e8e791910b08c4446ad82fbde89828e3, type: 3}

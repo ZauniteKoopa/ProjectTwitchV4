@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemChest : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class ItemChest : MonoBehaviour
     private LayerMask itemCollisionLayerMask;
     [SerializeField]
     private AudioSource speaker;
+
+    public UnityEvent chestOpenedEvent;
 
 
     private bool opened = false;
@@ -46,6 +49,7 @@ public class ItemChest : MonoBehaviour
     private IEnumerator openAction() {
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
+        chestOpenedEvent.Invoke();
 
         if (speaker != null && speaker.clip != null) {
             speaker.Play();

@@ -28,7 +28,7 @@ MonoBehaviour:
   secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
-  - {fileID: 11400000, guid: 302bf22b3842c4748abba6ad2369c9eb, type: 2}
+  - {fileID: 11400000, guid: 3f3e02b1c2867844d8cf681eae1ee4f6, type: 2}
   poisonSideEffects:
   - {fileID: 11400000, guid: dcf874746bedb934f847206a58fe03f4, type: 2}
   reactivitySideEffects:

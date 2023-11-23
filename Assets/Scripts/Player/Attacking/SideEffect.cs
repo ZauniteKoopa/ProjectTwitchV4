@@ -22,6 +22,7 @@ public class SideEffect : ScriptableObject
     private float defenseReduction = 0f;
     [SerializeField]
     private int additionalLoot = 0;
+    public LobAction specialLoot;
     private const int MAX_POISON_STACKS = 6;
 
 
