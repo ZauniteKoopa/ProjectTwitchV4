@@ -42,6 +42,7 @@ public class SimpleDialogueScene : ScriptableObject
     private AudioClip backgroundMusic;
     [SerializeField]
     private Sprite backgroundImage;
+    public bool lastLineLingersAfter = false;
 
     // Starting Characters
     [Header("Left Starting Character")]
@@ -127,6 +128,7 @@ public class SimpleDialogueScene : ScriptableObject
         private SerializedProperty rightCharacter;
         private SerializedProperty rightCharacterEmotion;
         private SerializedProperty lines;
+        private SerializedProperty lastLineLingersAfter;
 
         // List displays
         private ReorderableList linesDisplay;
@@ -146,6 +148,7 @@ public class SimpleDialogueScene : ScriptableObject
             rightCharacter = serializedObject.FindProperty("rightCharacter");
             rightCharacterEmotion = serializedObject.FindProperty("rightCharacterEmotion");
             lines = serializedObject.FindProperty("lines");
+            lastLineLingersAfter = serializedObject.FindProperty("lastLineLingersAfter");
 
 
             // Set up lines display
@@ -251,6 +254,7 @@ public class SimpleDialogueScene : ScriptableObject
             // Background
             EditorGUILayout.PropertyField(backgroundMusic);
             EditorGUILayout.PropertyField(backgroundImage);
+            EditorGUILayout.PropertyField(lastLineLingersAfter);
 
             // Left character
             CharacterPack leftCharacterPack = leftCharacter.objectReferenceValue as CharacterPack;

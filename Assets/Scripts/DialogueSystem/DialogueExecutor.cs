@@ -35,11 +35,22 @@ public class DialogueExecutor : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField]
     private TMP_Text dialogueText;
+    [SerializeField]
+    private TMP_Text lingeringDialogueText;
+    [SerializeField]
+    [Min(0.01f)]
+    private float dialogueLingerDuration = 1f;
+
+    [Header("GameObject Components")]
+    [SerializeField]
+    private GameObject mainExecutor;
+    [SerializeField]
+    private GameObject lingeringDialogue;
 
     private int curDialogueLine = 0;
     private SimpleDialogueScene curScene;
-    
     private Coroutine runningTextRevealSequence = null;
+    private Coroutine runningLingeringTextSequence = null;
 
     
     
@@ -47,19 +58,52 @@ public class DialogueExecutor : MonoBehaviour
     //  Pre: entered dialogueScene is not null, user controls are connected to dialogue scene start event so that it's all disabled
     //  Post: Dialogue scene starts
     public void startScene(SimpleDialogueScene scene) {
+        Debug.Assert(scene.getLength() > 0);
+
         // Initialize scene
         curScene = scene;
         scene.setUpExecutor(leftCharacterSlot, rightCharacterSlot, backgroundSlot, backgroundMusicSpeaker);
         curDialogueLine = 0;
 
-        // Enable input and make this executor visible
-        inputHandler.enabled = true;
-        gameObject.SetActive(true);
+        // Enable input, get rid of any lingering dialogue leftover
+        voiceSpeaker.Stop();
+        if (runningLingeringTextSequence != null) {
+            StopCoroutine(runningLingeringTextSequence);
+            runningLingeringTextSequence = null;
+        }
+        lingeringDialogue.SetActive(false);
 
-        // Present the first line
-        presentLine(curScene.getLine(curDialogueLine));
-
+        // Present the first line either as lingering text or default executor. Wait a frame so that endEvent happens after startEvent
         dialogueSceneStart.Invoke();
+        StartCoroutine(delayedHandleNextLine());
+    }
+
+
+    // Delay before private helper
+    private IEnumerator delayedHandleNextLine() {
+        yield return 0;
+
+        // Only enable executor if scene has more than 1 line OR scene doesn't linger and enable input
+        inputHandler.enabled = true;
+        if (curScene.getLength() > 1 || !curScene.lastLineLingersAfter) {
+            mainExecutor.SetActive(true);
+        }
+
+        handleNextLine();
+    }
+
+
+    // Main private helper function to handle what to do for the next line
+    private void handleNextLine() {
+        // Either end the scene or present the next line (lingering text or defsult)
+        if (curDialogueLine == curScene.getLength()) {
+            onSceneEnd();
+        } else if (curDialogueLine == curScene.getLength() - 1 && curScene.lastLineLingersAfter) {
+            runningLingeringTextSequence = StartCoroutine(lingeringTextSequence(curScene.getLine(curDialogueLine)));
+            onSceneEnd();
+        } else {
+            presentLine(curScene.getLine(curDialogueLine));
+        }
     }
 
 
@@ -105,16 +149,16 @@ public class DialogueExecutor : MonoBehaviour
 
         }
 
-        // Set text (Change this to show gradually)
+        // Set text
         runningTextRevealSequence = StartCoroutine(textRevealSequence(line, runningVoiceByte));
     }
 
 
     // Main private helper function when scene ends
     private void onSceneEnd() {
-        curScene = null;
         inputHandler.enabled = false;
-        gameObject.SetActive(false);
+        curScene = null;
+        mainExecutor.SetActive(false);
 
         dialogueSceneEnd.Invoke();
     }
@@ -124,7 +168,7 @@ public class DialogueExecutor : MonoBehaviour
     //  Pre: player pressed the advance key
     //  Post: advance the dialogue
     public void handleAdvance(InputAction.CallbackContext context) {
-        if (context.started) {
+        if (context.started && mainExecutor.activeInHierarchy) {
             // Case where the revealing sequence is still running
             if (runningTextRevealSequence != null) {
                 StopCoroutine(runningTextRevealSequence);
@@ -136,13 +180,7 @@ public class DialogueExecutor : MonoBehaviour
             } else {
                 // Move on to the next speaker
                 curDialogueLine++;
-
-                // Either end the scene or present the next line
-                if (curDialogueLine == curScene.getLength()) {
-                    onSceneEnd();
-                } else {
-                    presentLine(curScene.getLine(curDialogueLine));
-                }
+                handleNextLine();
             }
         }
     }
@@ -188,6 +226,25 @@ public class DialogueExecutor : MonoBehaviour
 
         dialogueText.maxVisibleCharacters = line.dialogueLine.Length;
         runningTextRevealSequence = null;
+    }
+
+
+    // Main private IEnumerator to do lingering text
+    private IEnumerator lingeringTextSequence(DialogueLine line) {
+        // Visual
+        lingeringDialogue.SetActive(true);
+        lingeringDialogueText.text = line.dialogueLine;
+
+        // Audio
+        if (line.voiceClip != null) {
+            voiceSpeaker.clip = line.voiceClip;
+            voiceSpeaker.Play();
+        }
+
+        yield return new WaitForSeconds(dialogueLingerDuration);
+
+        lingeringDialogue.SetActive(false);
+        runningLingeringTextSequence = null;
     }
 
 }

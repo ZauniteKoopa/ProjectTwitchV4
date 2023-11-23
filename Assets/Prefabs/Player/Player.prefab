@@ -24913,7 +24913,7 @@ Transform:
   m_GameObject: {fileID: 1347320807677090429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.62, y: 0.85, z: -0.59618723}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1347320806750948846}
@@ -25170,6 +25170,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dbc8c3a9-30c2-434d-9230-068cc39830d3
     m_ActionName: Twitch/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d79931e0-4b74-4ec6-b2de-d401428d25e1
+    m_ActionName: DialogueControls/MoveForward[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Twitch
@@ -25224,7 +25228,34 @@ MonoBehaviour:
   weakBoltEndFrames: 20
   weakBoltMovementReduction: 0.4
   aimAssist: {fileID: 429715607}
-  hasWeapon: 1
+  hasWeapon: 0
+  weaponObtainedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
+        m_MethodName: startEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AbstractLock, Assembly-CSharp
+        m_MethodName: unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   contaminateStartFrames: 8
   contaminateEndFrames: 8
   contaminateZone: {fileID: 1347320807493061773}
@@ -25276,7 +25307,7 @@ MonoBehaviour:
   - {fileID: 4527573279414321107}
   secondaryVialMeshes:
   - {fileID: 8317949375430718539}
-  canOpenInventory: 1
+  canOpenInventory: 0
   abilityCooldownErrorMessage: Ability is currently on cooldown
   noVialEquippedErrorMessage: No vial currently equipped
   runOutOfAmmoMessage: No ammo left for ability
@@ -25306,6 +25337,18 @@ MonoBehaviour:
   firstIngredientGainEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1347320807677090373}
+        m_TargetAssemblyTypeName: TwitchInventory, Assembly-CSharp
+        m_MethodName: enableInventoryControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
         m_MethodName: startEvent
@@ -25324,6 +25367,18 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
         m_MethodName: startEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AbstractLock, Assembly-CSharp
+        m_MethodName: unlock
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30100,6 +30155,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1347320807677090374}
     m_Modifications:
     - target: {fileID: 448529417757591184, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
+      propertyPath: lingeringDialogueText
+      value: 
+      objectReference: {fileID: 4140939668919012931}
+    - target: {fileID: 448529417757591184, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
       propertyPath: dialogueSceneEnd.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -30293,6 +30352,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 448529417757591189, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 448529417757591199, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 448529419352129848, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
@@ -30318,6 +30381,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 448529417757591185, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
   m_PrefabInstance: {fileID: 4561844679715053163}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4140939668919012931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 448529419570909224, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
+  m_PrefabInstance: {fileID: 4561844679715053163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4758913883141883455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31846,6 +31920,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 868056051}
     m_Modifications:
+    - target: {fileID: 8905061917692018714, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061917692018714, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061917762592172, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061917762592172, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061918101378464, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061918101378464, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8905061919199287473, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -31937,6 +32035,14 @@ PrefabInstance:
     - target: {fileID: 8905061919199287479, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
       propertyPath: m_Color.a
       value: 0.69803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061919452690691, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905061919452690691, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f812004cdf12974496d889d0f7ca956, type: 3}

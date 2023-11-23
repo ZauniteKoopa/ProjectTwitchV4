@@ -20,6 +20,8 @@ MonoBehaviour:
   - THINKING
   - SCARED
   - HEADACHE
+  - PLEASANT-HAPPY
+  - NERVOUS
   expressions:
   - emotion: EMPTY
     expression: {fileID: 0}
@@ -35,4 +37,8 @@ MonoBehaviour:
     expression: {fileID: 21300000, guid: 7a185480e1501084f839953021255d50, type: 3}
   - emotion: HEADACHE
     expression: {fileID: 21300000, guid: fd605bf177b762f45bc226a738a276e1, type: 3}
+  - emotion: PLEASANT-HAPPY
+    expression: {fileID: 21300000, guid: 91d0c61992c953c429dc868cabe7d76d, type: 3}
+  - emotion: NERVOUS
+    expression: {fileID: 21300000, guid: e0d9c567ff44a014ea5809aa97652c61, type: 3}
   voiceByte: {fileID: 0}

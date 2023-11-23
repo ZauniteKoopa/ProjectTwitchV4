@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8fe872ce5538345b43a5b5cc7ee127, type: 3}
-  m_Name: TwitchTest
+  m_Name: Onboarding_OnIngredientPickup
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 0}
   backgroundImage: {fileID: 0}
-  lastLineLingersAfter: 1
-  leftCharacter: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+  lastLineLingersAfter: 0
+  leftCharacter: {fileID: 0}
   leftCharacterEmotion: EMPTY
   rightCharacter: {fileID: 0}
   rightCharacterEmotion: EMPTY
@@ -25,9 +25,10 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: 'Hmmmmm... where did Zac go? '
+    dialogueLine: "Hmm.. What\u2019s this? (Licks it) Hmm\u2026. It tastes interesting,
+      and possibly familiar. Have I seen this substance before?"
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -36,14 +37,15 @@ MonoBehaviour:
       m_RotationOrder: 0
     textAnimationDuration: 0
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: ANNOYED
+    emotion: THINKING
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Probably with those stupid humans. And for what? To just stare
-      at them walking around and doing nothing?
+    dialogueLine: ' I am running low on poisons. Maybe I should make one. It will
+      make my surprises even nastier! I think I even still have some recipes with
+      me! Let me see if I can work with this.'
     constantSpeed: 1
-    textSpeed: 40
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -52,13 +54,13 @@ MonoBehaviour:
       m_RotationOrder: 0
     textAnimationDuration: 0
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: DEVIOUS-HAPPY
+    emotion: NERVOUS
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Well... I have a plan for that!
+    dialogueLine: Better do this quick before <b>they</b> come.
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []

@@ -44,7 +44,9 @@ public class TwitchAttackModule : IAttackModule
     private float weakBoltMovementReduction = 0.75f;
     [SerializeField]
     private IAimAssist aimAssist;
-    public bool hasWeapon = true;
+    [SerializeField]
+    private bool hasWeapon = true;
+    public UnityEvent weaponObtainedEvent;
 
     [Header("Contaminate Frame Data")]
     [SerializeField]
@@ -146,6 +148,15 @@ public class TwitchAttackModule : IAttackModule
     private void Update() {
         if (holdingFireButton && runningAttackSequence == null && movementState != TwitchMovementState.IN_ATTACK_ANIM) {
             runningAttackSequence = StartCoroutine(primaryFireSequence());
+        }
+    }
+
+
+    // Main function to obtain a weapon
+    public void obtainWeapon() {
+        if (!hasWeapon) {
+            hasWeapon = true;
+            weaponObtainedEvent.Invoke();
         }
     }
 

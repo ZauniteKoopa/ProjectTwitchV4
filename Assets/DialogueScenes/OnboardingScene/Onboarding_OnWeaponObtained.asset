@@ -10,40 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8fe872ce5538345b43a5b5cc7ee127, type: 3}
-  m_Name: TwitchTest
+  m_Name: Onboarding_OnWeaponObtained
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 0}
   backgroundImage: {fileID: 0}
-  lastLineLingersAfter: 1
-  leftCharacter: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+  leftCharacter: {fileID: 0}
   leftCharacterEmotion: EMPTY
   rightCharacter: {fileID: 0}
   rightCharacterEmotion: EMPTY
   lines:
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: THINKING
+    emotion: PLEASANT-HAPPY
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: 'Hmmmmm... where did Zac go? '
+    dialogueLine: "Oh! There you are, my precious! I was so worried! Hopefully the
+      wretched humans didn\u2019t touch you didn\u2019t they!? We need to give you
+      a soak!"
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
-    textAnimationDuration: 0
+    textAnimationDuration: 45
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: ANNOYED
+    emotion: THINKING
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Probably with those stupid humans. And for what? To just stare
-      at them walking around and doing nothing?
+    dialogueLine: "But first, we need to get home. There\u2019s intruders everywhere.
+      My fleas are getting antsy! The surface dwellers are getting angry! "
     constantSpeed: 1
-    textSpeed: 40
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -56,9 +57,11 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Well... I have a plan for that!
+    dialogueLine: "Let\u2019s show these worthless surface dwellers what happens
+      when they invade <b>my</b> turf! Maybe we can get some free stash on the way!
+      I can smell it now!\r\n"
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []

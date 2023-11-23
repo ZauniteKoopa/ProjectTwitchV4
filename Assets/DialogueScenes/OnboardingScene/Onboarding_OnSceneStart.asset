@@ -10,22 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8fe872ce5538345b43a5b5cc7ee127, type: 3}
-  m_Name: TwitchTest
+  m_Name: Onboarding_OnSceneStart
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 0}
   backgroundImage: {fileID: 0}
-  lastLineLingersAfter: 1
   leftCharacter: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
   leftCharacterEmotion: EMPTY
   rightCharacter: {fileID: 0}
   rightCharacterEmotion: EMPTY
   lines:
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: THINKING
+    emotion: HEADACHE
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: 'Hmmmmm... where did Zac go? '
+    dialogueLine: Ughhh.. I think I hit my brace.. I have to re-bolt it again. At
+      least I got those pesky surface dwellers off my tail. Now, I just need to get
+      ba-
+    constantSpeed: 1
+    textSpeed: 30
+    textAnimationCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    textAnimationDuration: 0
+  - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+    emotion: SCARED
+    leftSide: 1
+    disappearAfter: 0
+    voiceClip: {fileID: 0}
+    dialogueLine: "Huh? Wha-Where\u2019s my crossbow!? Where is it? It has to be
+      somewhere around here! And my poisons! They\u2019re gone!"
+    constantSpeed: 1
+    textSpeed: 30
+    textAnimationCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    textAnimationDuration: 0
+  - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+    emotion: NERVOUS
+    leftSide: 1
+    disappearAfter: 0
+    voiceClip: {fileID: 0}
+    dialogueLine: " I-I have to find it! Find them! If I don\u2019t, the surface
+      dwellers will find it first! And then steal my fleas and my stash! Exterminate
+      me! And-"
     constantSpeed: 1
     textSpeed: 30
     textAnimationCurve:
@@ -40,23 +74,9 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Probably with those stupid humans. And for what? To just stare
-      at them walking around and doing nothing?
-    constantSpeed: 1
-    textSpeed: 40
-    textAnimationCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    textAnimationDuration: 0
-  - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: DEVIOUS-HAPPY
-    leftSide: 1
-    disappearAfter: 0
-    voiceClip: {fileID: 0}
-    dialogueLine: Well... I have a plan for that!
+    dialogueLine: "(Deep breaths) It\u2019s fine. Everything will be fine. Twitch
+      is resourceful. Twitch is smart! Twitch had it when he fell, so it has to be
+      nearby..."
     constantSpeed: 1
     textSpeed: 30
     textAnimationCurve:

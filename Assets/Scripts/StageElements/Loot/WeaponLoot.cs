@@ -8,7 +8,7 @@ public class WeaponLoot : PrizeLoot
     //  Pre: player != null
     //  Post: returns a boolean that checks if the activation is successful (and thus the loot destroys itself)
     protected override bool activate(PlayerStatus player, TwitchInventory inv) {
-        inv.GetComponent<TwitchAttackModule>().hasWeapon = true;
+        inv.GetComponent<TwitchAttackModule>().obtainWeapon();
         return true;
     }
 }

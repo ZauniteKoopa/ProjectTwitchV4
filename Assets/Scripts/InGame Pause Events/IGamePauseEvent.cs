@@ -11,6 +11,15 @@ public abstract class IGamePauseEvent : MonoBehaviour
 
     public UnityEvent pauseEventStarted;
     public UnityEvent pauseEventFinished;
+    public bool startOnAwake = false;
+
+
+    // On awake, setup
+    private void Start() {
+        if (startOnAwake) {
+            startEvent();
+        }
+    }
     
 
     // Main function to start event
@@ -35,12 +44,13 @@ public abstract class IGamePauseEvent : MonoBehaviour
     // Main sequence function to end the event
     private IEnumerator endEventSequence() {
         ending = true;
+        PauseConstraints.externalPause(false);
 
         yield return 0;
 
-        PauseConstraints.externalPause(false);
         Time.timeScale = prevTimeScale;
         endEventHelper();
+
         pauseEventFinished.Invoke();
         
         ending = false;

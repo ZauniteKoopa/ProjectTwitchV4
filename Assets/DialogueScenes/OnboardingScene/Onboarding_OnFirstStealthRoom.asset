@@ -10,24 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f8fe872ce5538345b43a5b5cc7ee127, type: 3}
-  m_Name: TwitchTest
+  m_Name: Onboarding_OnFirstStealthRoom
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 0}
   backgroundImage: {fileID: 0}
-  lastLineLingersAfter: 1
-  leftCharacter: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+  leftCharacter: {fileID: 0}
   leftCharacterEmotion: EMPTY
   rightCharacter: {fileID: 0}
   rightCharacterEmotion: EMPTY
   lines:
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: THINKING
+    emotion: ANGRY
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: 'Hmmmmm... where did Zac go? '
+    dialogueLine: ' Wh-what are they doing here!? This is my turf! My domain!'
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -36,14 +35,15 @@ MonoBehaviour:
       m_RotationOrder: 0
     textAnimationDuration: 0
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
-    emotion: ANNOYED
+    emotion: NERVOUS
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Probably with those stupid humans. And for what? To just stare
-      at them walking around and doing nothing?
+    dialogueLine: "They must\u2019ve known! A sewer king without his weapon is always
+      vulnerable. Why else would they bring these wretched machine-gun turret bots
+      down here!\r\n"
     constantSpeed: 1
-    textSpeed: 40
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -56,9 +56,28 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 0}
-    dialogueLine: Well... I have a plan for that!
+    dialogueLine: "Luckily Twitch isn\u2019t easily caught! They can\u2019t have
+      gotten deeper than this. I can just sneak past them. Just need to find it!"
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
+    textAnimationCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    textAnimationDuration: 0
+  - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
+    emotion: THINKING
+    leftSide: 1
+    disappearAfter: 0
+    voiceClip: {fileID: 0}
+    dialogueLine: 'Yes.. yes.. Sneak past them, find my crossbow, and get back to
+      my lair. Maybe do a few surprises and boops along the way..
+
+'
+    constantSpeed: 1
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
