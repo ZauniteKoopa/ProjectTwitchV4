@@ -356,6 +356,7 @@ public class TwitchAnimatorController : MonoBehaviour
         // Trigger animation but with scaled animation to set it up
         animator.updateMode = AnimatorUpdateMode.Normal;
         animator.SetTrigger(dungeonEnterTrigger);
+        PlayerCameraController.instantMoveCamera(attackModule.transform, 55f, 0f, 25f, Vector3.zero);
 
         // Fade to clear 
         twitchStatus.transform.forward = Vector3.back;
@@ -367,6 +368,7 @@ public class TwitchAnimatorController : MonoBehaviour
         // Play animation (release it)
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         yield return new WaitForSecondsRealtime(dungeonEnterAnimation.length);
+        PlayerCameraController.reset(100f);
 
         // Reset Time.timeScale
         onDungeonEnterFinish.Invoke();

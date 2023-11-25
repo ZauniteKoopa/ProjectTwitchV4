@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1603443012276791809, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
       propertyPath: m_Name
-      value: RipenedCorpseHeal
+      value: RipenedCorpseHeal Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4029596543819145221, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
       propertyPath: healPercentage
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5814751298469380425, guid: 9307a955c2413d944bd2782083d72c77, type: 3}
       propertyPath: m_RootOrder

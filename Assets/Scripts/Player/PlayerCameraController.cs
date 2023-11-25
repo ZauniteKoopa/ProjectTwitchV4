@@ -28,6 +28,7 @@ public class PlayerCameraController : MonoBehaviour
 
     // Main runtime variable for getting the runtime zoom (you can get actual position by multiplying this value by Vector3.back)
     public float curRuntimeZoom = 0f;
+    private float resetSpeed = 35f;
 
     // Default variables for resetting
     private static float defaultPitch;
@@ -126,6 +127,7 @@ public class PlayerCameraController : MonoBehaviour
     public static float reset(float transSpeed) {
         Debug.Assert(mainPlayerCamera != null && transSpeed > 0f);
         overrideRoomCamera = false;
+        mainPlayerCamera.resetSpeed = transSpeed;
 
         if (targetedRoom == null) {
             return 0f;
@@ -136,7 +138,7 @@ public class PlayerCameraController : MonoBehaviour
             defaultPitch,
             defaultYaw,
             defaultZoom,
-            35f,
+            transSpeed,
             mainPlayerCamera.getLocalCameraPivotRoomPosition(targetedRoom)
         );
     }
@@ -257,7 +259,7 @@ public class PlayerCameraController : MonoBehaviour
                     defaultPitch,
                     defaultYaw,
                     defaultZoom,
-                    35f,
+                    resetSpeed,
                     getLocalCameraPivotRoomPosition(tgtRoom)
                 );
 
