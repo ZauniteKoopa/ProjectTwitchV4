@@ -336,6 +336,7 @@ MonoBehaviour:
   pauseEventFinished:
     m_PersistentCalls:
       m_Calls: []
+  startOnAwake: 0
   mainDialogueExecutor: {fileID: 1085575718}
   dialogueScene: {fileID: 11400000, guid: 183ec1d4376512c43b377062b118b886, type: 2}
 --- !u!4 &386877779 stripped
@@ -710,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
+    - target: {fileID: 1347320806317760197, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: canOpenInventory
       value: 1
@@ -12143,6 +12148,7 @@ MonoBehaviour:
   - {fileID: 1381654387}
   - {fileID: 10816851}
   - {fileID: 1792793301}
+  startingReward: {fileID: 0}
 --- !u!1001 &7449437834921277813
 PrefabInstance:
   m_ObjectHideFlags: 0

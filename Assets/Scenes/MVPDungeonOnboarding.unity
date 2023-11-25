@@ -21868,6 +21868,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1736196175}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: canOpenInventory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstPoisonVialEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 854186361}
@@ -21921,6 +21925,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320807677090428, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: hasWeapon
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090428, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}

@@ -62,6 +62,9 @@ public class TwitchAnimatorController : MonoBehaviour
     [SerializeField]
     [Min(0.1f)]
     private float sideEffectCameraTransitionSpeed = 500f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float sideEffectCameraTransitionResetSpeed = 40f;
     public UnityEvent firstSideEffectGained;
     private bool gainedSideEffect = false;
 
@@ -122,6 +125,30 @@ public class TwitchAnimatorController : MonoBehaviour
     private AnimationClip dungeonEnterAnimation;
     [SerializeField]
     private AnimationClip dungeonExitAnimation;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionLingerExitTime = 0.25f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionBlackFadeOut = 0.75f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionFullBlackTime = 1f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionEnterFadeIn = 0.75f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionEnterCameraPitch = 55f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionEnterCameraZoom = 25f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionEnterResetSpeed = 100f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float dungeonTransitionEnterAnimBeginTime = 0.5f;
     public UnityEvent onDungeonExitStart;
     public UnityEvent onDungeonEnterFinish;
     
@@ -232,7 +259,7 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(sideEffectFreezeTime);
 
         // Move camera back to default position
-        float resetDuration = PlayerCameraController.reset(sideEffectCameraTransitionSpeed);
+        float resetDuration = PlayerCameraController.reset(sideEffectCameraTransitionResetSpeed);
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(resetDuration);
 
         attackModule.inUninterruptableAnimationSequence = false;
@@ -302,7 +329,7 @@ public class TwitchAnimatorController : MonoBehaviour
         yield return new WaitForSecondsRealtime(timeUntilDeathFadeOut);
 
         screenUiModule.fadeToBlack(deathFadeDuration, false);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(deathFadeDuration + 0.5f);
 
         Time.timeScale = 1f;
         yield return 0;
@@ -334,11 +361,11 @@ public class TwitchAnimatorController : MonoBehaviour
 
         // Do animation and wait for it
         animator.SetTrigger(dungeonExitTrigger);
-        yield return new WaitForSecondsRealtime(dungeonExitAnimation.length + 0.25f);
+        yield return new WaitForSecondsRealtime(dungeonExitAnimation.length + dungeonTransitionLingerExitTime);
 
         // Fade to black and enter dungeon / spawn in after (TO-D0)
-        screenUiModule.fadeToBlack(0.75f, false);
-        yield return new WaitForSecondsRealtime(0.75f + 1f);
+        screenUiModule.fadeToBlack(dungeonTransitionBlackFadeOut, false);
+        yield return new WaitForSecondsRealtime(dungeonTransitionBlackFadeOut + dungeonTransitionFullBlackTime);
 
         if (nextDungeonToEnter != null) {
             nextDungeonToEnter.startDungeon(twitchStatus, projectedEndPrize);   
@@ -356,19 +383,19 @@ public class TwitchAnimatorController : MonoBehaviour
         // Trigger animation but with scaled animation to set it up
         animator.updateMode = AnimatorUpdateMode.Normal;
         animator.SetTrigger(dungeonEnterTrigger);
-        PlayerCameraController.instantMoveCamera(attackModule.transform, 55f, 0f, 25f, Vector3.zero);
+        PlayerCameraController.instantMoveCamera(attackModule.transform, dungeonTransitionEnterCameraPitch, 0f, dungeonTransitionEnterCameraZoom, Vector3.zero);
 
         // Fade to clear 
         twitchStatus.transform.forward = Vector3.back;
         movementModule.faceCamera();
 
-        screenUiModule.fadeToColor(0.75f, Color.clear, false);
-        yield return new WaitForSecondsRealtime(0.5f);
+        screenUiModule.fadeToColor(dungeonTransitionEnterFadeIn, Color.clear, false);
+        yield return new WaitForSecondsRealtime(dungeonTransitionEnterAnimBeginTime);
 
         // Play animation (release it)
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         yield return new WaitForSecondsRealtime(dungeonEnterAnimation.length);
-        PlayerCameraController.reset(100f);
+        PlayerCameraController.reset(dungeonTransitionEnterResetSpeed);
 
         // Reset Time.timeScale
         onDungeonEnterFinish.Invoke();

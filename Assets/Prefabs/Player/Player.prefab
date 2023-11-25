@@ -25228,7 +25228,7 @@ MonoBehaviour:
   weakBoltEndFrames: 20
   weakBoltMovementReduction: 0.4
   aimAssist: {fileID: 429715607}
-  hasWeapon: 0
+  hasWeapon: 1
   weaponObtainedEvent:
     m_PersistentCalls:
       m_Calls:
@@ -25307,7 +25307,7 @@ MonoBehaviour:
   - {fileID: 4527573279414321107}
   secondaryVialMeshes:
   - {fileID: 8317949375430718539}
-  canOpenInventory: 0
+  canOpenInventory: 1
   abilityCooldownErrorMessage: Ability is currently on cooldown
   noVialEquippedErrorMessage: No vial currently equipped
   runOutOfAmmoMessage: No ammo left for ability
@@ -29287,7 +29287,8 @@ MonoBehaviour:
   sideEffectFreezeTime: 1.5
   sideEffectCameraZoom: 15
   sideEffectCameraPitchAngle: 48
-  sideEffectCameraTransitionSpeed: 300
+  sideEffectCameraTransitionSpeed: 150
+  sideEffectCameraTransitionResetSpeed: 55
   firstSideEffectGained:
     m_PersistentCalls:
       m_Calls:
@@ -29322,6 +29323,14 @@ MonoBehaviour:
   dungeonExitTrigger: ExitFloorTrigger
   dungeonEnterAnimation: {fileID: 4295536878813555907, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
   dungeonExitAnimation: {fileID: 3247737772120043954, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+  dungeonTransitionLingerExitTime: 0.25
+  dungeonTransitionBlackFadeOut: 0.75
+  dungeonTransitionFullBlackTime: 1
+  dungeonTransitionEnterFadeIn: 0.75
+  dungeonTransitionEnterCameraPitch: 60
+  dungeonTransitionEnterCameraZoom: 20
+  dungeonTransitionEnterResetSpeed: 100
+  dungeonTransitionEnterAnimBeginTime: 0.4
   onDungeonExitStart:
     m_PersistentCalls:
       m_Calls:

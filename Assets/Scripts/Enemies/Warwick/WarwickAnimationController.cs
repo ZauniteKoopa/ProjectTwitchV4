@@ -72,6 +72,8 @@ public class WarwickAnimationController : MonoBehaviour
         // Connect to all events relating to enemy status
         warwickStatus.enemyPhaseTransitionBeginEvent.AddListener(onBossTransitionBegin);
         warwickStatus.enemyPhaseTransitionEndEvent.AddListener(onBossTransitionEnd);
+        warwickStatus.stunnedStartEvent.AddListener(onStunStart);
+        warwickStatus.stunnedEndEvent.AddListener(onStunEnd);
 
         // Connect to all events relating to Passive Branch
         passiveBranch.bloodHuntStartEvent.AddListener(onBloodHuntReactionStart);
@@ -174,6 +176,16 @@ public class WarwickAnimationController : MonoBehaviour
 
     private void onLungeAttackStart() {
         warwickAnimator.SetTrigger("LungeTrigger");
+    }
+
+
+    private void onStunStart() {
+        warwickAnimator.SetBool("UnitStun", true);
+    }
+
+
+    private void onStunEnd() {
+        warwickAnimator.SetBool("UnitStun", false);
     }
 
 

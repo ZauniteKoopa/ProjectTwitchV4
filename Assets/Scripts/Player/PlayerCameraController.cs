@@ -16,6 +16,7 @@ public class PlayerCameraController : MonoBehaviour
     private static Transform cameraPivot;
     private static Coroutine runningCameraRoomSequence = null;
     private static bool overrideRoomCamera = false;
+    private static float defaultRoomSpeed = 28f;
 
     // Static variables for camera shake
     private static Coroutine cameraShakeCoroutine = null;
@@ -241,6 +242,7 @@ public class PlayerCameraController : MonoBehaviour
         }
 
         targetedRoom = tgtRoom;
+        mainPlayerCamera.resetSpeed = defaultRoomSpeed;
         runningCameraRoomSequence = mainPlayerCamera.StartCoroutine(mainPlayerCamera.cameraRoomSequence(tgtRoom, transition));
     }
 

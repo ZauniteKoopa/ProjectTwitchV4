@@ -2970,6 +2970,7 @@ MonoBehaviour:
   probabilityVariance: 1
   prizePool: {fileID: 11400000, guid: efec938c076ecfc42aa1c05331ce4bf4, type: 2}
   nonHostileEntrances: []
+  startingReward: {fileID: 0}
 --- !u!4 &803593116
 Transform:
   m_ObjectHideFlags: 0
@@ -10601,6 +10602,7 @@ MonoBehaviour:
   probabilityVariance: 4
   prizePool: {fileID: 11400000, guid: 5a12b70ab79d3f64ca89d6ef0ef680ba, type: 2}
   nonHostileEntrances: []
+  startingReward: {fileID: 0}
 --- !u!1 &691327615692765568
 GameObject:
   m_ObjectHideFlags: 0
@@ -11095,6 +11097,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speaker: {fileID: 8636608297017021694}
+  chestOpenedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1959361676575132270
 GameObject:
   m_ObjectHideFlags: 0
@@ -11707,6 +11712,7 @@ MonoBehaviour:
   possibleDungeonFloorEntrances:
   - {fileID: 2631882538282041257}
   rewardChest: {fileID: 1815424858687591655}
+  staticLootSpawn: 0
   probabilityNumerator: 3
   probabilityDenominator: 10
   probabilityVariance: 1
@@ -12148,6 +12154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 33877219100997153}
   speaker: {fileID: 0}
+  rotationSpeed: 60
+  willRotate: 1
   healPercentage: 0.4
 --- !u!33 &6043327045715979678
 MeshFilter:
