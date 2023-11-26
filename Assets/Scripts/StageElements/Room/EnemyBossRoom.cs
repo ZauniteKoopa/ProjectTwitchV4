@@ -50,6 +50,26 @@ public class EnemyBossRoom : Room
     private LockedDoor[] lockedDoors;
     private AbstractLock bossLock;
 
+    [Header("End room Camera sequence")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraPitch = 45f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraZoom = 30f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraTransitionSpeed = 45f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraResetSpeed = 75f;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float endRoomCameraTimeScale = 0.2f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float endRoomCameraSequenceDuration = 1.25f;
+
 
     // Main event handler for when player enters the room
     protected override void onPlayerEnter(PlayerStatus player) {
@@ -87,6 +107,8 @@ public class EnemyBossRoom : Room
         if (minionSpawningSequence != null) {
             StopCoroutine(minionSpawningSequence);
         }
+
+        StartCoroutine(finalCameraSequence(bossEnemy));
     }
 
 
@@ -128,6 +150,37 @@ public class EnemyBossRoom : Room
 
             yield return 0;
         }
+    }
+
+
+    // Main sequence handler for when dungeon room ends
+    private IEnumerator finalCameraSequence(EnemyStatus finalCorpse) {
+        // Set up
+        float cameraTransitionDuration = PlayerCameraController.moveCamera(
+            finalCorpse.transform.parent,
+            endRoomCameraPitch,
+            0f,
+            endRoomCameraZoom,
+            endRoomCameraTransitionSpeed,
+            finalCorpse.transform.localPosition
+        );
+        float totalCameraMoveTime = cameraTransitionDuration + endRoomCameraSequenceDuration;
+        float timer = 0f;
+
+        // Main loop
+        while (timer < totalCameraMoveTime) {
+            yield return 0;
+            Time.timeScale = endRoomCameraTimeScale;
+            timer += Time.unscaledDeltaTime;
+
+            while (PauseConstraints.isPaused()) {
+                yield return 0;
+            }
+        }    
+
+        Time.timeScale = 1f;
+        float resetCameraDuration = PlayerCameraController.reset(endRoomCameraResetSpeed);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(resetCameraDuration);
     }
 
 

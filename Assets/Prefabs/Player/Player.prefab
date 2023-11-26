@@ -29328,8 +29328,8 @@ MonoBehaviour:
   dungeonTransitionFullBlackTime: 1
   dungeonTransitionEnterFadeIn: 0.75
   dungeonTransitionEnterCameraPitch: 60
-  dungeonTransitionEnterCameraZoom: 20
-  dungeonTransitionEnterResetSpeed: 100
+  dungeonTransitionEnterCameraZoom: 25
+  dungeonTransitionEnterResetSpeed: 60
   dungeonTransitionEnterAnimBeginTime: 0.4
   onDungeonExitStart:
     m_PersistentCalls:

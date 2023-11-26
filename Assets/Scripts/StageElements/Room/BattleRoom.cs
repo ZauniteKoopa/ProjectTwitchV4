@@ -30,6 +30,27 @@ public class BattleRoom : Room
     private int probabilityVariance = 2;
     private ConditionalProbCalculator enemyLootCondProb;
 
+    [Header("End room Camera sequence")]
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraPitch = 45f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraZoom = 30f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraTransitionSpeed = 45f;
+    [SerializeField]
+    [Min(0.01f)]
+    private float endRoomCameraResetSpeed = 75f;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float endRoomCameraTimeScale = 0.2f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float endRoomCameraSequenceDuration = 1.25f;
+    
+
     public UnityEvent battleRoomStartEvent;
     public UnityEvent battleRoomEndEvent;
     public UnityEvent dungeonExitEvent;
@@ -99,7 +120,7 @@ public class BattleRoom : Room
 
 
     // Main event handler for when current enemy wave finished
-    private void onEnemyWaveFinish() {
+    private void onEnemyWaveFinish(EnemyStatus finalDeadEnemy) {
         curEnemyWave++;
 
         // Case where you finish all enemy waves
@@ -118,6 +139,7 @@ public class BattleRoom : Room
             }
 
             battleRoomEndEvent.Invoke();
+            StartCoroutine(finalCameraSequence(finalDeadEnemy));
 
         // Case where you still have enemy waves left to go
         } else {
@@ -128,6 +150,38 @@ public class BattleRoom : Room
             }
         }
     }
+
+
+    // Main sequence handler for when dungeon room ends
+    private IEnumerator finalCameraSequence(EnemyStatus finalCorpse) {
+        // Set up
+        float cameraTransitionDuration = PlayerCameraController.moveCamera(
+            finalCorpse.transform.parent,
+            endRoomCameraPitch,
+            0f,
+            endRoomCameraZoom,
+            endRoomCameraTransitionSpeed,
+            finalCorpse.transform.localPosition
+        );
+        float totalCameraMoveTime = cameraTransitionDuration + endRoomCameraSequenceDuration;
+        float timer = 0f;
+
+        // Main loop
+        while (timer < totalCameraMoveTime) {
+            yield return 0;
+            Time.timeScale = endRoomCameraTimeScale;
+            timer += Time.unscaledDeltaTime;
+
+            while (PauseConstraints.isPaused()) {
+                yield return 0;
+            }
+        }    
+
+        Time.timeScale = 1f;
+        float resetCameraDuration = PlayerCameraController.reset(endRoomCameraResetSpeed);
+        yield return PauseConstraints.waitForSecondsRealtimeWithPause(resetCameraDuration);
+    }
+    
 
 
     // Main event handler for when player exits the dungeon

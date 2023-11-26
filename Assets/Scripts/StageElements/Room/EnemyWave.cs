@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class EnemyWave : MonoBehaviour
 {
-    public UnityEvent waveFinishedEvent;
+    public UnityEvent<EnemyStatus> waveFinishedEvent;
 
     private List<EnemyStatus> enemies;
     private int numEnemiesLeft = 0;
@@ -24,7 +24,7 @@ public class EnemyWave : MonoBehaviour
             EnemyStatus curEnemy = transform.GetChild(c).GetComponent<EnemyStatus>();
             if (curEnemy != null) {
                 numEnemiesLeft++;
-                curEnemy.deathEvent.AddListener(onEnemyDeath);
+                curEnemy.deathEvent.AddListener(delegate { onEnemyDeath(curEnemy); });
                 enemies.Add(curEnemy);
             }
 
@@ -72,12 +72,12 @@ public class EnemyWave : MonoBehaviour
 
 
     // Event handler function for when an enemy dies
-    private void onEnemyDeath() {
+    private void onEnemyDeath(EnemyStatus corpse) {
         numEnemiesLeft--;
 
         if (numEnemiesLeft <= 0 && !finished) {
             finished = true;
-            waveFinishedEvent.Invoke();
+            waveFinishedEvent.Invoke(corpse);
         }
     }
 

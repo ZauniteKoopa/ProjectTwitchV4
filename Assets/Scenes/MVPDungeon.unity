@@ -11716,6 +11716,12 @@ MonoBehaviour:
   probabilityNumerator: 3
   probabilityDenominator: 10
   probabilityVariance: 1
+  endRoomCameraPitch: 45
+  endRoomCameraZoom: 30
+  endRoomCameraTransitionSpeed: 45
+  endRoomCameraResetSpeed: 75
+  endRoomCameraTimeScale: 0.2
+  endRoomCameraSequenceDuration: 1.25
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []

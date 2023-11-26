@@ -8634,6 +8634,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: endRoomCameraTimeScale
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.data[0]
       value: 
       objectReference: {fileID: 1686900337}
@@ -11957,6 +11961,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: endRoomCameraTimeScale
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.data[0]
       value: 
       objectReference: {fileID: 2123913307}
@@ -15060,6 +15068,12 @@ MonoBehaviour:
   probabilityNumerator: 1
   probabilityDenominator: 4
   probabilityVariance: 2
+  endRoomCameraPitch: 45
+  endRoomCameraZoom: 30
+  endRoomCameraTransitionSpeed: 45
+  endRoomCameraResetSpeed: 75
+  endRoomCameraTimeScale: 0.2
+  endRoomCameraSequenceDuration: 1.25
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -15898,6 +15912,12 @@ MonoBehaviour:
   probabilityNumerator: 1
   probabilityDenominator: 4
   probabilityVariance: 2
+  endRoomCameraPitch: 45
+  endRoomCameraZoom: 30
+  endRoomCameraTransitionSpeed: 45
+  endRoomCameraResetSpeed: 75
+  endRoomCameraTimeScale: 0.2
+  endRoomCameraSequenceDuration: 1.25
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -19015,6 +19035,10 @@ PrefabInstance:
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: endRoomCameraTimeScale
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.data[0]
@@ -22991,6 +23015,12 @@ MonoBehaviour:
   probabilityNumerator: 3
   probabilityDenominator: 10
   probabilityVariance: 1
+  endRoomCameraPitch: 45
+  endRoomCameraZoom: 30
+  endRoomCameraTransitionSpeed: 45
+  endRoomCameraResetSpeed: 75
+  endRoomCameraTimeScale: 0.2
+  endRoomCameraSequenceDuration: 1.25
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -24683,6 +24713,10 @@ PrefabInstance:
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
+      propertyPath: endRoomCameraTimeScale
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4676388219756678831, guid: 4c16107b3e197b94f9bbdb9a320ed64e, type: 3}
       propertyPath: enemyWaves.Array.data[0]
