@@ -161,6 +161,12 @@ public class TwitchAttackModule : IAttackModule
     }
 
 
+    // Main accessor function to check if twitch is holding a weapon
+    public override bool holdingWeapon() {
+        return hasWeapon;
+    }
+
+
     // Main primary weapon fight sequence
     //  Pre: none
     //  Post: fire sequence

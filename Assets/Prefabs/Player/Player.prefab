@@ -28468,7 +28468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1842959999560956283, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1863007892671672952, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -28624,15 +28624,43 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8df30c64a2ab2014c80d1bc20ffabba3, type: 2}
     - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321605149052361097, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3536455314332235616, guid: 4e4e0392c30ad424fab200f73544bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29284,6 +29312,7 @@ MonoBehaviour:
   craftStartTriggerParameter: craftStartTrigger
   sideEffectTriggerParameter: obtainSideEffectTrigger
   randomIntParameter: randomization
+  holdingWeaponParameter: holdingWeapon
   sideEffectFreezeTime: 1.5
   sideEffectCameraZoom: 15
   sideEffectCameraPitchAngle: 48

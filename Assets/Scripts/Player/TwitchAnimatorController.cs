@@ -48,6 +48,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private string sideEffectTriggerParameter;
     [SerializeField]
     private string randomIntParameter;
+    [SerializeField]
+    private string holdingWeaponParameter;
 
     [Header("Obtaining side effect")]
     [SerializeField]
@@ -187,6 +189,7 @@ public class TwitchAnimatorController : MonoBehaviour
         animator.SetBool(movementBoolParameter, movementModule.isCurrentlyMoving());
         animator.SetBool(shootingBoolParameter, attackModule.isShooting());
         animator.SetBool(ambushBoolParameter, attackModule.isDashing());
+        animator.SetBool(holdingWeaponParameter, attackModule.holdingWeapon());
 
         if (twitchStatus.isAlive()) {
             if (animator.GetBool(shootingBoolParameter)) {

@@ -34,6 +34,13 @@ public abstract class IAttackModule : MonoBehaviour {
 
 
 
+    // Function to see if player has a weapon to attack with
+    //  Pre: none
+    //  Post: returns if player has weapon
+    public abstract bool holdingWeapon();
+
+
+
     // Main function to see if you're in the middle of dashing or not
     public abstract bool isDashing();
 }
