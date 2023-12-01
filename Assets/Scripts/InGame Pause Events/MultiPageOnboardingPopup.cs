@@ -21,6 +21,8 @@ public class MultiPageOnboardingPopup : MonoBehaviour
     private Button closeButton;
     [SerializeField]
     private OnboardingPage[] pages;
+    [SerializeField]
+    private bool requiredCompletionForExit = true;
     private int curPage = 0;
     private int numPagesRead = 0;
 
@@ -58,7 +60,10 @@ public class MultiPageOnboardingPopup : MonoBehaviour
             Debug.LogError("General onboarding popup not set correctly");
         }
 
-        closeButton.gameObject.SetActive(false);
+        if (requiredCompletionForExit) {
+            closeButton.gameObject.SetActive(false);
+        }
+
         setOnboardingPage(pages[0]);
     }
 
