@@ -20,12 +20,13 @@ MonoBehaviour:
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
+  specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
   primaryAttackPrefab: {fileID: 5911567955735722237, guid: 913bcf7a2dfa36a4ba2b924ceae7119f, type: 3}
   primaryAttackStartFrames: 20
   primaryAttackEndFrames: 20
   primaryAttackMultiplier: 1.75
-  attackRange: 5
+  attackRange: 4.5
   primaryAttackSoundEffects:
   - {fileID: 8300000, guid: 12d2a11c14a42584989615d48ccc7c83, type: 3}
   primaryAttackAnim: 1

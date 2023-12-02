@@ -37,6 +37,7 @@ public class PlayerCameraController : MonoBehaviour
     private static float defaultZoom;
     private static Vector3 defaultTgtLocalPos;
     private static Room targetedRoom;
+    private static bool overridePause = false;
 
 
     // On awake, set this to the PlayerCameraController
@@ -63,6 +64,7 @@ public class PlayerCameraController : MonoBehaviour
         // Routines
         runningCameraRoomSequence = null;
         cameraTransitionCoroutine = null;
+        overridePause = false;
 
         // Set runtime variables
         curRuntimeZoom = -transform.localPosition.z;
@@ -76,8 +78,9 @@ public class PlayerCameraController : MonoBehaviour
     //       transSpeed is the transition speed of the camera
     //  Post: Moves the camera to focus on a specific target, with specified zoom, pitch (x rot), yaw (y rot). tranSpeed is the speed at which you move to a location
     //         returns how long the sequence will take
-    public static float moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPosition) {
+    public static float moveCamera(Transform target, float pitch, float yaw, float zoom, float transSpeed, Vector3 tgtLocalPosition, bool ignoresPause = false) {
         Debug.Assert(mainPlayerCamera != null);
+        overridePause = ignoresPause;
 
         if (cameraTransitionCoroutine != null) {
             mainPlayerCamera.StopCoroutine(cameraTransitionCoroutine);
@@ -125,8 +128,10 @@ public class PlayerCameraController : MonoBehaviour
     // Static function to reset the camera
     //  Pre: mainPlayerCamera != null
     //  Post: moves the camera back to the default position on top of the player. returns how long the move will take
-    public static float reset(float transSpeed) {
+    public static float reset(float transSpeed, bool ignoresPause = false) {
         Debug.Assert(mainPlayerCamera != null && transSpeed > 0f);
+
+        overridePause = ignoresPause;
         overrideRoomCamera = false;
         mainPlayerCamera.resetSpeed = transSpeed;
 
@@ -225,6 +230,10 @@ public class PlayerCameraController : MonoBehaviour
             // Update camera zoom (zoom tends to be positive, but in the transform its negative)
             curRuntimeZoom = Mathf.Lerp(-cameraLocalZoomStart.z, zoom, timer / usedTime);
             transform.localPosition = curRuntimeZoom * Vector3.back;
+
+            while (PauseConstraints.isPaused() && !overridePause) {
+                yield return 0;
+            }
         }
 
         // Finish off transition
@@ -243,6 +252,7 @@ public class PlayerCameraController : MonoBehaviour
 
         targetedRoom = tgtRoom;
         mainPlayerCamera.resetSpeed = defaultRoomSpeed;
+        overridePause = false;
         runningCameraRoomSequence = mainPlayerCamera.StartCoroutine(mainPlayerCamera.cameraRoomSequence(tgtRoom, transition));
     }
 

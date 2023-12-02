@@ -55,7 +55,8 @@ public class CameraPanPauseEvent : IGamePauseEvent
             cameraRotationYaw,
             cameraZoom,
             cameraSpeed,
-            cameraOffset
+            cameraOffset,
+            ignoresPause: true
         );
 
         yield return new WaitForSecondsRealtime(timeToPanToTarget);
@@ -64,7 +65,7 @@ public class CameraPanPauseEvent : IGamePauseEvent
         yield return new WaitForSecondsRealtime(cameraPanStayTargetDuration);
 
         // Reset
-        float timeToReset = PlayerCameraController.reset(cameraSpeed);
+        float timeToReset = PlayerCameraController.reset(cameraSpeed, true);
         yield return new WaitForSecondsRealtime(timeToReset);
 
         // Stay on player

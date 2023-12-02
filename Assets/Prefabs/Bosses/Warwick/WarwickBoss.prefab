@@ -2701,7 +2701,7 @@ MonoBehaviour:
   unitDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  movementSpeed: 12
+  movementSpeed: 13
   maxHealth: 175
   damageReduction: 0.35
   enemyStatusUI: {fileID: 8557328786983008343}
@@ -2730,6 +2730,7 @@ MonoBehaviour:
   lootSatchel: {fileID: 5225828410549922139}
   lootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
   willDropLoot: 1
+  randomRotation: 1
   spawnInOnAwake: 0
   spawnVFX: {fileID: 0}
   enemyPhaseTransitionBeginEvent:
@@ -2846,7 +2847,7 @@ MonoBehaviour:
   minPreDashDistance: 7
   nonDashDamage: 1
   dashTime: 0.4
-  minDashSpeed: 12
+  minDashSpeed: 22
   dashDamage: 4
   dashCollisionMask:
     serializedVersion: 2
