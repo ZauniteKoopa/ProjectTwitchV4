@@ -144,22 +144,40 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
 
     // If enemy is attacked, look at enemy
     private void onOtherEnemyAttacked(DynamicEnemyVisionConeSensor enemySensor) {
-        if (runningReaction != null) {
-            StopCoroutine(runningReaction);
-        }
+        // Check if you can even see the other enemy
+        Vector3 targetPosition = enemySensor.transform.position;
+        Vector3 rayDir = targetPosition - transform.position;
+        float rayDist = rayDir.magnitude;
+        bool seeAttackedEnemy = !Physics.Raycast(transform.position, rayDir, rayDist, onAlertVisionMask);
 
         if (enemyStatus.isAlive()) {
-            runningReaction = StartCoroutine(reactToStimulus(enemySensor.transform.position - transform.position, enemyAttackedReactionTime));
+            otherEnemyAttackedEvent.Invoke(enemySensor.transform.parent.GetComponent<IUnitStatus>());
         }
-        
-        otherEnemyAttackedEvent.Invoke(enemySensor.transform.parent.GetComponent<IUnitStatus>());
+
+        if (seeAttackedEnemy) {
+            if (runningReaction != null) {
+                StopCoroutine(runningReaction);
+            }
+
+            
+            if (enemyStatus.isAlive()) {
+                runningReaction = StartCoroutine(reactToStimulus(enemySensor, enemyAttackedReactionTime));
+            }
+        }
     }
 
 
     // Private delayed sequence method to react to an enemy ally being attacked
-    private IEnumerator reactToStimulus(Vector3 lookDirection, float reactionTime) {
+    private IEnumerator reactToStimulus(DynamicEnemyVisionConeSensor otherEnemy, float reactionTime) {
         yield return new WaitForSeconds(reactionTime);
-        brain.lookAt(lookDirection);
+        Vector3 lookDirection = otherEnemy.transform.position - transform.position;
+
+        if (otherEnemy.enemyStatus.isAlive()) {
+            brain.reactToOtherEnemyDamaged(lookDirection, otherEnemy.nearbyTarget.transform);
+        } else {
+            brain.lookAt(lookDirection);
+        }
+        
         runningReaction = null;
     }
 

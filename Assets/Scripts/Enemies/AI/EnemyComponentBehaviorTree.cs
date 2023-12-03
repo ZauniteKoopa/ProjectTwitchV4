@@ -21,6 +21,26 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     private NavMeshAgent navMeshAgent;
     private IUnitStatus unitStatus;
 
+    [Header("Other Enemy Damaged Behavior")]
+    [SerializeField]
+    [Min(0.1f)]
+    private float enemyDamagedLookAtDuration = 1f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float enemyDamagedInvestigateDuration = 3f;
+    [SerializeField]
+    [Range(0.01f, 1f)]
+    private float investigateEnemyDamagedSpeedReduction = 0.5f;
+    [SerializeField]
+    [Range(0.01f, 0.2f)]
+    private float investigationPathRefreshTime = 0.1f;
+    [SerializeField]
+    [Min(0.1f)]
+    private float enemyDamagedConfusedDuration = 1f;
+    private bool reactingToEnemyDamaged = false;
+    private Vector3 suspectedPlayerPosition;
+
+
     private Coroutine currentBehaviorSequence = null;
 
     
@@ -85,6 +105,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
 
                 if (currentBehaviorSequence != null) {
                     StopCoroutine(currentBehaviorSequence);
+                    reactingToEnemyDamaged = false;
                 }
 
                 if (unitStatus.isAlive()) {
@@ -122,8 +143,9 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
     public override void lookAt(Vector3 lookAtDirection) {
-        if (!inAggroState()) {
+        if (!inAggroState() && !reactingToEnemyDamaged) {
             StopCoroutine(currentBehaviorSequence);
+            reactingToEnemyDamaged = false;
 
             if (unitStatus.isAlive()) {
                 lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
@@ -142,6 +164,56 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         transform.forward = lookAtDirection;
         
         yield return new WaitForSeconds(passiveLookAtDuration);
+        yield return behaviorTreeSequence();
+    }
+
+
+    // Main function to react to other enemy being attacked
+    //  Pre: lookDirection is the direction to look at (most likely direction to the other enemy), player transform is the transform of the player
+    public override void reactToOtherEnemyDamaged(Vector3 lookAtDirection, Transform playerTransform) {
+        suspectedPlayerPosition = playerTransform.position;
+
+        if (!inAggroState() && !reactingToEnemyDamaged) {
+            StopCoroutine(currentBehaviorSequence);
+
+            if (unitStatus.isAlive()) {
+                lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
+                currentBehaviorSequence = StartCoroutine(enemyDamagedReactionSequence(lookAtDirection));
+            }
+        }
+    }
+
+
+    // Main private helper sequence to react to enemy being attack
+    private IEnumerator enemyDamagedReactionSequence(Vector3 lookAtDirection) {
+        navMeshAgent.isStopped = true;
+        reactingToEnemyDamaged = true;
+        
+        yield return 0;
+
+        // Look at enemy for a predetermined amount of seconds
+        transform.forward = lookAtDirection;
+        yield return new WaitForSeconds(enemyDamagedLookAtDuration);
+
+        // Move towards player's for a predetermined amount of time
+        float timer = 0f;
+        while (timer < enemyDamagedInvestigateDuration) {
+            yield return AI_NavLibrary.goToPosition(
+                suspectedPlayerPosition,
+                navMeshAgent,
+                unitStatus,
+                pathExpiration: investigationPathRefreshTime,
+                speedModifier: investigateEnemyDamagedSpeedReduction
+            );
+
+            timer += investigationPathRefreshTime;
+        }
+
+        // Stop for a bit, vonfused. When confused, you can still react to other enemies damaged
+        reactingToEnemyDamaged = false;
+        navMeshAgent.isStopped = true;
+        yield return new WaitForSeconds(enemyDamagedConfusedDuration);
+
         yield return behaviorTreeSequence();
     }
 
@@ -179,6 +251,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
 
             aggressiveBranch.hardReset();
             passiveBranch.hardReset();
+            reactingToEnemyDamaged = false;
 
             StopCoroutine(currentBehaviorSequence);
             if (unitStatus.isAlive()) {

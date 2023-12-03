@@ -165,6 +165,22 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     }
 
 
+    // Main function to react to other enemy being attacked
+    //  Pre: lookDirection is the direction to look at (most likely direction to the other enemy), player transform is the transform of the player
+    public override void reactToOtherEnemyDamaged(Vector3 lookAtDirection, Transform playerTransform) {
+        if (!inAggroState() && scoutingBranch.canBeDistractedByEnemies()) {
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+            }
+
+            if (bossStatus.isAlive()) {
+                lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
+                currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
+            }
+        }
+    }
+
+
     // Main private helper sequence to just look at an enemy for a predetermined number of seconds before going about typical behavior
     private IEnumerator lookAtSequence(Vector3 lookAtDirection) {
         navMeshAgent.isStopped = true;
