@@ -234,9 +234,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 6877921696108967853}
   speaker: {fileID: 631667059466445380}
+  rotationSpeed: 60
+  willRotate: 1
   statType: 3
   solidPeriod: 10
   fadingPeriod: 5
+  lastsForever: 0
+  ingredientLight: {fileID: 5629345747277002052}
 --- !u!114 &6877921697493334451
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ public class Ingredient : PrizeLoot
     private float fadingPeriod = 1.5f;
     [SerializeField]
     private bool lastsForever = false;
+    [SerializeField]
+    private Light ingredientLight = null;
     private const float BLINKING_TIME = 0.1f;
 
     
@@ -39,6 +41,10 @@ public class Ingredient : PrizeLoot
 
             isSolid = !isSolid;
             render.material.color = (isSolid) ? solidColor : blinkColor;
+            
+            if (ingredientLight != null) {
+                ingredientLight.enabled = (isSolid);
+            }
         }
 
         destroyObj();

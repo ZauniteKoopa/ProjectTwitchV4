@@ -37,6 +37,8 @@ public class DungeonFloor : MonoBehaviour
     private float spawnTimeVariance = 1.0f;
     [SerializeField]
     private EnemyStatus[] possibleEnemies = null;
+    private const int MAX_NUM_INGREDIENTS_PER_FLOOR = 9;
+    private int curSpawnedIngredients = 0;
     private HashSet<EnemyStatus> activeEnemies = new HashSet<EnemyStatus>();
     private Coroutine runningEnemySpawner = null;
     private readonly object enemyTrackingLock = new object();
@@ -226,7 +228,12 @@ public class DungeonFloor : MonoBehaviour
         Room spawnRoom = getRandomSpawnRoom();
         EnemyStatus curEnemy = possibleEnemies[Random.Range(0, possibleEnemies.Length)];
         LootTable givenLoot = dungeonFloorLootTable;
-        bool willDropLoot = enemyLootCondProb.rolledHit();
+
+        // Determine if they will drop loot
+        bool willDropLoot = curSpawnedIngredients < MAX_NUM_INGREDIENTS_PER_FLOOR && enemyLootCondProb.rolledHit();
+        if (willDropLoot) {
+            curSpawnedIngredients++;
+        }
 
         lock (enemyTrackingLock) {
             EnemyStatus enemyInstance = spawnRoom.spawnEnemy(curEnemy, givenLoot, dungeonFloorMap, willDropLoot);
