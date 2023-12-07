@@ -81,6 +81,8 @@ public class PoisonVialConstants : ScriptableObject
     [SerializeField]
     [Min(0.1f)]
     public float secondaryAttackCooldown = 6f;
+    [TextArea]
+    public string defaultVenomCaskDescription;
 
     [Header("Default Side Effect Multipliers")]
     [Min(0.1f)]

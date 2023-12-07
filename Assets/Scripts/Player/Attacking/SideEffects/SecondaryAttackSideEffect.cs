@@ -100,4 +100,9 @@ public class SecondaryAttackSideEffect : SideEffect
     private void onActiveDeployableDestroyed() {
         activeDeployables.Dequeue();
     }
+
+    // Main virtual function to get the description of teh secondary attack
+    public override string getVenomCaskDescription() {
+        return "<b><u>" + displayName + ":</u></b> " + description;
+    }
 }

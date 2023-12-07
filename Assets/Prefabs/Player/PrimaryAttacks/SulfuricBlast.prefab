@@ -343,7 +343,7 @@ MonoBehaviour:
   cameraShakeMagnitude: 0.8
   canBackstab: 1
   backstabAngleThreshold: 50
-  appliedStacks: 1
+  appliedStacks: 0
   deployable: {fileID: 1923634829684841597, guid: 413cc14735b983b4e881d3ee093d7603, type: 3}
 --- !u!1001 &447168449568675609
 PrefabInstance:

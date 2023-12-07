@@ -49,6 +49,9 @@ MonoBehaviour:
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
   secondaryAttackCooldown: 3
+  defaultVenomCaskDescription: '<u><b>Venom Cask</b></u>: Throw a cask at your cursor
+    to create a poison fog in that area from your current poison. The fog will infect
+    enemies within gradually and hinder movement'
   potencyBoltMultiplier: 1.5
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25

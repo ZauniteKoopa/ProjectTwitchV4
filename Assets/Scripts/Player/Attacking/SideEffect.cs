@@ -10,7 +10,7 @@ public class SideEffect : ScriptableObject
     public string displayName;
     [SerializeField]
     [TextArea]
-    private string description;
+    protected string description;
     public Sprite spriteIcon;
     [SerializeField]
     private PoisonVialStat sideEffectType;
@@ -148,5 +148,11 @@ public class SideEffect : ScriptableObject
     // Main function to get the number of additional loot from this corpse
     public int getAdditionalLoot(int numPoisonStacks) {
         return (numPoisonStacks >= MAX_POISON_STACKS) ? additionalLoot : 0;
+    }
+
+
+    // Main virtual function to get the description of teh secondary attack
+    public virtual string getVenomCaskDescription() {
+        return PoisonVial.poisonVialConstants.defaultVenomCaskDescription;
     }
 }

@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purePotencyColor: {r: 0.8207547, g: 0.0051618773, b: 0.8207547, a: 1}
   purePotencyColor2: {r: 0.7735849, g: 0.004865218, b: 0.233974, a: 1}
-  pureReactivityColor: {r: 0.745283, g: 0.7097636, b: 0.0187492, a: 1}
+  pureReactivityColor: {r: 0.6509434, g: 0.61947507, b: 0.0040939027, a: 1}
   pureReactivityColor2: {r: 0.8207547, g: 0.40574166, b: 0.012904865, a: 1}
   pureStickinessColor: {r: 0.0053992053, g: 0.62096316, b: 0.8584906, a: 1}
   pureStickinessColor2: {r: 0.34776497, g: 0, b: 1, a: 1}
-  purePoisonColor: {r: 0.22249895, g: 0.8018868, b: 0.02017319, a: 1}
-  purePoisonColor2: {r: 0.0187492, g: 0.745283, b: 0.56008816, a: 1}
-  tempPotencyColor: {r: 0.4433962, g: 0.0069715935, b: 0.37148544, a: 1}
-  tempReactivityColor: {r: 0.4528302, g: 0.395489, b: 0.16091132, a: 1}
-  tempStickinessColor: {r: 0, g: 0.277918, b: 0.509434, a: 1}
-  tempPoisonColor: {r: 0.26228228, g: 0.38679248, b: 0.22137177, a: 1}
+  purePoisonColor: {r: 0.15776998, g: 0.6037736, b: 0, a: 1}
+  purePoisonColor2: {r: 0.023529403, g: 0.67058825, b: 0.44744533, a: 1}
+  tempPotencyColor: {r: 0.2830189, g: 0.009789929, b: 0.23871145, a: 1}
+  tempReactivityColor: {r: 0.254717, g: 0.2236513, b: 0.090512626, a: 1}
+  tempStickinessColor: {r: 0.0021952812, g: 0.19163491, b: 0.3490566, a: 1}
+  tempPoisonColor: {r: 0.18896903, g: 0.2830189, b: 0.15663937, a: 1}
   baseVialColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
@@ -63,6 +63,9 @@ MonoBehaviour:
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 3
   secondaryAttackCooldown: 3
+  defaultVenomCaskDescription: '<u><b>Venom Cask</b></u>: Throw a cask at your cursor
+    to create a poison fog in that area from your current poison. The fog will infect
+    enemies within gradually and hinder movement'
   potencyBoltMultiplier: 1.25
   poisonDoTMultiplier: 2
   reactivityContaminateMultiplier: 1.25

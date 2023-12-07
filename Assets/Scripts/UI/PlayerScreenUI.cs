@@ -48,6 +48,8 @@ public class PlayerScreenUI : MonoBehaviour
     // private Image drinkVialIcon;
     // [SerializeField]
     // private GameObject drinkVialIcon;
+    [SerializeField]
+    private TMP_Text venomCaskDescription;
     
     [Header("Color Screen Effects")]
     [SerializeField]
@@ -147,6 +149,7 @@ public class PlayerScreenUI : MonoBehaviour
         worldUI.displayPrimaryVial(vial);
         caskGameobject.SetActive(vial != null);
         primaryCaskCostText.text = (vial != null) ? vial.sideEffect.getSecondaryAttackCost().ToString() : "0";
+        venomCaskDescription.text = (vial != null) ? vial.sideEffect.getVenomCaskDescription() : "";
 
         if (vial != null) {
             caskIcon.color = vial.getColor();
