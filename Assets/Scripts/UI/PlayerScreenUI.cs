@@ -183,6 +183,12 @@ public class PlayerScreenUI : MonoBehaviour
     }
 
 
+    // Main helper function to set ambush invis side effectbar
+    public void setAmbushSideEffectBar(float curTimer, float requiredDuration, bool isActive) {
+        worldUI.setAmbushSideEffectBar(curTimer, requiredDuration, isActive);
+    }
+
+
     // Main helper function to remove ambush invisibility
     public void removeAmbushInvisibility() {
         if (runningColorScreenSequence != null) {

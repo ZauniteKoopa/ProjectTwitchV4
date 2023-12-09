@@ -16,9 +16,15 @@ public class PlayerWorldUI : MonoBehaviour
     [SerializeField]
     private Image invisBarFill;
     [SerializeField]
+    private ResourceBar ambushSideEffectBar;
+    [SerializeField]
     private Color ambushReadyColor = Color.blue;
     [SerializeField]
     private Color ambushNotReadyColor = Color.yellow;
+    [SerializeField]
+    private Color ambushSideEffectReadyColor = Color.green;
+    [SerializeField]
+    private Color ambushSideEffectNotReadyColor = Color.white;
 
 
 
@@ -59,5 +65,17 @@ public class PlayerWorldUI : MonoBehaviour
     public void setInvisBarFill(float curTimer, float maxDuration, float requiredDuration) {
         invisBarFill.fillAmount = curTimer / maxDuration;
         invisBarFill.color = (curTimer >= requiredDuration) ? ambushReadyColor : ambushNotReadyColor;
+    }
+
+    // Main helper function to set up invis side effect bar
+    public void setAmbushSideEffectBar(float curTimer, float requiredDuration, bool isActive) {
+        ambushSideEffectBar.setActive(isActive);
+
+        if (isActive) {
+            ambushSideEffectBar.setFill(curTimer, requiredDuration);
+            
+            Color curFillColor = (curTimer >= requiredDuration) ? ambushSideEffectReadyColor : ambushSideEffectNotReadyColor;
+            ambushSideEffectBar.setColor(curFillColor);
+        }
     }
 }

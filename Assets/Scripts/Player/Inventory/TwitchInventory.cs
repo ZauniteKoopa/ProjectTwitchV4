@@ -47,6 +47,10 @@ public class TwitchInventory : MonoBehaviour
     private Coroutine runningCaskCooldownSequence = null;
     private Coroutine runningContaminateCooldownSequence = null;
 
+    // Ambush side effect info
+    private float ambushSideEffectTimer = 0f;
+    private const float AMBUSH_SIDE_EFFECT_DURATION_REQ = 3f;
+
     // Crafting
     [Header("Crafting")]
     [SerializeField]
@@ -155,6 +159,11 @@ public class TwitchInventory : MonoBehaviour
             curAmbushDuration = Mathf.Max(0f, curAmbushDuration - deltaTime);
             screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
 
+            if (hasAmbushSideEffect()) {
+                ambushSideEffectTimer += deltaTime;
+                screenUI.setAmbushSideEffectBar(ambushSideEffectTimer, AMBUSH_SIDE_EFFECT_DURATION_REQ, true);
+            }
+
         // If not ambushing and not at minAmbushDuration requirement
         } else if (!isAmbushing && curAmbushDuration < ambushRegenMax) {
             float addedTime = deltaTime * (ambushRegenMax / ambushRegenCooldown);
@@ -171,6 +180,7 @@ public class TwitchInventory : MonoBehaviour
         screenUI.displayContaminateCooldown(1f);
         screenUI.displayCaskCooldown(1f, null);
         screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
+        screenUI.setAmbushSideEffectBar(0f, 1f, false);
 
         updateVialDisplays();
     }
@@ -418,7 +428,15 @@ public class TwitchInventory : MonoBehaviour
 
     // Main public function to turn ambush on
     public void activateAmbush(bool activateBool) {
+        // check if you trigger a side effect if you're deactivating ambush
+        if (!activateBool && hasAmbushSideEffect() && ambushSideEffectTimer >= AMBUSH_SIDE_EFFECT_DURATION_REQ) {
+            deploySurprise();
+        }
+
+        // Transition
         isAmbushing = activateBool;
+        ambushSideEffectTimer = 0f;
+        screenUI.setAmbushSideEffectBar(0f, 1f, activateBool && hasAmbushSideEffect());
     }
 
 
@@ -445,14 +463,28 @@ public class TwitchInventory : MonoBehaviour
 
 
     // Main function to deploy surprise hitbox if current side effect calls for it
-    public void deploySurprise() {
+    private void deploySurprise() {
         if (primaryVial != null && primaryVial.sideEffect is SurpriseSideEffect) {
             SurpriseSideEffect surpriseEffect = primaryVial.sideEffect as SurpriseSideEffect;
             DeployableHitbox curSurprise = Object.Instantiate(surpriseEffect.surpriseDeployable, twitchStatus.transform.position, Quaternion.identity);
             curSurprise.deploy(primaryVial);
         }
+
+        if (secondaryVial != null && secondaryVial.sideEffect is SurpriseSideEffect) {
+            SurpriseSideEffect surpriseEffect = secondaryVial.sideEffect as SurpriseSideEffect;
+            DeployableHitbox curSurpriseTwo = Object.Instantiate(surpriseEffect.surpriseDeployable, twitchStatus.transform.position, Quaternion.identity);
+            curSurpriseTwo.deploy(primaryVial);
+        }
     }
 
+
+    // Main helper function to check if you have an ambush side effect
+    private bool hasAmbushSideEffect() {
+        bool primaryVialAmbushSideEffect = (primaryVial != null) && (primaryVial.sideEffect is SurpriseSideEffect);
+        bool secondaryVialAmbushSideEffect = (secondaryVial != null) && (secondaryVial.sideEffect is SurpriseSideEffect);
+
+        return primaryVialAmbushSideEffect || secondaryVialAmbushSideEffect;
+    }
 
 
     // ---------------------------------------

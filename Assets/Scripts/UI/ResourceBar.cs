@@ -19,4 +19,10 @@ public class ResourceBar : MonoBehaviour
     public void setActive(bool willActive) {
         gameObject.SetActive(willActive);
     }
+
+
+    // Main function to set color
+    public void setColor(Color color) {
+        resourceBarFill.color = color;
+    }
 }

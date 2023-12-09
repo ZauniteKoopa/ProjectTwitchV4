@@ -83,7 +83,6 @@ public class TwitchAttackModule : IAttackModule
     private bool ambushBuffed = false;
     private Coroutine runningAmbushSequence = null;
     private bool holdingDownAmbush = false;
-    private const float AMBUSH_SIDE_EFFECT_THRESHOLD = 3f;
 
 
     [Header("Cask collision aiming")]
@@ -304,15 +303,8 @@ public class TwitchAttackModule : IAttackModule
         turnInvisible();
 
         // Timer to wait out invisibility
-        timer = 0f;
         while (inventory.canContinueAmbushing() && !interruptedAmbush() && holdingDownAmbush) {
             yield return 0;
-            timer += Time.deltaTime;
-        }
-
-        // If you ambush long enough, you can do side effect
-        if (timer >= AMBUSH_SIDE_EFFECT_THRESHOLD) {
-            inventory.deploySurprise();
         }
 
         // Attack speed buff (apply it if it hasn't been applied already)
