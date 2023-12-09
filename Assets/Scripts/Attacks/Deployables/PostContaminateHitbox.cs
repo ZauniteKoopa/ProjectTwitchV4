@@ -50,10 +50,7 @@ public class PostContaminateHitbox : DeployableHitbox
     protected override IEnumerator lifespan(PoisonVial poison) {
         yield return waitForInitialDamage();
         yield return new WaitForSeconds(getLingeringDuration());
-
-        transform.Translate(Vector3.up * 10000000f);
-        yield return new WaitForSeconds(0.1f);
-        Object.Destroy(gameObject);
+        destroyDeployable();
     }
 
 
@@ -92,12 +89,12 @@ public class PostContaminateHitbox : DeployableHitbox
     private void OnTriggerEnter(Collider collider) {
         IUnitStatus target = collider.GetComponent<IUnitStatus>();
 
-        if (target != null && dealsInitialDamage && !hit.Contains(target)) {
-            hit.Add(target);
-            damageTarget(target);
-        }
-
         if (target != null) {
+            if (dealsInitialDamage && !hit.Contains(target)) {
+                hit.Add(target);
+                damageTarget(target);
+            }
+
             onHitboxTriggered(target);
         }
     }

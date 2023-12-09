@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8415a9dc1b77349b0c50380c9d7f86, type: 3}
+  m_Name: StickySurprise
+  m_EditorClassIdentifier: 
+  displayName: Sticky Surprise
+  description: After 3 seconds of invisibility, surprise your enemies with a sticky
+    puddle around you that slows nearby enemies by 40%!
+  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+  sideEffectType: 3
+  maxStackEffect: 0
+  defenseReduction: 0
+  additionalLoot: 0
+  specialLoot: {fileID: 0}
+  postContaminateHitbox: {fileID: 0}
+  surpriseDeployable: {fileID: 6261132649835722611, guid: adf2eadeb42cf5c45a73179755bdf1b0, type: 3}

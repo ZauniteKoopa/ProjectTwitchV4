@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 577929808544184559}
   - component: {fileID: 577929808544184553}
   - component: {fileID: 577929808544184531}
-  - component: {fileID: 428114546899337631}
   - component: {fileID: 1516748504896381872}
+  - component: {fileID: 1226149701908108209}
   m_Layer: 12
   m_Name: SatchelGain
   m_TagString: Untagged
@@ -132,22 +132,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &428114546899337631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577929808544184554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  deployableDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1516748504896381872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +145,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 7641780460972330040}
+  speaker: {fileID: 0}
+  rotationSpeed: 60
+  willRotate: 1
   ingredientSlotIncrease: 1
+--- !u!114 &1226149701908108209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577929808544184554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4369af23b1f7a654f85b80dcd2713726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1916030267192663364
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ad3a1d53acc6448bc545484241ef51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployable: {fileID: 428114546899337631}
+  deployable: {fileID: 1226149701908108209}
 --- !u!1001 &9218989751672954548
 PrefabInstance:
   m_ObjectHideFlags: 0

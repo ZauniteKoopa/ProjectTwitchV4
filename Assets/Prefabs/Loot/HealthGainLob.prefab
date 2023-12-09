@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3210937203192086379}
   - component: {fileID: 3210937203192086381}
   - component: {fileID: 3210937203192086359}
-  - component: {fileID: 2412317168535848475}
   - component: {fileID: 8384993177847667682}
   - component: {fileID: 702735254588471092}
+  - component: {fileID: 5058214009751862339}
   m_Layer: 12
   m_Name: HealthGain
   m_TagString: Untagged
@@ -134,22 +134,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2412317168535848475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3210937203192086382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  deployableDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &8384993177847667682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 5658698791746653116}
   speaker: {fileID: 702735254588471092}
+  rotationSpeed: 60
+  willRotate: 1
   healthGain: 5
 --- !u!82 &702735254588471092
 AudioSource:
@@ -261,6 +247,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5058214009751862339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210937203192086382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4369af23b1f7a654f85b80dcd2713726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4475919588870150848
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ad3a1d53acc6448bc545484241ef51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployable: {fileID: 2412317168535848475}
+  deployable: {fileID: 5058214009751862339}
 --- !u!1 &7676471609778903601
 GameObject:
   m_ObjectHideFlags: 0

@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ad3a1d53acc6448bc545484241ef51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployable: {fileID: 256595140355087408}
+  deployable: {fileID: 5374603243792032380}
 --- !u!1001 &1331515653334314294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6877921697493334448, guid: f44d3968359a9e84ab0637a88126735d, type: 3}
   m_PrefabInstance: {fileID: 1331515653334314294}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &256595140355087408
+--- !u!114 &5374603243792032380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,6 +204,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5551028734969484422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4369af23b1f7a654f85b80dcd2713726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []

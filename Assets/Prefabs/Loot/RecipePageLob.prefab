@@ -8850,9 +8850,9 @@ GameObject:
   - component: {fileID: 2622381328186777960}
   - component: {fileID: 2622381328186777966}
   - component: {fileID: 2622381328186777940}
-  - component: {fileID: 2995278702609094680}
   - component: {fileID: 3371384900896330042}
   - component: {fileID: 3357092217573782235}
+  - component: {fileID: 1983264886059045506}
   m_Layer: 12
   m_Name: RecipePage
   m_TagString: Untagged
@@ -8971,22 +8971,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2995278702609094680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2622381328186777965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  deployableDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &3371384900896330042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9001,6 +8985,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 1003401977654649260}
   speaker: {fileID: 3357092217573782235}
+  rotationSpeed: 60
+  willRotate: 1
   selectionScreenUI: {fileID: 439088428}
 --- !u!82 &3357092217573782235
 AudioSource:
@@ -9098,6 +9084,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1983264886059045506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2622381328186777965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4369af23b1f7a654f85b80dcd2713726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3960549277984900291
 GameObject:
   m_ObjectHideFlags: 0
@@ -9209,7 +9211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ad3a1d53acc6448bc545484241ef51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployable: {fileID: 2995278702609094680}
+  deployable: {fileID: 1983264886059045506}
 --- !u!1 &6886060214381876620
 GameObject:
   m_ObjectHideFlags: 0

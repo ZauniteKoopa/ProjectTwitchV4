@@ -3296,6 +3296,9 @@ MonoBehaviour:
   deployableDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
+  hitboxDuration: 0.1
+  initialDamageDurationPercent: 1
+  initialDamage: 0
 --- !u!1001 &896277061939806470
 PrefabInstance:
   m_ObjectHideFlags: 0

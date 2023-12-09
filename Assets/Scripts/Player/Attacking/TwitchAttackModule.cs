@@ -83,6 +83,7 @@ public class TwitchAttackModule : IAttackModule
     private bool ambushBuffed = false;
     private Coroutine runningAmbushSequence = null;
     private bool holdingDownAmbush = false;
+    private const float AMBUSH_SIDE_EFFECT_THRESHOLD = 3f;
 
 
     [Header("Cask collision aiming")]
@@ -300,17 +301,7 @@ public class TwitchAttackModule : IAttackModule
             timer += Time.deltaTime;
         }
 
-        if (!holdingDownAmbush) {
-            audioManager.silenceSoundEffects();
-            audioManager.silenceVoiceover();
-        }
-
-        // Turn invisible
-        status.applySpeedModifier(ambushInvisibilityMovementBuff);
-        status.invisible = true;
-        screenUI.displayAmbushInvisibility();
-        inventory.activateAmbush(true);
-        ambushProximitySensor.displaySensor(true);
+        turnInvisible();
 
         // Timer to wait out invisibility
         timer = 0f;
@@ -319,14 +310,13 @@ public class TwitchAttackModule : IAttackModule
             timer += Time.deltaTime;
         }
 
+        // If you ambush long enough, you can do side effect
+        if (timer >= AMBUSH_SIDE_EFFECT_THRESHOLD) {
+            inventory.deploySurprise();
+        }
+
         // Attack speed buff (apply it if it hasn't been applied already)
-        status.invisible = false;
-        holdingDownAmbush = false;
-        status.revertSpeedModifier(ambushInvisibilityMovementBuff);
-        runningAmbushSequence = null;
-        inventory.activateAmbush(false);
-        screenUI.removeAmbushInvisibility();
-        ambushProximitySensor.displaySensor(false);
+        ambushInvisibilityCleanup();
 
         if (timer >= minAmbushDurationAttackSpeedReq) {
             applyAmbushBuff();
@@ -340,6 +330,32 @@ public class TwitchAttackModule : IAttackModule
             status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
             ambushBuffed = false;
         }
+    }
+
+    // Main function to turn invisibile
+    private void turnInvisible() {
+        if (!holdingDownAmbush) {
+            audioManager.silenceSoundEffects();
+            audioManager.silenceVoiceover();
+        }
+
+        // Turn invisible
+        status.applySpeedModifier(ambushInvisibilityMovementBuff);
+        status.invisible = true;
+        screenUI.displayAmbushInvisibility();
+        inventory.activateAmbush(true);
+        ambushProximitySensor.displaySensor(true);
+    }
+
+    // Main function to cleanup after invisibility is over
+    private void ambushInvisibilityCleanup() {
+        status.invisible = false;
+        holdingDownAmbush = false;
+        status.revertSpeedModifier(ambushInvisibilityMovementBuff);
+        runningAmbushSequence = null;
+        inventory.activateAmbush(false);
+        screenUI.removeAmbushInvisibility();
+        ambushProximitySensor.displaySensor(false);
     }
 
 

@@ -12349,6 +12349,9 @@ MonoBehaviour:
   deployableDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
+  hitboxDuration: 0.1
+  initialDamageDurationPercent: 1
+  initialDamage: 0
 --- !u!54 &1436899989
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21867,6 +21870,38 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2830189
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Color.g
+      value: 0.089889616
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806228952370, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_Color.r
+      value: 0.089889616
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.a
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.b
+      value: 0.2924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.g
+      value: 0.07633201
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347320806230522881, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: ambushInvisibilityColor.r
+      value: 0.07633201
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: firstPoisonVialEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -24678,6 +24713,9 @@ MonoBehaviour:
   deployableDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
+  hitboxDuration: 0.1
+  initialDamageDurationPercent: 1
+  initialDamage: 0
 --- !u!82 &8055597118464108792
 AudioSource:
   m_ObjectHideFlags: 0
@@ -25171,3 +25209,6 @@ MonoBehaviour:
   deployableDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
+  hitboxDuration: 0.1
+  initialDamageDurationPercent: 1
+  initialDamage: 0

@@ -444,6 +444,16 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to deploy surprise hitbox if current side effect calls for it
+    public void deploySurprise() {
+        if (primaryVial != null && primaryVial.sideEffect is SurpriseSideEffect) {
+            SurpriseSideEffect surpriseEffect = primaryVial.sideEffect as SurpriseSideEffect;
+            DeployableHitbox curSurprise = Object.Instantiate(surpriseEffect.surpriseDeployable, twitchStatus.transform.position, Quaternion.identity);
+            curSurprise.deploy(primaryVial);
+        }
+    }
+
+
 
     // ---------------------------------------
     //  Vial and Ingredient Management

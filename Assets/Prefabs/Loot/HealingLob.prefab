@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 347535377149448106}
   - component: {fileID: 347535377149448108}
   - component: {fileID: 347535377149448086}
-  - component: {fileID: 659634843790980826}
   - component: {fileID: 4029596543819145221}
   - component: {fileID: 6819108554076163488}
+  - component: {fileID: 5772545780076030861}
   m_Layer: 12
   m_Name: HealingLoot
   m_TagString: Untagged
@@ -134,22 +134,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &659634843790980826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347535377149448111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5c38849e42168d4d881bf11021477d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  deployableDestroyedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4029596543819145221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 7411384964412586877}
   speaker: {fileID: 6819108554076163488}
+  rotationSpeed: 60
+  willRotate: 1
   healPercentage: 0.4
 --- !u!82 &6819108554076163488
 AudioSource:
@@ -261,6 +247,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5772545780076030861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347535377149448111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4369af23b1f7a654f85b80dcd2713726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1603443012276791809
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ad3a1d53acc6448bc545484241ef51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deployable: {fileID: 659634843790980826}
+  deployable: {fileID: 5772545780076030861}
 --- !u!1 &2226059206743612797
 GameObject:
   m_ObjectHideFlags: 0
