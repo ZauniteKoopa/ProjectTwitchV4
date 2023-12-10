@@ -166,6 +166,12 @@ public abstract class IUnitStatus : MonoBehaviour
         return StartCoroutine(timedArmorEffectSequence(armorFactor, timeDuration));
     }
 
+    // Main function to set a timed stun effect
+    public Coroutine setTimedStunModifier(float timeDuration) {
+        Debug.Assert(timeDuration > 0f);
+        return StartCoroutine(timedStunEffectSequence(timeDuration));
+    }
+
     // Main sequence for timed speed modifier
     private IEnumerator timedSpeedEffectSequence(float speedFactor, float timeDuration) {
         applySpeedModifier(speedFactor);
@@ -179,6 +185,14 @@ public abstract class IUnitStatus : MonoBehaviour
         applyDefenseModifier(armorFactor);
         yield return new WaitForSeconds(timeDuration);
         revertDefenseModifier(armorFactor);
+    }
+
+
+    // Main sequence for timed stunned effect
+    private IEnumerator timedStunEffectSequence(float timeDuration) {
+        stun(true);
+        yield return new WaitForSeconds(timeDuration);
+        stun(false);
     }
 
 

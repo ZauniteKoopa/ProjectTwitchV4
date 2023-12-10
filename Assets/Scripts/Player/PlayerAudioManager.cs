@@ -20,6 +20,8 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip obtainedSideEffectSound;
     [SerializeField]
     private AudioClip finishedCraftingSound;
+    [SerializeField]
+    private AudioClip ambushSideEffectReadySound;
 
 
     [Header("VoiceOver")]
@@ -113,6 +115,17 @@ public class PlayerAudioManager : MonoBehaviour
         }
 
         soundEffectsSpeaker.clip = finishedCraftingSound;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play the ambush ready sound effect
+    public void playAmbushSideEffectReadySound() {
+        if (ambushSideEffectReadySound == null) {
+            Debug.LogWarning("No sound clip for ambush side effect ready");
+        }
+
+        soundEffectsSpeaker.clip = ambushSideEffectReadySound;
         soundEffectsSpeaker.Play();
     }
 

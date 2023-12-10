@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c8415a9dc1b77349b0c50380c9d7f86, type: 3}
-  m_Name: StickySurprise
+  m_Name: ScarySurprise
   m_EditorClassIdentifier: 
-  displayName: Sticky Surprise
-  description: After 3 seconds of invisibility, surprise your enemies with a sticky
-    puddle around you that slows nearby enemies by 50%!
-  spriteIcon: {fileID: 21300000, guid: f5721e1d356a0cc42978b04db15a75d9, type: 3}
-  sideEffectType: 3
+  displayName: Scary Surprise
+  description: This one causes quite the hallucinations. After 3 seconds of invisibility,
+    you <b>scare</b> nearby enemies for 1 second.
+  spriteIcon: {fileID: 21300000, guid: 0916d49365d9633468aced7196ef60c4, type: 3}
+  sideEffectType: 0
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
   specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
-  surpriseDeployable: {fileID: 6261132649835722611, guid: adf2eadeb42cf5c45a73179755bdf1b0, type: 3}
+  surpriseDeployable: {fileID: 8948776251578802934, guid: 3f8df4269df2fc24eab972a6adee6dfe, type: 3}

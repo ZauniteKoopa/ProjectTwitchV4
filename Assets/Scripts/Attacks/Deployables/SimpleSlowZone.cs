@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleSlowZone : SimpleDeployable
 {
     [SerializeField]
+    [Range(0.01f, 1f)]
     private float speedReductionFactor = 0.4f;
     
     // Main function to handle trigger event if they enter it

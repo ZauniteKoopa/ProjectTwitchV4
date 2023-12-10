@@ -21,3 +21,11 @@ Recipe Pickup: https://freesound.org/people/MATRIXXX_/sounds/397548/
 Chest Open Sound Effect: https://freesound.org/people/LittleRobotSoundFactory/sounds/270316/ 
 
 Pipe Entrance Open Sound Effect: https://freesound.org/people/newagesoup/sounds/337847/ 
+
+Ambush Side Effect Ready Sound Effect: https://freesound.org/people/Jofae/sounds/379339/
+
+Ambush Surprise Side Effect Sound Effect: https://freesound.org/people/OwlStorm/sounds/404754/
+
+Many of Twitch's Abilities came from League of Legends
+
+Many of the Side Effect Icons are LoL ability Icons

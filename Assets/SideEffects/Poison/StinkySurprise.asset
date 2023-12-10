@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Stinky Surprise
   description: 'After 3 seconds of invisibility, when you pop out, you release a
-    dense poisonous fog thats hard for far away enemies to see through. '
-  spriteIcon: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
+    dense poisonous fog thats hard to see through. '
+  spriteIcon: {fileID: 21300000, guid: 01443fde96b690a4b854c6c3aea5b2b0, type: 3}
   sideEffectType: 1
   maxStackEffect: 0
   defenseReduction: 0

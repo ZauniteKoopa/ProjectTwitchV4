@@ -160,7 +160,14 @@ public class TwitchInventory : MonoBehaviour
             screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
 
             if (hasAmbushSideEffect()) {
+                bool sideEffectReadyBefore = ambushSideEffectTimer >= AMBUSH_SIDE_EFFECT_DURATION_REQ;
                 ambushSideEffectTimer += deltaTime;
+                bool sideEffectReadyAfter = ambushSideEffectTimer >= AMBUSH_SIDE_EFFECT_DURATION_REQ;
+
+                if (!sideEffectReadyBefore && sideEffectReadyAfter) {
+                    twitchAudioManager.playAmbushSideEffectReadySound();
+                }
+
                 screenUI.setAmbushSideEffectBar(ambushSideEffectTimer, AMBUSH_SIDE_EFFECT_DURATION_REQ, true);
             }
 
@@ -473,7 +480,7 @@ public class TwitchInventory : MonoBehaviour
         if (secondaryVial != null && secondaryVial.sideEffect is SurpriseSideEffect) {
             SurpriseSideEffect surpriseEffect = secondaryVial.sideEffect as SurpriseSideEffect;
             DeployableHitbox curSurpriseTwo = Object.Instantiate(surpriseEffect.surpriseDeployable, twitchStatus.transform.position, Quaternion.identity);
-            curSurpriseTwo.deploy(primaryVial);
+            curSurpriseTwo.deploy(secondaryVial);
         }
     }
 
