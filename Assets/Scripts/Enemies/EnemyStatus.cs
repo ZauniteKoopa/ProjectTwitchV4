@@ -440,6 +440,13 @@ public class EnemyStatus : IUnitStatus
     }
 
 
+    // Main function to deactive enemy directly
+    public void deactivate() {
+        gameObject.SetActive(false);
+        deathEvent.Invoke();
+    }
+
+
     // Private helper function to drop loot
     protected void dropLoot(int curLootDrops) {
         if (curPoison != null) {

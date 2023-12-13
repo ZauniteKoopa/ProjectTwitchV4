@@ -85,7 +85,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                         StopCoroutine(currentBehaviorSequence);
                     }
 
-                    if (bossStatus.isAlive()) {
+                    if (canAct()) {
                         currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
                     }
                 }
@@ -108,7 +108,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                         StopCoroutine(currentBehaviorSequence);
                     }
 
-                    if (bossStatus.isAlive()) {
+                    if (canAct()) {
                         currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
                     }
                 }
@@ -124,8 +124,12 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
             aggroBranch.hardReset();
             scoutingBranch.hardReset();
 
-            StopCoroutine(currentBehaviorSequence);
-            if (bossStatus.isAlive()) {
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+                currentBehaviorSequence = null;
+            }
+            
+            if (canAct()) {
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
@@ -157,7 +161,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                 StopCoroutine(currentBehaviorSequence);
             }
 
-            if (bossStatus.isAlive()) {
+            if (canAct()) {
                 lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
                 currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
             }
@@ -173,7 +177,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                 StopCoroutine(currentBehaviorSequence);
             }
 
-            if (bossStatus.isAlive()) {
+            if (canAct()) {
                 lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
                 currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
             }
@@ -222,5 +226,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
+    }
+
+
+    // private helper function to check if the unit can actually act right now
+    private bool canAct() {
+        return bossStatus.isAlive() && bossStatus.canMove();
     }
 }

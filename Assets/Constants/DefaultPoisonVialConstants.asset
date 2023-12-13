@@ -20,11 +20,11 @@ MonoBehaviour:
   pureStickinessColor2: {r: 0.34776497, g: 0, b: 1, a: 1}
   purePoisonColor: {r: 0.15776998, g: 0.6037736, b: 0, a: 1}
   purePoisonColor2: {r: 0.023529403, g: 0.67058825, b: 0.44744533, a: 1}
-  tempPotencyColor: {r: 0.2830189, g: 0.009789929, b: 0.23871145, a: 1}
-  tempReactivityColor: {r: 0.254717, g: 0.2236513, b: 0.090512626, a: 1}
-  tempStickinessColor: {r: 0.0021952812, g: 0.19163491, b: 0.3490566, a: 1}
-  tempPoisonColor: {r: 0.18896903, g: 0.2830189, b: 0.15663937, a: 1}
-  baseVialColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  tempPotencyColor: {r: 0.5647059, g: 0.22352941, b: 0.5058824, a: 1}
+  tempReactivityColor: {r: 0.5764706, g: 0.52156866, b: 0.29803923, a: 1}
+  tempStickinessColor: {r: 0.29803923, g: 0.49411765, b: 0.5764706, a: 1}
+  tempPoisonColor: {r: 0.36862746, g: 0.5647059, b: 0.30980393, a: 1}
+  baseVialColor: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}
   secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:

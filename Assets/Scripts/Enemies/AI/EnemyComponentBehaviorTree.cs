@@ -108,7 +108,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
                     reactingToEnemyDamaged = false;
                 }
 
-                if (unitStatus.isAlive()) {
+                if (canAct()) {
                     currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
                 }
             }
@@ -129,7 +129,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
 
                 StopCoroutine(currentBehaviorSequence);
 
-                if (unitStatus.isAlive()) {
+                if (canAct()) {
                     currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
                 }
             }
@@ -143,11 +143,11 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
     public override void lookAt(Vector3 lookAtDirection) {
-        if (!inAggroState()) {
+        if (!inAggroState() && unitStatus.canMove()) {
             StopCoroutine(currentBehaviorSequence);
             reactingToEnemyDamaged = false;
 
-            if (unitStatus.isAlive()) {
+            if (canAct()) {
                 lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
                 currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
             }
@@ -174,9 +174,11 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
         suspectedPlayerPosition = playerTransform.position;
 
         if (!inAggroState() && !reactingToEnemyDamaged) {
-            StopCoroutine(currentBehaviorSequence);
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+            }
 
-            if (unitStatus.isAlive()) {
+            if (canAct()) {
                 lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
                 currentBehaviorSequence = StartCoroutine(enemyDamagedReactionSequence(lookAtDirection));
             }
@@ -221,7 +223,10 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     // Main function for event handlers for stun start
     public void onStunStart() {
         lock (treeLock) {
-            StopAllCoroutines();
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+                currentBehaviorSequence = null;
+            }
 
             if (playerTgt == null) {
                 passiveBranch.reset();
@@ -237,7 +242,12 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     // Main function for handling when this enemy stun ended
     public void onStunEnd() {
         lock (treeLock) {
+
             if (unitStatus.isAlive()) {
+                if (currentBehaviorSequence != null) {
+                    StopCoroutine(currentBehaviorSequence);
+                }
+
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
@@ -254,7 +264,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
             reactingToEnemyDamaged = false;
 
             StopCoroutine(currentBehaviorSequence);
-            if (unitStatus.isAlive()) {
+            if (canAct()) {
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
             }
         }
@@ -276,5 +286,11 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     // Main function to access whether or not you're in the passive state or aggressive state
     public override bool inAggroState() {
         return playerTgt != null;
+    }
+
+
+    // Main helper function to check if unit can act
+    private bool canAct() {
+        return unitStatus.isAlive() && unitStatus.canMove();
     }
 }

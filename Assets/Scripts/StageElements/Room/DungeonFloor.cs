@@ -147,6 +147,15 @@ public class DungeonFloor : MonoBehaviour
     public void exitDungeon() {
         if (currentlyActive) {
             currentlyActive = false;
+
+            // Destroy all enemies nearby
+            lock (enemyTrackingLock) {
+                foreach (EnemyStatus activeEnemy in activeEnemies) {
+                    activeEnemy.deactivate();
+                }
+
+                activeEnemies.Clear();
+            }
         }
     }
 
@@ -178,8 +187,10 @@ public class DungeonFloor : MonoBehaviour
 
 
     private void onEnemyDeath(EnemyStatus corpse) {
-        lock (enemyTrackingLock) {
-            activeEnemies.Remove(corpse);
+        if (currentlyActive) {
+            lock (enemyTrackingLock) {
+                activeEnemies.Remove(corpse);
+            }
         }
 
         lock (roomTrackingLock) {

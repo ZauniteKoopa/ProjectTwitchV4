@@ -104,7 +104,7 @@ public class MapRoomUI : MonoBehaviour
             return keyRoomColor;
 
         } else {
-            return defaultColor;
+            return (room.adjacentToBattleRoom) ? battleRoomColor : defaultColor;
         }
     }
 }

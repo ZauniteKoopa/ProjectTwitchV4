@@ -22,6 +22,7 @@ public class Room : MonoBehaviour
     public bool eastOpen;
     public bool northOpen;
     public bool southOpen;
+    public bool adjacentToBattleRoom = false;
 
     
     // Map coordinates

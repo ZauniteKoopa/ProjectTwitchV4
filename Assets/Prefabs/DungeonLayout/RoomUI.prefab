@@ -1177,7 +1177,7 @@ MonoBehaviour:
   minIndicatorSize: 5
   maxIndicatorSize: 20
   playerInsideColor: {r: 0.650085, g: 0.990566, b: 0.5108579, a: 1}
-  battleRoomColor: {r: 1, g: 0.53459114, b: 0.53459114, a: 1}
+  battleRoomColor: {r: 0.990566, g: 0.7538269, b: 0.7538269, a: 1}
   keyRoomColor: {r: 0.54883105, g: 0.9433962, b: 0.9433962, a: 1}
   spawnRoomColor: {r: 0.8554859, g: 0.9339623, b: 0.44642216, a: 1}
 --- !u!1 &8905061919452690749
