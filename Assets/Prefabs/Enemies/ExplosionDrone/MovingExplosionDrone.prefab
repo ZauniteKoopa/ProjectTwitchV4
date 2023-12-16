@@ -312,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 1545661024895989290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.21, y: 0.85, z: -1.07}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1, z: 1.24}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1545661025464096353}
@@ -410,8 +410,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   movementSpeed: 6.25
-  maxHealth: 20
-  damageReduction: 0.4
+  maxHealth: 30
+  damageReduction: 0.2
   enemyStatusUI: {fileID: 1545661025464096382}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
   normalDamagePopupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -1001,7 +1001,7 @@ Transform:
   m_GameObject: {fileID: 6030176870595615615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.5, y: 5, z: 6.5}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1545661024895989287}

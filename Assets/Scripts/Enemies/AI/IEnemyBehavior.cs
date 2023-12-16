@@ -32,7 +32,7 @@ public abstract class IEnemyBehavior : MonoBehaviour
     // Main function to look at a specific direction
     //  Pre: lookDirection is the look direction that the enemy will be looking at
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
-    public abstract void lookAt(Vector3 lookAtDirection);
+    public abstract void lookAt(Vector3 lookAtDirection, bool hasPriority = false);
 
 
     // Main function to react to other enemy being attacked

@@ -147,19 +147,26 @@ public class Room : MonoBehaviour
 
     // Main function to spawn an enemy inside this room (ASSUMES A SQUARE ROOM)
     public virtual EnemyStatus spawnEnemy(EnemyStatus enemyTemplate, LootTable lootTable, DungeonFloorLayout dungeonNav, bool willDropLoot) {
-        // Get spawn position
+        // Set up for spawn point creation
         float emptySpaceLength = roomLength - WALL_OFFSET;
         float emptySpaceWidth = roomWidth - WALL_OFFSET;
-        Vector3 spawnPos = new Vector3(Random.Range(-emptySpaceWidth / 2f, emptySpaceWidth / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
-        spawnPos += transform.position;
+        Vector3 actualSpawnPos = transform.position;
 
-        // Get nav mesh adjusted point 
-        NavMeshHit hitInfo;
-        NavMesh.SamplePosition(spawnPos, out hitInfo, 10f, NavMesh.AllAreas);
-        spawnPos = hitInfo.position;
+        // keep trying to find a point until you found a valid one
+        do {
+            // Get the projected point
+            Vector3 projectedSpawnPos = new Vector3(Random.Range(-emptySpaceWidth / 2f, emptySpaceWidth / 2f), 0f, Random.Range(-emptySpaceLength / 2f, emptySpaceLength / 2f));
+            projectedSpawnPos += transform.position;
+
+            // Adjust via navmesh
+            NavMeshHit hitInfo;
+            NavMesh.SamplePosition(projectedSpawnPos, out hitInfo, 10f, NavMesh.AllAreas);
+            actualSpawnPos = hitInfo.position;
+
+        } while (!inRoomBounds(actualSpawnPos));
 
         // Spawn in position and set properties
-        EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, spawnPos, Quaternion.identity);
+        EnemyStatus curEnemy = Object.Instantiate(enemyTemplate, actualSpawnPos, Quaternion.identity);
         curEnemy.lootTable = lootTable;
         curEnemy.willDropLoot = willDropLoot;
 
@@ -171,5 +178,14 @@ public class Room : MonoBehaviour
         curEnemy.spawnIn();
 
         return curEnemy;
+    }
+
+
+    // Main function to check if enemy is within bounds or not
+    private bool inRoomBounds(Vector3 position) {
+        bool inXBounds = (transform.position.x - roomWidth) < position.x && position.x < (transform.position.x + roomWidth);
+        bool inZBounds = (transform.position.z - roomLength) < position.z && position.z < (transform.position.z + roomLength);
+
+        return inXBounds && inZBounds;
     }
 }

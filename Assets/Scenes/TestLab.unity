@@ -395,6 +395,7 @@ MonoBehaviour:
   eastOpen: 1
   northOpen: 0
   southOpen: 0
+  adjacentToBattleRoom: 0
   mapRow: 1
   mapCol: 0
   roomWidth: 18

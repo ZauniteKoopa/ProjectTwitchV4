@@ -24,7 +24,7 @@ MonoBehaviour:
     emotion: PLEASANT-HAPPY
     leftSide: 0
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: fb87250db5ab26a42b7400b86fdccc36, type: 3}
     dialogueLine: Ooh! Do you have tribute for me too?
     constantSpeed: 1
     textSpeed: 60

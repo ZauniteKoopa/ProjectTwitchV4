@@ -410,7 +410,7 @@ MonoBehaviour:
         m_MethodName: startScene
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 653ec084c7398dd428c2723300f87a67, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 88117f9c7a896a14e8834ca7ff41542c, type: 2}
           m_ObjectArgumentAssemblyTypeName: SimpleDialogueScene, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

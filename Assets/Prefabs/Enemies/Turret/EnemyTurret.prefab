@@ -428,7 +428,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8509b0f8185d75347ad5c5d2cf7d5e0e, type: 2}
+  - {fileID: 2100000, guid: 10dd2aec20c5f094caaafd3da58070b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
       m_Calls: []
   movementSpeed: 5
   maxHealth: 20
-  damageReduction: 0.35
+  damageReduction: 0.5
   enemyStatusUI: {fileID: 7304168298935888429}
   damagePopupPrefab: {fileID: 3095767809177235347, guid: a4a633e04b7729844b72c45e4d5c0fc4, type: 3}
   normalDamagePopupColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}

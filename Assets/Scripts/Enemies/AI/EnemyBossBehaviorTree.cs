@@ -65,6 +65,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
         if (currentBehaviorSequence != null) {
             StopCoroutine(currentBehaviorSequence);
+            currentBehaviorSequence = null;
         }
         currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());
     }
@@ -79,10 +80,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
             if (bossStatus.canMove()) {
                 lock (treeLock) {
-                    scoutingBranch.reset();
+                    resetBranches();
 
                     if (currentBehaviorSequence != null) {
                         StopCoroutine(currentBehaviorSequence);
+                        currentBehaviorSequence = null;
                     }
 
                     if (canAct()) {
@@ -102,10 +104,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 
             if (bossStatus.canMove()) {
                 lock (treeLock) {
-                    aggroBranch.reset();
+                    resetBranches();
 
                     if (currentBehaviorSequence != null) {
                         StopCoroutine(currentBehaviorSequence);
+                        currentBehaviorSequence = null;
                     }
 
                     if (canAct()) {
@@ -155,10 +158,13 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main function to look at a specific direction
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
-    public override void lookAt(Vector3 lookAtDirection) {
-        if (!inAggroState() && scoutingBranch.canBeDistractedByEnemies()) {
+    public override void lookAt(Vector3 lookAtDirection, bool hasPriority = false) {
+        if (!inAggroState() && (scoutingBranch.canBeDistractedByEnemies() || hasPriority)) {
+            resetBranches();
+
             if (currentBehaviorSequence != null) {
                 StopCoroutine(currentBehaviorSequence);
+                currentBehaviorSequence = null;
             }
 
             if (canAct()) {
@@ -173,8 +179,11 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     //  Pre: lookDirection is the direction to look at (most likely direction to the other enemy), player transform is the transform of the player
     public override void reactToOtherEnemyDamaged(Vector3 lookAtDirection, Transform playerTransform) {
         if (!inAggroState() && scoutingBranch.canBeDistractedByEnemies()) {
+            resetBranches();
+
             if (currentBehaviorSequence != null) {
                 StopCoroutine(currentBehaviorSequence);
+                currentBehaviorSequence = null;
             }
 
             if (canAct()) {
@@ -197,17 +206,21 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
         yield return behaviorTreeSequence();
     }
 
+    private void resetBranches() {
+        scoutingBranch.reset();
+        aggroBranch.reset();
+    }
+
 
     // Main function for event handlers for stun start
     public void onStunStart() {
         lock (treeLock) {
-            StopAllCoroutines();
-
-            if (playerTgt == null) {
-                scoutingBranch.reset();
-            } else {
-                aggroBranch.reset();
+            if (currentBehaviorSequence != null) {
+                StopCoroutine(currentBehaviorSequence);
+                currentBehaviorSequence = null;
             }
+
+            resetBranches();
         }
 
         navMeshAgent.isStopped = true;
@@ -219,8 +232,10 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
         lock (treeLock) {
             if (bossStatus.isAlive()) {
 
+                resetBranches();
                 if (currentBehaviorSequence != null) {
                     StopCoroutine(currentBehaviorSequence);
+                    currentBehaviorSequence = null;
                 }
 
                 currentBehaviorSequence = StartCoroutine(behaviorTreeSequence());

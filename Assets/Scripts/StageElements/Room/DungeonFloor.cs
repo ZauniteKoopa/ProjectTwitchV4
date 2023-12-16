@@ -257,7 +257,7 @@ public class DungeonFloor : MonoBehaviour
     // Main enemy spawning sequence that continuously spawns enemies until the player finishes the floor
     //  Will only spawn enemies when max amount of TRACKED enemies are hit
     private IEnumerator enemySpawningSequence() {
-        yield return 0;
+        yield return new WaitForSeconds(0.1f);
 
         // Spawn initial enemies
         for (int e = 0; e < numStartingEnemies; e++) {

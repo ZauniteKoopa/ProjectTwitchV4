@@ -200,7 +200,7 @@ MonoBehaviour:
   deployableDestroyedEvent:
     m_PersistentCalls:
       m_Calls: []
-  hitboxDuration: 5
+  hitboxDuration: 8
   initialDamageDurationPercent: 0.1
   initialDamage: 4
   speedReductionFactor: 0.5

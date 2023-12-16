@@ -80,7 +80,7 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
     // Main event handler function for when this enemy is attacked by the player: look at the player if this happens
     private void onAttackedByPlayer() {
         if (nearbyTarget != null) {
-            brain.lookAt(nearbyTarget.transform.position - transform.position);
+            brain.lookAt(nearbyTarget.transform.position - transform.position, true);
             enemyAttackedEvent.Invoke();
 
             if (!brain.inAggroState() && !onAlert) {

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundMusic: {fileID: 0}
   backgroundImage: {fileID: 0}
+  lastLineLingersAfter: 0
   leftCharacter: {fileID: 0}
   leftCharacterEmotion: EMPTY
   rightCharacter: {fileID: 0}
@@ -23,22 +24,76 @@ MonoBehaviour:
     emotion: ANGRY
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: da2b5cd082d47e047b633aaea8febde1, type: 3}
     dialogueLine: ' Wh-what are they doing here!? This is my turf! My domain!'
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2.45423
+        outSlope: 2.45423
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2149432
+        value: 0.52752006
+        inSlope: -0.027441254
+        outSlope: -0.027441254
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.23032705
+      - serializedVersion: 3
+        time: 0.5060084
+        value: 0.53190064
+        inSlope: 0.005724658
+        outSlope: 0.75544804
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.9047818
+        outWeight: 0.3473424
+      - serializedVersion: 3
+        time: 0.684151
+        value: 0.80155414
+        inSlope: 0.8953865
+        outSlope: 0.015109456
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 1
+        outWeight: 0.34573624
+      - serializedVersion: 3
+        time: 0.7805203
+        value: 0.80308276
+        inSlope: 0.017285086
+        outSlope: 0.82962155
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.7938997
+        outWeight: 0.533005
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.8972003
+        outSlope: 0.8972003
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
       m_RotationOrder: 0
-    textAnimationDuration: 0
+    textAnimationDuration: 5.75
   - characterSpeaker: {fileID: 11400000, guid: 30913f557ac7fc84694a33ac0c076ea3, type: 2}
     emotion: NERVOUS
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: 1f2b76a6c5c1b51458b7994fcc6a2037, type: 3}
     dialogueLine: "They must\u2019ve known! A sewer king without his weapon is always
       vulnerable. Why else would they bring these wretched machine-gun turret bots
       down here!\r\n"
@@ -55,7 +110,7 @@ MonoBehaviour:
     emotion: DEVIOUS-HAPPY
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: 8cbb9d3578e30b24289c55834787c0e0, type: 3}
     dialogueLine: "Luckily Twitch isn\u2019t easily caught! They can\u2019t have
       gotten deeper than this. I can just sneak past them. Just need to find it!"
     constantSpeed: 1
@@ -71,7 +126,7 @@ MonoBehaviour:
     emotion: THINKING
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: fb87250db5ab26a42b7400b86fdccc36, type: 3}
     dialogueLine: 'Yes.. yes.. Sneak past them, find my crossbow, and get back to
       my lair. Maybe do a few surprises and boops along the way..
 

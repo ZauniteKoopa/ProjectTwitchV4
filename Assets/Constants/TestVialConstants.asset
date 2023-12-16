@@ -32,7 +32,7 @@ MonoBehaviour:
   poisonSideEffects:
   - {fileID: 11400000, guid: ecb47d821c8614240adf43f22733cd6f, type: 2}
   reactivitySideEffects:
-  - {fileID: 11400000, guid: 11f8e87d8b1c82848b3e64a63bf6c7a9, type: 2}
+  - {fileID: 11400000, guid: c5ad50a0922157c44a180cc8aa81dae7, type: 2}
   stickinessSideEffects:
   - {fileID: 11400000, guid: 981fa6b9ca7d27043904048bedf73800, type: 2}
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}

@@ -372,7 +372,7 @@ Transform:
   m_GameObject: {fileID: 7276044789255310390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.62, y: 0.85, z: -4.23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 0.85}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7276044789777591421}
@@ -498,6 +498,7 @@ MonoBehaviour:
   lootSatchel: {fileID: 6538617936266280076}
   lootTable: {fileID: 11400000, guid: 6287be54b643eeb46b0f53f7b52d5493, type: 2}
   willDropLoot: 0
+  randomRotation: 1
   spawnInOnAwake: 0
   spawnVFX: {fileID: 7684526130008152738, guid: aa20deaebd410ba4d88c40f91aa9a6ca, type: 3}
 --- !u!54 &7276044789255310396
@@ -562,6 +563,11 @@ MonoBehaviour:
   aggressiveBranch: {fileID: 9148449405673412968}
   passiveBranch: {fileID: 9148449405673412969}
   passiveLookAtDuration: 1.5
+  enemyDamagedLookAtDuration: 1
+  enemyDamagedInvestigateDuration: 3
+  investigateEnemyDamagedSpeedReduction: 0.5
+  investigationPathRefreshTime: 0.1
+  enemyDamagedConfusedDuration: 1
 --- !u!114 &9148449405673412969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,7 +645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.19}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7276044789777591393

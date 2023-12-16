@@ -142,7 +142,7 @@ public class EnemyComponentBehaviorTree : IEnemyBehavior
     // Main function to look at a specific direction
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
-    public override void lookAt(Vector3 lookAtDirection) {
+    public override void lookAt(Vector3 lookAtDirection, bool hasPriority = false) {
         if (!inAggroState() && unitStatus.canMove()) {
             StopCoroutine(currentBehaviorSequence);
             reactingToEnemyDamaged = false;

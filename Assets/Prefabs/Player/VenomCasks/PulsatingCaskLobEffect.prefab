@@ -142,7 +142,7 @@ Transform:
   m_GameObject: {fileID: 6673162264239127811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11, y: 0.3, z: 11}
+  m_LocalScale: {x: 13, y: 0.3, z: 13}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5596383573147750469}
@@ -320,18 +320,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4321ccf05d880f446b9a53a4d77f0c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  deployableDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   initialDamageDuration: 0.05
   initialDamage: 1
   initialDamageStacks: 1
   grabbingDuration: 1
   grabbingSlowModifier: 0.5
   pullingDuration: 0.2
-  stunDuration: 1.75
+  stunDuration: 2.25
   pullingDamage: 6
   addedPullingStacks: 1
   pullDistance: 1.5
   pullingCollisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   speaker: {fileID: 6679721600473539541}
   splatSound: {fileID: 8300000, guid: 46925bc18ad47774e8b79a98fb808a86, type: 3}

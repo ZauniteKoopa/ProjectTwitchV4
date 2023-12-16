@@ -132,11 +132,12 @@ public abstract class IUnitStatus : MonoBehaviour
     public void stun(bool willStun) {
         lock (stunLock) {
             // Invoke event if stunning has started
-            if (stunners == 0) {
+            if (stunners == 0 && willStun) {
                 stunnedStartEvent.Invoke();
             }
 
             // Change number fo stunners (it cannot be negative to account for reset functionality)
+            bool wasStunned = stunners > 0;
             stunners += (willStun) ? 1 : -1;
             stunners = (stunners < 0) ? 0 : stunners;
 
@@ -146,7 +147,7 @@ public abstract class IUnitStatus : MonoBehaviour
             // }
 
             // Invoke event if stunning has ended
-            if (stunners == 0) {
+            if (stunners == 0 && wasStunned) {
                 stunnedEndEvent.Invoke();
             }
         }
