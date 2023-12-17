@@ -227,14 +227,6 @@ PrefabInstance:
       propertyPath: localOpenPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4915276658083187978, guid: a53a4aed2b7a2c14eb16a3815323762d, type: 3}
-      propertyPath: localOpenPosition.y
-      value: -1.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915276658083187978, guid: a53a4aed2b7a2c14eb16a3815323762d, type: 3}
-      propertyPath: localOpenPosition.z
-      value: 0.528
-      objectReference: {fileID: 0}
     - target: {fileID: 4915276658083187983, guid: a53a4aed2b7a2c14eb16a3815323762d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -517,7 +517,7 @@ MonoBehaviour:
   explosionHitbox: {fileID: 5401722223876938758}
   maxBurrowDuration: 8
   maxHitboxDuration: 0.2
-  speedDebuff: 0.5
+  speedDebuff: 0.8
   caskCooldownReductionTo: 0.25
   burrowSound: {fileID: 8300000, guid: 00bed96bfc9ca684f88c79ce74bbba86, type: 3}
   burrowDurationBar: {fileID: 7181498318761794398}
@@ -598,6 +598,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 740a3f93-dfe7-4f10-ac1b-6e0ead795a83
     m_ActionName: Twitch/Interact[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dbc8c3a9-30c2-434d-9230-068cc39830d3
+    m_ActionName: Twitch/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d79931e0-4b74-4ec6-b2de-d401428d25e1
+    m_ActionName: DialogueControls/MoveForward[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Twitch

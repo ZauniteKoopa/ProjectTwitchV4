@@ -48,15 +48,13 @@ public class ManicGas : DeployableHitbox
 
     // On Entity enter
     private void onEntityEnter(IUnitStatus entity) {
-        entity.applyDefenseModifier(defenseDebuff);
-        entity.applyAttackModifier(attackBuff);
+        entity.applyManic(attackBuff, defenseDebuff);
     }
 
 
     // On entity exit
     private void onEntityExit(IUnitStatus entity) {
-        entity.revertDefenseModifier(defenseDebuff);
-        entity.revertAttackModifier(attackBuff);
+        entity.revertManic(attackBuff, defenseDebuff);
     }
 
 

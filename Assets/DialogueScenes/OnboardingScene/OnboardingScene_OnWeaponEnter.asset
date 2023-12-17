@@ -24,7 +24,7 @@ MonoBehaviour:
     emotion: PLEASANT-HAPPY
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 0}
+    voiceClip: {fileID: 8300000, guid: c4890f679ebd21d4d8d7aa9659fcbd09, type: 3}
     dialogueLine: Wait. I smell grime.. Familiar poisons.. Oh ho! It must be near!
     constantSpeed: 1
     textSpeed: 60

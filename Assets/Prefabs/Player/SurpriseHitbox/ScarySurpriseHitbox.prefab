@@ -118,7 +118,7 @@ MonoBehaviour:
   hitboxDuration: 0.1
   initialDamageDurationPercent: 1
   initialDamage: 0
-  stunDuration: 1.25
+  stunDuration: 1
 --- !u!82 &7764909958582045849
 AudioSource:
   m_ObjectHideFlags: 0

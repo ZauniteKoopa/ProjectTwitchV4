@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Scary Surprise
   description: This one causes quite the hallucinations. After 3 seconds of invisibility,
-    you <b>scare</b> nearby enemies for 1.25 seconds.
+    you <b>scare</b> nearby enemies for 1 seconds.
   spriteIcon: {fileID: 21300000, guid: 0916d49365d9633468aced7196ef60c4, type: 3}
   sideEffectType: 0
   maxStackEffect: 0

@@ -118,6 +118,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speaker: {fileID: 7427725727914052825}
+  chestOpenedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &7427725727914052825
 AudioSource:
   m_ObjectHideFlags: 0
@@ -344,7 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorLocks:
   - {fileID: 5102589684399886065}
-  localOpenPosition: {x: 9.25, y: -3.01, z: -0.14}
+  localOpenPosition: {x: 0, y: -5, z: 0.5}
   openingSpeed: 4
   resetOnComplete: 0
 --- !u!82 &5731982877918634692
@@ -536,10 +539,15 @@ MonoBehaviour:
   eastOpen: 0
   northOpen: 0
   southOpen: 1
+  adjacentToBattleRoom: 0
   mapRow: 2
   mapCol: 1
   roomWidth: 18
   roomLength: 18
+  cameraExpandUp: 0
+  cameraExpandDown: 0
+  cameraExpandLeft: 0
+  cameraExpandRight: 0
   enemyWaves:
   - {fileID: 0}
   lockedDoors:
@@ -549,9 +557,16 @@ MonoBehaviour:
   - {fileID: 6850247947146434185}
   - {fileID: 6985715764714108933}
   rewardChest: {fileID: 4140652637043056347}
+  staticLootSpawn: 0
   probabilityNumerator: 3
   probabilityDenominator: 10
   probabilityVariance: 1
+  endRoomCameraPitch: 45
+  endRoomCameraZoom: 30
+  endRoomCameraTransitionSpeed: 45
+  endRoomCameraResetSpeed: 75
+  endRoomCameraTimeScale: 0.1
+  endRoomCameraSequenceDuration: 0.75
   battleRoomStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -659,7 +674,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 6492965602260826697}
+    m_TransformParent: {fileID: 3728083703922320195}
     m_Modifications:
     - target: {fileID: 7219872620247041730, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_Name
@@ -667,19 +682,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.33
+      value: 5.9399996
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.05555556
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.002484216
+      value: -0.04471684
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalPosition.y
@@ -687,7 +702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.528
+      value: 9.504029
       objectReference: {fileID: 0}
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalRotation.w
@@ -716,6 +731,18 @@ PrefabInstance:
     - target: {fileID: 7219872620247041752, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7219872620247041757, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
+      propertyPath: localOpenPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7219872620247041757, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
+      propertyPath: localOpenPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7219872620247041757, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}
+      propertyPath: localOpenPosition.z
+      value: 9.504
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71f8bfc36fa2b9344a2bc6d1a83de342, type: 3}

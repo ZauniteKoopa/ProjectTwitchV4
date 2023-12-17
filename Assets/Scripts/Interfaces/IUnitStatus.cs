@@ -11,18 +11,16 @@ public abstract class IUnitStatus : MonoBehaviour
 {
     // Main function to handle the movement
     private int stunners = 0;
+    private int manicEffectsRunning = 0;
     private readonly object stunLock = new object();
     public UnityEvent stunnedStartEvent;
     public UnityEvent stunnedEndEvent;
 
-    // [SerializeField]
-    // protected StatusEffectDisplay statusDisplay;
+    [SerializeField]
+    protected StatusEffectUI statusDisplay;
 
     // [SerializeField]
     // protected VFX_StatusEffectDisplay statusEffectVFXs;
-
-    // [SerializeField]
-    // protected DamagePopup damagePopupPrefab = null;
 
     // Main death event
     public UnitDelegate unitDeathEvent;
@@ -142,9 +140,9 @@ public abstract class IUnitStatus : MonoBehaviour
             stunners = (stunners < 0) ? 0 : stunners;
 
             // Display it
-            // if (statusDisplay != null) {
-            //     statusDisplay.displayStun(stunners > 0);
-            // }
+            if (statusDisplay != null) {
+                statusDisplay.showStunIndicator(stunners > 0);
+            }
 
             // Invoke event if stunning has ended
             if (stunners == 0 && wasStunned) {
@@ -194,6 +192,34 @@ public abstract class IUnitStatus : MonoBehaviour
         stun(true);
         yield return new WaitForSeconds(timeDuration);
         stun(false);
+    }
+
+
+    // Main function to apply manic
+    public void applyManic(float attackBuff, float defenseDebuff) {
+        manicEffectsRunning ++;
+
+        applyDefenseModifier(defenseDebuff);
+        applyAttackModifier(attackBuff);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showManicIndicator(manicEffectsRunning > 0);
+        }
+    }
+
+
+    // Main function to revert manic
+    public void revertManic(float attackBuff, float defenseDebuff) {
+        manicEffectsRunning --;
+
+        revertDefenseModifier(defenseDebuff);
+        revertAttackModifier(attackBuff);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showManicIndicator(manicEffectsRunning > 0);
+        }
     }
 
 

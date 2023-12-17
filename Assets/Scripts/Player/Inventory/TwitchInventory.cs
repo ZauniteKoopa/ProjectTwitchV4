@@ -453,6 +453,13 @@ public class TwitchInventory : MonoBehaviour
     }
 
 
+    // Main function to refresh ambush
+    public void refreshAmbush() {
+        curAmbushDuration = fullAmbushDuration;
+        screenUI.setInvisBarFill(curAmbushDuration, fullAmbushDuration, minAmbushDurationRequirement);
+    }
+
+
     // Main event handler function to reset ambush cooldown
     private void onAmbushReset() {
         curAmbushDuration = fullAmbushDuration;

@@ -57,7 +57,7 @@ MonoBehaviour:
     emotion: NERVOUS
     leftSide: 1
     disappearAfter: 0
-    voiceClip: {fileID: 8300000, guid: 36c3b628c656c6344a15a510fc2d98b2, type: 3}
+    voiceClip: {fileID: 8300000, guid: 0572f5cee599bf24e9e3a9569fbcf080, type: 3}
     dialogueLine: " I-I have to find it! Find them! If I don\u2019t, the surface
       dwellers will find it first! And then steal my fleas and my stash! Exterminate
       me! And-"

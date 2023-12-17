@@ -5,6 +5,8 @@ using UnityEngine;
 public class RustedKey : MonoBehaviour
 {
     private bool collected = false;
+    [SerializeField]
+    private Light lightObject;
 
     // Main sensing function
     private void OnTriggerEnter(Collider collider) {
@@ -22,6 +24,10 @@ public class RustedKey : MonoBehaviour
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
         GetComponent<AudioSource>().Play();
+        
+        if (lightObject != null) {
+            lightObject.gameObject.SetActive(false);
+        }
 
         yield return new WaitForSeconds(2f);
 

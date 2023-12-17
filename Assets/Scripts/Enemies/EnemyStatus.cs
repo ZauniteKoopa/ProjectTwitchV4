@@ -117,6 +117,9 @@ public class EnemyStatus : IUnitStatus
 
             enemyStatusUI.updateHealthBar(curHealth, maxHealth);
             enemyStatusUI.updatePoisonHalo(0, Color.white, false, false);
+            if (statusDisplay != null) {
+                statusDisplay.reset();
+            }
             lootSatchel.SetActive(lootTable != null && willDropLoot);
 
             // Set up effect
@@ -146,12 +149,7 @@ public class EnemyStatus : IUnitStatus
     //  Pre: none
     //  Post: Returns movement speed with speed status effects in mind
     public override float getMovementSpeed() {
-        float curMovementSpeed = (moving && canMove()) ? movementSpeed * speedStatus.getSpeedModifier() : 0f;
-
-        if (curPoison != null) {
-            curMovementSpeed *= curPoison.getSpeedModifier(curPoisonStacks);
-        }
-
+        float curMovementSpeed = (moving && canMove()) ? movementSpeed * getSpeedModifier() : 0f;
         return curMovementSpeed;
     }
 
@@ -246,6 +244,12 @@ public class EnemyStatus : IUnitStatus
                     curPoison = poison;
                 }
 
+                // Display speed modifier and defense modifer in case its a stickiness side effect
+                if (statusDisplay != null) {
+                    statusDisplay.showSpeedModifier(getSpeedModifier());
+                    statusDisplay.showArmorModifier(getDefenseModifier());
+                }
+
                 // Poisoning sequence handling
                 if (currentPoisoningSequence == null && appliedStacks > 0) {
                     currentPoisoningSequence = StartCoroutine(poisoningSequence());
@@ -330,6 +334,11 @@ public class EnemyStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void applySpeedModifier(float speedFactor) {
         speedStatus.applySpeedModifier(speedFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showSpeedModifier(getSpeedModifier());
+        }
     }
 
 
@@ -338,6 +347,11 @@ public class EnemyStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void revertSpeedModifier(float speedFactor) {
         speedStatus.revertSpeedModifier(speedFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showSpeedModifier(getSpeedModifier());
+        }
     }
 
     // Main function to increase or decrease an attack by a specific factor
@@ -359,12 +373,22 @@ public class EnemyStatus : IUnitStatus
     // Main function to increase or decrease defense by a specific factor
     public override void applyDefenseModifier(float defenseFactor) {
         defenseModifierStatus.applySpeedModifier(defenseFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showArmorModifier(defenseModifierStatus.getSpeedModifier());
+        }
     }
 
 
     // Main function to revert a defense modifier
     public override void revertDefenseModifier(float defenseFactor) {
         defenseModifierStatus.revertSpeedModifier(defenseFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showArmorModifier(defenseModifierStatus.getSpeedModifier());
+        }
     }
 
 
@@ -413,6 +437,19 @@ public class EnemyStatus : IUnitStatus
     }
 
 
+    // Main private helper function to get raw speed modifier
+    private float getSpeedModifier() {
+        float speedModifier = speedStatus.getSpeedModifier();
+
+
+        if (curPoison != null) {
+            speedModifier *= curPoison.getSpeedModifier(curPoisonStacks);
+        }
+
+        return speedModifier;
+    }
+
+
     // Private helper function to clear the poison
     private void clearPoison() {
         lock (poisonLock) {
@@ -424,6 +461,12 @@ public class EnemyStatus : IUnitStatus
             if (currentPoisoningSequence != null) {
                 StopCoroutine(currentPoisoningSequence);
                 currentPoisoningSequence = null;
+            }
+
+            // Display speed modifier and defense modifer in case its a stickiness side effect
+            if (statusDisplay != null) {
+                statusDisplay.showSpeedModifier(getSpeedModifier());
+                statusDisplay.showArmorModifier(getDefenseModifier());
             }
         }
     }
@@ -473,11 +516,17 @@ public class EnemyStatus : IUnitStatus
 
     // Main function to get the damage reduction
     private float getDamageReduction() {
-        float curReduction = damageReduction * defenseModifierStatus.getSpeedModifier();
+        return damageReduction * getDefenseModifier();
+    }
+
+
+    // Main function to get defense modifier
+    private float getDefenseModifier() {
+        float defModifier = defenseModifierStatus.getSpeedModifier();
         if (curPoison != null) {
-            curReduction *= curPoison.sideEffect.getDefenseReductionFactor(curPoisonStacks);
+            defModifier *= curPoison.sideEffect.getDefenseReductionFactor(curPoisonStacks);
         }
 
-        return curReduction;
+        return defModifier;
     }
 }

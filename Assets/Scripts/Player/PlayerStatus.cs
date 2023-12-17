@@ -54,6 +54,10 @@ public class PlayerStatus : IUnitStatus
 
         curHealth = maxHealth;
         playerUI.displayHealth(curHealth, maxHealth);
+
+        if (statusDisplay != null) {
+            statusDisplay.reset();
+        }
     }
     
     
@@ -162,6 +166,11 @@ public class PlayerStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void applySpeedModifier(float speedFactor) {
         speedStatus.applySpeedModifier(speedFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showSpeedModifier(speedStatus.getSpeedModifier());
+        }
     }
 
 
@@ -170,6 +179,11 @@ public class PlayerStatus : IUnitStatus
     //  Post: speed is affected accordingly
     public override void revertSpeedModifier(float speedFactor) {
         speedStatus.revertSpeedModifier(speedFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showSpeedModifier(speedStatus.getSpeedModifier());
+        }
     }
 
 
@@ -192,12 +206,22 @@ public class PlayerStatus : IUnitStatus
     // Main function to increase or decrease defense by a specific factor
     public override void applyDefenseModifier(float defenseFactor) {
         defenseModifierStatus.applySpeedModifier(defenseFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showArmorModifier(defenseModifierStatus.getSpeedModifier());
+        }
     }
 
 
     // Main function to revert a defense modifier
     public override void revertDefenseModifier(float defenseFactor) {
         defenseModifierStatus.revertSpeedModifier(defenseFactor);
+
+        // Display it
+        if (statusDisplay != null) {
+            statusDisplay.showArmorModifier(defenseModifierStatus.getSpeedModifier());
+        }
     }
 
 
