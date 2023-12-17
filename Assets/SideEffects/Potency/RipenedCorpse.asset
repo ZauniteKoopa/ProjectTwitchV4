@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Ripened Corpse
   description: Another masterpiece from chef Twitch! If enemies die with max stacks,
-    they now drop a healing item that heals 5% health.
+    they now drop a healing item that heals 8% health.
   spriteIcon: {fileID: 21300000, guid: 4c737cbe4e446164293d363c43e2b922, type: 3}
   sideEffectType: 0
   maxStackEffect: 1
