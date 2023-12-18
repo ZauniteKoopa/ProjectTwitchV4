@@ -2800,7 +2800,7 @@ MonoBehaviour:
   playerTgt: {fileID: 0}
   aggroBranch: {fileID: 104631024644839838}
   scoutingBranch: {fileID: 104631024644839839}
-  passiveLookAtDuration: 2.5
+  passiveLookAtDuration: 0.01
 --- !u!114 &104631024644839839
 MonoBehaviour:
   m_ObjectHideFlags: 0

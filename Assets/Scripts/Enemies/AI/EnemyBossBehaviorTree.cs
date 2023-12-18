@@ -168,8 +168,14 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
             }
 
             if (canAct()) {
-                lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
-                currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
+
+                // If has priority, go aggressive on player. Else, just look at the direction
+                if (hasPriority) {
+                    onSensedPlayer(playerTgt);
+                } else {
+                    lookAtDirection = Vector3.ProjectOnPlane(lookAtDirection, Vector3.up).normalized;
+                    currentBehaviorSequence = StartCoroutine(lookAtSequence(lookAtDirection));
+                }
             }
         }
     }

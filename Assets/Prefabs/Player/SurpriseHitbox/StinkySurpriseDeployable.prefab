@@ -107,8 +107,8 @@ MonoBehaviour:
   initialDamageDuration: 0.1
   initialDamage: 2
   initialNumStacks: 1
-  poisonFogSpeedReduction: 0.8
-  poisonFogStickySpeedReduction: 0.8
+  poisonFogSpeedReduction: 1
+  poisonFogStickySpeedReduction: 1
   optionalPoisonFogDurationBar: {fileID: 0}
 --- !u!82 &6146763210116520603
 AudioSource:

@@ -258,4 +258,7 @@ MonoBehaviour:
   backstabAngleThreshold: 60
   hitStopFrames: 10
   cameraShakeMagnitude: 1
+  hitboxCollisionMask:
+    serializedVersion: 2
+    m_Bits: 256
   appliedStacks: 2

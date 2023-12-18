@@ -22,6 +22,8 @@ public class MeleeHitbox : IPrimaryAttack
     [SerializeField]
     [Range(0f, 1.5f)]
     private float cameraShakeMagnitude = 0f;
+    [SerializeField]
+    private LayerMask hitboxCollisionMask;
 
 
     // Main function to set up the melee hitbox
@@ -50,6 +52,25 @@ public class MeleeHitbox : IPrimaryAttack
     }
 
 
+
+    // Main function to tryDamageTarget
+    private bool tryDamageTarget(IUnitStatus tgt) {
+        // Set up raycast
+        Vector3 rayCenter = transform.parent.position;
+        Vector3 rayDir = Vector3.ProjectOnPlane(tgt.transform.position - rayCenter, Vector3.up);
+        float rayDist = rayDir.magnitude;
+        rayDir.Normalize();
+
+        // If no obstructions, do damage
+        bool hitTarget = !Physics.Raycast(rayCenter, rayDir, rayDist, hitboxCollisionMask);
+        if (hitTarget) {
+            damageTarget(tgt);
+        }
+
+        return hitTarget;
+    }
+
+
     // On Collision, damage the target and put them within the hit list if they weren't hit before
     private void OnTriggerEnter(Collider collider) {
         IUnitStatus target = collider.GetComponent<IUnitStatus>();
@@ -57,10 +78,10 @@ public class MeleeHitbox : IPrimaryAttack
         // If target is valid and has not been hit yet, deal damage to target
         if (target != null && !hit.Contains(target)) {
             hit.Add(target);
-            damageTarget(target);
+            bool hitTarget = tryDamageTarget(target);
 
             // If this was the first hit enemy, trigger hit stop
-            if (firstHit) {
+            if (hitTarget && firstHit) {
                 firstHit = false;
                 PlayerCameraController.hitStop(hitStopFrames);
                 PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
