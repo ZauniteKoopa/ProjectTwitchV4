@@ -26,6 +26,10 @@ Ambush Side Effect Ready Sound Effect: https://freesound.org/people/Jofae/sounds
 
 Ambush Surprise Side Effect Sound Effect: https://freesound.org/people/OwlStorm/sounds/404754/
 
+Ingredient pick up sound effect: https://freesound.org/people/Zuzek06/sounds/353250/
+
+Explosive Drone sound effect: https://freesound.org/people/EFlexMusic/sounds/530885/
+
 Many of Twitch's Abilities came from League of Legends
 
 Many of the Side Effect Icons are LoL ability Icons
