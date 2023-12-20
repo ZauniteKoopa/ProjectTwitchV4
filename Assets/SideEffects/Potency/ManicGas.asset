@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Manic Gas
   description: Throw a cask to release a manic gas. Gas wil debuff the defense (50%)
-    and buff the attack (50%) of ANYONE within it
+    and buff the attack (50%) of ANYONE within it.
   spriteIcon: {fileID: 21300000, guid: ef3b17f815a0176429b48fdd7b95bccb, type: 3}
   sideEffectType: 0
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
+  specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 848789524296125498, guid: 7d74b312ce012884aa376c45389900bf, type: 3}
   secondaryAttackSpeed: 35
@@ -27,3 +28,7 @@ MonoBehaviour:
   secondaryAttackEndFrames: 10
   secondaryAttackCost: 4
   secondaryAttackCooldown: 5
+  interruptsAmbush: 1
+  hasAdditionalAction: 0
+  allowLimitedDeployableNumber: 0
+  numDeployableLimit: 1

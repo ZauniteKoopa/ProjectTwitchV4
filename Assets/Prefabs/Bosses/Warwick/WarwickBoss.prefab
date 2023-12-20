@@ -2816,8 +2816,8 @@ MonoBehaviour:
   pathRefreshTime: 0.15
   trackingDuration: 8
   trackingSpeedReduction: 0.35
-  numDiscoveryFrames: 60
-  bloodFrenzyFrames: 110
+  numDiscoveryFrames: 90
+  bloodFrenzyFrames: 150
   initialPassiveFrames: 75
   minBloodTargetKillRange: 2.5
   bloodFrenzyTargetHealPercent: 0.05
@@ -5507,6 +5507,10 @@ PrefabInstance:
     - target: {fileID: 220208983331554579, guid: 08b5f996e9085d24d909f79913491746, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 220208983331554589, guid: 08b5f996e9085d24d909f79913491746, type: 3}
+      propertyPath: m_Intensity
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08b5f996e9085d24d909f79913491746, type: 3}

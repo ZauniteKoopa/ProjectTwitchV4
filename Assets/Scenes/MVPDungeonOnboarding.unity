@@ -6755,7 +6755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[0].image1
@@ -6788,8 +6788,9 @@ PrefabInstance:
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[0].instructions
       value: "Bah! It\u2019s still a bit weak, but it will do for now. With a poison
-        equipped, my bolts actually inflict poison damage! Each hit inflicts one
-        poison stack. The more infected they are, the more poison damage they get!"
+        equipped, Twitch's bolts actually inflict poison damage! Each hit inflicts
+        one poison stack. The more infected they are, the more poison damage they
+        get!"
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[1].instructions
@@ -6804,18 +6805,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[3].instructions
-      value: "However, watch your ammo! While Twitch has infinite bolts, he doesn\u2019t
-        have infinite poisons! Each bolt costs 1 ammo and casks can cost more! You
-        can obtain more ammo if you add ingredients to it, but something else happens
-        if you add enough ingredients.."
+      value: "However, <b>watch your ammo</b>! While Twitch has infinite bolts, he
+        doesn\u2019t have infinite poisons! Each bolt costs 1 ammo and casks can
+        cost more! You can obtain more ammo if you add <b>ingredients</b> to it."
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[4].instructions
-      value: "Still.. This isn\u2019t a ripe vial. Not yet at least. They\u2019ll
-        become so if a vial has 3 ingredients of the same type. If I remember.. Potency
-        leads to higher bolt damage, poison leads to higher poison damage. Reactivity
-        leads to higher Contaminate damage. Stickiness makes enemies slower. But
-        they should be able to do more..\n"
+      value: But something else happens with ingredients! When you max out a stat,
+        something <b>special</b> happens!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
@@ -18865,24 +18862,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[0].instructions
-      value: Ah! Finally ripe! It seems that this one has gotten a side effect! Side
-        effects are powerful effects that go along with a fully upgraded Poison Vial.
-        They can completely change how I navigate the sumps and defend myself! Upgrades
-        afterwards will only increase ammo.
+      value: Ah! Finally ripe! It seems that this one has gotten a <b>side effect</b>!
+        Side effects are powerful effects that go along with a fully upgraded Poison
+        Vial. They can completely change how Twitch navigates the sumps and defend
+        himself! Upgrades afterwards <b>will only increase ammo</b>.
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[1].instructions
-      value: "In addition to getting a side effect, I can get a recipe for my recipe
-        book! If I fully upgrade a vial with 5 ingredients, I can get one new recipe
-        for free! If I follow the recipe, I\u2019m guaranteed to get that side effect!
-        I always seem to lose these when I go back home though..\r\n"
+      value: "In addition to getting a side effect, Twitch can get a <b>recipe</b>
+        for the recipe book if Twitch fully <b>upgrades a vial with 5 ingredients</b>!
+        If Twitch follows the recipe, he\u2019s guaranteed to get that side effect!
+        Twitch always seems to lose these when he goes back home though.."
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[2].instructions
       value: "Poisons can do many things. Such unlimited potential with what recipes
-        I can come up with\u2026 The sumps always have surprises waiting for me.
-        Let\u2019s see what it will give me this time! (21 SIDE EFFECTS IN GAME SO
-        FAR)"
+        you can come up with\u2026 The sumps always have surprises waiting. Let\u2019s
+        see what it will give this time! (21 SIDE EFFECTS IN GAME SO FAR)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
@@ -19400,15 +19396,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 50c331db60fd2c849a5c95f23aea2ac9, type: 3}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[0].instructions
-      value: "Twitch can ambush by pressing <b>Left shift</b> after a short delay.
-        While camouflaged, you get increased movement speed, and enemies cannot see
+      value: "Twitch can ambush by pressing <b>Left Shift</b> after a short delay.
+        While camoflauged, you get increased movement speed, and enemies cannot see
         Twitch unless they\u2019re close enough to him."
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[1].instructions
       value: "To get out of this state, you can either press <b>Left Shift</b> again
         or you can attack! Once you get out, Twitch goes into a frenzy, gaining attack
-        speed! He just can\u2019t contain that energy! If only you had your crossbow\u2026\r\n"
+        speed! He just can\u2019t contain that energy! If only he had his crossbow.."
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[2].instructions
@@ -22537,13 +22533,13 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 8387331bb7212464cab2583ed5787502, type: 3}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[0].instructions
-      value: 'Oooh! Seems like I got an ingredient! Ingredients can contribute to
-        poisons in 1 of 4 ways depending on their color.
+      value: 'Oooh! Seems like Twitch got an ingredient! Ingredients can contribute
+        to poisons in 1 of 4 ways depending on their color.
 
 
 
-        I am running
-        low on poison vials.. Press Left Tab to open the inventory
+        He is running
+        low on poison vials.. You can press <b>Left Tab</b> to open the inventory
 
 '
       objectReference: {fileID: 0}
@@ -22555,9 +22551,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5491609042357984605, guid: 66d95c20e6dad6d43a74d430b32b1827, type: 3}
       propertyPath: pages.Array.data[2].instructions
-      value: 'Some enemies in the sump may be stealing MY ingredients, but I can
-        sniff it on them! No one can hide from me! (Enemies with ingredients will
-        have a gray block in the center)
+      value: 'Some enemies in the sump may be stealing Twitch ingredients, but Twitch
+        can sniff it on them! No one can hide from him! (Enemies with ingredients
+        will have a gray block in the center)
+
+
+
+        <b>Twitch should really
+        make a poison vial before leaving. It will make his arrows stronger!</b>
 
 '
       objectReference: {fileID: 0}
@@ -22591,6 +22592,14 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 876165198}
+    - target: {fileID: 1906529900379902960, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529900379902964, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5325204142946344315, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
       propertyPath: m_Name
       value: WarwickBossRoom

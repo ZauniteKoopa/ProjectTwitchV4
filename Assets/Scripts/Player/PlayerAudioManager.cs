@@ -22,6 +22,8 @@ public class PlayerAudioManager : MonoBehaviour
     private AudioClip finishedCraftingSound;
     [SerializeField]
     private AudioClip ambushSideEffectReadySound;
+    [SerializeField]
+    private AudioClip swapVialSoundEffect;
 
 
     [Header("VoiceOver")]
@@ -82,6 +84,17 @@ public class PlayerAudioManager : MonoBehaviour
         }
 
         soundEffectsSpeaker.clip = lobVenomCaskSoundClip;
+        soundEffectsSpeaker.Play();
+    }
+
+
+    // Main function to play the swap vials sound effect
+    public void playSwapVialSoundEffect() {
+        if (swapVialSoundEffect == null) {
+            Debug.LogWarning("No sound clip for swapping vials");
+        }
+
+        soundEffectsSpeaker.clip = swapVialSoundEffect;
         soundEffectsSpeaker.Play();
     }
 

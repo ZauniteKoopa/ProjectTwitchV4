@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Acidic Burrow
   description: Throwing casks now create burrows that you can teleport to upon recast.
-    Burrows slow nearby enemies
+    Burrows slow nearby enemies.
   spriteIcon: {fileID: 21300000, guid: b91a5e14e6ae8264eb51a6eb08e03c17, type: 3}
   sideEffectType: 2
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
+  specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 8978475967480175170, guid: 02c98028e8d0c644f89bb9c8b6d08438, type: 3}
   secondaryAttackSpeed: 80

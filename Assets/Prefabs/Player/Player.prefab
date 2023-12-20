@@ -29229,56 +29229,59 @@ MonoBehaviour:
   instructionText: {fileID: 6166964702554755583}
   closeButton: {fileID: 1463325534023442476}
   pages:
-  - instructions: '<u><b>Base Kit:</b></u> Without any vials, Twitch can shoot enemies
-      with the <b>LMB</b>. If Twich shoots an enemy in the back, it deals double
-      damage.
-
-
-      He can also move faster and camofladge by pressing <b>left
-      shift</b> which can avoid enemy sight as long as they are not near him. When
-      you pop out (attacking or pressing left shift), you attack faster!'
+  - instructions: "<u><b>Base Kit:</b></u> Without any vials, Twitch can shoot enemies
+      with the <b>LMB</b>. If Twitch <b>backstabs</b>, it deals double damage.\r\n\r\nHe
+      can also camouflage by pressing <b>Left Shift</b> which can avoid enemy sight
+      as long as you\u2019re not close.. When you pop out (by attacking or left shift),
+      you attack faster!\r\n"
     image1: {fileID: 21300000, guid: 6b97e114b45ca2d4b9f74b9a46cec313, type: 3}
     image2: {fileID: 21300000, guid: 5408a36647f0ab64ba1ae99aa3cdd871, type: 3}
-  - instructions: "<u><b>Ambush Limit:</b></u> However, Ambush / Camofladge requires
+  - instructions: "<u><b>Ambush Limit:</b></u> However, Ambush / Camouflage requires
       energy. Be wary of how much energy you have while sneaking around. When the
-      bar on the top left becomes purple, you can't ambush. \n\nIt regenerates slowly,
-      but you can regenerate more quickly by killing other units. "
+      bar on the top left becomes purple, you can't ambush. \r\n\r\nIt regenerates
+      slowly, but you can regenerate more quickly by killing other enemies. \r\n"
     image1: {fileID: 21300000, guid: 7be32ab75afd30b479c1638bac1b8753, type: 3}
     image2: {fileID: 21300000, guid: 50c331db60fd2c849a5c95f23aea2ac9, type: 3}
-  - instructions: '<u><b>Poison Kit:</b></u> With vials, you bolts will deal more
-      damage and inflict poison stacks on a unit, dealing damage over time. (Cost
-      1 ammo)
+  - instructions: '<u><b>Poison Kit:</b></u> With vials, your bolts will deal more
+      damage and inflict poison stacks, dealing damage over time. (Cost 1 ammo)
 
 
-      You can also throw casks at your enemies using <b>RMB</b>,
-      leaving behind a field of poison for a higher cost in ammo. You can swap between
-      2 poison vials by pressing <b>Q</b>'
+      You
+      can throw casks at your enemies using <b>RMB</b>, leaving behind a field of
+      poison that slows and infects. You can swap between 2 poison vials by pressing
+      <b>Q</b>.
+
+'
     image1: {fileID: 21300000, guid: a0dae203bf13ee74682ae83cd262813a, type: 3}
     image2: {fileID: 21300000, guid: 8424523df6034ca4a9e06d2eafd86895, type: 3}
-  - instructions: "<u><b>Contaminate:</b></u> If you're nearby infected units, you
-      can contaminate all of them by pressing <b>E</b>. This will do a massive burst
-      of damage depending on how infected the enemy is. \n\nIf this kills, you regain
-      all of your energy back for ambushing!"
+  - instructions: "<u><b>Contaminate:</b></u> If you're nearby infected enemies,
+      you can contaminate all of them by pressing <b>E</b>. This will do a massive
+      burst of damage depending on how infected the enemy is. \r\n\r\nIf this kills,
+      you regain all of your energy back for ambushing!\r"
     image1: {fileID: 21300000, guid: 4bd10a8ee8f0ddb4e8dff22803ff5ae3, type: 3}
     image2: {fileID: 21300000, guid: 51310e60426787942b1a0c3e61e6eaa6, type: 3}
   - instructions: '<u><b>Vial Management:</b></u> With vials, you will need to manage
-      ammo. Marked enemies will drop <b>ingredients</b>. Ingredients can increase
-      ammo and eventually give vials special stats.
+      ammo. Marked enemies will drop <b>ingredients</b> which can increase ammo and
+      eventually give vials special abilities.
 
 
-      To manage, you can open
-      your inventory by using <b>Tab</b>. You can drag ingredients to the crafting
-      slot and do what you will with the vials.'
+      To manage, you can open your
+      inventory by using <b>Tab</b>. You can drag ingredients to the crafting slot
+      and do what you will with the vials.
+
+'
     image1: {fileID: 21300000, guid: e81e1ef6c802f5947a0270af3dd7bdbd, type: 3}
     image2: {fileID: 21300000, guid: 8d78cc0160cb6464ebae17cf22dab45b, type: 3}
   - instructions: '<u><b>Side Effects:</b></u> If you upgrade a vial with 3 stats
       of the same type, you can get a side effect! These side effects massively buff
-      vials and gives them a unique interaction.
+      vials and give them special properties..
 
 
-      If you upgrade a vial to
-      a side effect with 5 ingredients total, you can get a <b>recipe</b>! If you
-      follow a recipe, you''re guaranteed that effect'
+      If you fully upgrade a vial
+      with 5 ingredients total, you can get a new <b>recipe</b>! If you follow a
+      recipe, you''re guaranteed that effect.
+
+'
     image1: {fileID: 21300000, guid: 7609a0be70b65834195ce907a8d3036c, type: 3}
     image2: {fileID: 21300000, guid: ddb6e8bd3fcbf5646b2c17002f71baa6, type: 3}
   requiredCompletionForExit: 0

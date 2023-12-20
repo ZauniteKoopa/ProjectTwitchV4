@@ -85,6 +85,7 @@ public class DasherAggroBranch : IEnemyAggroBranch
         lingeringBodyHitbox.setDamage(dashDamage * enemyStats.getBaseAttack());
         float dashDistanceTimer = 0f;
         float dashSpeed = enemyStats.getMovementSpeed() * dashMovementMultiplier;
+        audioManager.playAttackSoundEffect();
         while (dashDistanceTimer < maxDashDistance) {
             yield return 0;
 

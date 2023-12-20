@@ -517,6 +517,10 @@ public class TwitchInventory : MonoBehaviour
         primaryVial = secondaryVial;
         secondaryVial = tempVial;
 
+        if (primaryVial != null || secondaryVial != null) {
+            twitchAudioManager.playSwapVialSoundEffect();
+        }
+
         updateVialDisplays();
     }
 

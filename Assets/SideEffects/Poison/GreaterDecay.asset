@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Greater Decay
   description: When an enemy reaches max stacks with this poison, poison will affect
-    them 50% faster. It only hurts when you die...
+    them 50% faster. It only hurts when you die..
   spriteIcon: {fileID: 21300000, guid: b2b3bcf2351edc947b08a5446cdd6e57, type: 3}
   sideEffectType: 1
   maxStackEffect: 1
   defenseReduction: 0
   additionalLoot: 0
+  specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
   maxStackPoisonDecayRateModifier: 0.66

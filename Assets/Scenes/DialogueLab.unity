@@ -319,6 +319,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueExecutor
       objectReference: {fileID: 0}
+    - target: {fileID: 448529417757591189, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705225175543219383, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94e1a67594a3e6d4289f5008d8cdeca4, type: 3}
 --- !u!1 &682509957

@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReactiveIngredient
       objectReference: {fileID: 0}
+    - target: {fileID: 7423833068067632830, guid: 0e8ab4290b866564b8d3df86795d512d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7423833068780419232, guid: 0e8ab4290b866564b8d3df86795d512d, type: 3}
       propertyPath: m_Camera
       value: 

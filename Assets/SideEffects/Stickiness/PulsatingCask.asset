@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Pulsating Cask
   description: Venom cask now turns into a pulsating goop, latching and pulling enemies
-    together after 1 second
+    together after 1 second.
   spriteIcon: {fileID: 21300000, guid: bb60f339a75eee34e9b5e96cf35e9e91, type: 3}
   sideEffectType: 3
   maxStackEffect: 0
   defenseReduction: 0
   additionalLoot: 0
+  specialLoot: {fileID: 0}
   postContaminateHitbox: {fileID: 0}
   secondaryAttackPrefab: {fileID: 4769693931032617048, guid: 6aa9049b4e24ecb40a4bfaecab3d54d5, type: 3}
   secondaryAttackSpeed: 20

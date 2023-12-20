@@ -237,7 +237,7 @@ MonoBehaviour:
   rotationSpeed: 60
   willRotate: 1
   statType: 2
-  solidPeriod: 10
+  solidPeriod: 30
   fadingPeriod: 5
   lastsForever: 0
   ingredientLight: {fileID: 3371420328373214899}
@@ -281,9 +281,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 78c97880f0b27114da1872f5bcad86bc, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 044e1046ae8505f44bb1b385900ae21a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

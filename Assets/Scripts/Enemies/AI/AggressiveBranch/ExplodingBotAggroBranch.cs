@@ -72,6 +72,7 @@ public class ExplodingBotAggroBranch : IEnemyAggroBranch
         // actual explosion
         explosionHitbox.doDamage(explosionDamage * enemyStats.getBaseAttack());
         explosionMesh.material.color = hitboxExplosionColor;
+        audioManager.playAttackSoundEffect();
         yield return new WaitForSeconds(explosionAttackTime);
         explosionMesh.enabled = false;
 

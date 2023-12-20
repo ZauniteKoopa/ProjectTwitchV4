@@ -26,8 +26,7 @@ MonoBehaviour:
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: 1f2b76a6c5c1b51458b7994fcc6a2037, type: 3}
     dialogueLine: Ughhh.. I think I hit my brace.. I have to re-bolt it again. At
-      least I got those pesky surface dwellers off my tail. Now, I just need to get
-      ba-
+      least I got those pesky topsiders off my tail. Now, I just need to get ba-
     constantSpeed: 1
     textSpeed: 30
     textAnimationCurve:
@@ -58,9 +57,8 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: 0572f5cee599bf24e9e3a9569fbcf080, type: 3}
-    dialogueLine: " I-I have to find it! Find them! If I don\u2019t, the surface
-      dwellers will find it first! And then steal my fleas and my stash! Exterminate
-      me! And-"
+    dialogueLine: "I-I have to find it! Find them! If I don\u2019t, the topsiders
+      will find it first! And then steal my fleas and my stash! Exterminate me! And-"
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:

@@ -41,9 +41,9 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: 0572f5cee599bf24e9e3a9569fbcf080, type: 3}
-    dialogueLine: ' I am running low on poisons. Maybe I should make one. It will
-      make my surprises even nastier! I think I even still have some recipes with
-      me! Let me see if I can work with this.'
+    dialogueLine: I am running low on poisons. Maybe I should make one. It will make
+      my surprises even nastier! I think I even still have some recipes with me!
+      Let me see if I can work with this.
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:

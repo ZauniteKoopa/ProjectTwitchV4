@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StickySurprise
   m_EditorClassIdentifier: 
   displayName: Sticky Surprise
-  description: After 3 seconds of invisibility, surprise with a sticky puddle around
-    you that slows nearby enemies by 50%!
+  description: After 3 seconds of invisibility, surprise with an oozy puddle that
+    slows enemies by 50%!
   spriteIcon: {fileID: 21300000, guid: f5721e1d356a0cc42978b04db15a75d9, type: 3}
   sideEffectType: 3
   maxStackEffect: 0

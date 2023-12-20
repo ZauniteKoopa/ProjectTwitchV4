@@ -127,6 +127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StickinessIngredient
       objectReference: {fileID: 0}
+    - target: {fileID: 6877921697493334448, guid: f44d3968359a9e84ab0637a88126735d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6877921697493334454, guid: f44d3968359a9e84ab0637a88126735d, type: 3}
       propertyPath: m_RootOrder
       value: 0

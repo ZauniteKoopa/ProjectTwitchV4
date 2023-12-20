@@ -26,8 +26,7 @@ MonoBehaviour:
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: c4890f679ebd21d4d8d7aa9659fcbd09, type: 3}
     dialogueLine: "Oh! There you are, my precious! I was so worried! Hopefully the
-      wretched humans didn\u2019t touch you didn\u2019t they!? We need to give you
-      a soak!"
+      wretched humans didn\u2019t touch you did they!? We need to give you a soak!"
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:
@@ -42,8 +41,8 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: 0572f5cee599bf24e9e3a9569fbcf080, type: 3}
-    dialogueLine: "But first, we need to get home. There\u2019s intruders everywhere.
-      My fleas are getting antsy! The surface dwellers are getting angry! "
+    dialogueLine: 'But first, we need to get home. There are intruders everywhere.
+      My fleas are getting antsy! The topsiders are getting angry! '
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:
@@ -58,9 +57,9 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: 8cbb9d3578e30b24289c55834787c0e0, type: 3}
-    dialogueLine: "Let\u2019s show these worthless surface dwellers what happens
-      when they invade <b>my</b> turf! Maybe we can get some free stash on the way!
-      I can smell it now!\r\n"
+    dialogueLine: "Let\u2019s show these worthless topsiders what happens when they
+      invade <b>my</b> turf! Maybe we can get some free stash on the way! I can smell
+      it now!\r\n"
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:

@@ -181,11 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7558270553584573661, guid: 71c362a9c04a30042b963067d9e7c83e, type: 3}
       propertyPath: solidPeriod
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7558270553584573661, guid: 71c362a9c04a30042b963067d9e7c83e, type: 3}
       propertyPath: fadingPeriod
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7558270553584573663, guid: 71c362a9c04a30042b963067d9e7c83e, type: 3}
       propertyPath: m_Name

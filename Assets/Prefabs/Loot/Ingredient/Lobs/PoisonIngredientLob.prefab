@@ -179,9 +179,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoisonIngredient
       objectReference: {fileID: 0}
+    - target: {fileID: 3396451894047381556, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3396451894047381558, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
       propertyPath: solidPeriod
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3396451894047381558, guid: 974afd22446118a42b23b8b489cb4bae, type: 3}
       propertyPath: fadingPeriod

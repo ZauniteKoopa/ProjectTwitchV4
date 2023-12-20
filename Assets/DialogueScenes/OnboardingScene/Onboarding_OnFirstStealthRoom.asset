@@ -25,7 +25,7 @@ MonoBehaviour:
     leftSide: 1
     disappearAfter: 0
     voiceClip: {fileID: 8300000, guid: da2b5cd082d47e047b633aaea8febde1, type: 3}
-    dialogueLine: ' Wh-what are they doing here!? This is my turf! My domain!'
+    dialogueLine: Wh-what are they doing here!? This is my turf! My domain!
     constantSpeed: 1
     textSpeed: 45
     textAnimationCurve:

@@ -8,6 +8,7 @@ public abstract class IEnemyAggroBranch : MonoBehaviour
     // Variables
     protected NavMeshAgent navMeshAgent;
     protected IUnitStatus enemyStats;
+    protected GeneralEnemyAudioManager audioManager;
 
 
     // Main variables for most aggroBranches
@@ -15,6 +16,7 @@ public abstract class IEnemyAggroBranch : MonoBehaviour
         // Get reference variables and error check
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyStats = GetComponent<IUnitStatus>();
+        audioManager = GetComponent<GeneralEnemyAudioManager>();
 
         if (navMeshAgent == null){
             Debug.LogError("No nav mesh agent connected to this unit: " + transform, transform);
