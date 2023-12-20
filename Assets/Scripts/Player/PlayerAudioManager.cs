@@ -9,6 +9,8 @@ public class PlayerAudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource soundEffectsSpeaker;
     [SerializeField]
+    private AudioSource vialSwapSpeaker;
+    [SerializeField]
     private AudioClip lobVenomCaskSoundClip;
     [SerializeField]
     private AudioClip contaminateSoundClip;
@@ -94,8 +96,8 @@ public class PlayerAudioManager : MonoBehaviour
             Debug.LogWarning("No sound clip for swapping vials");
         }
 
-        soundEffectsSpeaker.clip = swapVialSoundEffect;
-        soundEffectsSpeaker.Play();
+        vialSwapSpeaker.clip = swapVialSoundEffect;
+        vialSwapSpeaker.Play();
     }
 
 

@@ -142,7 +142,19 @@ MonoBehaviour:
   criticalHitDamagePopupColor: {r: 1, g: 0.54901963, b: 0, a: 1}
   deathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2102375284984590161}
+        m_TargetAssemblyTypeName: GeneralEnemyAudioManager, Assembly-CSharp
+        m_MethodName: playDeathSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyNoticesDamageEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -280,7 +292,7 @@ MonoBehaviour:
   soundEffectsSpeaker: {fileID: 1134134255881982791}
   attackSoundEffect: {fileID: 8300000, guid: 07f3b6d00705ad445a9984bc6cc2735e, type: 3}
   voiceSpeaker: {fileID: 4658278709098930409}
-  deathVoiceOver: {fileID: 0}
+  deathVoiceOver: {fileID: 8300000, guid: c8cf5ace9bfc82943b284ae7e323f61e, type: 3}
 --- !u!1 &1867796269389857221
 GameObject:
   m_ObjectHideFlags: 0

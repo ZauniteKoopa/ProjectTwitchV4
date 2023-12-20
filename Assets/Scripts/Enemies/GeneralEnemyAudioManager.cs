@@ -17,6 +17,7 @@ public class GeneralEnemyAudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip deathVoiceOver;
 
+    private bool isActive = true;
 
 
     // Start is called before the first frame update
@@ -45,13 +46,21 @@ public class GeneralEnemyAudioManager : MonoBehaviour
 
     // Main function to play death sound
     public void playDeathSoundEffect() {
-        voiceSpeaker.transform.parent = null;
+        if (isActive) {
+            voiceSpeaker.transform.parent = null;
 
-        if (deathVoiceOver == null) {
-            Debug.LogWarning("No sound clip for lobbing a cask");
+            if (deathVoiceOver == null) {
+                Debug.LogWarning("No sound clip for lobbing a cask");
+            }
+
+            voiceSpeaker.clip = deathVoiceOver;
+            voiceSpeaker.Play();
         }
+    }
 
-        voiceSpeaker.clip = deathVoiceOver;
-        voiceSpeaker.Play();
+
+    // Main function for deactivation
+    public void deactivate() {
+        isActive = false;
     }
 }

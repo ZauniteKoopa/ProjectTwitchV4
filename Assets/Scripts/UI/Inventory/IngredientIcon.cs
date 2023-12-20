@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
 
-// [System.Serializable]
-// public class IngredientSelectDelegate : UnityEvent<Ingredient> {}
 
 public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -38,6 +36,9 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private const float ICON_SNAPBACK_TIME = 0.1f;
     private bool initialized = false;
 
+    // Audio
+    private AudioSource ingredientPickupSpeaker;
+
     public PoisonVialStatDelegate successfulRemoveEvent;
 
     //On awake, set start position
@@ -46,6 +47,8 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         if (!initialized) {
             rectTransform = GetComponent<RectTransform>();
             canvasGroup = GetComponent<CanvasGroup>();
+            ingredientPickupSpeaker = GetComponent<AudioSource>();
+            
             defaultParent = transform.parent;
             dropped = false;
             initialized = true;
@@ -133,9 +136,7 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     //Event handler when clicking down on icon
     public void OnPointerDown(PointerEventData eventData)
     {
-        // if (ingredient != null && count > 0) {
-        //     OnIngredientSelect.Invoke(ingredient);
-        // }
+        
     }
 
     //Event handler when beginning to drag
@@ -147,6 +148,10 @@ public class IngredientIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             canvasGroup.alpha = 0.6f;
             transform.SetAsLastSibling();
             transform.SetParent(selectedParent);
+
+            if (ingredientPickupSpeaker != null) {
+                ingredientPickupSpeaker.Play();
+            }
         }
     }
 

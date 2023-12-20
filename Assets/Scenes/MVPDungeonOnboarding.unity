@@ -11991,6 +11991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 682323139}
   speaker: {fileID: 1436899986}
+  playAudioOnImmediatePickup: 0
   rotationSpeed: 60
   willRotate: 1
   healPercentage: 1
@@ -22177,6 +22178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 220563184}
   speaker: {fileID: 3373469058047334855}
+  playAudioOnImmediatePickup: 0
   rotationSpeed: 60
   willRotate: 1
   healPercentage: 0.5
@@ -22555,10 +22557,10 @@ PrefabInstance:
         can sniff it on them! No one can hide from him! (Enemies with ingredients
         will have a gray block in the center)
 
+        
 
-
-        <b>Twitch should really
-        make a poison vial before leaving. It will make his arrows stronger!</b>
+        <b>Twitch should
+        really make a poison vial before leaving. It will make his arrows stronger!</b>
 
 '
       objectReference: {fileID: 0}
@@ -24265,6 +24267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 1798782605}
   speaker: {fileID: 1299331958098400947}
+  playAudioOnImmediatePickup: 0
   rotationSpeed: 60
   willRotate: 1
   healPercentage: 0.4

@@ -29,6 +29,8 @@ public class WarwickAudioManager : MonoBehaviour
     private AudioClip[] phaseTransitionVoice;
     [SerializeField]
     private AudioClip[] lungeVoice;
+    [SerializeField]
+    private AudioClip[] deathVoice;
 
     [Header("Sound Effects Clips")]
     [SerializeField]
@@ -69,6 +71,13 @@ public class WarwickAudioManager : MonoBehaviour
     public void onBloodHuntTriggered() {
         AudioClip[] curVoice = (passiveBranch.isBloodiedTargetPlayer()) ? bloodHuntPlayerVoice : bloodHuntEnemyVoice;
         playRandomClip(voiceSpeaker, curVoice);
+    }
+
+
+    // Main event handler function for when unit dies
+    public void onDeath() {
+        voiceSpeaker.transform.parent = null;
+        playRandomClip(voiceSpeaker, deathVoice);
     }
 
 

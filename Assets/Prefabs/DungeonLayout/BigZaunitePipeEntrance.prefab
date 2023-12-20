@@ -352,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 3500302695293095004}
   speaker: {fileID: 2976410658782811110}
+  playAudioOnImmediatePickup: 1
   rotationSpeed: 60
   willRotate: 0
   dungeonFloor: {fileID: 0}

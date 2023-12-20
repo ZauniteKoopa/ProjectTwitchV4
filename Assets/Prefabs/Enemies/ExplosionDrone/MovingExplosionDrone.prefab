@@ -421,7 +421,19 @@ MonoBehaviour:
   criticalHitDamagePopupColor: {r: 1, g: 0.54901963, b: 0, a: 1}
   deathEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 486365377329438233}
+        m_TargetAssemblyTypeName: GeneralEnemyAudioManager, Assembly-CSharp
+        m_MethodName: playDeathSoundEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyNoticesDamageEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -559,7 +571,7 @@ MonoBehaviour:
   soundEffectsSpeaker: {fileID: 4255131925148333767}
   attackSoundEffect: {fileID: 8300000, guid: dc8bf0d7eade2764a88cc9a792f381c0, type: 3}
   voiceSpeaker: {fileID: 1427984086535691267}
-  deathVoiceOver: {fileID: 0}
+  deathVoiceOver: {fileID: 8300000, guid: a7f378d2c8c33084791bcf1d6e0bcfed, type: 3}
 --- !u!1 &1545661025407168546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1176,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

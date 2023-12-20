@@ -74,6 +74,9 @@ public class EnemyStatus : IUnitStatus
     public bool willDropLoot = false;
     public bool randomRotation = true;
 
+    // Audio
+    private GeneralEnemyAudioManager enemyAudioManager;
+
     [SerializeField]
     private bool spawnInOnAwake = false;
     [SerializeField]
@@ -87,6 +90,7 @@ public class EnemyStatus : IUnitStatus
             Debug.LogError("NO ENEMY STATUS UI CONNECTED");
         }
 
+        enemyAudioManager = GetComponent<GeneralEnemyAudioManager>();
         initialize();
 
         gameObject.SetActive(false);
@@ -486,6 +490,10 @@ public class EnemyStatus : IUnitStatus
     // Main function to deactive enemy directly
     public void deactivate() {
         gameObject.SetActive(false);
+        if (enemyAudioManager != null) {
+            enemyAudioManager.deactivate();
+        }
+        
         deathEvent.Invoke();
     }
 
