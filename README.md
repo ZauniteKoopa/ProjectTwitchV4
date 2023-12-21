@@ -32,6 +32,8 @@ Explosive Drone attack sound effect: https://freesound.org/people/EFlexMusic/sou
 
 Explosive Drone Death Sound: https://freesound.org/people/psychedelic_hands/sounds/144470/ 
 
+Crafting Valve Switch Sound: https://freesound.org/people/soneproject/sounds/185515/ 
+
 Many of Twitch's Abilities came from League of Legends
 
 Many of the Side Effect Icons are LoL ability Icons
