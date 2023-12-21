@@ -80,7 +80,7 @@ public class TwitchAttackModule : IAttackModule
     private InvisibilitySensor ambushProximitySensor = null;
     [SerializeField]
     private GameObject ambushBuffVisualEffect = null;
-    private bool ambushBuffed = false;
+    private int ambushBuffsActive = 0;
     private Coroutine runningAmbushSequence = null;
     private bool holdingDownAmbush = false;
 
@@ -176,10 +176,9 @@ public class TwitchAttackModule : IAttackModule
 
         // While you're still holding on to the button
         while (holdingFireButton) {
-            // If you're invisible and haven't been buffed yet, buff immediately before doing an attack
+            //If you're invisible, play aggressive sound effect
             if (status.invisible) {
                 audioManager.playAmbushBuff();
-                applyAmbushBuff();
             }
 
             // Get data
@@ -293,7 +292,6 @@ public class TwitchAttackModule : IAttackModule
     private IEnumerator ambushSequence() {
         // Startup
         audioManager.playAmbushStartup();
-
         float timer = 0f;
         while (holdingDownAmbush && timer < ambushStartupTime) {
             yield return 0;
@@ -303,8 +301,10 @@ public class TwitchAttackModule : IAttackModule
         turnInvisible();
 
         // Timer to wait out invisibility
+        timer = 0f;
         while (inventory.canContinueAmbushing() && !interruptedAmbush() && holdingDownAmbush) {
             yield return 0;
+            timer += Time.deltaTime;
         }
 
         // Attack speed buff (apply it if it hasn't been applied already)
@@ -312,15 +312,8 @@ public class TwitchAttackModule : IAttackModule
 
         if (timer >= minAmbushDurationAttackSpeedReq) {
             applyAmbushBuff();
-        
             yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
-
-            // Cleanup
-            if (ambushBuffVisualEffect != null) {
-                ambushBuffVisualEffect.SetActive(false);
-            }
-            status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
-            ambushBuffed = false;
+            revertAmbushBuff();
         }
     }
 
@@ -359,13 +352,20 @@ public class TwitchAttackModule : IAttackModule
 
     // Private helper function to apply ambush buff
     private void applyAmbushBuff() {
-        if (!ambushBuffed) {
-            ambushBuffed = true;
+        ambushBuffsActive++;
+        status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
+        if (ambushBuffVisualEffect != null) {
+            ambushBuffVisualEffect.SetActive(ambushBuffsActive > 0);
+        }
+    }
 
-            status.applyAttackSpeedEffect(ambushAttackSpeedBuff);
-            if (ambushBuffVisualEffect != null) {
-                ambushBuffVisualEffect.SetActive(true);
-            }
+
+    // Private helper function to revert ambush buff
+    private void revertAmbushBuff() {
+        ambushBuffsActive--;
+        status.revertAttackSpeedEffect(ambushAttackSpeedBuff);
+        if (ambushBuffVisualEffect != null) {
+            ambushBuffVisualEffect.SetActive(ambushBuffsActive > 0);
         }
     }
 

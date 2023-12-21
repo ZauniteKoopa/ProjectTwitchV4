@@ -28,7 +28,7 @@ MonoBehaviour:
     dialogueLine: Ughhh.. I think I hit my brace.. I have to re-bolt it again. At
       least I got those pesky topsiders off my tail. Now, I just need to get ba-
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 45
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -44,7 +44,7 @@ MonoBehaviour:
     dialogueLine: "Huh? Wha-Where\u2019s my crossbow!? Where is it? It has to be
       somewhere around here! And my poisons! They\u2019re gone!"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -60,7 +60,7 @@ MonoBehaviour:
     dialogueLine: "I-I have to find it! Find them! If I don\u2019t, the topsiders
       will find it first! And then steal my fleas and my stash! Exterminate me! And-"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 80
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -77,7 +77,7 @@ MonoBehaviour:
       is resourceful. Twitch is smart! Twitch had it when he fell, so it has to be
       nearby..."
     constantSpeed: 1
-    textSpeed: 30
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []

@@ -27,7 +27,7 @@ MonoBehaviour:
     voiceClip: {fileID: 8300000, guid: da2b5cd082d47e047b633aaea8febde1, type: 3}
     dialogueLine: Wh-what are they doing here!? This is my turf! My domain!
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve:
@@ -98,7 +98,7 @@ MonoBehaviour:
       vulnerable. Why else would they bring these wretched machine-gun turret bots
       down here!\r\n"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -114,7 +114,7 @@ MonoBehaviour:
     dialogueLine: "Luckily Twitch isn\u2019t easily caught! They can\u2019t have
       gotten deeper than this. I can just sneak past them. Just need to find it!"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -132,7 +132,7 @@ MonoBehaviour:
 
 '
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []

@@ -28,7 +28,7 @@ MonoBehaviour:
     dialogueLine: "Oh! There you are, my precious! I was so worried! Hopefully the
       wretched humans didn\u2019t touch you did they!? We need to give you a soak!"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -44,7 +44,7 @@ MonoBehaviour:
     dialogueLine: 'But first, we need to get home. There are intruders everywhere.
       My fleas are getting antsy! The topsiders are getting angry! '
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
@@ -61,7 +61,7 @@ MonoBehaviour:
       invade <b>my</b> turf! Maybe we can get some free stash on the way! I can smell
       it now!\r\n"
     constantSpeed: 1
-    textSpeed: 45
+    textSpeed: 60
     textAnimationCurve:
       serializedVersion: 2
       m_Curve: []
