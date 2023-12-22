@@ -12472,29 +12472,9 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 876165198}
-    - target: {fileID: 1906529900379902960, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1906529900379902964, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5325204142946344315, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
       propertyPath: m_Name
       value: WarwickBossRoom
-      objectReference: {fileID: 0}
-    - target: {fileID: 6699760274952610493, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
-      propertyPath: localOpenPosition.x
-      value: 0.0103
-      objectReference: {fileID: 0}
-    - target: {fileID: 7910395425021171002, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
-      propertyPath: numLootDrops
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7910395425021171002, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
-      propertyPath: numLootDropsPerPhase
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7963652307265784223, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
       propertyPath: m_RootOrder

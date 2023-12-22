@@ -24,15 +24,17 @@ public class SpeedModifierStatus
     //  Pre: a float that's greater than 0 and doesn't equal 1
     //  Post: speed modifier is now considered
     public void applySpeedModifier(float speedModifier) {
-        Debug.Assert(speedModifier > 0f && speedModifier != 1f);
+        Debug.Assert(speedModifier > 0f);
 
-        SortedDictionary<float, int> curDict = (speedModifier > 1f) ? speedBuffs : speedDebuffs;
-        int freq;
+        if (speedModifier > 1.01f || speedModifier < 0.99f) {
+            SortedDictionary<float, int> curDict = (speedModifier > 1f) ? speedBuffs : speedDebuffs;
+            int freq;
 
-        if (curDict.TryGetValue(speedModifier, out freq)) {
-            curDict[speedModifier] = freq + 1;
-        } else {
-            curDict.Add(speedModifier, 1);
+            if (curDict.TryGetValue(speedModifier, out freq)) {
+                curDict[speedModifier] = freq + 1;
+            } else {
+                curDict.Add(speedModifier, 1);
+            }
         }
     }
 
@@ -41,16 +43,18 @@ public class SpeedModifierStatus
     //  Pre: a float that's greater than 0 and doesn't equal 1
     //  Post: speed modifier is now reverted if it exists
     public void revertSpeedModifier(float speedModifier) {
-        Debug.Assert(speedModifier > 0f && speedModifier != 1f);
+        Debug.Assert(speedModifier > 0f);
 
-        SortedDictionary<float, int> curDict = (speedModifier > 1f) ? speedBuffs : speedDebuffs;
-        int freq;
+        if (speedModifier > 1.01f || speedModifier < 0.99f) {
+            SortedDictionary<float, int> curDict = (speedModifier > 1f) ? speedBuffs : speedDebuffs;
+            int freq;
 
-        if (curDict.TryGetValue(speedModifier, out freq)) {
-            if (freq > 1) {
-                curDict[speedModifier] = freq - 1;
-            } else {
-                curDict.Remove(speedModifier);
+            if (curDict.TryGetValue(speedModifier, out freq)) {
+                if (freq > 1) {
+                    curDict[speedModifier] = freq - 1;
+                } else {
+                    curDict.Remove(speedModifier);
+                }
             }
         }
     }

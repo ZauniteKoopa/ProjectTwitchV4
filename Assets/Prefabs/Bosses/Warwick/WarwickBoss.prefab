@@ -2904,10 +2904,10 @@ MonoBehaviour:
     dashProbability: 0.375
     slashProbability: 0.375
     howlProbability: 0.25
-  - dashAnticipationFrames: 35
+  - dashAnticipationFrames: 40
     dashMovementMultiplier: 2.25
-    dashRecoilFrames: 20
-    slashAnticipationFrames: 30
+    dashRecoilFrames: 15
+    slashAnticipationFrames: 35
     slashRecoilFrames: 30
     howlSlowDuration: 6
     howlShieldHealth: 16
