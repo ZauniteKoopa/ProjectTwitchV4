@@ -23,6 +23,8 @@ public class MultiPageOnboardingPopup : MonoBehaviour
     private OnboardingPage[] pages;
     [SerializeField]
     private bool requiredCompletionForExit = true;
+    [SerializeField]
+    private AudioSource pageTurnSpeaker = null;
     private int curPage = 0;
     private int numPagesRead = 0;
 
@@ -73,6 +75,10 @@ public class MultiPageOnboardingPopup : MonoBehaviour
         if (curPage > 0) {
             curPage--;
             setOnboardingPage(pages[curPage]);
+
+            if (pageTurnSpeaker != null) {
+                pageTurnSpeaker.Play();
+            }
         }
     }
 
@@ -86,6 +92,10 @@ public class MultiPageOnboardingPopup : MonoBehaviour
 
             if (numPagesRead == pages.Length - 1) {
                 closeButton.gameObject.SetActive(true);
+            }
+
+            if (pageTurnSpeaker != null) {
+                pageTurnSpeaker.Play();
             }
         }
     }

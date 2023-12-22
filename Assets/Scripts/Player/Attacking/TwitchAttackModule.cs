@@ -83,6 +83,7 @@ public class TwitchAttackModule : IAttackModule
     private int ambushBuffsActive = 0;
     private Coroutine runningAmbushSequence = null;
     private bool holdingDownAmbush = false;
+    private bool interruptedAmbushByPrimaryFire = false;
 
 
     [Header("Cask collision aiming")]
@@ -179,6 +180,8 @@ public class TwitchAttackModule : IAttackModule
             //If you're invisible, play aggressive sound effect
             if (status.invisible) {
                 audioManager.playAmbushBuff();
+                interruptedAmbushByPrimaryFire = true;
+                applyAmbushBuff();
             }
 
             // Get data
@@ -291,6 +294,7 @@ public class TwitchAttackModule : IAttackModule
     //  Post: does ambush sequence
     private IEnumerator ambushSequence() {
         // Startup
+        interruptedAmbushByPrimaryFire = false;
         audioManager.playAmbushStartup();
         float timer = 0f;
         while (holdingDownAmbush && timer < ambushStartupTime) {
@@ -311,7 +315,11 @@ public class TwitchAttackModule : IAttackModule
         ambushInvisibilityCleanup();
 
         if (timer >= minAmbushDurationAttackSpeedReq) {
-            applyAmbushBuff();
+            // If not interrupted ambush by primary fire then apply ambush
+            if (!interruptedAmbushByPrimaryFire) {
+                applyAmbushBuff();
+            }
+
             yield return new WaitForSeconds(ambushAttackSpeedBuffTime);
             revertAmbushBuff();
         }
