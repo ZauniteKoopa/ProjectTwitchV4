@@ -60,6 +60,7 @@ public class WarwickAnimationController : MonoBehaviour
     public UnityEvent spawnAnimationStarted;
     public UnityEvent spawnAnimationFinished;
     private bool spawned = false;
+    private bool spawnInFinished = false;
 
 
     // Start is called before the first frame update (listens to the initialize event in UnitStatus to avoid race conditions)
@@ -94,8 +95,10 @@ public class WarwickAnimationController : MonoBehaviour
     void Update()
     {
         // Set runtime animation variables
-        warwickAnimator.SetFloat("MoveSpeed", navMeshAgent.velocity.magnitude);
-        warwickAnimator.SetInteger("AttackAnimationState", (int)aggroBranch.getAttackAnimState());
+        if (spawnInFinished) {
+            warwickAnimator.SetFloat("MoveSpeed", navMeshAgent.velocity.magnitude);
+            warwickAnimator.SetInteger("AttackAnimationState", (int)aggroBranch.getAttackAnimState());
+        }
     }
 
 
@@ -246,6 +249,7 @@ public class WarwickAnimationController : MonoBehaviour
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(cameraStayOnPlayerEnd);
 
         // Cleanup
+        spawnInFinished = true;
         bossUiModule.gameObject.SetActive(true);
         warwickAnimator.updateMode = AnimatorUpdateMode.Normal;
         Time.timeScale = 1f;

@@ -2837,13 +2837,37 @@ MonoBehaviour:
   huntingMark: {fileID: 5187223121036654836}
   bloodHuntStartEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5225828409381969440}
+        m_TargetAssemblyTypeName: DynamicEnemyVisionConeSensor, Assembly-CSharp
+        m_MethodName: showVision
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   bloodHuntEndEvent:
     m_PersistentCalls:
       m_Calls: []
   bloodHuntTargetKilled:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5225828409381969440}
+        m_TargetAssemblyTypeName: DynamicEnemyVisionConeSensor, Assembly-CSharp
+        m_MethodName: showVision
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &104631024644839838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3362,7 +3386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5928128770200771541, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5928128770268433968, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
       propertyPath: brain
@@ -3408,6 +3432,18 @@ PrefabInstance:
       propertyPath: m_Range
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5928128770408255740, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928128770408255743, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5928128770486982561, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
 --- !u!4 &5225828409314364356 stripped
@@ -3420,6 +3456,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5928128770200771541, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
   m_PrefabInstance: {fileID: 1927873745574481936}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5225828409381969440 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5928128770268433968, guid: 91c418c7948ee4f488c28dce49363471, type: 3}
+  m_PrefabInstance: {fileID: 1927873745574481936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5225828409314364357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cbd3c510a6c3742bce9b71ac8885e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2840678664361864705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5488,7 +5535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 220208983331554579, guid: 08b5f996e9085d24d909f79913491746, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1600002
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 220208983331554579, guid: 08b5f996e9085d24d909f79913491746, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5523,8 +5570,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 220208983331554589, guid: 08b5f996e9085d24d909f79913491746, type: 3}
+      propertyPath: m_Range
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 220208983331554589, guid: 08b5f996e9085d24d909f79913491746, type: 3}
       propertyPath: m_Intensity
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08b5f996e9085d24d909f79913491746, type: 3}

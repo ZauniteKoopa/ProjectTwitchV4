@@ -265,14 +265,19 @@ public class DynamicEnemyVisionConeSensor : EnemyVisionSensor
 
     // Event handler to handle when the aggressive branch activates
     private void onBehaviorAggroBranchActivate() {
-        fieldOfVision.showVision(false);
+        showVision(false);
         fieldOfVision.changeObstacleMask(onAlertVisionMask);
     }
 
 
     // Event handler to handle when the passive branch activates
     private void onBehaviorPassiveBranchActivate() {
-        fieldOfVision.showVision(true);
+        showVision(true);
         fieldOfVision.changeObstacleMask(visionMask);
+    }
+
+    // Main function to show field of vision
+    public void showVision(bool willShow) {
+        fieldOfVision.showVision(willShow);
     }
 }

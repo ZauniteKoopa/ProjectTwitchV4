@@ -253,6 +253,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdcc1a3bf77c2314fb53def97b7553fb, type: 3}
+--- !u!114 &690852805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6017720370690495216, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+  m_PrefabInstance: {fileID: 6699760274527798502}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cbd3c510a6c3742bce9b71ac8885e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &857875185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,6 +697,34 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 2119696146}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 690852805}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: showVision
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DynamicEnemyVisionConeSensor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906529899989439823, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
+      propertyPath: bloodHuntEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5325204142946344315, guid: 635547c6575a76846be28bb3ade64ec8, type: 3}
       propertyPath: m_Name
       value: WarwickBossRoom
