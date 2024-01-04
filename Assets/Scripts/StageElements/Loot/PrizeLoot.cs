@@ -9,7 +9,6 @@ public abstract class PrizeLoot : MonoBehaviour
     [SerializeField]
     private AudioSource speaker;
     [SerializeField]
-    private bool playAudioOnImmediatePickup = false;
     private bool destroyed = false;
 
     [SerializeField]
@@ -53,7 +52,6 @@ public abstract class PrizeLoot : MonoBehaviour
         transform.Translate(500f * Vector3.up);
 
         if (speaker != null && speaker.clip != null) {
-            speaker.Play();
             yield return new WaitForSeconds(speaker.clip.length);
         } else {
             yield return 0;
@@ -67,7 +65,7 @@ public abstract class PrizeLoot : MonoBehaviour
     public void collect(PlayerStatus player, TwitchInventory inv) {
         bool destroyObject = activate(player, inv);
 
-        if (playAudioOnImmediatePickup && speaker != null && speaker.clip != null) {
+        if (speaker != null && speaker.clip != null) {
             speaker.Play();
         }
 

@@ -245,6 +245,11 @@ public class EnemyStatus : IUnitStatus
                 
                 // If it overrides poison, override it
                 if (overridePoison || curPoison == null) {
+                    // If you were previously poisoned, apply previous poison's after effects
+                    if (curPoison != null && curPoison != poison) {
+                        applyPoisonAfterEffects(curPoison);
+                    }
+
                     curPoison = poison;
                 }
 
@@ -458,6 +463,7 @@ public class EnemyStatus : IUnitStatus
     private void clearPoison() {
         lock (poisonLock) {
             curPoisonStacks = 0;
+            applyPoisonAfterEffects(curPoison);
             curPoison = null;
             curPoisonTime = 0f;
             enemyStatusUI.updatePoisonHalo(curPoisonStacks, Color.white, false, false);
@@ -471,6 +477,19 @@ public class EnemyStatus : IUnitStatus
             if (statusDisplay != null) {
                 statusDisplay.showSpeedModifier(getSpeedModifier());
                 statusDisplay.showArmorModifier(getDefenseModifier());
+            }
+        }
+    }
+
+
+    // Main function to apply poison's after effects when the poison leaves the enemy's body
+    private void applyPoisonAfterEffects(PoisonVial poison) {
+        if (poison != null) {
+            SideEffect sideEffect = poison.sideEffect;
+            LingeringStatusEffect afterEffect = sideEffect.lingeringStatusEffect;
+
+            if (afterEffect != null && afterEffect.statusEffectType != StatusEffectType.NONE) {
+                setLingeringStatusEffect(afterEffect);
             }
         }
     }

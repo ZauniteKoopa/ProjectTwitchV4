@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purePotencyColor: {r: 0.8207547, g: 0.0051618773, b: 0.8207547, a: 1}
   purePotencyColor2: {r: 0.7735849, g: 0.004865218, b: 0.233974, a: 1}
-  pureReactivityColor: {r: 0.5660378, g: 0.537298, b: 0.0035599158, a: 1}
+  pureReactivityColor: {r: 0.6509434, g: 0.61907905, b: 0, a: 1}
   pureReactivityColor2: {r: 0.8207547, g: 0.40574166, b: 0.012904865, a: 1}
   pureStickinessColor: {r: 0.0053992053, g: 0.62096316, b: 0.8584906, a: 1}
   pureStickinessColor2: {r: 0.34776497, g: 0, b: 1, a: 1}

@@ -1888,7 +1888,19 @@ MonoBehaviour:
   - {fileID: 372882862}
   selectionEndEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3357092217573782235}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &485332042
 GameObject:
   m_ObjectHideFlags: 0
@@ -8985,6 +8997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 1003401977654649260}
   speaker: {fileID: 3357092217573782235}
+  destroyed: 0
   rotationSpeed: 60
   willRotate: 1
   selectionScreenUI: {fileID: 439088428}

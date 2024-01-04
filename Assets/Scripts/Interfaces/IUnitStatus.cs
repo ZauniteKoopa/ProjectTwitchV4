@@ -171,6 +171,28 @@ public abstract class IUnitStatus : MonoBehaviour
         return StartCoroutine(timedStunEffectSequence(timeDuration));
     }
 
+
+    // Main function to apply Timed Status Effect
+    public Coroutine setLingeringStatusEffect(LingeringStatusEffect effect) {
+        switch(effect.statusEffectType) {
+            case StatusEffectType.NONE:
+                return null;
+                
+            case StatusEffectType.STUN:
+                return setTimedStunModifier(effect.duration);
+
+            case StatusEffectType.SPEED:
+                return setTimedSpeedModifier(effect.effectMagnitude, effect.duration);
+
+            case StatusEffectType.ARMOR:
+                return setTimedArmorModifier(effect.effectMagnitude, effect.duration);
+
+            default:
+                Debug.LogError("UNKNOWN STATUS EFFECT TYPE");
+                return null;
+        }
+    }
+
     // Main sequence for timed speed modifier
     private IEnumerator timedSpeedEffectSequence(float speedFactor, float timeDuration) {
         applySpeedModifier(speedFactor);

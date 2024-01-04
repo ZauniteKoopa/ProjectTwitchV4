@@ -3,6 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+public enum StatusEffectType {
+    NONE,
+    STUN,
+    SPEED,
+    ARMOR
+}
+
+[System.Serializable]
+public class LingeringStatusEffect {
+    public StatusEffectType statusEffectType;
+
+    [Min(0.01f)]
+    public float effectMagnitude = 0.5f;
+
+    [Min(0.01f)]
+    public float duration = 0.01f;
+}
+
 [CreateAssetMenu(menuName = "PoisonSideEffects/SideEffect")]
 public class SideEffect : ScriptableObject
 {
@@ -24,6 +42,7 @@ public class SideEffect : ScriptableObject
     private int additionalLoot = 0;
     public LobAction specialLoot;
     private const int MAX_POISON_STACKS = 6;
+    public LingeringStatusEffect lingeringStatusEffect = null;
 
 
     [Header("Post Contaminate Hitbox")]

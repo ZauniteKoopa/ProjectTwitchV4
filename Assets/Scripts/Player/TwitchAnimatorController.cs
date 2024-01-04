@@ -291,6 +291,7 @@ public class TwitchAnimatorController : MonoBehaviour
     private IEnumerator hurtSequence() {
         animator.SetTrigger(hurtTriggerName);
         animator.SetInteger(randomIntParameter, Random.Range(0, numHurtAnimations));
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 
         PlayerCameraController.hitStop(hitStopFrames);
         PlayerCameraController.shakeCamera(cameraShakeFrames, cameraShakeMagnitude);
@@ -302,6 +303,7 @@ public class TwitchAnimatorController : MonoBehaviour
 
         attackModule.inUninterruptableAnimationSequence = false;
         animator.SetTrigger(unHurtTriggerName);
+        animator.updateMode = AnimatorUpdateMode.Normal;
     }
 
 
@@ -355,20 +357,20 @@ public class TwitchAnimatorController : MonoBehaviour
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
         Time.timeScale = 0f;
         playerInputModule.enabled = false;
-
+        PauseConstraints.externalPause(true);
         onDungeonExitStart.Invoke();
 
         // Move in to the manhole
         float timeToMove = movementModule.autoMove(new Vector3(manholePosition.x, twitchStatus.transform.position.y, manholePosition.z));
-        yield return PauseConstraints.waitForSecondsRealtimeWithPause(timeToMove);
+        yield return new WaitForSecondsRealtime(timeToMove);
 
         // Do animation and wait for it
         animator.SetTrigger(dungeonExitTrigger);
-        yield return PauseConstraints.waitForSecondsRealtimeWithPause(dungeonExitAnimation.length + dungeonTransitionLingerExitTime);
+        yield return new WaitForSecondsRealtime(dungeonExitAnimation.length + dungeonTransitionLingerExitTime);
 
         // Fade to black and enter dungeon / spawn in after (TO-D0)
         screenUiModule.fadeToBlack(dungeonTransitionBlackFadeOut, false);
-        yield return PauseConstraints.waitForSecondsRealtimeWithPause(dungeonTransitionBlackFadeOut + dungeonTransitionFullBlackTime);
+        yield return new WaitForSecondsRealtime(dungeonTransitionBlackFadeOut + dungeonTransitionFullBlackTime);
 
         if (nextDungeonToEnter != null) {
             nextDungeonToEnter.startDungeon(twitchStatus, projectedEndPrize);   
@@ -393,14 +395,15 @@ public class TwitchAnimatorController : MonoBehaviour
         movementModule.faceCamera();
 
         screenUiModule.fadeToColor(dungeonTransitionEnterFadeIn, Color.clear, false);
-        yield return PauseConstraints.waitForSecondsRealtimeWithPause(dungeonTransitionEnterAnimBeginTime);
+        yield return new WaitForSecondsRealtime(dungeonTransitionEnterAnimBeginTime);
 
         // Play animation (release it)
         animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-        yield return PauseConstraints.waitForSecondsRealtimeWithPause(dungeonEnterAnimation.length);
+        yield return new WaitForSecondsRealtime(dungeonEnterAnimation.length);
         PlayerCameraController.reset(dungeonTransitionEnterResetSpeed);
 
         // Reset Time.timeScale
+        PauseConstraints.externalPause(false);
         onDungeonEnterFinish.Invoke();
         animator.updateMode = AnimatorUpdateMode.Normal;
         Time.timeScale = 1f;

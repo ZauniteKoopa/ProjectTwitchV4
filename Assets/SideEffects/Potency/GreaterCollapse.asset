@@ -21,4 +21,8 @@ MonoBehaviour:
   defenseReduction: 0.9
   additionalLoot: 0
   specialLoot: {fileID: 0}
+  lingeringStatusEffect:
+    statusEffectType: 3
+    effectMagnitude: 0.1
+    duration: 2.5
   postContaminateHitbox: {fileID: 0}
