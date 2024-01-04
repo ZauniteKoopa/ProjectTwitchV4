@@ -120,7 +120,7 @@ MonoBehaviour:
   scaleIncreaseOnDeath: 0.25
   durationIncreaseOnDeath: 5
   contaminateDamageRatio: 0.01
-  speedBoostFactor: 1.75
+  speedBoostFactor: 1.5
   attackBuff: 1.25
 --- !u!82 &2952787344691806545
 AudioSource:

@@ -256,8 +256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBackstab: 1
   backstabAngleThreshold: 60
-  hitStopFrames: 2
-  cameraShakeMagnitude: 0.5
+  hitStopFrames: 5
+  cameraShakeMagnitude: 0.7
   hitboxCollisionMask:
     serializedVersion: 2
     m_Bits: 256

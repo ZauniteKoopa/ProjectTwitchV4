@@ -49,7 +49,7 @@ public class TwitchInventory : MonoBehaviour
 
     // Ambush side effect info
     private float ambushSideEffectTimer = 0f;
-    private const float AMBUSH_SIDE_EFFECT_DURATION_REQ = 3f;
+    private const float AMBUSH_SIDE_EFFECT_DURATION_REQ = 2.5f;
 
     // Crafting
     [Header("Crafting")]

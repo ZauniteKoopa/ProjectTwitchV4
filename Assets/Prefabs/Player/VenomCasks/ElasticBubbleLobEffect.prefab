@@ -187,7 +187,7 @@ MonoBehaviour:
   bubbleDuration: 6
   minBubbleSize: 3
   shrinkStartTime: 0.8
-  stunTime: 1
+  stunTime: 0.3
   initialEnemyStacks: 2
   initialDamageDuration: 0.05
   initialDamage: 3
