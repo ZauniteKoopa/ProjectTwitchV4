@@ -25628,6 +25628,121 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &135533486935425880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6383137182950551655}
+  - component: {fileID: 6602697284097837085}
+  - component: {fileID: 8204225674337279068}
+  m_Layer: 6
+  m_Name: CraftingSideEffectSpotLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6383137182950551655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135533486935425880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.551, y: 1.312, z: 0.463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1347320806317760249}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &6602697284097837085
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135533486935425880}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 2
+  m_Range: 5
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &8204225674337279068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135533486935425880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &604888768300823054
 GameObject:
   m_ObjectHideFlags: 0
@@ -26374,6 +26489,7 @@ Transform:
   - {fileID: 1529003270849890528}
   - {fileID: 1679282531}
   - {fileID: 4486413394752171247}
+  - {fileID: 6383137182950551655}
   m_Father: {fileID: 1347320807677090374}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26487,6 +26603,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1281440391}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   keyCountEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -26531,7 +26659,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bed29dcd56d624945a188e3813a261bb, type: 3}
   deathVoiceEffects:
   - {fileID: 8300000, guid: e420aa70c39b9174a874df3ee9615b00, type: 3}
-  deathImpactSoundEffect: {fileID: 8300000, guid: f718ce488aee63245a16d83e38024659, type: 3}
+  deathImpactSoundEffect: {fileID: 8300000, guid: 094e18129b4c48549980ee26aedd03c5, type: 3}
   errorMessageVoiceover:
   - {fileID: 8300000, guid: a0e97f9a8ee2c7048ab1ab5b36c5734a, type: 3}
   sideEffectObtainedVoiceover:
@@ -27430,7 +27558,8 @@ MonoBehaviour:
   - {fileID: 4527573279414321107}
   secondaryVialMeshes:
   - {fileID: 8317949375430718539}
-  canOpenInventory: 0
+  canOpenInventory: 1
+  sideEffectDisplayLight: {fileID: 6602697284097837085}
   abilityCooldownErrorMessage: Ability is currently on cooldown
   noVialEquippedErrorMessage: No vial currently equipped
   runOutOfAmmoMessage: No ammo left for ability
@@ -27472,45 +27601,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
-        m_MethodName: startEvent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   firstPoisonVialEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IGamePauseEvent, Assembly-CSharp
-        m_MethodName: startEvent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AbstractLock, Assembly-CSharp
-        m_MethodName: unlock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!54 &117066418
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35214,6 +35307,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  sideEffectDisplayLight: {fileID: 6602697284097837085}
   numHurtAnimations: 2
   cameraShakeFrames: 8
   hitStopFrames: 60
@@ -35221,13 +35315,13 @@ MonoBehaviour:
   hurtTriggerName: hurtTrigger
   unHurtTriggerName: unhurtTrigger
   deathTriggerName: deathTrigger
-  deathCameraShakeFrames: 10
+  deathCameraShakeFrames: 20
   deathCameraShakeMagnitude: 1.5
-  deathDelayBetweenAnimAndShake: 0.65
+  deathDelayBetweenAnimAndShake: 1.2
   deathSlowMotionFactor: 0.6
   timeUntilDeathFadeOut: 5
-  deathZoom: 12
-  deathAngle: 40
+  deathZoom: 15
+  deathAngle: 50
   deathFadeDuration: 0.75
   dungeonEnterTrigger: EnterFloorTrigger
   dungeonExitTrigger: ExitFloorTrigger

@@ -69,6 +69,8 @@ public class TwitchAnimatorController : MonoBehaviour
     private float sideEffectCameraTransitionResetSpeed = 40f;
     public UnityEvent firstSideEffectGained;
     private bool gainedSideEffect = false;
+    [SerializeField]
+    private Light sideEffectDisplayLight;
 
 
     [Header("Hurt animation")]
@@ -245,9 +247,10 @@ public class TwitchAnimatorController : MonoBehaviour
         attackModule.inUninterruptableAnimationSequence = true;
         pauseMenuInputModule.enabled = false;
 
-        // Play audio
+        // Play audio and enable light
         audioModule.playObtainedSideEffectSound();
         audioModule.playSideEffectObtainedVoice();
+        sideEffectDisplayLight.gameObject.SetActive(true);
 
         // Move camera
         PlayerCameraController.moveCamera(
@@ -261,9 +264,10 @@ public class TwitchAnimatorController : MonoBehaviour
 
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(sideEffectFreezeTime);
 
-        // Move camera back to default position
+        // Move camera back to default position and disable light
         float resetDuration = PlayerCameraController.reset(sideEffectCameraTransitionResetSpeed);
         yield return PauseConstraints.waitForSecondsRealtimeWithPause(resetDuration);
+        sideEffectDisplayLight.gameObject.SetActive(false);
 
         attackModule.inUninterruptableAnimationSequence = false;
         Time.timeScale = 1f;

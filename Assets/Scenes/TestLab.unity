@@ -936,6 +936,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1281440391, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2040983193, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -964,22 +968,18 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: add7b5be9c95cc647b96c3553ea68cbe, type: 2}
-    - target: {fileID: 1347320806317760197, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: maxHealth
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 1347320807632649043, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: canOpenInventory
-      value: 1
+      propertyPath: firstPoisonVialEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: unlock
       objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090373, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
-      propertyPath: poisonVialParameters
-      value: 
-      objectReference: {fileID: 11400000, guid: 4082118b64699db4e8d491a44480d91b, type: 2}
+      propertyPath: firstPoisonVialEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AbstractLock, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1347320807677090374, guid: 9de59fb8a7303834eaa04c55dc42f243, type: 3}
       propertyPath: m_RootOrder
       value: 13

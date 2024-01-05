@@ -25,6 +25,10 @@ public class MeleeHitbox : IPrimaryAttack
     [SerializeField]
     private LayerMask hitboxCollisionMask;
 
+    // Audio for when you hit something (if needs to be added)
+    [SerializeField]
+    private AudioSource hitSpeaker = null;
+
 
     // Main function to set up the melee hitbox
     //  Pre: dir is the direction of the melee attack
@@ -85,6 +89,10 @@ public class MeleeHitbox : IPrimaryAttack
                 firstHit = false;
                 PlayerCameraController.hitStop(hitStopFrames);
                 PlayerCameraController.shakeCamera(hitStopFrames, cameraShakeMagnitude);
+
+                if (hitSpeaker != null) {
+                    hitSpeaker.Play();
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
 {
     // Variables to control the tree
     private readonly object treeLock = new object();
+    private bool spawnedIn = false;
     [SerializeField]
     private Transform playerTgt = null;
 
@@ -62,6 +63,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main fucntion to set up when spawn in has been finished
     private void onSpawnInFinish() {
         aggroState = true;
+        spawnedIn = true;
 
         if (currentBehaviorSequence != null) {
             StopCoroutine(currentBehaviorSequence);
@@ -74,7 +76,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy sensed a player
     //  Pre: player != null, enemy saw player
     public override void onSensedPlayer(Transform player) {
-        if (!aggroState && scoutingBranch.canBeDistractedByPlayer()) {
+        if (!aggroState && spawnedIn && scoutingBranch.canBeDistractedByPlayer()) {
             aggroState = true;
             navMeshAgent.isStopped = true;
 
@@ -98,7 +100,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main event handler function for when an enemy lost sight of a player
     //  Pre: enemy lost sight of player and gave up chasing
     public override void onLostPlayer() {
-        if (aggroState) {
+        if (aggroState && spawnedIn) {
             aggroState = false;
             navMeshAgent.isStopped = true;
 
@@ -159,7 +161,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     //  Pre: lookDirection is the look direction that the enemy will be looking at (ONLY IN PASSIVE BRANCH)
     //  Post: player will stop all coroutines to look at something for a specified number of seconds before going back to work
     public override void lookAt(Vector3 lookAtDirection, bool hasPriority = false) {
-        if (!inAggroState() && (scoutingBranch.canBeDistractedByEnemies() || (hasPriority && scoutingBranch.canBeDistractedByPlayer()))) {
+        if (!inAggroState() && spawnedIn && (scoutingBranch.canBeDistractedByEnemies() || (hasPriority && scoutingBranch.canBeDistractedByPlayer()))) {
             resetBranches();
 
             if (currentBehaviorSequence != null) {
@@ -184,7 +186,7 @@ public class EnemyBossBehaviorTree : IEnemyBehavior
     // Main function to react to other enemy being attacked
     //  Pre: lookDirection is the direction to look at (most likely direction to the other enemy), player transform is the transform of the player
     public override void reactToOtherEnemyDamaged(Vector3 lookAtDirection, Transform playerTransform) {
-        if (!inAggroState() && scoutingBranch.canBeDistractedByEnemies()) {
+        if (!inAggroState() && spawnedIn && scoutingBranch.canBeDistractedByEnemies()) {
             resetBranches();
 
             if (currentBehaviorSequence != null) {

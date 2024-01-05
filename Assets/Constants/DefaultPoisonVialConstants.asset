@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purePotencyColor: {r: 0.8207547, g: 0.0051618773, b: 0.8207547, a: 1}
   purePotencyColor2: {r: 0.7735849, g: 0.004865218, b: 0.233974, a: 1}
-  pureReactivityColor: {r: 0.6509434, g: 0.61907905, b: 0, a: 1}
+  pureReactivityColor: {r: 0.5754717, g: 0.54773813, b: 0, a: 1}
   pureReactivityColor2: {r: 0.8207547, g: 0.40574166, b: 0.012904865, a: 1}
   pureStickinessColor: {r: 0.0053992053, g: 0.62096316, b: 0.8584906, a: 1}
   pureStickinessColor2: {r: 0.34776497, g: 0, b: 1, a: 1}
   purePoisonColor: {r: 0.15776998, g: 0.6037736, b: 0, a: 1}
   purePoisonColor2: {r: 0.023529403, g: 0.67058825, b: 0.44744533, a: 1}
   tempPotencyColor: {r: 0.5647059, g: 0.22352941, b: 0.5058824, a: 1}
-  tempReactivityColor: {r: 0.5283019, g: 0.48080197, b: 0.28740948, a: 1}
+  tempReactivityColor: {r: 0.5377358, g: 0.49911568, b: 0.3381986, a: 1}
   tempStickinessColor: {r: 0.29803923, g: 0.49411765, b: 0.5764706, a: 1}
   tempPoisonColor: {r: 0.36862746, g: 0.5647059, b: 0.30980393, a: 1}
   baseVialColor: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}

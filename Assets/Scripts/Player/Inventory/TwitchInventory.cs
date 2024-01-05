@@ -94,6 +94,11 @@ public class TwitchInventory : MonoBehaviour
     private Color originalMeshColor;
     public bool canOpenInventory = true;
 
+    // Lighting
+    [Header("Lighting")]
+    [SerializeField]
+    private Light sideEffectDisplayLight;
+
     // Error messages from inventory
     [Header("Error messages")]
     [SerializeField]
@@ -650,6 +655,9 @@ public class TwitchInventory : MonoBehaviour
             bool gotSideEffectBefore = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
             bool success = craftParameters.vial.craft(craftParameters.stat, recipeBook, nonEffectedVial);
             bool gotSideEffectAfter = craftParameters.vial.sideEffect != PoisonVial.poisonVialConstants.defaultSideEffect;
+
+            // Set up craft vial light just in case you get side effect
+            sideEffectDisplayLight.color = craftParameters.vial.getColor();
 
             UnityEvent curEndEvent = (gotSideEffectBefore != gotSideEffectAfter) ? obtainedSideEffect : endCraftEvent;
             curEndEvent.Invoke();

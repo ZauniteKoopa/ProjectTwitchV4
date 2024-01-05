@@ -13915,7 +13915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsIndicator: {fileID: 1798782605}
   speaker: {fileID: 1299331958098400947}
-  playAudioOnImmediatePickup: 0
+  destroyed: 0
   rotationSpeed: 60
   willRotate: 1
   healPercentage: 0.4
