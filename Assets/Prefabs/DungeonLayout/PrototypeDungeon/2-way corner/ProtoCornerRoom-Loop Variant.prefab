@@ -78,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 5.2535
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 6.1268
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.y
@@ -135,7 +135,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1442625377210746389, guid: 96824801570aece4bac5dce30ac7aae6, type: 3}
       propertyPath: m_Name
-      value: ProtoCornerRoom-Loop
+      value: ProtoCornerRoom-Loop Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3704003176145425137, guid: 96824801570aece4bac5dce30ac7aae6, type: 3}
       propertyPath: m_RootOrder
@@ -331,7 +331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 5.2305
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 6.1151
       objectReference: {fileID: 0}
     - target: {fileID: 878769062101024092, guid: 155e503bc43bfaf42a9b914cb12024ad, type: 3}
       propertyPath: m_LocalRotation.w

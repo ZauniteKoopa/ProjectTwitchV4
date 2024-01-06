@@ -235,15 +235,7 @@ public class EnemyStatus : IUnitStatus
         // Increase the number of poison and reset poison ticker
         if (isAlive()) {
             lock (poisonLock) {
-
-                curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
-
-                // If applies stack, then vibrate the poison tick counter
-                if (appliedStacks > 0) {
-                    enemyStatusUI.vibratePoisonHalo();
-                }
-                
-                // If it overrides poison, override it
+                // If it overrides poison, override it (must go first to apply after effects based on stacks)
                 if (overridePoison || curPoison == null) {
                     // If you were previously poisoned, apply previous poison's after effects
                     if (curPoison != null && curPoison != poison) {
@@ -251,6 +243,12 @@ public class EnemyStatus : IUnitStatus
                     }
 
                     curPoison = poison;
+                }
+
+                // Apply stacks and virbrate counter
+                curPoisonStacks = Mathf.Min(curPoisonStacks + appliedStacks, MAX_POISON_STACKS);
+                if (appliedStacks > 0) {
+                    enemyStatusUI.vibratePoisonHalo();
                 }
 
                 // Display speed modifier and defense modifer in case its a stickiness side effect
@@ -488,7 +486,7 @@ public class EnemyStatus : IUnitStatus
             SideEffect sideEffect = poison.sideEffect;
             LingeringStatusEffect afterEffect = sideEffect.lingeringStatusEffect;
 
-            if (afterEffect != null && afterEffect.statusEffectType != StatusEffectType.NONE) {
+            if (afterEffect != null && afterEffect.statusEffectType != StatusEffectType.NONE && curPoisonStacks >= MAX_POISON_STACKS) {
                 setLingeringStatusEffect(afterEffect);
             }
         }

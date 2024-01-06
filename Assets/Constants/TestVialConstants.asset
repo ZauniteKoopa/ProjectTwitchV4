@@ -28,13 +28,13 @@ MonoBehaviour:
   secondsPerPoisonTick: 1
   defaultSideEffect: {fileID: 11400000, guid: 6c17778149a9f5040bebc8e316c1dc34, type: 2}
   potencySideEffects:
-  - {fileID: 11400000, guid: 73513a9b070333f4fb5c8ecc054ceef5, type: 2}
+  - {fileID: 11400000, guid: e7c10242923d2b341af0a1328be67355, type: 2}
   poisonSideEffects:
   - {fileID: 11400000, guid: c02ccdb2c0e7e6d49a47d0cbd97602d2, type: 2}
   reactivitySideEffects:
   - {fileID: 11400000, guid: 34b1aba19d66ea14c8e770b1d02683d3, type: 2}
   stickinessSideEffects:
-  - {fileID: 11400000, guid: 18d48d83ebefa6e498ef0d27a52eb1f3, type: 2}
+  - {fileID: 11400000, guid: 981fa6b9ca7d27043904048bedf73800, type: 2}
   primaryAttackPrefab: {fileID: 2187577782088625998, guid: 284521ca4490ee04ea540fafdceb5f62, type: 3}
   primaryAttackStartFrames: 10
   primaryAttackEndFrames: 20

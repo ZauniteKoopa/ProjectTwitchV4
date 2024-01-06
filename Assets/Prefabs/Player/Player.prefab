@@ -27512,7 +27512,7 @@ MonoBehaviour:
   contaminateZone: {fileID: 1347320807493061773}
   ambushStartupTime: 1
   minAmbushDurationAttackSpeedReq: 0.25
-  ambushAttackSpeedBuffTime: 5
+  ambushAttackSpeedBuffTime: 3
   ambushAttackSpeedBuff: 1.5
   ambushInvisibilityMovementBuff: 1.375
   ambushProximitySensor: {fileID: 1334931797}
